@@ -655,6 +655,145 @@ Team-specific fonts with varying sizes and letter spacing per team:
 .text-truncate-3        /* Three line clamp */
 ````
 
+### Text Pairs System
+
+**Text pairs are pre-defined combinations of label and sublabel text styles that create consistent visual hierarchy.**
+
+Each pair includes specific sizing and spacing to ensure optimal readability and visual balance.
+
+**Text Pair Hierarchy (9000 = Largest, 1000 = Smallest):**
+
+| Pair | Label Style | Sublabel Style | Gap | Use Case |
+|------|-------------|----------------|-----|----------|
+| 9000 | display600 | labelRegular50 | 8px | Hero headlines, landing pages |
+| 8000 | display500 | labelRegular40 | 8px | Page headers, feature headlines |
+| 7000 | display400 | labelRegular30 | 4px | Section headers, modal headers |
+| 6000 | display300 | labelRegular20 | 2px | Component headers, large cards |
+| 5000 | title50 | labelRegular20 | 2px | Card headers, list items |
+| 4000 | labelBold40 | labelRegular20 | 2px | Small cards, compact components |
+| 3000 | labelBold30 | labelRegular10 | 2px | Dense layouts, table headers |
+| 2000 | labelBold20 | labelRegular10 | 1px | Small components, badges |
+| 1000 | labelBold10 | labelRegular10 | 1px | Minimal UI, inline metadata |
+
+**The `.card-text-pair` Utility Class:**
+
+Provides automatic spacing and layout for text pairs:
+```css
+.card-text-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+```
+
+**Copy-Paste Snippets:**
+```html
+<!-- Text Pair 9000 - Hero -->
+<div class="card-text-pair">
+  <h1 class="display600">Hero Headline</h1>
+  <p class="labelRegular50 text-secondary">Supporting message</p>
+</div>
+
+<!-- Text Pair 8000 - Page Header -->
+<div class="card-text-pair">
+  <h1 class="display500">Page Title</h1>
+  <p class="labelRegular40 text-secondary">Page description</p>
+</div>
+
+<!-- Text Pair 7000 - Section Header -->
+<div class="card-text-pair">
+  <h2 class="display400">Section Title</h2>
+  <p class="labelRegular30 text-secondary">Section description</p>
+</div>
+
+<!-- Text Pair 6000 - Component Header -->
+<div class="card-text-pair">
+  <h3 class="display300">Component Title</h3>
+  <p class="labelRegular20 text-secondary">Component description</p>
+</div>
+
+<!-- Text Pair 5000 - Card Header (Most Common) -->
+<div class="card-text-pair">
+  <h3 class="title50">Card Title</h3>
+  <p class="labelRegular20 text-secondary">Card metadata</p>
+</div>
+
+<!-- Text Pair 4000 - Small Card -->
+<div class="card-text-pair">
+  <h4 class="labelBold40">Item Title</h4>
+  <p class="labelRegular20 text-secondary">Item metadata</p>
+</div>
+
+<!-- Text Pair 3000 - Compact Item -->
+<div class="card-text-pair">
+  <h5 class="labelBold30">Compact Title</h5>
+  <p class="labelRegular10 text-secondary">Compact metadata</p>
+</div>
+
+<!-- Text Pair 2000 - Small Component -->
+<div class="card-text-pair">
+  <h6 class="labelBold20">Small Title</h6>
+  <p class="labelRegular10 text-secondary">Small metadata</p>
+</div>
+
+<!-- Text Pair 1000 - Minimal -->
+<div class="card-text-pair">
+  <span class="labelBold10">Minimal Title</span>
+  <span class="labelRegular10 text-secondary">Minimal metadata</span>
+</div>
+```
+
+**Real-World Examples:**
+```html
+<!-- Event Card (Text Pair 5000) -->
+<div class="card-closed">
+  <div class="card-closed-header">
+    <div class="card-text-pair">
+      <h3 class="title50">Opening Night</h3>
+      <p class="labelRegular20 text-secondary">Saturday, March 15 • 7:00 PM</p>
+    </div>
+  </div>
+  <div class="card-closed-body">
+    <p class="bodyRegular30">Join us for the season opener.</p>
+  </div>
+</div>
+
+<!-- Hero Section (Text Pair 9000) -->
+<section class="hero flex-center py-landing">
+  <div class="container-maximum text-center">
+    <div class="card-text-pair mb-400">
+      <h1 class="display600">TRANSFORM YOUR GAME</h1>
+      <p class="labelRegular50 text-secondary">AI-powered analytics</p>
+    </div>
+    <button class="btn-primary rounded-button">Get Started</button>
+  </div>
+</section>
+
+<!-- Dashboard Card (Text Pair 7000) -->
+<div class="card p-300 rounded-100 border">
+  <div class="card-text-pair mb-300">
+    <h2 class="display400">Revenue Overview</h2>
+    <p class="labelRegular30 text-secondary">Last 30 days</p>
+  </div>
+  <!-- Chart content -->
+</div>
+```
+
+**Best Practices:**
+
+✅ **DO:**
+- Always use `.text-secondary` on sublabels
+- Use semantic HTML (h1, h2, h3, etc.)
+- Choose the right scale for your context
+- Use `.card-text-pair` for automatic spacing
+
+❌ **DON'T:**
+- Mix mismatched scales (display600 + labelRegular10)
+- Skip the spacing between label and sublabel
+- Use primary text color on sublabels
+- Use divs instead of proper heading tags
+
 ### UI Tokens
 
 **Border Radius (Team-Specific):**

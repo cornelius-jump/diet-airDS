@@ -68,6 +68,11 @@ All components should be:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Title</title>
+
+  <!-- Critical Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   
   <!-- Design System CSS Files (in this exact order) -->
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">

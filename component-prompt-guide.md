@@ -114,6 +114,7 @@ DESIGN SYSTEM REQUIREMENTS:
 - Use text style classes from text-styles-system.css for typography
 - Use border and shadow utilities from border-effects-tokens.css for elevation
 - Reference tokens from: --brand-*, --org-*, --text-*, --bg-*, --border-*, --neutral-*, --inverted-*, --spacing-*, --container-*, --border-radius-*, --border-weight-*, --shadow-*
+- Never us shadows for cards
 
 COMPONENT SPECIFICATIONS:
 [Describe the component details here]
@@ -503,8 +504,8 @@ gap: var(--spacing-150);              /* 12px */
 **Example Usage:**
 ```html
 <div class="grid gap-card">
-  <div class="card p-300 rounded-100 shadow-sheet">...</div>
-  <div class="card p-300 rounded-100 shadow-sheet">...</div>
+  <div class="card p-300 rounded-100">...</div>
+  <div class="card p-300 rounded-100">...</div>
 </div>
 
 <section class="py-landing">
@@ -792,9 +793,10 @@ Create a closed layout card component using pure HTML and CSS.
 DESIGN SYSTEM REQUIREMENTS:
 - Use CSS variables from our design system
 - Use card component classes from card-components.css
-- Use border and shadow utilities
+- Use border utilities
 - Must work with all team themes
 - Support light and dark modes
+- Do not use any shadows or drop shadows
 
 SPECIFICATIONS:
 Card Structure:
@@ -879,9 +881,11 @@ Create an open layout card component using pure HTML and CSS.
 DESIGN SYSTEM REQUIREMENTS:
 - Use CSS variables from our design system
 - Use card component classes from card-components.css
-- Use border and shadow utilities
+- Use border utilities
 - Must work with all team themes
 - Support light and dark modes
+- Do not use any shadows or drop shadows
+
 
 SPECIFICATIONS:
 Card Structure:
@@ -1114,7 +1118,6 @@ Complete HTML/CSS with multiple grid examples using data-theme="athletics" data-
 - Use border weight tokens: `var(--border-weight-100)` or utility classes `.border-100`
 - Use shadow tokens: `var(--shadow-sheet)`, `var(--shadow-modal)` or utility classes `.shadow-sheet`
 - Respect team-specific `var(--button-border-radius)` for buttons
-- Use `.shadow-sheet` for mobile cards and elevated surfaces
 - Use `.shadow-modal` for desktop modals and highest elevation
 
 ❌ **DON'T:**
@@ -1123,6 +1126,7 @@ Complete HTML/CSS with multiple grid examples using data-theme="athletics" data-
 - Hardcode shadows: `box-shadow: 0 2px 8px rgba(0,0,0,0.1)`
 - Use desktop modal shadows on mobile surfaces
 - Forget that shadows adjust for dark mode automatically
+- Use `.shadow-sheet` for mobile cards and desktop Cards
 
 ### Typography
 ✅ **DO:**

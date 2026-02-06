@@ -1,0 +1,503 @@
+/* ============================================
+   TEXT STYLES SYSTEM
+   ============================================
+   
+   Built on design-tokens-master.css
+   References CSS variables for team theming
+   
+   Usage: Apply classes like .display900 or .title90
+   Works automatically with all team themes and modes
+   ============================================ */
+
+/* ============================================
+   DISPLAY TEXT STYLES (Team-specific)
+   Font size and letter spacing vary by team theme
+   Line height is consistent across all themes
+   ============================================ */
+
+.display900 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-900);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 76px;
+  color: var(--neutral-1000);
+}
+
+.display800 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-800);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 68px;
+  color: var(--neutral-1000);
+}
+
+.display700 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-700);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 60px;
+  color: var(--neutral-1000);
+}
+
+.display600 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-600);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 52px;
+  color: var(--neutral-1000);
+}
+
+.display500 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-500);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 44px;
+  color: var(--neutral-1000);
+}
+
+.display400 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-400);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 36px;
+  color: var(--neutral-1000);
+}
+
+.display300 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-300);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 28px;
+  color: var(--neutral-1000);
+}
+
+.display200 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-200);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 24px;
+  color: var(--neutral-1000);
+}
+
+.display100 {
+  font-family: var(--display-font);
+  font-size: var(--display-size-100);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-letter-spacing);
+  line-height: 20px;
+  color: var(--neutral-1000);
+}
+
+/* ============================================
+   TITLE TEXT STYLES (Same for all teams)
+   Font: Inter
+   ============================================ */
+
+.title90 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (43.2px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.title80 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (38.4px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.title70 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (33.6px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.title60 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (28.8px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.title50 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (24px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+/* ============================================
+   LABEL BOLD TEXT STYLES (Same for all teams)
+   Font: Inter Bold (600)
+   ============================================ */
+
+.labelBold50 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (24px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelBold40 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (19.2px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelBold30 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (16.8px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelBold20 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (14.4px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelBold10 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (12px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+/* ============================================
+   LABEL REGULAR TEXT STYLES (Same for all teams)
+   Font: Inter Regular (400)
+   ============================================ */
+
+.labelRegular50 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (24px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelRegular40 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (19.2px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelRegular30 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (16.8px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelRegular20 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (14.4px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+.labelRegular10 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (12px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 0px;
+}
+
+/* ============================================
+   BODY BOLD TEXT STYLES (Same for all teams)
+   Font: Inter Bold (600)
+   ============================================ */
+
+.bodyBold40 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (24px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 3.5px;
+}
+
+.bodyBold30 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (21px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 3.5px;
+}
+
+.bodyBold20 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (19.5px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 2.5px;
+}
+
+/* ============================================
+   BODY REGULAR TEXT STYLES (Same for all teams)
+   Font: Inter Regular (400)
+   ============================================ */
+
+.bodyRegular40 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (24px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 3.5px;
+}
+
+.bodyRegular30 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (21px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 3.5px;
+}
+
+.bodyRegular20 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (19.5px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 2.5px;
+}
+
+/* ============================================
+   IDEAL REGULAR TEXT STYLES (Same for all teams)
+   Font: Inter Regular (400)
+   ============================================ */
+
+.idealRegular40 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (18px) */
+  color: var(--text-primary);
+  text-transform: none;
+  top-bottom-padding: 3px;
+}
+
+/* ============================================
+   COLOR MODIFIERS
+   Apply to any text style to override color
+   ============================================ */
+
+.text-primary {
+  color: var(--neutral-1000) !important;
+}
+
+.text-secondary {
+  color: var(--neutral-700) !important;
+}
+
+.text-disabled {
+  color: var(--neutral-300) !important;
+}
+
+.text-placeholder {
+  color: var(--neutral-500) !important;
+}
+
+.text-brand-core {
+  color: var(--brand-core) !important;
+}
+
+.text-brand-light {
+  color: var(--brand-light) !important;
+}
+
+.text-brand-interactive {
+  color: var(--brand-interactive) !important;
+}
+
+.text-inverted {
+  color: var(--inverted-1000) !important;
+}
+
+/* Status colors */
+.text-success {
+  color: var(--status-success) !important;
+}
+
+.text-warning {
+  color: var(--status-warning) !important;
+}
+
+.text-error {
+  color: var(--status-error) !important;
+}
+
+.text-info {
+  color: var(--status-info) !important;
+}
+
+/* ============================================
+   ALIGNMENT UTILITIES
+   ============================================ */
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+/* ============================================
+   TEXT TRANSFORM UTILITIES
+   ============================================ */
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.text-lowercase {
+  text-transform: lowercase !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+.text-normal-case {
+  text-transform: none !important;
+}
+
+/* ============================================
+   TEXT DECORATION UTILITIES
+   ============================================ */
+
+.text-underline {
+  text-decoration: underline !important;
+}
+
+.text-line-through {
+  text-decoration: line-through !important;
+}
+
+.text-no-underline {
+  text-decoration: none !important;
+}
+
+/* ============================================
+   TRUNCATION UTILITIES
+   ============================================ */
+
+.text-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.text-truncate-2 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+.text-truncate-3 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}

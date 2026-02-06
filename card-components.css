@@ -1,0 +1,238 @@
+/* ============================================
+   CARD COMPONENTS
+   ============================================
+   
+   Card patterns using existing design system tokens
+   Load after border-effects-tokens.css
+   ============================================ */
+
+/* ============================================
+   CLOSED LAYOUT CARD
+   ============================================
+   Full card with background, divided sections
+   Use for: Event details, product info, structured content
+   ============================================ */
+
+.card-closed {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-200); /* 16px */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top section with border separator */
+.card-closed-header {
+  padding: var(--spacing-250); /* 20px */
+  border-bottom: var(--border-weight-100) solid var(--neutral-200);
+  width: 100%;
+}
+
+/* Middle section with border separator */
+.card-closed-body {
+  padding: var(--spacing-300); /* 24px */
+  border-bottom: var(--border-weight-100) solid var(--neutral-200);
+  width: 100%;
+}
+
+/* Bottom section without border */
+.card-closed-footer {
+  padding: var(--spacing-300); /* 24px */
+  width: 100%;
+}
+
+/* Remove bottom border on last bordered section */
+.card-closed-body:last-child,
+.card-closed-footer:last-child {
+  border-bottom: none;
+}
+
+/* ============================================
+   OPEN LAYOUT CARD
+   ============================================
+   Transparent container with separated background sections
+   Use for: Landing pages, feature highlights, blog layouts
+   ============================================ */
+
+.card-open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-250); /* 20px between header and content */
+  width: 100%;
+}
+
+/* Header without background */
+.card-open-header {
+  width: 100%;
+}
+
+/* Content container for subsections */
+.card-open-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-150); /* 12px between subsections */
+  width: 100%;
+}
+
+/* Individual subsections with backgrounds */
+.card-open-section {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-200); /* 16px */
+  padding: var(--spacing-300); /* 24px */
+  width: 100%;
+}
+
+/* ============================================
+   CARD VARIANTS - INTERACTIVE STATES
+   ============================================ */
+
+/* Closed card with hover effect */
+.card-closed-interactive {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-200);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  border: var(--border-weight-100) solid var(--border-default);
+}
+
+.card-closed-interactive:hover {
+  border-color: var(--brand-interactive);
+  transform: translateY(-2px);
+}
+
+/* Open section with hover effect */
+.card-open-section-interactive {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-200);
+  padding: var(--spacing-300);
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  border: var(--border-weight-100) solid var(--border-default);
+}
+
+.card-open-section-interactive:hover {
+  border-color: var(--brand-interactive);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   CARD CONTENT UTILITIES
+   ============================================ */
+
+/* Text pair for card headers (title + subtitle) */
+.card-text-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+/* Card actions container (buttons, links at bottom) */
+.card-actions {
+  display: flex;
+  gap: var(--spacing-150); /* 12px between action items */
+  align-items: center;
+  margin-top: var(--spacing-200); /* 16px spacing above actions */
+}
+
+/* Horizontal card actions */
+.card-actions-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-150);
+  align-items: center;
+  margin-top: var(--spacing-200);
+}
+
+/* Vertical card actions */
+.card-actions-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100); /* 8px between stacked actions */
+  margin-top: var(--spacing-200);
+}
+
+/* ============================================
+   RESPONSIVE CARD GRIDS
+   ============================================
+   Use with existing grid utilities from boilerplate.css
+   ============================================ */
+
+/* Card grid with responsive gap */
+.card-grid {
+  display: grid;
+  gap: var(--spacing-card); /* 16px mobile, 20px tablet, 24px desktop */
+  width: 100%;
+}
+
+/* Closed card grid (tighter spacing) */
+.card-grid-closed {
+  display: grid;
+  gap: var(--spacing-row); /* 8px mobile, 12px tablet, 16px desktop */
+  width: 100%;
+}
+
+/* Open card grid (more breathing room) */
+.card-grid-open {
+  display: grid;
+  gap: var(--spacing-content); /* 32px mobile, 40px tablet, 48px desktop */
+  width: 100%;
+}
+
+/* ============================================
+   USAGE EXAMPLES
+   ============================================ */
+
+/* 
+CLOSED LAYOUT CARD EXAMPLE:
+
+<div class="card-closed">
+  <div class="card-closed-header">
+    <div class="card-text-pair">
+      <h3 class="title60">Event Title</h3>
+      <p class="labelRegular20 text-secondary">Saturday, March 15</p>
+    </div>
+  </div>
+  <div class="card-closed-body">
+    <p class="bodyRegular30">Event description goes here...</p>
+  </div>
+  <div class="card-closed-footer">
+    <div class="card-actions-horizontal">
+      <button class="btn-primary rounded-button">Register</button>
+      <a href="#" class="labelBold40 text-brand-interactive">Learn More</a>
+    </div>
+  </div>
+</div>
+
+OPEN LAYOUT CARD EXAMPLE:
+
+<div class="card-open">
+  <div class="card-open-header">
+    <div class="card-text-pair">
+      <h2 class="display400">Feature Highlights</h2>
+      <p class="labelRegular30 text-secondary">Discover what makes us different</p>
+    </div>
+  </div>
+  <div class="card-open-content">
+    <div class="card-open-section">
+      <p class="bodyRegular30">First feature description...</p>
+    </div>
+    <div class="card-open-section">
+      <p class="bodyRegular30">Second feature description...</p>
+    </div>
+  </div>
+</div>
+
+CARD GRIDS:
+
+<div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+  <div class="card-closed-interactive">...</div>
+  <div class="card-closed-interactive">...</div>
+  <div class="card-closed-interactive">...</div>
+</div>
+
+*/

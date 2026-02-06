@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      color: #1a1a1a;
+      background: #ffffff;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #266092;
+    }
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-top: 64px;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #266092;
+    }
+
+    h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 16px;
+      color: #266092;
+    }
+
+    p, li {
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .intro {
+      font-size: 20px;
+      color: #555;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .code-box {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .code-box pre {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre;
+    }
+
+    .example-box {
+      background: #fafafa;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 32px;
+      margin: 24px 0;
+    }
+
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .token-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .token-swatch {
+      height: 60px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+    }
+
+    .token-name {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: #266092;
+      margin-bottom: 4px;
+    }
+
+    .token-desc {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .note-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196F3;
+      padding: 16px 20px;
+      margin: 24px 0;
+      border-radius: 4px;
+    }
+
+    .warning-box {
+      background: #fff3e0;
+      border-left: 4px solid #ff9800;
+      padding: 16px 20px;
+      margin: 24px 0;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #f5f5f5;
+      font-weight: 600;
+    }
+
+    .do-dont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 24px 0;
+    }
+
+    .do-box {
+      background: #e8f5e9;
+      border: 2px solid #4caf50;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .dont-box {
+      background: #ffebee;
+      border: 2px solid #f44336;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .do-box h4, .dont-box h4 {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .do-box h4 {
+      color: #2e7d32;
+    }
+
+    .dont-box h4 {
+      color: #c62828;
+    }
+
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #d32f2f;
+    }
+
+    .shadow-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 24px 0;
+    }
+
+    .shadow-card {
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .shadow-card.sheet {
+      box-shadow: 0px -8px 64px 0px rgba(0, 0, 0, 0.12),
+                  0px -4px 32px 0px rgba(0, 0, 0, 0.08);
+    }
+
+    .shadow-card.modal {
+      box-shadow: 0px 8px 64px 0px rgba(0, 0, 0, 0.16),
+                  0px 4px 32px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .radius-demo {
+      display: flex;
+      gap: 24px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    .radius-item {
+      background: #266092;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .do-dont {
+        grid-template-columns: 1fr;
+      }
+
+      .token-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Design System Guide</h1>
+    <p class="intro">
+      A comprehensive guide to using the multi-team design system. This system supports 10 different sports teams with automatic light/dark mode switching and consistent spacing, typography, borders, shadows, and component patterns.
+    </p>
+
+    <h2>🚀 Quick Start</h2>
+    
+    <h3>1. Add CSS Files to Your Project</h3>
+    <p>Link these files in your HTML <code>&lt;head&gt;</code> in this exact order:</p>
+    
+    <div class="code-box">
+      <pre>&lt;link rel="stylesheet" href="design-tokens-master.css"&gt;
+&lt;link rel="stylesheet" href="spacing-tokens.css"&gt;
+&lt;link rel="stylesheet" href="container-tokens.css"&gt;
+&lt;link rel="stylesheet" href="border-effects-tokens.css"&gt;
+&lt;link rel="stylesheet" href="fonts.css"&gt;
+&lt;link rel="stylesheet" href="text-styles-system.css"&gt;
+&lt;link rel="stylesheet" href="boilerplate.css"&gt;</pre>
+    </div>
+
+    <h3>2. Set Theme Attributes</h3>
+    <p>Add <code>data-theme</code> and <code>data-mode</code> to your HTML element:</p>
+    
+    <div class="code-box">
+      <pre>&lt;html lang="en" data-theme="wolves" data-mode="light"&gt;</pre>
+    </div>
+
+    <div class="note-box">
+      <strong>Available Teams:</strong> wolves, lynx, courage, summit, bucknell, sounders, reign, ncfc, jump, athletics<br>
+      <strong>Modes:</strong> light, dark
+    </div>
+
+    <h2>🎨 Colors</h2>
+
+    <h3>Semantic Color Tokens</h3>
+    <p>Use these semantic tokens instead of hardcoding colors. They automatically adjust for light/dark mode.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Usage</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--bg-base</code></td>
+          <td>Main page background</td>
+          <td><code>background: var(--bg-base);</code></td>
+        </tr>
+        <tr>
+          <td><code>--bg-surface</code></td>
+          <td>Cards, elevated elements</td>
+          <td><code>background: var(--bg-surface);</code></td>
+        </tr>
+        <tr>
+          <td><code>--text-primary</code></td>
+          <td>Main text color</td>
+          <td><code>color: var(--text-primary);</code></td>
+        </tr>
+        <tr>
+          <td><code>--text-secondary</code></td>
+          <td>Secondary text, labels</td>
+          <td><code>color: var(--text-secondary);</code></td>
+        </tr>
+        <tr>
+          <td><code>--border-default</code></td>
+          <td>Default borders</td>
+          <td><code>border: 1px solid var(--border-default);</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Brand Color Tokens</h3>
+    <p>Team-specific colors that change based on the active theme:</p>
+
+    <div class="code-box">
+      <pre>--brand-core        /* Primary team color */
+--brand-light       /* Secondary team color */
+--brand-dark        /* Dark team variant */
+--brand-interactive /* Interactive elements */</pre>
+    </div>
+
+    <div class="do-dont">
+      <div class="do-box">
+        <h4>✅ DO: Use CSS Variables</h4>
+        <div class="code-box" style="margin: 8px 0;">
+          <pre>background: var(--bg-surface);
+color: var(--text-primary);
+border: var(--border-weight-100) solid var(--border-default);
+box-shadow: var(--shadow-sheet);</pre>
+        </div>
+      </div>
+      <div class="dont-box">
+        <h4>❌ DON'T: Hardcode Values</h4>
+        <div class="code-box" style="margin: 8px 0;">
+          <pre>background: #EEF2F6;
+color: #000000;
+border: 1px solid #E0E0E0;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);</pre>
+        </div>
+      </div>
+    </div>
+
+    <h2>🔲 Borders & Radius</h2>
+
+    <h3>Border Radius Tokens</h3>
+    <p>Three fixed border radius values plus team-specific button radius:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Use For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--border-radius-50</code></td>
+          <td>4px</td>
+          <td>Small elements, badges, tags</td>
+        </tr>
+        <tr>
+          <td><code>--border-radius-100</code></td>
+          <td>8px</td>
+          <td>Cards, inputs, standard UI elements</td>
+        </tr>
+        <tr>
+          <td><code>--border-radius-200</code></td>
+          <td>16px</td>
+          <td>Large cards, hero sections</td>
+        </tr>
+        <tr>
+          <td><code>--button-border-radius</code></td>
+          <td>8px, 12px, or 100px</td>
+          <td>Team-specific button styling</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="radius-demo">
+      <div class="radius-item" style="border-radius: 4px;">4px</div>
+      <div class="radius-item" style="border-radius: 8px;">8px</div>
+      <div class="radius-item" style="border-radius: 16px;">16px</div>
+      <div class="radius-item" style="border-radius: 100px;">100px</div>
+    </div>
+
+    <h3>Border Radius Utilities</h3>
+    <div class="code-box">
+      <pre>.rounded-50       /* 4px all corners */
+.rounded-100      /* 8px all corners */
+.rounded-200      /* 16px all corners */
+.rounded-button   /* Team-specific button radius */
+
+/* Directional */
+.rounded-t-100    /* Top corners 8px */
+.rounded-b-100    /* Bottom corners 8px */
+.rounded-l-100    /* Left corners 8px */
+.rounded-r-100    /* Right corners 8px */
+
+/* Individual corners */
+.rounded-tl-100   /* Top-left 8px */
+.rounded-tr-100   /* Top-right 8px */
+.rounded-bl-100   /* Bottom-left 8px */
+.rounded-br-100   /* Bottom-right 8px */</pre>
+    </div>
+
+    <h3>Border Weight Tokens</h3>
+    <p>Three border weight values with semantic color pairings:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Use With</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--border-weight-50</code></td>
+          <td>1px</td>
+          <td>Web: subtle borders with neutral200</td>
+        </tr>
+        <tr>
+          <td><code>--border-weight-100</code></td>
+          <td>1px</td>
+          <td>Standard borders with neutral500</td>
+        </tr>
+        <tr>
+          <td><code>--border-weight-200</code></td>
+          <td>2px</td>
+          <td>Heavy borders with neutral1000 or brandInteractive</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Border Weight Utilities</h3>
+    <div class="code-box">
+      <pre>.border-50        /* 1px width */
+.border-100       /* 1px width */
+.border-200       /* 2px width */
+
+/* Directional */
+.border-t-100     /* Top border 1px */
+.border-b-100     /* Bottom border 1px */
+.border-l-100     /* Left border 1px */
+.border-r-100     /* Right border 1px */
+
+/* With colors */
+.border-neutral-200
+.border-neutral-500
+.border-neutral-1000
+.border-brand-interactive
+.border-default
+.border-hover
+.border-active
+
+/* Convenience classes */
+.border           /* Standard border with default color */
+.border-thin      /* 1px with neutral200 */
+.border-heavy     /* 2px with neutral1000 */
+.border-interactive /* 2px with brandInteractive */</pre>
+    </div>
+
+    <h2>☁️ Drop Shadows</h2>
+
+    <h3>Shadow Tokens</h3>
+    <p>Two shadow systems for different elevation contexts:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Context</th>
+          <th>Use For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--shadow-sheet</code></td>
+          <td>Mobile</td>
+          <td>Elevated surfaces, cards, bottom sheets</td>
+        </tr>
+        <tr>
+          <td><code>--shadow-modal</code></td>
+          <td>Tablet/Desktop</td>
+          <td>Modals, dialogs, highest elevation overlays</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box">
+      <strong>Note:</strong> Each shadow is composed of two layers (A and B) that work together to create depth. Shadows automatically adjust for dark mode.
+    </div>
+
+    <h3>Shadow Values</h3>
+    <div class="code-box">
+      <pre>/* Sheet Shadow (Mobile) */
+--shadow-sheet-a: 0px -8px 64px 0px rgba(0, 0, 0, 0.12)
+--shadow-sheet-b: 0px -4px 32px 0px rgba(0, 0, 0, 0.08)
+--shadow-sheet: var(--shadow-sheet-a), var(--shadow-sheet-b)
+
+/* Modal Shadow (Tablet/Desktop) */
+--shadow-modal-a: 0px 8px 64px 0px rgba(0, 0, 0, 0.16)
+--shadow-modal-b: 0px 4px 32px 0px rgba(0, 0, 0, 0.12)
+--shadow-modal: var(--shadow-modal-a), var(--shadow-modal-b)</pre>
+    </div>
+
+    <h3>Shadow Utilities</h3>
+    <div class="code-box">
+      <pre>.shadow-sheet     /* Mobile elevated surfaces */
+.shadow-modal     /* Desktop modals and overlays */
+.shadow-none      /* Remove shadow */
+
+/* Individual layers (advanced use) */
+.shadow-sheet-a
+.shadow-sheet-b
+.shadow-modal-a
+.shadow-modal-b</pre>
+    </div>
+
+    <h3>Shadow Demonstration</h3>
+    <div class="shadow-demo">
+      <div class="shadow-card sheet">
+        <strong>Sheet Shadow</strong>
+        <p style="margin: 12px 0 0; font-size: 13px; color: #666;">Mobile elevated surfaces</p>
+      </div>
+      <div class="shadow-card modal">
+        <strong>Modal Shadow</strong>
+        <p style="margin: 12px 0 0; font-size: 13px; color: #666;">Desktop modals</p>
+      </div>
+    </div>
+
+    <h2>📏 Spacing</h2>
+
+    <h3>8px-Based Spacing Scale</h3>
+    <p>All spacing uses an 8px base unit for consistency:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Value</th>
+          <th>Use For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>--spacing-50</code></td>
+          <td>4px</td>
+          <td>Minimal spacing, tight layouts</td>
+        </tr>
+        <tr>
+          <td><code>--spacing-100</code></td>
+          <td>8px</td>
+          <td>Base unit, compact spacing</td>
+        </tr>
+        <tr>
+          <td><code>--spacing-200</code></td>
+          <td>16px</td>
+          <td>Standard spacing between elements</td>
+        </tr>
+        <tr>
+          <td><code>--spacing-300</code></td>
+          <td>24px</td>
+          <td>Comfortable spacing, padding</td>
+        </tr>
+        <tr>
+          <td><code>--spacing-400</code></td>
+          <td>32px</td>
+          <td>Large spacing, section gaps</td>
+        </tr>
+        <tr>
+          <td><code>--spacing-600</code></td>
+          <td>48px</td>
+          <td>Major section spacing</td>
+        </tr>
+        <tr>
+          <td><code>--spacing-800</code></td>
+          <td>64px</td>
+          <td>Hero sections, large gaps</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Spacing Utility Classes</h3>
+    <p>Quick utility classes for common spacing needs:</p>
+
+    <div class="code-box">
+      <pre>/* Margin */
+.m-300      /* margin: 24px (all sides) */
+.mt-200     /* margin-top: 16px */
+.mb-400     /* margin-bottom: 32px */
+.mx-300     /* margin-left & right: 24px */
+.my-200     /* margin-top & bottom: 16px */
+
+/* Padding */
+.p-300      /* padding: 24px (all sides) */
+.pt-200     /* padding-top: 16px */
+.pb-400     /* padding-bottom: 32px */
+.px-300     /* padding-left & right: 24px */
+.py-200     /* padding-top & bottom: 16px */
+
+/* Gap (for Flexbox/Grid) */
+.gap-200    /* gap: 16px */
+.gap-x-300  /* column-gap: 24px */
+.gap-y-200  /* row-gap: 16px */</pre>
+    </div>
+
+    <h3>Responsive Spacing</h3>
+    <p>These utilities automatically adjust at breakpoints:</p>
+
+    <div class="code-box">
+      <pre>.py-large    /* Vertical padding for most pages (16px → 40px → 64px) */
+.py-landing  /* Vertical padding for landing pages (24px → 48px → 80px) */
+.gap-card    /* Gap between cards (16px → 20px → 24px) */
+.my-small    /* Margin for detailed interfaces (16px → 32px → 48px) */</pre>
+    </div>
+
+    <h2>📦 Containers</h2>
+
+    <h3>Container System</h3>
+    <p>Max-width containers for different content types. All containers have responsive padding.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Max Width</th>
+          <th>Best For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>.container-maximum</code></td>
+          <td>1600px</td>
+          <td>Landing pages, full-width heroes</td>
+        </tr>
+        <tr>
+          <td><code>.container-extra-wide</code></td>
+          <td>1440px</td>
+          <td>Dashboards, data-heavy pages</td>
+        </tr>
+        <tr>
+          <td><code>.container-wide</code></td>
+          <td>1280px</td>
+          <td>Standard pages with sidebars</td>
+        </tr>
+        <tr>
+          <td><code>.container</code></td>
+          <td>1200px</td>
+          <td>Default container (most pages)</td>
+        </tr>
+        <tr>
+          <td><code>.container-medium</code></td>
+          <td>1024px</td>
+          <td>Article pages, forms</td>
+        </tr>
+        <tr>
+          <td><code>.container-narrow</code></td>
+          <td>768px</td>
+          <td>Reading content, optimal line length</td>
+        </tr>
+        <tr>
+          <td><code>.container-compact</code></td>
+          <td>640px</td>
+          <td>Single column, simple forms</td>
+        </tr>
+        <tr>
+          <td><code>.container-fluid</code></td>
+          <td>No limit</td>
+          <td>Full-width sections</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>✏️ Typography</h2>
+
+    <h3>Text Style Classes</h3>
+    <p>Pre-defined typography classes for consistent text styling:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Font</th>
+          <th>Size</th>
+          <th>Use For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>.display900</code></td>
+          <td>Team-specific</td>
+          <td>Varies by team</td>
+          <td>Hero headlines (largest)</td>
+        </tr>
+        <tr>
+          <td><code>.display700</code></td>
+          <td>Team-specific</td>
+          <td>Varies by team</td>
+          <td>Page headers</td>
+        </tr>
+        <tr>
+          <td><code>.display500</code></td>
+          <td>Team-specific</td>
+          <td>Varies by team</td>
+          <td>Section headers</td>
+        </tr>
+        <tr>
+          <td><code>.title90</code></td>
+          <td>Inter Bold</td>
+          <td>36px</td>
+          <td>Page titles</td>
+        </tr>
+        <tr>
+          <td><code>.title70</code></td>
+          <td>Inter Bold</td>
+          <td>28px</td>
+          <td>Section titles</td>
+        </tr>
+        <tr>
+          <td><code>.title60</code></td>
+          <td>Inter Bold</td>
+          <td>24px</td>
+          <td>Card titles</td>
+        </tr>
+        <tr>
+          <td><code>.bodyRegular30</code></td>
+          <td>Inter Regular</td>
+          <td>14px</td>
+          <td>Standard body text</td>
+        </tr>
+        <tr>
+          <td><code>.bodyBold30</code></td>
+          <td>Inter Bold</td>
+          <td>14px</td>
+          <td>Emphasized body text</td>
+        </tr>
+        <tr>
+          <td><code>.labelRegular30</code></td>
+          <td>Inter Regular</td>
+          <td>14px</td>
+          <td>Labels, captions</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>🎴 Card Component</h2>
+
+    <div class="example-box">
+      <strong>Card with Border and Shadow</strong>
+      <div class="code-box" style="margin-top: 12px;">
+        <pre>&lt;div class="card p-300 rounded-100 border shadow-sheet"&gt;
+  &lt;h3 class="title50 mb-150"&gt;Card Title&lt;/h3&gt;
+  &lt;p class="bodyRegular30 text-secondary"&gt;
+    Card content with proper spacing and styling
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.card {
+  background: var(--bg-surface);
+  border: var(--border-weight-100) solid var(--border-default);
+  border-radius: var(--border-radius-100);
+  box-shadow: var(--shadow-sheet);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-modal);
+  border-color: var(--brand-core);
+}
+&lt;/style&gt;</pre>
+      </div>
+    </div>
+
+    <h2>🔘 Button Components</h2>
+
+    <div class="example-box">
+      <strong>Primary & Secondary Buttons</strong>
+      <div class="code-box" style="margin-top: 12px;">
+        <pre>&lt;button class="btn-primary rounded-button"&gt;
+  &lt;span class="labelBold40"&gt;Primary Action&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;button class="btn-secondary rounded-button border"&gt;
+  &lt;span class="labelBold40"&gt;Secondary Action&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;style&gt;
+.btn-primary {
+  background: var(--interactive-primary);
+  color: var(--interactive-primary-text);
+  border: none;
+  border-radius: var(--button-border-radius);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: var(--border-weight-100) solid var(--border-default);
+  border-radius: var(--button-border-radius);
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--brand-core);
+}
+&lt;/style&gt;</pre>
+      </div>
+    </div>
+
+    <h2>📋 Best Practices</h2>
+
+    <div class="do-dont">
+      <div class="do-box">
+        <h4>✅ DO</h4>
+        <ul>
+          <li>Use CSS variables for all colors</li>
+          <li>Use utility classes for spacing</li>
+          <li>Use border and shadow tokens</li>
+          <li>Follow the 8px spacing grid</li>
+          <li>Choose appropriate containers</li>
+          <li>Use text style classes</li>
+          <li>Test in both light and dark modes</li>
+          <li>Respect team-specific button radius</li>
+        </ul>
+      </div>
+      <div class="dont-box">
+        <h4>❌ DON'T</h4>
+        <ul>
+          <li>Hardcode color values</li>
+          <li>Hardcode border or shadow values</li>
+          <li>Use arbitrary spacing (13px, 27px)</li>
+          <li>Create custom max-widths</li>
+          <li>Recreate existing text styles</li>
+          <li>Use same container everywhere</li>
+          <li>Ignore responsive behavior</li>
+          <li>Mix shadow contexts (mobile vs desktop)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>📚 Complete Page Template</h2>
+
+    <div class="code-box">
+      <pre>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" data-theme="wolves" data-mode="light"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+  
+  &lt;!-- Design System CSS --&gt;
+  &lt;link rel="stylesheet" href="design-tokens-master.css"&gt;
+  &lt;link rel="stylesheet" href="spacing-tokens.css"&gt;
+  &lt;link rel="stylesheet" href="container-tokens.css"&gt;
+  &lt;link rel="stylesheet" href="border-effects-tokens.css"&gt;
+  &lt;link rel="stylesheet" href="fonts.css"&gt;
+  &lt;link rel="stylesheet" href="text-styles-system.css"&gt;
+  &lt;link rel="stylesheet" href="boilerplate.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Main Content --&gt;
+  &lt;main&gt;
+    &lt;section class="py-large"&gt;
+      &lt;div class="container"&gt;
+        &lt;h1 class="display700 text-brand-core mb-300"&gt;
+          Welcome to Our Site
+        &lt;/h1&gt;
+        &lt;p class="bodyRegular30 text-secondary mb-400"&gt;
+          This is a complete page built with the design system.
+        &lt;/p&gt;
+        
+        &lt;!-- Card Grid --&gt;
+        &lt;div class="grid gap-card"&gt;
+          &lt;div class="card p-300 rounded-100 border shadow-sheet"&gt;
+            &lt;h3 class="title50 mb-150"&gt;Feature 1&lt;/h3&gt;
+            &lt;p class="bodyRegular30"&gt;Description&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class="card p-300 rounded-100 border shadow-sheet"&gt;
+            &lt;h3 class="title50 mb-150"&gt;Feature 2&lt;/h3&gt;
+            &lt;p class="bodyRegular30"&gt;Description&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    </div>
+
+    <div class="note-box" style="margin-top: 64px;">
+      <strong>💡 Quick Reference:</strong> Save this page as a reference guide. Copy and paste examples directly into your project. All code uses the actual design system tokens and will work with your CSS files.
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+SPACING:
+- Use the 8px-based spacing system via CSS variables
+- Available tokens: --spacing-50 through --spacing-900
+- Utility classes: .m-*, .p-*, .gap-* (with values 50-900)
+- Examples: 
+  - padding: var(--spacing-300) → 24px
+  - margin-bottom: var(--spacing-200) → 16px
+  - gap: var(--spacing-150) → 12px
+- NEVER use hardcoded pixel values for spacing

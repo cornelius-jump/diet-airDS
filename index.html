@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="jump" data-mode="light">
+<html lang="en" data-theme="jump" data-mode="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +21,66 @@
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
   <style>
+    .controls-bar {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-200);
+      margin-bottom: var(--spacing-400);
+      display: flex;
+      gap: var(--spacing-200);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-100);
+    }
+
+    .theme-select {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      border: var(--border-weight-100) solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      padding: 8px 12px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .theme-select:hover {
+      border-color: var(--brand-interactive);
+    }
+
+    .theme-select:focus {
+      outline: 2px solid var(--brand-interactive);
+      outline-offset: 2px;
+    }
+
+    .mode-toggle {
+      background: var(--interactive-primary);
+      color: var(--interactive-primary-text);
+      border: none;
+      border-radius: var(--button-border-radius);
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+
+    .mode-toggle:hover {
+      opacity: 0.9;
+    }
+
+    .mode-toggle:active {
+      transform: scale(0.98);
+    }
+
     .prompt-card {
       background: var(--bg-surface);
       border-radius: var(--border-radius-200);
@@ -33,7 +93,8 @@
       border: var(--border-weight-50) solid var(--neutral-200);
       border-radius: var(--border-radius-100);
       padding: var(--spacing-250);
-      font-family: 'Courier New', monospace;
+      font-family: monospace;
+      font-weight: 200;
       font-size: 14px;
       line-height: 1.6;
       white-space: pre-wrap;
@@ -62,12 +123,12 @@
     }
 
     .hero-section {
-      text-align: center;
+      text-align: left;
       padding: var(--spacing-700) 0 var(--spacing-500) 0;
     }
 
     .note-box {
-      background: var(--neutral-100);
+      background: var(--bg-surface);
       border-left: 4px solid var(--brand-interactive);
       border-radius: var(--border-radius-100);
       padding: var(--spacing-250);
@@ -77,10 +138,35 @@
 </head>
 <body>
   <div class="container-medium">
+
+      <!-- Theme Controls -->
+    <div class="controls-bar" style="margin-top: var(--spacing-400);">
+      <div class="control-group">
+        <label class="labelBold30 text-secondary" for="theme-select">Theme:</label>
+        <select id="theme-select" class="theme-select" onchange="changeTheme(this.value)">
+          <option value="wolves">Timberwolves</option>
+          <option value="lynx">Lynx</option>
+          <option value="courage">Courage</option>
+          <option value="summit">Summit FC</option>
+          <option value="bucknell">Bucknell</option>
+          <option value="sounders">Sounders</option>
+          <option value="reign">Reign</option>
+          <option value="ncfc">NCFC</option>
+          <option value="jump" selected>Jump</option>
+          <option value="athletics">Athletics</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <button class="mode-toggle" onclick="toggleMode()">
+          <span id="mode-icon">☀️</span> <span id="mode-text">Change to Light Mode</span>
+        </button>
+      </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero-section">
-      <h1 class="display600 text-brand-core mb-200">Design System Prompts</h1>
-      <p class="title60 text-secondary mb-300">Copy and paste these prompts to build with AI code generators</p>
+      <h1 class="display500 text-primary mb-200">Welcome to Diet AirDS</h1>
+      <p class="labelRegular40 text-secondary mb-300">Copy and paste these prompts to build with AI code generators.</p>
     </section>
 
     <!-- How to Use -->
@@ -100,7 +186,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="wolves" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'wolves')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'wolves')">Copy</button>
     </div>
 
     <!-- Minnesota Lynx -->
@@ -113,7 +199,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="lynx" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'lynx')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'lynx')">Copy</button>
     </div>
 
     <!-- North Carolina Courage -->
@@ -126,7 +212,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="courage" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'courage')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'courage')">Copy</button>
     </div>
 
     <!-- Denver Summit FC -->
@@ -139,7 +225,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="summit" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'summit')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'summit')">Copy</button>
     </div>
 
     <!-- Bucknell Bison -->
@@ -152,7 +238,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="bucknell" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'bucknell')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'bucknell')">Copy</button>
     </div>
 
     <!-- Seattle Sounders FC -->
@@ -165,7 +251,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="sounders" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'sounders')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'sounders')">Copy</button>
     </div>
 
     <!-- Seattle Reign FC -->
@@ -178,7 +264,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="reign" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'reign')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'reign')">Copy</button>
     </div>
 
     <!-- North Carolina Football Club -->
@@ -191,7 +277,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="ncfc" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'ncfc')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'ncfc')">Copy</button>
     </div>
 
     <!-- Jump Default -->
@@ -204,7 +290,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="jump" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'jump')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'jump')">Copy</button>
     </div>
 
     <!-- Las Vegas Athletics -->
@@ -217,7 +303,7 @@ https://diet-air-ds.vercel.app/component-prompt-guide.md
 Use data-theme="athletics" and data-mode="light"
 
 [Describe what you want to build]</div>
-      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'athletics')">Copy Prompt</button>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'athletics')">Copy</button>
     </div>
 
     <!-- Dark Mode Note -->
@@ -232,7 +318,47 @@ Use data-theme="athletics" and data-mode="light"
     </footer>
   </div>
 
-  <script>
+ <script>
+    // Initialize theme and mode
+    function initializeTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme') || 'jump';
+      const currentMode = html.getAttribute('data-mode') || 'dark';
+      
+      document.getElementById('theme-select').value = currentTheme;
+      updateModeButton(currentMode);
+    }
+
+    // Change theme
+    function changeTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    // Toggle mode
+    function toggleMode() {
+      const html = document.documentElement;
+      const currentMode = html.getAttribute('data-mode');
+      const newMode = currentMode === 'light' ? 'dark' : 'light';
+      
+      html.setAttribute('data-mode', newMode);
+      updateModeButton(newMode);
+    }
+
+    // Update mode button appearance
+    function updateModeButton(mode) {
+      const icon = document.getElementById('mode-icon');
+      const text = document.getElementById('mode-text');
+      
+      if (mode === 'dark') {
+        icon.textContent = '☼';
+        text.textContent = 'Switch to Light Mode';
+      } else {
+        icon.textContent = '☾';
+        text.textContent = 'Switch to Dark Mode';
+      }
+    }
+
+    // Copy prompt function (your existing function preserved)
     function copyPrompt(button, theme) {
       const promptText = `Build this using the JUMP design system:
 https://diet-air-ds.vercel.app/component-prompt-guide.md
@@ -255,6 +381,9 @@ Use data-theme="${theme}" and data-mode="light"
         alert('Failed to copy prompt. Please copy manually.');
       });
     }
+
+    // Initialize on page load
+    initializeTheme();
   </script>
 </body>
 </html>

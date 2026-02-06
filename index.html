@@ -1,30 +1,260 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="wolves" data-mode="dark">
+<html lang="en" data-theme="jump" data-mode="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design System Starter</title>
-    
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Design System CSS Files -->
-    <!-- Load in this order -->
-  <link rel="stylesheet" href="design-tokens-master.css">
-  <link rel="stylesheet" href="spacing-tokens.css">
-  <link rel="stylesheet" href="container-tokens.css">
-  <link rel="stylesheet" href="border-effects-tokens.css">
-  <link rel="stylesheet" href="fonts.css">
-  <link rel="stylesheet" href="text-styles-system.css">
-  <link rel="stylesheet" href="card-components.css">
-  <link rel="stylesheet" href="boilerplate.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System Prompts by Team</title>
+
+  <!-- Critical Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Design System CSS Files -->
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <style>
+    .prompt-card {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-300);
+      margin-bottom: var(--spacing-card);
+    }
+
+    .prompt-code {
+      background: var(--neutral-100);
+      border: var(--border-weight-50) solid var(--neutral-200);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-250);
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      color: var(--text-primary);
+      margin-top: var(--spacing-150);
+    }
+
+    .copy-btn {
+      background: var(--interactive-primary);
+      color: var(--interactive-primary-text);
+      border: none;
+      border-radius: var(--button-border-radius);
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+      margin-top: var(--spacing-150);
+    }
+
+    .copy-btn:hover {
+      opacity: 0.9;
+    }
+
+    .copy-btn:active {
+      transform: scale(0.98);
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: var(--spacing-700) 0 var(--spacing-500) 0;
+    }
+
+    .note-box {
+      background: var(--neutral-100);
+      border-left: 4px solid var(--brand-interactive);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-250);
+      margin: var(--spacing-400) 0;
+    }
+  </style>
 </head>
-<body class="flex-center">
-    <div class="flex-column text-center">
-        <h1 class="title40 text-primary">Hello World</h1>
-        <p class="labelRegular40 text-secondary">Make sure you copy this HTML file if you want to use it as a starting point.</p>
+<body>
+  <div class="container-medium">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1 class="display600 text-brand-core mb-200">Design System Prompts</h1>
+      <p class="title60 text-secondary mb-300">Copy and paste these prompts to build with AI code generators</p>
+    </section>
+
+    <!-- How to Use -->
+    <div class="note-box mb-content">
+      <h3 class="title50 mb-150">How to Use</h3>
+      <p class="bodyRegular30 mb-200">Copy any prompt below and paste it into an AI code generator like Claude, ChatGPT, or similar tools. Replace <code>[Describe what you want to build]</code> with your component description.</p>
+      <p class="bodyRegular30"><strong>Tip:</strong> Change <code>data-mode="light"</code> to <code>data-mode="dark"</code> for dark mode variants.</p>
     </div>
+
+    <!-- Minnesota Timberwolves -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Minnesota Timberwolves</h2>
+      <p class="labelRegular30 text-secondary mb-200">Blue/Green theme • 8px button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="wolves" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'wolves')">Copy Prompt</button>
+    </div>
+
+    <!-- Minnesota Lynx -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Minnesota Lynx</h2>
+      <p class="labelRegular30 text-secondary mb-200">Blue/Green theme • 12px button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="lynx" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'lynx')">Copy Prompt</button>
+    </div>
+
+    <!-- North Carolina Courage -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">North Carolina Courage</h2>
+      <p class="labelRegular30 text-secondary mb-200">Red/Gold theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="courage" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'courage')">Copy Prompt</button>
+    </div>
+
+    <!-- Denver Summit FC -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Denver Summit FC</h2>
+      <p class="labelRegular30 text-secondary mb-200">Green/Red/Yellow theme • 8px button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="summit" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'summit')">Copy Prompt</button>
+    </div>
+
+    <!-- Bucknell Bison -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Bucknell Bison</h2>
+      <p class="labelRegular30 text-secondary mb-200">Navy/Orange theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="bucknell" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'bucknell')">Copy Prompt</button>
+    </div>
+
+    <!-- Seattle Sounders FC -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Seattle Sounders FC</h2>
+      <p class="labelRegular30 text-secondary mb-200">Green/Blue/Teal theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="sounders" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'sounders')">Copy Prompt</button>
+    </div>
+
+    <!-- Seattle Reign FC -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Seattle Reign FC</h2>
+      <p class="labelRegular30 text-secondary mb-200">Purple/Gold theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="reign" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'reign')">Copy Prompt</button>
+    </div>
+
+    <!-- North Carolina Football Club -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">North Carolina Football Club</h2>
+      <p class="labelRegular30 text-secondary mb-200">Blue/Gold theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="ncfc" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'ncfc')">Copy Prompt</button>
+    </div>
+
+    <!-- Jump Default -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Jump Default</h2>
+      <p class="labelRegular30 text-secondary mb-200">Purple/Lime theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="jump" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'jump')">Copy Prompt</button>
+    </div>
+
+    <!-- Las Vegas Athletics -->
+    <div class="prompt-card">
+      <h2 class="title60 mb-150">Las Vegas Athletics</h2>
+      <p class="labelRegular30 text-secondary mb-200">Green/Yellow theme • Pill button radius</p>
+      <div class="prompt-code">Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="athletics" and data-mode="light"
+
+[Describe what you want to build]</div>
+      <button class="copy-btn labelBold40" onclick="copyPrompt(this, 'athletics')">Copy Prompt</button>
+    </div>
+
+    <!-- Dark Mode Note -->
+    <div class="note-box my-content">
+      <h3 class="title50 mb-150">Dark Mode Variants</h3>
+      <p class="bodyRegular30">Simply change <code>data-mode="light"</code> to <code>data-mode="dark"</code> in any prompt above to generate dark mode components.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-large" style="text-align: center; border-top: var(--border-weight-50) solid var(--border-default); margin-top: var(--spacing-700);">
+      <p class="labelRegular30 text-secondary">JUMP Design System • <a href="https://diet-air-ds.vercel.app/component-prompt-guide.md" class="text-brand-interactive">View Full Guide</a></p>
+    </footer>
+  </div>
+
+  <script>
+    function copyPrompt(button, theme) {
+      const promptText = `Build this using the JUMP design system:
+https://diet-air-ds.vercel.app/component-prompt-guide.md
+
+Use data-theme="${theme}" and data-mode="light"
+
+[Describe what you want to build]`;
+
+      navigator.clipboard.writeText(promptText).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.background = 'var(--status-success)';
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.background = 'var(--interactive-primary)';
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy prompt. Please copy manually.');
+      });
+    }
+  </script>
 </body>
 </html>

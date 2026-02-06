@@ -70,14 +70,14 @@ All components should be:
   <title>Page Title</title>
   
   <!-- Design System CSS Files (in this exact order) -->
-  <link rel="stylesheet" href="design-tokens-master.css">
-  <link rel="stylesheet" href="spacing-tokens.css">
-  <link rel="stylesheet" href="container-tokens.css">
-  <link rel="stylesheet" href="border-effects-tokens.css">
-  <link rel="stylesheet" href="fonts.css">
-  <link rel="stylesheet" href="text-styles-system.css">
-  <link rel="stylesheet" href="card-components.css">
-  <link rel="stylesheet" href="boilerplate.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>
 <body>
   <!-- Content -->
@@ -227,7 +227,8 @@ Provide complete HTML and CSS. Include a demonstration showing the component wit
 
 **Drop Shadows:**
 ```css
-/* Sheet - Mobile elevated surfaces (cards, bottom sheets) */
+/* DO NOT USE SHADOWS ON CARDS */
+/* Sheet - Mobile elevated surfaces (bottom sheets) */
 --shadow-sheet-a: 0px -8px 64px 0px rgba(0, 0, 0, 0.12)
 --shadow-sheet-b: 0px -4px 32px 0px rgba(0, 0, 0, 0.08)
 --shadow-sheet: var(--shadow-sheet-a), var(--shadow-sheet-b)
@@ -240,6 +241,7 @@ Provide complete HTML and CSS. Include a demonstration showing the component wit
 
 **Shadow Utilities:**
 ```html
+<!-- DO NOT USE SHADOWS ON CARDS */ -->
 <div class="shadow-sheet">Mobile elevated card</div>
 <div class="shadow-modal">Desktop modal overlay</div>
 <div class="shadow-none">Remove shadow</div>
@@ -262,6 +264,11 @@ Provide complete HTML and CSS. Include a demonstration showing the component wit
 - Tablet overlays
 - Popovers and dropdown menus (desktop)
 - Highest elevation surfaces
+
+❌ **Important Shadow Don'ts**
+- Do not ever use shadows for cards
+- Do not ever add more shadow on hover
+- Do not use shadows unless something like a sheet or modal is presenting on top of main content.
 
 ### Container Tokens
 

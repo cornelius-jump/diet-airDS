@@ -35,8 +35,8 @@
 /* Public Caps Pro Black - NC Football Club */
 @font-face {
   font-family: 'Public Caps Pro';
-  src: url('./fonts/public-caps-pro-black.woff2') format('woff2'),
-       url('./fonts/public-caps-pro-black.woff') format('woff');
+  src: url('./fonts/public-caps-pro-extrabold.woff2') format('woff2'),
+       url('./fonts/public-caps-pro-extrabold.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -75,8 +75,8 @@
 /* Proxima Caps - Las Vegas Athletics */
 @font-face {
   font-family: 'Proxima Caps';
-  src: url('./fonts/proxima-caps-black.woff2') format('woff2'),
-       url('./fonts/proxima-caps-black.woff') format('woff');
+  src: url('./fonts/proxima_caps-bold.woff2') format('woff2'),
+       url('./fonts/proxima_caps-bold.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;

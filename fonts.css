@@ -1,5 +1,7 @@
 /* ============================================
    DISPLAY FONTS - @FONT-FACE DECLARATIONS
+   ============================================
+   Using absolute URLs for Safari iOS compatibility
    ============================================ */
 
 /* Futura Wolves Autocaps - Minnesota Timberwolves */
@@ -25,8 +27,8 @@
 /* Public Caps Pro ExtraBold - NC Courage */
 @font-face {
   font-family: 'Public Caps Pro';
-  src: url('./fonts/public-caps-pro-extrabold.woff2') format('woff2'),
-       url('./fonts/public-caps-pro-extrabold.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/public-caps-pro-extrabold.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/public-caps-pro-extrabold.woff') format('woff');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -35,8 +37,8 @@
 /* Public Caps Pro Black - NC Football Club */
 @font-face {
   font-family: 'Public Caps Pro';
-  src: url('./fonts/public-caps-pro-extrabold.woff2') format('woff2'),
-       url('./fonts/public-caps-pro-extrabold.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/public-caps-pro-extrabold.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/public-caps-pro-extrabold.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -45,8 +47,8 @@
 /* MARTIN Caps Custom - Denver Summit FC */
 @font-face {
   font-family: 'MARTIN Caps Custom';
-  src: url('./fonts/martin-caps-regular.woff2') format('woff2'),
-       url('./fonts/martin-caps-regular.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/martin-caps-regular.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/martin-caps-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -55,8 +57,8 @@
 /* Teko Caps - Bucknell Bison */
 @font-face {
   font-family: 'Teko Caps';
-  src: url('./fonts/teko-caps-bold.woff2') format('woff2'),
-       url('./fonts/teko-caps-bold.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/teko-caps-bold.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/teko-caps-bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -65,8 +67,8 @@
 /* Manner Pro - Seattle Reign FC */
 @font-face {
   font-family: 'Manner Pro';
-  src: url('./fonts/manner-pro-bold.woff2') format('woff2'),
-       url('./fonts/manner-pro-bold.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/manner-pro-bold.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/manner-pro-bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -75,8 +77,8 @@
 /* Proxima Caps - Las Vegas Athletics */
 @font-face {
   font-family: 'Proxima Caps';
-  src: url('./fonts/proxima_caps-bold.woff2') format('woff2'),
-       url('./fonts/proxima_caps-bold.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/proxima_caps-bold.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/proxima_caps-bold.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -85,8 +87,8 @@
 /* Inter - Jump Default (Can also use Google Fonts as fallback) */
 @font-face {
   font-family: 'Inter';
-  src: url('./fonts/inter-black.woff2') format('woff2'),
-       url('./fonts/inter-black.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/inter-black.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/inter-black.woff') format('woff');
   font-weight: 900;
   font-style: normal;
   font-display: swap;

@@ -15,8 +15,8 @@
 /* Futura Caps - Minnesota Lynx & Seattle Sounders */
 @font-face {
   font-family: 'Futura Caps';
-  src: url('./fonts/futura-caps-bold-condensed.woff2') format('woff2'),
-       url('./fonts/futura-caps-bold-condensed.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/futura-caps-bold-condensed.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/futura-caps-bold-condensed.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

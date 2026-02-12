@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timberwolves Ticket Assistant</title>
+
+  <!-- JUMP Design System CSS (load order matters) -->
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap">
+
+  <style>
+    /* ============================================
+       CHAT APP LAYOUT
+       Full-height app shell with nav + chat
+       ============================================ */
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background-color: var(--bg-base);
+    }
+
+    /* ============================================
+       TOP NAV BAR
+       ============================================ */
+
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-150) var(--spacing-300);
+      background-color: var(--brand-dark, #0C233F);
+      border-bottom: var(--border-weight-100) solid var(--neutral-200);
+      flex-shrink: 0;
+      min-height: 56px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+    }
+
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .nav-title {
+      color: var(--inverted-1000, #fff);
+    }
+
+    .nav-subtitle {
+      color: var(--inverted-700, rgba(255,255,255,0.75));
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+    }
+
+    .nav-link {
+      color: var(--inverted-700, rgba(255,255,255,0.75));
+      text-decoration: none;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--inverted-1000, #fff);
+      opacity: 1;
+    }
+
+    /* ============================================
+       CHAT AREA
+       ============================================ */
+
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background-color: var(--bg-base);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-300);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-200);
+    }
+
+    .chat-messages-inner {
+      width: 100%;
+      max-width: var(--container-narrow);
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-200);
+    }
+
+    /* ============================================
+       WELCOME STATE
+       ============================================ */
+
+    .chat-welcome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--spacing-600) var(--spacing-300);
+      gap: var(--spacing-300);
+      flex: 1;
+    }
+
+    .welcome-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: var(--brand-core);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .welcome-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
+
+    .welcome-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-150);
+      justify-content: center;
+      max-width: 600px;
+    }
+
+    .suggestion-chip {
+      background-color: var(--bg-surface);
+      border: var(--border-weight-100) solid var(--border-default);
+      border-radius: var(--button-border-radius);
+      padding: var(--spacing-100) var(--spacing-200);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .suggestion-chip:hover {
+      border-color: var(--brand-interactive);
+      background-color: var(--bg-sheet);
+    }
+
+    /* ============================================
+       MESSAGE BUBBLES
+       ============================================ */
+
+    .message-row {
+      display: flex;
+      gap: var(--spacing-150);
+      max-width: 85%;
+      animation: messageIn 0.25s ease-out;
+    }
+
+    .message-row.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .message-row.assistant {
+      align-self: flex-start;
+    }
+
+    .message-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .message-avatar.bot {
+      background-color: var(--brand-core);
+    }
+
+    .message-avatar.bot svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff;
+    }
+
+    .message-avatar.human {
+      background-color: var(--neutral-300);
+    }
+
+    .message-avatar.human svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--neutral-700);
+    }
+
+    .message-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .message-bubble {
+      padding: var(--spacing-150) var(--spacing-200);
+      border-radius: var(--border-radius-200);
+      line-height: 1.5;
+    }
+
+    .message-row.assistant .message-bubble {
+      background-color: var(--bg-surface);
+      border-bottom-left-radius: var(--border-radius-50);
+    }
+
+    .message-row.user .message-bubble {
+      background-color: var(--brand-core);
+      color: #fff;
+      border-bottom-right-radius: var(--border-radius-50);
+    }
+
+    .message-time {
+      padding: 0 var(--spacing-50);
+    }
+
+    .message-row.user .message-time {
+      text-align: right;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: var(--spacing-150) var(--spacing-200);
+      background-color: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      border-bottom-left-radius: var(--border-radius-50);
+      width: fit-content;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--neutral-500);
+      animation: typingBounce 1.4s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    /* ============================================
+       QUICK ACTIONS (in-chat cards)
+       ============================================ */
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-100);
+      margin-top: var(--spacing-100);
+    }
+
+    .quick-action-btn {
+      background-color: var(--bg-sheet);
+      border: var(--border-weight-100) solid var(--border-default);
+      border-radius: var(--button-border-radius);
+      padding: var(--spacing-50) var(--spacing-150);
+      cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+
+    .quick-action-btn:hover {
+      border-color: var(--brand-interactive);
+    }
+
+    /* ============================================
+       INPUT BAR
+       ============================================ */
+
+    .chat-input-area {
+      flex-shrink: 0;
+      border-top: var(--border-weight-100) solid var(--neutral-200);
+      background-color: var(--bg-base);
+      padding: var(--spacing-200) var(--spacing-300);
+    }
+
+    .chat-input-wrapper {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      gap: var(--spacing-150);
+      background-color: var(--bg-surface);
+      border: var(--border-weight-100) solid var(--border-default);
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-100) var(--spacing-150);
+      transition: border-color 0.2s ease;
+    }
+
+    .chat-input-wrapper:focus-within {
+      border-color: var(--brand-interactive);
+    }
+
+    .chat-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: var(--spacing-100);
+      resize: none;
+      min-height: 24px;
+      max-height: 120px;
+      outline: none;
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .chat-input::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    .send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--brand-core);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .send-btn:hover {
+      opacity: 0.85;
+    }
+
+    .send-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .send-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+
+    .input-disclaimer {
+      text-align: center;
+      padding-top: var(--spacing-100);
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       GAME CARD (shown in assistant responses)
+       ============================================ */
+
+    .game-card {
+      margin-top: var(--spacing-150);
+    }
+
+    .game-card .card-closed {
+      max-width: 360px;
+    }
+
+    .game-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+    }
+
+    .game-teams {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-100);
+    }
+
+    .team-logo-sm {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 10px;
+      color: #fff;
+    }
+
+    .team-logo-sm.twolves { background-color: var(--brand-core); }
+    .team-logo-sm.opponent { background-color: var(--neutral-500); }
+
+    .seat-options {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-100);
+    }
+
+    .seat-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-100) var(--spacing-150);
+      border-radius: var(--border-radius-100);
+      border: var(--border-weight-100) solid var(--border-default);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .seat-option:hover {
+      border-color: var(--brand-interactive);
+      background-color: var(--bg-sheet);
+    }
+
+    .seat-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
+
+    /* ============================================
+       MOBILE ADJUSTMENTS
+       ============================================ */
+
+    @media (max-width: 499px) {
+      .top-nav {
+        padding: var(--spacing-150) var(--spacing-200);
+      }
+
+      .chat-messages {
+        padding: var(--spacing-200);
+      }
+
+      .chat-input-area {
+        padding: var(--spacing-150) var(--spacing-200);
+      }
+
+      .message-row {
+        max-width: 92%;
+      }
+
+      .nav-right .nav-link-text {
+        display: none;
+      }
+
+      .welcome-suggestions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- ============================================
+         TOP NAVIGATION
+         ============================================ -->
+    <nav class="top-nav">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <img src="https://tickets.timberwolves.com/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fjump-dev%2Fimage%2Fupload%2Fdev%2Fperformers%2F3%2Ftimberwolves.png&w=256&q=75" alt="Timberwolves" />
+        </div>
+        <div class="card-text-pair">
+          <span class="text-primary display100 nav-title">Minnesota Timberwolves</span>
+          <span class="text-secondary labelRegular20 nav-subtitle">AI Ticket Agent</span>
+        </div>
+      </div>
+      <div class="nav-right">
+        <a class="nav-link labelRegular30" href="#">
+          <span class="nav-link-text">My Tickets</span>
+        </a>
+        <a class="nav-link labelRegular30" href="#">
+          <span class="nav-link-text">Schedule</span>
+        </a>
+        <a class="nav-link labelRegular30" href="#">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- ============================================
+         CHAT AREA
+         ============================================ -->
+    <div class="chat-area">
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-messages-inner" id="chatInner">
+
+          <!-- Welcome state (shown initially) -->
+          <div class="chat-welcome" id="welcomeState">
+            <div class="welcome-icon">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="card-text-pair text-center">
+              <h1 class="display300">How can I help with tickets?</h1>
+              <p class="bodyRegular30 text-secondary">I can help you find seats, compare pricing, explore group packages, and more.</p>
+            </div>
+            <div class="welcome-suggestions">
+              <button class="suggestion-chip labelRegular30" onclick="sendSuggestion(this)">Find tickets for the next home game</button>
+              <button class="suggestion-chip labelRegular30" onclick="sendSuggestion(this)">I need 4 seats together for a group</button>
+              <button class="suggestion-chip labelRegular30" onclick="sendSuggestion(this)">What are the best value seats?</button>
+              <button class="suggestion-chip labelRegular30" onclick="sendSuggestion(this)">Season ticket package options</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ============================================
+           INPUT AREA
+           ============================================ -->
+      <div class="chat-input-area">
+        <div class="chat-input-wrapper">
+          <textarea
+            class="chat-input"
+            id="chatInput"
+            placeholder="Ask about tickets, seating, pricing..."
+            rows="1"
+            onkeydown="handleKey(event)"
+            oninput="autoGrow(this)"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+        </div>
+        <div class="input-disclaimer">
+          <span class="labelRegular10 text-disabled">AI assistant for ticket inquiries. Not a replacement for official customer service.</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ============================================
+    // MOCK CHAT ENGINE
+    // ============================================
+
+    const chatInner = document.getElementById('chatInner');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const welcomeState = document.getElementById('welcomeState');
+
+    let conversationStarted = false;
+    let messageCount = 0;
+
+    // Auto-responses keyed by simple pattern matching
+    const responses = [
+      {
+        patterns: ['next home game', 'next game', 'upcoming'],
+        reply: `Great question! The next home game is <strong>Timberwolves vs. Lakers</strong> on Friday, Feb 21 at Target Center. Tip-off is at 7:00 PM CT.`,
+        card: {
+          date: 'Fri, Feb 21 · 7:00 PM',
+          matchup: 'Wolves vs Lakers',
+          seats: [
+            { section: 'Lower Level · Sec 112', price: '$145', note: 'Great sightlines' },
+            { section: 'Club Level · Sec 230', price: '$95', note: 'Includes lounge access' },
+            { section: 'Upper Level · Sec 329', price: '$35', note: 'Best value' },
+          ]
+        },
+        followup: 'Would you like to explore any of these sections, or do you have a budget in mind?'
+      },
+      {
+        patterns: ['group', '4 seats', 'seats together', 'family'],
+        reply: `I'd love to help you find group seating! For 4 seats together, here are your best options for upcoming games:`,
+        card: {
+          date: 'Multiple dates available',
+          matchup: 'Group Packages',
+          seats: [
+            { section: 'Sec 108 · Row 14', price: '$125 ea', note: '4 together, aisle access' },
+            { section: 'Sec 222 · Row 3', price: '$78 ea', note: '4 together, center court' },
+            { section: 'Sec 334 · Row 8', price: '$42 ea', note: '6 available together' },
+          ]
+        },
+        followup: 'Groups of 10+ also get a 15% discount. Want me to look into that?'
+      },
+      {
+        patterns: ['best value', 'cheap', 'affordable', 'budget'],
+        reply: `Here are the best value options for upcoming home games. These seats offer a great experience without breaking the bank:`,
+        card: {
+          date: 'Best Value Picks',
+          matchup: 'Wolves Home Games',
+          seats: [
+            { section: 'Upper · Sec 333', price: 'From $22', note: 'Weekday games' },
+            { section: 'Upper · Sec 301', price: 'From $29', note: 'Weekend games' },
+            { section: 'Mid · Sec 224', price: 'From $55', note: 'Excellent view' },
+          ]
+        },
+        followup: 'I can also check for any available promotional codes. Want me to look?'
+      },
+      {
+        patterns: ['season ticket', 'season pass', 'package', 'membership'],
+        reply: `Season ticket packages are a fantastic way to experience every game! Here's a quick overview of current options:`,
+        bullets: [
+          '<strong>Full Season (41 games)</strong> — Starting at $820/seat. Best per-game value.',
+          '<strong>Half Season (20 games)</strong> — Starting at $460/seat. Flexible schedule options.',
+          '<strong>Weekend Pack (15 games)</strong> — Starting at $375/seat. All Fri/Sat/Sun games.',
+          '<strong>Mini Plan (10 games)</strong> — Starting at $280/seat. You pick the games.',
+        ],
+        followup: 'All plans include priority access to playoff tickets. Want details on a specific package?'
+      },
+    ];
+
+    // Fallback response
+    const fallbackResponses = [
+      `That's a great question! Let me look into that for you. In the meantime, I can help with finding specific seats, comparing prices across sections, or exploring ticket packages. What interests you most?`,
+      `I appreciate you asking! I can help with:\n\n• Finding available tickets for specific games\n• Comparing seating sections and pricing\n• Group ticket packages\n• Season ticket information\n\nWhich of these would you like to explore?`,
+      `Let me help you with that! Could you share a bit more detail? For example, are you looking for a specific game date, a price range, or a seating preference? That way I can find the best options for you.`,
+    ];
+
+    // ============================================
+    // CORE FUNCTIONS
+    // ============================================
+
+    function sendSuggestion(el) {
+      chatInput.value = el.textContent;
+      sendMessage();
+    }
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      // Hide welcome state
+      if (!conversationStarted) {
+        welcomeState.style.display = 'none';
+        conversationStarted = true;
+      }
+
+      // Add user message
+      appendMessage('user', text);
+      chatInput.value = '';
+      chatInput.style.height = 'auto';
+      sendBtn.disabled = true;
+
+      // Show typing indicator
+      const typingEl = showTyping();
+
+      // Find matching response
+      const match = findResponse(text);
+
+      // Simulate delay then respond
+      setTimeout(() => {
+        typingEl.remove();
+        if (match) {
+          appendAssistantResponse(match);
+        } else {
+          const fallback = fallbackResponses[messageCount % fallbackResponses.length];
+          appendMessage('assistant', fallback);
+        }
+        messageCount++;
+        scrollToBottom();
+      }, 1200 + Math.random() * 800);
+
+      scrollToBottom();
+    }
+
+    function findResponse(text) {
+      const lower = text.toLowerCase();
+      for (const r of responses) {
+        for (const p of r.patterns) {
+          if (lower.includes(p)) return r;
+        }
+      }
+      return null;
+    }
+
+    function appendMessage(role, text) {
+      const row = document.createElement('div');
+      row.className = `message-row ${role}`;
+
+      const avatarClass = role === 'user' ? 'human' : 'bot';
+      const avatarSvg = role === 'user'
+        ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+        : '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+
+      row.innerHTML = `
+        <div class="message-avatar ${avatarClass}">${avatarSvg}</div>
+        <div class="message-content">
+          <div class="message-bubble bodyRegular30">${text}</div>
+          <span class="message-time labelRegular10 text-disabled">${timeStr}</span>
+        </div>
+      `;
+
+      chatInner.appendChild(row);
+      scrollToBottom();
+    }
+
+    function appendAssistantResponse(match) {
+      const row = document.createElement('div');
+      row.className = 'message-row assistant';
+
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+
+      let html = `
+        <div class="message-avatar bot">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="message-content">
+          <div class="message-bubble bodyRegular30">
+            ${match.reply}
+      `;
+
+      // Add bullets if present
+      if (match.bullets) {
+        html += '<ul style="margin-top: var(--spacing-150); padding-left: var(--spacing-250); display: flex; flex-direction: column; gap: var(--spacing-100);">';
+        for (const b of match.bullets) {
+          html += `<li class="bodyRegular30">${b}</li>`;
+        }
+        html += '</ul>';
+      }
+
+      // Add game card if present
+      if (match.card) {
+        html += `
+          <div class="game-card">
+            <div class="card-closed">
+              <div class="card-closed-header">
+                <div class="card-text-pair">
+                  <span class="labelBold30">${match.card.matchup}</span>
+                  <span class="labelRegular20 text-secondary">${match.card.date}</span>
+                </div>
+              </div>
+              <div class="card-closed-body">
+                <div class="seat-options">
+        `;
+        for (const seat of match.card.seats) {
+          html += `
+                  <div class="seat-option" onclick="sendFromCard('Tell me more about ${seat.section}')">
+                    <div class="seat-info">
+                      <span class="labelBold20">${seat.section}</span>
+                      <span class="labelRegular10 text-secondary">${seat.note}</span>
+                    </div>
+                    <span class="labelBold30" style="color: var(--brand-core);">${seat.price}</span>
+                  </div>
+          `;
+        }
+        html += `
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Add follow-up
+      if (match.followup) {
+        html += `<p class="bodyRegular30" style="margin-top: var(--spacing-150);">${match.followup}</p>`;
+      }
+
+      html += `
+          </div>
+          <span class="message-time labelRegular10 text-disabled">${timeStr}</span>
+        </div>
+      `;
+
+      row.innerHTML = html;
+      chatInner.appendChild(row);
+      scrollToBottom();
+    }
+
+    function sendFromCard(text) {
+      chatInput.value = text;
+      sendMessage();
+    }
+
+    function showTyping() {
+      const row = document.createElement('div');
+      row.className = 'message-row assistant';
+      row.innerHTML = `
+        <div class="message-avatar bot">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="message-content">
+          <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+      `;
+      chatInner.appendChild(row);
+      scrollToBottom();
+      return row;
+    }
+
+    // ============================================
+    // UTILITIES
+    // ============================================
+
+    function scrollToBottom() {
+      requestAnimationFrame(() => {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      });
+    }
+
+    function autoGrow(el) {
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+      sendBtn.disabled = el.value.trim().length === 0;
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    }
+
+    // Enable/disable send button on input
+    chatInput.addEventListener('input', () => {
+      sendBtn.disabled = chatInput.value.trim().length === 0;
+    });
+  </script>
+</body>
+</html>

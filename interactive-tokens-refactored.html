@@ -211,6 +211,17 @@
       user-select: none;
     }
 
+    /* Let surface token color cascade to children
+       (text-style classes set color: var(--text-primary) which
+       breaks contrast on filled surfaces like fillNeutral, fillBlack, etc.) */
+    .surface-fillNeutral *,
+    .surface-fillColor *,
+    .surface-fillInverted *,
+    .surface-fillBlack *,
+    .surface-fillWhite * {
+      color: inherit;
+    }
+
     /* Usage code block */
     .code-block {
       background: var(--neutral-1000);

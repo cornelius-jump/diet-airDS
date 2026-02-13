@@ -74,6 +74,11 @@
       padding: var(--spacing-150) var(--spacing-200);
       background: var(--bg-surface);
       border-bottom: 1px solid var(--border-default);
+      text-align: center;
+    }
+
+    .token-grid-header > div:first-child {
+      text-align: left;
     }
 
     .token-row {
@@ -213,12 +218,17 @@
 
     /* Let surface token color cascade to children
        (text-style classes set color: var(--text-primary) which
-       breaks contrast on filled surfaces like fillNeutral, fillBlack, etc.) */
+       breaks contrast on filled surfaces like fillNeutral, fillBlack, etc.)
+       Covers default classes AND inline hover/pressed state swatches */
     .surface-fillNeutral *,
     .surface-fillColor *,
     .surface-fillInverted *,
     .surface-fillBlack *,
-    .surface-fillWhite * {
+    .surface-fillWhite *,
+    .swatch *,
+    .scale-card-demo *,
+    .scale-btn-demo *,
+    .scale-icon-demo * {
       color: inherit;
     }
 

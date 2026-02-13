@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Surface & Scale Tokens</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    /* ============================================
+       INLINE DESIGN TOKENS (subset for demo)
+       ============================================ */
+    :root {
+      --white-100: rgba(255,255,255,0.1);
+      --white-200: rgba(255,255,255,0.15);
+      --white-300: rgba(255,255,255,0.25);
+      --white-500: rgba(255,255,255,0.55);
+      --white-700: rgba(255,255,255,0.75);
+      --white-900: rgba(255,255,255,0.95);
+      --white-1000: rgba(255,255,255,1);
+      --black-100: rgba(0,0,0,0.04);
+      --black-200: rgba(0,0,0,0.1);
+      --black-300: rgba(0,0,0,0.15);
+      --black-500: rgba(0,0,0,0.4);
+      --black-700: rgba(0,0,0,0.65);
+      --black-900: rgba(0,0,0,0.85);
+      --black-1000: rgba(0,0,0,1);
+      --status-info-light: #0671E5;
+      --status-info-dark: #3892F3;
+    }
+
+    :root, [data-mode="light"] {
+      --neutral-000: rgba(0,0,0,0);
+      --neutral-50: rgba(0,0,0,0.03);
+      --neutral-100: rgba(0,0,0,0.04);
+      --neutral-200: rgba(0,0,0,0.1);
+      --neutral-300: rgba(0,0,0,0.15);
+      --neutral-500: rgba(0,0,0,0.4);
+      --neutral-700: rgba(0,0,0,0.65);
+      --neutral-900: rgba(0,0,0,0.85);
+      --neutral-1000: rgba(0,0,0,1);
+      --inverted-000: rgba(255,255,255,0);
+      --inverted-100: rgba(255,255,255,0.1);
+      --inverted-200: rgba(255,255,255,0.15);
+      --inverted-300: rgba(255,255,255,0.25);
+      --inverted-500: rgba(255,255,255,0.55);
+      --inverted-700: rgba(255,255,255,0.75);
+      --inverted-900: rgba(255,255,255,0.95);
+      --inverted-1000: rgba(255,255,255,1);
+      --status-info: var(--status-info-light);
+    }
+
+    [data-mode="dark"] {
+      --neutral-000: rgba(255,255,255,0);
+      --neutral-50: rgba(255,255,255,0.05);
+      --neutral-100: rgba(255,255,255,0.1);
+      --neutral-200: rgba(255,255,255,0.15);
+      --neutral-300: rgba(255,255,255,0.25);
+      --neutral-500: rgba(255,255,255,0.55);
+      --neutral-700: rgba(255,255,255,0.75);
+      --neutral-900: rgba(255,255,255,0.95);
+      --neutral-1000: rgba(255,255,255,1);
+      --inverted-000: rgba(0,0,0,0);
+      --inverted-100: rgba(0,0,0,0.04);
+      --inverted-200: rgba(0,0,0,0.1);
+      --inverted-300: rgba(0,0,0,0.15);
+      --inverted-500: rgba(0,0,0,0.4);
+      --inverted-700: rgba(0,0,0,0.65);
+      --inverted-900: rgba(0,0,0,0.85);
+      --inverted-1000: rgba(0,0,0,1);
+      --status-info: var(--status-info-dark);
+    }
+
+    /* Team Themes (subset) */
+    [data-theme="wolves"] { --brand-core: #00855D; --brand-interactive: #00855D; }
+    [data-theme="wolves"][data-mode="light"] { --org-base: #FFFFFF; --org-surface: #EEF2F6; }
+    [data-theme="wolves"][data-mode="dark"] { --org-base: #111111; --org-surface: #1F1F1F; }
+    [data-theme="courage"] { --brand-core: #C4122F; --brand-interactive: #C4122F; }
+    [data-theme="courage"][data-mode="light"] { --org-base: #FFFFFF; --org-surface: #F4F4F4; }
+    [data-theme="courage"][data-mode="dark"] { --org-base: #141414; --org-surface: #232323; }
+
+    :root {
+      --bg-base: var(--org-base);
+      --bg-surface: var(--org-surface);
+      --text-primary: var(--neutral-1000);
+      --text-secondary: var(--neutral-700);
+      --border-default: var(--neutral-300);
+    }
+
+    /* ============================================
+       INTERACTIVE SURFACE TOKENS
+       ============================================ */
+
+    /* --- Fill - Neutral --- */
+    .surface-fillNeutral {
+      background: var(--neutral-1000); border: none; color: var(--inverted-1000);
+    }
+    .surface-fillNeutral:hover {
+      background: linear-gradient(var(--inverted-200), var(--inverted-200)), linear-gradient(var(--neutral-1000), var(--neutral-1000));
+      border: none;
+    }
+    .surface-fillNeutral:active {
+      background: linear-gradient(var(--black-500), var(--black-500)), linear-gradient(var(--neutral-1000), var(--neutral-1000));
+      border: none; opacity: 0.6;
+    }
+    .surface-fillNeutral:active * { opacity: 0.6; }
+
+    /* --- Fill - Color --- */
+    .surface-fillColor {
+      background: var(--brand-core); border: none; color: var(--white-1000);
+    }
+    .surface-fillColor:hover {
+      background: linear-gradient(var(--white-300), var(--white-300)), linear-gradient(var(--brand-core), var(--brand-core));
+      border: none;
+    }
+    .surface-fillColor:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--brand-core), var(--brand-core));
+      border: none;
+    }
+    .surface-fillColor:active * { opacity: 0.6; }
+
+    /* --- Fill - Inverted --- */
+    .surface-fillInverted {
+      background: var(--inverted-1000); border: none; color: var(--neutral-1000);
+    }
+    .surface-fillInverted:hover {
+      background: linear-gradient(var(--neutral-200), var(--neutral-200)), linear-gradient(var(--inverted-1000), var(--inverted-1000));
+      border: none;
+    }
+    .surface-fillInverted:active {
+      background: linear-gradient(var(--black-500), var(--black-500)), linear-gradient(var(--inverted-1000), var(--inverted-1000));
+      border: none;
+    }
+    .surface-fillInverted:active * { opacity: 0.6; }
+
+    /* --- Fill - Black --- */
+    .surface-fillBlack {
+      background: var(--black-1000); border: none; color: var(--white-1000);
+    }
+    .surface-fillBlack:hover {
+      background: linear-gradient(var(--white-300), var(--white-300)), linear-gradient(var(--black-1000), var(--black-1000));
+      border: none;
+    }
+    .surface-fillBlack:active {
+      background: var(--black-1000); border: none;
+    }
+    .surface-fillBlack:active * { opacity: 0.6; }
+
+    /* --- Fill - White --- */
+    .surface-fillWhite {
+      background: var(--white-1000); border: none; color: var(--black-1000);
+    }
+    .surface-fillWhite:hover {
+      background: linear-gradient(var(--black-200), var(--black-200)), linear-gradient(var(--white-1000), var(--white-1000));
+      border: none;
+    }
+    .surface-fillWhite:active {
+      background: linear-gradient(var(--black-500), var(--black-500)), linear-gradient(var(--white-1000), var(--white-1000));
+      border: none;
+    }
+    .surface-fillWhite:active * { opacity: 0.6; }
+
+    /* --- Border - Neutral --- */
+    .surface-borderNeutral {
+      background: var(--neutral-000); border: 1px solid var(--neutral-300); color: var(--text-primary);
+    }
+    .surface-borderNeutral:hover {
+      background: linear-gradient(var(--neutral-100), var(--neutral-100)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--neutral-200);
+    }
+    .surface-borderNeutral:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--neutral-200);
+    }
+    .surface-borderNeutral:active * { opacity: 0.6; }
+
+    /* --- Border - Inverted --- */
+    .surface-borderInverted {
+      background: var(--neutral-000); border: 1px solid var(--inverted-300); color: var(--text-primary);
+    }
+    .surface-borderInverted:hover {
+      background: linear-gradient(var(--inverted-100), var(--inverted-100)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--inverted-200);
+    }
+    .surface-borderInverted:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--inverted-200);
+    }
+    .surface-borderInverted:active * { opacity: 0.6; }
+
+    /* --- Border - Black --- */
+    .surface-borderBlack {
+      background: var(--neutral-000); border: 1px solid var(--black-300); color: var(--text-primary);
+    }
+    .surface-borderBlack:hover {
+      background: linear-gradient(var(--black-100), var(--black-100)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--black-200);
+    }
+    .surface-borderBlack:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--black-200);
+    }
+    .surface-borderBlack:active * { opacity: 0.6; }
+
+    /* --- Border - White --- */
+    .surface-borderWhite {
+      background: var(--neutral-000); border: 1px solid var(--black-300); color: var(--text-primary);
+    }
+    .surface-borderWhite:hover {
+      background: linear-gradient(var(--white-200), var(--white-200)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--white-200);
+    }
+    .surface-borderWhite:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: 1px solid var(--white-200);
+    }
+    .surface-borderWhite:active * { opacity: 0.6; }
+
+    /* --- Wash - Neutral --- */
+    .surface-washNeutral {
+      background: var(--neutral-100); border: none; color: var(--text-primary);
+    }
+    .surface-washNeutral:hover {
+      background: linear-gradient(var(--neutral-100), var(--neutral-100)), linear-gradient(var(--neutral-100), var(--neutral-100));
+      border: none;
+    }
+    .surface-washNeutral:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--neutral-100), var(--neutral-100));
+      border: none;
+    }
+    .surface-washNeutral:active * { opacity: 0.6; }
+
+    /* --- Ghost --- */
+    .surface-ghost {
+      background: var(--neutral-000); border: none; color: var(--text-primary);
+    }
+    .surface-ghost:hover {
+      background: linear-gradient(var(--neutral-100), var(--neutral-100)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: none;
+    }
+    .surface-ghost:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--neutral-000), var(--neutral-000));
+      border: none;
+    }
+    .surface-ghost:active * { opacity: 0.6; }
+
+    /* --- Card without Sections --- */
+    .surface-card {
+      background: var(--org-surface); border: none; color: var(--text-primary);
+    }
+    .surface-card:hover {
+      background: linear-gradient(var(--white-100), var(--white-100)), linear-gradient(var(--org-surface), var(--org-surface));
+      border: none;
+    }
+    .surface-card:active {
+      background: linear-gradient(var(--black-300), var(--black-300)), linear-gradient(var(--org-surface), var(--org-surface));
+      border: none;
+    }
+    .surface-card:active * { opacity: 0.6; }
+
+
+
+    /* ============================================
+       INTERACTIVE SCALE TOKENS
+       ============================================ */
+    .scale-700 { transition: transform 180ms ease-out; transform: scale(1); }
+    .scale-700:hover { transform: scale(1.01); }
+    .scale-700:active { transform: scale(0.99); }
+
+    .scale-500 { transition: transform 180ms ease-out; transform: scale(1); }
+    .scale-500:hover { transform: scale(1.025); }
+    .scale-500:active { transform: scale(0.975); }
+
+    .scale-300 { transition: transform 180ms ease-out; transform: scale(1); }
+    .scale-300:hover { transform: scale(1.035); }
+    .scale-300:active { transform: scale(0.965); }
+
+    /* ============================================
+       PAGE STYLES
+       ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .container-wide {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg-base);
+      border-bottom: 1px solid var(--border-default);
+      backdrop-filter: blur(50px);
+    }
+    .site-header .container-wide {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .site-header h1 { font-size: 16px; font-weight: 700; }
+
+    .controls { display: flex; gap: 8px; align-items: center; }
+    .controls select {
+      padding: 6px 12px; border-radius: 8px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface); color: var(--text-primary);
+      font-family: inherit; font-size: 13px; cursor: pointer;
+    }
+
+    /* Section layout */
+    .section { padding: 48px 0; }
+    .section + .section { border-top: 1px solid var(--border-default); }
+    .section-title {
+      font-size: 28px; font-weight: 700; margin-bottom: 8px;
+    }
+    .section-subtitle {
+      font-size: 14px; color: var(--text-secondary); margin-bottom: 32px;
+    }
+
+    /* Token grid */
+    .token-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .token-grid-header {
+      display: contents;
+    }
+    .token-grid-header > div {
+      padding: 12px 16px;
+      font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      color: var(--text-secondary);
+    }
+    .token-row {
+      display: contents;
+    }
+    .token-row > div {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-default);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100px;
+    }
+    .token-row:last-child > div { border-bottom: none; }
+    .token-row > div:first-child {
+      justify-content: flex-start;
+      font-size: 13px; font-weight: 600;
+    }
+
+    /* Demo swatch */
+    .swatch {
+      width: 80px; height: 80px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 24px; font-weight: 700;
+      transition: background 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+      user-select: none;
+      position: relative;
+    }
+
+    /* Checkerboard bg for transparent swatches */
+    .swatch-wrap {
+      width: 80px; height: 80px;
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .swatch-wrap.checkerboard {
+      background-image:
+        linear-gradient(45deg, #ccc 25%, transparent 25%),
+        linear-gradient(-45deg, #ccc 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ccc 75%),
+        linear-gradient(-45deg, transparent 75%, #ccc 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+    }
+    .swatch-wrap .swatch {
+      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0;
+    }
+
+    /* Scale demo elements */
+    .scale-demo {
+      display: flex; flex-direction: column; gap: 12px; align-items: center;
+    }
+    .scale-card {
+      width: 120px; height: 80px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px; font-weight: 700;
+      user-select: none;
+    }
+    .scale-btn {
+      padding: 10px 24px; border-radius: 100px;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 14px; font-weight: 600;
+      user-select: none; border: none; font-family: inherit;
+    }
+    .scale-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 18px; font-weight: 700;
+      user-select: none;
+    }
+
+    /* Spec table */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 24px;
+    }
+    .spec-table th, .spec-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-default);
+    }
+    .spec-table th {
+      font-weight: 600; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+    }
+    .spec-table td { vertical-align: top; }
+    .spec-table code {
+      background: var(--bg-surface);
+      padding: 2px 6px; border-radius: 4px;
+      font-size: 12px; font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    .spec-table .token-name { font-weight: 600; white-space: nowrap; }
+
+    /* Scale spec table */
+    .scale-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border-default);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .scale-grid > div {
+      padding: 16px;
+      border-bottom: 1px solid var(--border-default);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .scale-grid > div:nth-child(-n+4) {
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.5px; background: var(--bg-surface);
+      color: var(--text-secondary);
+    }
+    .scale-grid > div:nth-child(4n+1) {
+      justify-content: flex-start;
+      font-size: 13px; font-weight: 600;
+    }
+    .scale-grid > div:last-child,
+    .scale-grid > div:nth-last-child(-n+4) { border-bottom: none; }
+
+    /* Layer pills */
+    .layer-stack {
+      display: flex; flex-direction: column; gap: 2px;
+      font-size: 11px; font-family: 'SF Mono', monospace;
+    }
+    .layer-pill {
+      padding: 2px 8px; border-radius: 4px;
+      background: var(--bg-surface);
+    }
+
+    /* Usage example */
+    .usage-box {
+      background: var(--bg-surface);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .usage-box h3 {
+      font-size: 14px; font-weight: 600; margin-bottom: 12px;
+    }
+    .usage-box pre {
+      background: var(--neutral-1000);
+      color: var(--inverted-1000);
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Combo demo */
+    .combo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .combo-card {
+      padding: 24px 16px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px; font-weight: 600;
+    }
+    .combo-label {
+      font-size: 11px; color: var(--text-secondary);
+      margin-top: 6px; font-weight: 400;
+    }
+
+    /* Dark mode on specific containers */
+    [data-mode="dark"] .swatch-wrap.checkerboard {
+      background-image:
+        linear-gradient(45deg, #333 25%, transparent 25%),
+        linear-gradient(-45deg, #333 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #333 75%),
+        linear-gradient(-45deg, transparent 75%, #333 75%);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container-wide">
+      <h1>Interactive Tokens</h1>
+      <div class="controls">
+        <select id="themeSelect">
+          <option value="wolves">Wolves</option>
+          <option value="courage">Courage</option>
+          <option value="lynx">Lynx</option>
+          <option value="summit">Summit</option>
+          <option value="bucknell">Bucknell</option>
+          <option value="sounders">Sounders</option>
+          <option value="reign">Reign</option>
+          <option value="ncfc">NCFC</option>
+          <option value="jump">JUMP</option>
+          <option value="athletics">Athletics</option>
+        </select>
+        <select id="modeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================================
+         SECTION 1: INTERACTIVE SURFACE TOKENS
+         ============================================ -->
+    <div class="section">
+      <div class="container-wide">
+        <div class="section-title">Interactive Surface Tokens</div>
+        <p class="section-subtitle">12 surface style tokens defining fill + border properties across Default, Hover, and Pressed states. Hover and Pressed backgrounds use layered colors (achieved via stacked linear-gradients configured as solid colors).</p>
+
+        <div class="token-grid">
+          <div class="token-grid-header">
+            <div>Token Name</div>
+            <div>Default</div>
+            <div>Hover</div>
+            <div>Pressed</div>
+          </div>
+
+          <!-- Fill - Neutral -->
+          <div class="token-row">
+            <div>Fill - Neutral</div>
+            <div><div class="swatch surface-fillNeutral" style="pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--inverted-200),var(--inverted-200)), linear-gradient(var(--neutral-1000),var(--neutral-1000)); color: var(--inverted-1000); border: none; pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-500),var(--black-500)), linear-gradient(var(--neutral-1000),var(--neutral-1000)); color: var(--inverted-1000); border: none; pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+          <!-- Fill - Color -->
+          <div class="token-row">
+            <div>Fill - Color</div>
+            <div><div class="swatch surface-fillColor" style="pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--white-300),var(--white-300)), linear-gradient(var(--brand-core),var(--brand-core)); color: var(--white-1000); border: none; pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--brand-core),var(--brand-core)); color: var(--white-1000); border: none; pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+          <!-- Fill - Inverted -->
+          <div class="token-row">
+            <div>Fill - Inverted</div>
+            <div><div class="swatch surface-fillInverted" style="pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--neutral-200),var(--neutral-200)), linear-gradient(var(--inverted-1000),var(--inverted-1000)); color: var(--neutral-1000); border: none; pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-500),var(--black-500)), linear-gradient(var(--inverted-1000),var(--inverted-1000)); color: var(--neutral-1000); border: none; pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+          <!-- Fill - Black -->
+          <div class="token-row">
+            <div>Fill - Black</div>
+            <div><div class="swatch surface-fillBlack" style="pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--white-300),var(--white-300)), linear-gradient(var(--black-1000),var(--black-1000)); color: var(--white-1000); border: none; pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: var(--black-1000); color: var(--white-1000); border: none; pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+          <!-- Fill - White -->
+          <div class="token-row">
+            <div>Fill - White</div>
+            <div><div class="swatch surface-fillWhite" style="pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-200),var(--black-200)), linear-gradient(var(--white-1000),var(--white-1000)); color: var(--black-1000); border: none; pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-500),var(--black-500)), linear-gradient(var(--white-1000),var(--white-1000)); color: var(--black-1000); border: none; pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+          <!-- Border - Neutral -->
+          <div class="token-row">
+            <div>Border - Neutral</div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: var(--neutral-000); border: 2px solid var(--neutral-300); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--neutral-100),var(--neutral-100)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--neutral-200); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--neutral-200); color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Border - Inverted -->
+          <div class="token-row">
+            <div>Border - Inverted</div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: var(--neutral-000); border: 2px solid var(--inverted-300); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--inverted-100),var(--inverted-100)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--inverted-200); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--inverted-200); color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Border - Black -->
+          <div class="token-row">
+            <div>Border - Black</div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: var(--neutral-000); border: 2px solid var(--black-300); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--black-100),var(--black-100)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--black-200); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--black-200); color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Border - White -->
+          <div class="token-row">
+            <div>Border - White</div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: var(--neutral-000); border: 2px solid var(--black-300); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--white-200),var(--white-200)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--white-200); color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: 2px solid var(--white-200); color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wash - Neutral -->
+          <div class="token-row">
+            <div>Wash - Neutral</div>
+            <div><div class="swatch" style="background: var(--neutral-100); border: none; color: var(--text-primary); pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--neutral-100),var(--neutral-100)), linear-gradient(var(--neutral-100),var(--neutral-100)); border: none; color: var(--text-primary); pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--neutral-100),var(--neutral-100)); border: none; color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+          <!-- Ghost -->
+          <div class="token-row">
+            <div>Ghost</div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: var(--neutral-000); border: none; color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--neutral-100),var(--neutral-100)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: none; color: var(--text-primary); pointer-events:none;">Aa</div>
+              </div>
+            </div>
+            <div>
+              <div class="swatch-wrap checkerboard">
+                <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--neutral-000),var(--neutral-000)); border: none; color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card without Sections -->
+          <div class="token-row">
+            <div>Card (no sections)</div>
+            <div><div class="swatch surface-card" style="pointer-events:none;">Aa</div></div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--white-100),var(--white-100)), linear-gradient(var(--org-surface),var(--org-surface)); border: none; color: var(--text-primary); pointer-events:none;">Aa</div>
+            </div>
+            <div>
+              <div class="swatch" style="background: linear-gradient(var(--black-300),var(--black-300)), linear-gradient(var(--org-surface),var(--org-surface)); border: none; color: var(--text-primary); pointer-events:none; opacity:0.6;">Aa</div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Live Interactive Demo -->
+        <div style="margin-top: 48px;">
+          <div class="section-title" style="font-size: 20px;">Live Interactive Demo</div>
+          <p class="section-subtitle">Click and hover these elements to see surface tokens in action.</p>
+          <div class="combo-grid">
+            <div class="combo-card surface-fillNeutral scale-500">Fill Neutral<div class="combo-label">+ scale-500</div></div>
+            <div class="combo-card surface-fillColor scale-500">Fill Color<div class="combo-label">+ scale-500</div></div>
+            <div class="combo-card surface-fillInverted scale-700">Fill Inverted<div class="combo-label">+ scale-700</div></div>
+            <div class="combo-card surface-fillBlack scale-500">Fill Black<div class="combo-label">+ scale-500</div></div>
+            <div class="combo-card surface-fillWhite scale-500">Fill White<div class="combo-label">+ scale-500</div></div>
+            <div class="combo-card surface-borderNeutral scale-700">Border Neutral<div class="combo-label">+ scale-700</div></div>
+            <div class="combo-card surface-washNeutral scale-700">Wash Neutral<div class="combo-label">+ scale-700</div></div>
+            <div class="combo-card surface-ghost scale-300">Ghost<div class="combo-label">+ scale-300</div></div>
+            <div class="combo-card surface-card scale-700">Card<div class="combo-label">+ scale-700</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================
+         SECTION 2: INTERACTIVE SCALE TOKENS
+         ============================================ -->
+    <div class="section">
+      <div class="container-wide">
+        <div class="section-title">Interactive Scale Tokens</div>
+        <p class="section-subtitle">3 scale tokens for different component sizes. Components expand on hover and shrink on press. Scale tokens work independently of surface tokens — use them in any combination. Web values shown below (iOS/Android scale differently).</p>
+
+        <div class="scale-grid">
+          <div>Token</div>
+          <div>Default</div>
+          <div>Hover (Web)</div>
+          <div>Pressed (Web / Mobile)</div>
+
+          <div>Interaction 700</div>
+          <div><code>scale(1)</code></div>
+          <div><code>scale(1.01)</code></div>
+          <div><code>scale(0.99)</code> / <code>scale(0.975)</code></div>
+
+          <div>Interaction 500</div>
+          <div><code>scale(1)</code></div>
+          <div><code>scale(1.025)</code></div>
+          <div><code>scale(0.975)</code> / <code>scale(0.96)</code></div>
+
+          <div>Interaction 300</div>
+          <div><code>scale(1)</code></div>
+          <div><code>scale(1.035)</code></div>
+          <div><code>scale(0.965)</code> / <code>scale(0.95)</code></div>
+        </div>
+
+        <!-- Live Scale Demos -->
+        <div style="margin-top: 48px;">
+          <div class="section-title" style="font-size: 20px;">Live Scale Demo</div>
+          <p class="section-subtitle">Hover and click to see scale behavior. Each row shows a different scale token applied.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 32px; margin-top: 16px;">
+            <!-- Scale 700 -->
+            <div>
+              <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-secondary);">Interaction 700 — Cards / Large Components</div>
+              <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                <div class="scale-card surface-fillColor scale-700">Card</div>
+                <div class="scale-card surface-fillNeutral scale-700">Card</div>
+                <div class="scale-card surface-card scale-700">Card</div>
+              </div>
+            </div>
+
+            <!-- Scale 500 -->
+            <div>
+              <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-secondary);">Interaction 500 — Buttons</div>
+              <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+                <div class="scale-btn surface-fillColor scale-500">Buy Tickets</div>
+                <div class="scale-btn surface-fillNeutral scale-500">Learn More</div>
+                <div class="scale-btn surface-borderNeutral scale-500">Cancel</div>
+              </div>
+            </div>
+
+            <!-- Scale 300 -->
+            <div>
+              <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-secondary);">Interaction 300 — Icon Buttons / Small</div>
+              <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+                <div class="scale-icon surface-fillColor scale-300">+</div>
+                <div class="scale-icon surface-fillNeutral scale-300">✕</div>
+                <div class="scale-icon surface-borderNeutral scale-300">→</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage / CSS Reference -->
+        <div class="usage-box">
+          <h3>Usage — Combining Surface + Scale Tokens</h3>
+          <pre>&lt;!-- A card with fillNeutral surface + scale-700 interaction --&gt;
+&lt;div class="surface-fillNeutral scale-700"&gt;
+  Card content
+&lt;/div&gt;
+
+&lt;!-- A button with fillColor surface + scale-500 interaction --&gt;
+&lt;button class="surface-fillColor scale-500"&gt;
+  Buy Tickets
+&lt;/button&gt;
+
+&lt;!-- An icon button with borderNeutral surface + scale-300 --&gt;
+&lt;button class="surface-borderNeutral scale-300"&gt;
+  +
+&lt;/button&gt;
+
+&lt;!-- Ghost surface (no fill) + card-size scale --&gt;
+&lt;div class="surface-ghost scale-700"&gt;
+  Clickable row
+&lt;/div&gt;</pre>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const html = document.documentElement;
+    document.getElementById('themeSelect').addEventListener('change', e => {
+      html.setAttribute('data-theme', e.target.value);
+    });
+    document.getElementById('modeSelect').addEventListener('change', e => {
+      html.setAttribute('data-mode', e.target.value);
+    });
+  </script>
+</body>
+</html>

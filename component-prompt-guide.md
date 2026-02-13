@@ -257,6 +257,7 @@ REQUIRED CSS LOAD ORDER:
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 VALIDATION CHECKLIST - Verify before delivering:
 - [ ] All title+subtitle combinations use .card-text-pair
@@ -267,6 +268,9 @@ VALIDATION CHECKLIST - Verify before delivering:
 - [ ] Works with data-theme="athletics" data-mode="dark"
 - [ ] No hardcoded px values for spacing or typography
 - [ ] Proper semantic HTML (h1, h2, h3)
+- [ ] Interactive elements use surface token classes (not custom :hover CSS)
+- [ ] Scale token matches component size (700=card, 500=button, 300=icon)
+- [ ] Surface and scale tokens are composed together on the same element
 
 OUTPUT:
 Provide complete HTML showing the component working with both themes.
@@ -290,15 +294,16 @@ Provide complete HTML showing the component working with both themes.
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
   
 <!-- Design System CSS Files (load in this exact order) -->
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>
 <body>
   <!-- Your component HTML -->
@@ -367,6 +372,16 @@ Choose the right container for your content:
 **Interactive:**
 - `--interactive-primary` - Primary buttons
 - `--interactive-primary-text` - Text on primary buttons
+
+**Interactive Surface Classes:**
+- Fill:    .surface-fillNeutral, .surface-fillColor, .surface-fillInverted, .surface-fillBlack, .surface-fillWhite
+- Border:  .surface-borderNeutral, .surface-borderInverted, .surface-borderBlack, .surface-borderWhite
+- Subtle:  .surface-washNeutral, .surface-ghost, .surface-card
+
+**Interactive Scale Classes:**
+- .scale-700 (cards, large components: hover 1.01, press 0.99)
+- .scale-500 (buttons, medium components: hover 1.025, press 0.975)
+- .scale-300 (icon buttons, small components: hover 1.035, press 0.965)
 
 **Status:**
 - `--status-success`, `--status-warning`, `--status-error`, `--status-info`

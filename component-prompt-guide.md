@@ -112,6 +112,12 @@
    - Test with `data-theme="wolves"` AND `data-theme="athletics"`
    - Test both `data-mode="light"` and `data-mode="dark"`
 
+6. **ALWAYS let surface token colors cascade to children — NEVER fight them with text-style classes**
+   - Surface tokens like `.surface-fillNeutral`, `.surface-fillColor`, `.surface-fillBlack`, etc. set their own `color` property for correct contrast
+   - Text style classes (`.labelBold30`, `.bodyRegular20`, etc.) also set `color: var(--text-primary)`, which OVERRIDES the surface token's color
+   - This causes invisible text (e.g. black text on a black button in dark mode)
+   - Fix: add `color: inherit` on children inside surface-colored containers
+   - This applies to ALL filled surfaces AND to any custom container that sets its own background + text color (e.g. code blocks)
 ---
 
 ## Text Pairs - Choose the Right Scale
@@ -222,6 +228,49 @@ Text pairs combine a label + sublabel at the correct sizing scale for your conte
 <h3 class="title50">Title</h3>
 ```
 
+### Wrong: Text Style Classes Override Surface Token Colors
+```html
+<!-- ❌ WRONG — .labelBold30 sets color: var(--text-primary), 
+     which overrides .surface-fillNeutral's color: var(--inverted-1000).
+     Result: invisible text in dark mode (white-on-white) or light mode (black-on-black) -->
+<div class="surface-fillNeutral scale-500">
+  <span class="labelBold30">Buy Tickets</span>
+</div>
+
+<!-- ❌ ALSO WRONG — same problem with custom dark containers like code blocks -->
+<pre style="background: var(--neutral-1000); color: var(--inverted-1000);">
+  <code class="bodyRegular20">Some code here</code>
+</pre>
+```
+
+### Right: Add `color: inherit` When Children Are Inside Colored Surfaces
+```html
+<!-- ✅ CORRECT — force children to inherit the surface token's color -->
+<style>
+  .surface-fillNeutral *,
+  .surface-fillColor *,
+  .surface-fillInverted *,
+  .surface-fillBlack *,
+  .surface-fillWhite * {
+    color: inherit;
+  }
+</style>
+
+<div class="surface-fillNeutral scale-500">
+  <span class="labelBold30">Buy Tickets</span>
+</div>
+
+<!-- ✅ CORRECT — same fix for custom dark containers -->
+<style>
+  .code-block * { color: inherit; }
+</style>
+<pre class="code-block">
+  <code class="bodyRegular20">Some code here</code>
+</pre>
+```
+
+**Why this happens:** Text style classes in `text-styles-system.css` set `color: var(--text-primary)` explicitly. Surface token classes in `interactive-tokens.css` also set `color` on the parent element. CSS specificity means the class on the child element wins, breaking contrast. The fix is a single `color: inherit` rule on children inside any surface that controls its own text color.
+
 ---
 
 ## Master Prompt Template
@@ -271,6 +320,7 @@ VALIDATION CHECKLIST - Verify before delivering:
 - [ ] Interactive elements use surface token classes (not custom :hover CSS)
 - [ ] Scale token matches component size (700=card, 500=button, 300=icon)
 - [ ] Surface and scale tokens are composed together on the same element
+- [ ] Children inside surface-fill* containers use `color: inherit` (text style classes override surface colors)
 
 OUTPUT:
 Provide complete HTML showing the component working with both themes.
@@ -383,6 +433,18 @@ Choose the right container for your content:
 - .scale-500 (buttons, medium components: hover 1.025, press 0.975)
 - .scale-300 (icon buttons, small components: hover 1.035, press 0.965)
 
+**⚠️ CRITICAL: Color Inheritance with Surface Tokens**
+Surface fill classes set their own `color` for correct contrast. Text style classes (`.labelBold30`, `.bodyRegular20`, etc.) will OVERRIDE this with `var(--text-primary)`, causing broken contrast. Always add `color: inherit` on child elements inside filled surfaces:
+```css
+.surface-fillNeutral *,
+.surface-fillColor *,
+.surface-fillInverted *,
+.surface-fillBlack *,
+.surface-fillWhite * {
+  color: inherit;
+}
+```
+
 **Status:**
 - `--status-success`, `--status-warning`, `--status-error`, `--status-info`
 
@@ -425,6 +487,9 @@ Choose the right container for your content:
 
 ### Buttons look different across themes?
 → Use `var(--button-border-radius)` instead of hardcoded border-radius
+
+### Text invisible on buttons or filled surfaces?
+→ Text style classes override surface token colors. Add `color: inherit` to children inside `.surface-fill*` containers. See Common Mistakes section for the full pattern.
 
 ---
 

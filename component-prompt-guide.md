@@ -248,16 +248,16 @@ COMPONENT SPECIFICATIONS:
 [Your specific requirements here]
 
 REQUIRED CSS LOAD ORDER:
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
-
 VALIDATION CHECKLIST - Verify before delivering:
 - [ ] All title+subtitle combinations use .card-text-pair
 - [ ] All text uses style classes (.title50, .bodyRegular30, etc.)
@@ -287,15 +287,16 @@ Provide complete HTML showing the component working with both themes.
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
   
-  <!-- Design System CSS Files (load in this exact order) -->
+<!-- Design System CSS Files (load in this exact order) -->
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>

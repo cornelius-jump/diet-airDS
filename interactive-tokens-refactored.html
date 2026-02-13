@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Surface & Scale Tokens</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS Files (correct load order) -->
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <style>
+    /* ============================================
+       MINIMAL CUSTOM STYLES
+       Only for demo-specific patterns not in the DS
+       ============================================ */
+
+    /* Sticky header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-default);
+      backdrop-filter: blur(var(--background-blur));
+      -webkit-backdrop-filter: blur(var(--background-blur));
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .controls {
+      display: flex;
+      gap: var(--spacing-100);
+      align-items: center;
+    }
+
+    /* Section divider */
+    .section + .section {
+      border-top: 1px solid var(--border-default);
+    }
+
+    /* Token grid — 4-col layout for the swatch table */
+    .token-grid {
+      display: grid;
+      grid-template-columns: 180px 1fr 1fr 1fr;
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-200);
+      overflow: hidden;
+    }
+
+    .token-grid-header {
+      display: contents;
+    }
+
+    .token-grid-header > div {
+      padding: var(--spacing-150) var(--spacing-200);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .token-row {
+      display: contents;
+    }
+
+    .token-row > div {
+      padding: var(--spacing-200);
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .token-row:last-child > div {
+      border-bottom: none;
+    }
+
+    .token-row > div:first-child {
+      justify-content: flex-start;
+    }
+
+    /* Swatch */
+    .swatch {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--border-radius-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background 120ms ease, border-color 120ms ease;
+    }
+
+    /* Checkerboard for transparent swatches */
+    .swatch-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--border-radius-200);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swatch-wrap.checkerboard {
+      background-image:
+        linear-gradient(45deg, var(--neutral-200) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--neutral-200) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--neutral-200) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--neutral-200) 75%);
+      background-size: 12px 12px;
+      background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+    }
+
+    .swatch-wrap .swatch {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* Scale grid — 4-col spec table */
+    .scale-grid {
+      display: grid;
+      grid-template-columns: 160px 1fr 1fr 1fr;
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-200);
+      overflow: hidden;
+    }
+
+    .scale-grid > div {
+      padding: var(--spacing-200);
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scale-grid > div:nth-child(-n+4) {
+      background: var(--bg-surface);
+    }
+
+    .scale-grid > div:nth-child(4n+1) {
+      justify-content: flex-start;
+    }
+
+    .scale-grid > div:last-child,
+    .scale-grid > div:nth-last-child(-n+4) {
+      border-bottom: none;
+    }
+
+    /* Scale demo shapes */
+    .scale-card-demo {
+      width: 120px;
+      height: 80px;
+      border-radius: var(--border-radius-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .scale-btn-demo {
+      padding: var(--spacing-150) var(--spacing-300);
+      border-radius: var(--button-border-radius);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .scale-icon-demo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Combo demo grid */
+    .combo-card {
+      padding: var(--spacing-300) var(--spacing-200);
+      border-radius: var(--border-radius-200);
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Usage code block */
+    .code-block {
+      background: var(--neutral-1000);
+      color: var(--inverted-1000);
+      padding: var(--spacing-200);
+      border-radius: var(--border-radius-100);
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Responsive: stack token grid on mobile */
+    @media (max-width: 499px) {
+      .token-grid {
+        grid-template-columns: 1fr;
+      }
+      .token-grid-header {
+        display: none;
+      }
+      .token-row > div:first-child {
+        justify-content: center;
+        background: var(--bg-surface);
+        min-height: auto;
+        padding: var(--spacing-150);
+      }
+      .scale-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       HEADER
+       ============================================ -->
+  <header class="site-header">
+    <div class="container-wide site-header-inner">
+      <h1 class="labelBold40">Interactive Tokens</h1>
+      <div class="controls">
+        <select id="themeSelect">
+          <option value="wolves">Wolves</option>
+          <option value="lynx">Lynx</option>
+          <option value="courage">Courage</option>
+          <option value="summit">Summit</option>
+          <option value="bucknell">Bucknell</option>
+          <option value="sounders">Sounders</option>
+          <option value="reign">Reign</option>
+          <option value="ncfc">NCFC</option>
+          <option value="jump">JUMP</option>
+          <option value="athletics">Athletics</option>
+        </select>
+        <select id="modeSelect">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================
+         SECTION 1: INTERACTIVE SURFACE TOKENS
+         ============================================ -->
+    <section class="section py-large">
+      <div class="container-wide">
+
+        <!-- Section Header — Text Pair 8000 -->
+        <div class="card-text-pair mb-400">
+          <h2 class="display500">Interactive Surface Tokens</h2>
+          <p class="labelRegular40 text-secondary">12 surface style tokens defining fill + border properties across Default, Hover, and Pressed states.</p>
+        </div>
+
+        <!-- Surface Token Grid -->
+        <div class="token-grid">
+          <div class="token-grid-header">
+            <div><span class="labelBold20 text-secondary text-uppercase">Token Name</span></div>
+            <div><span class="labelBold20 text-secondary text-uppercase">Default</span></div>
+            <div><span class="labelBold20 text-secondary text-uppercase">Hover</span></div>
+            <div><span class="labelBold20 text-secondary text-uppercase">Pressed</span></div>
+          </div>
+
+          <!-- Fill - Neutral -->
+          <div class="token-row">
+            <div><span class="labelBold30">Fill – Neutral</span></div>
+            <div><div class="swatch surface-fillNeutral" style="pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--inverted-200),var(--inverted-200)),linear-gradient(var(--neutral-1000),var(--neutral-1000));color:var(--inverted-1000);border:none;pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-500),var(--black-500)),linear-gradient(var(--neutral-1000),var(--neutral-1000));color:var(--inverted-1000);border:none;pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+
+          <!-- Fill - Color -->
+          <div class="token-row">
+            <div><span class="labelBold30">Fill – Color</span></div>
+            <div><div class="swatch surface-fillColor" style="pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--white-300),var(--white-300)),linear-gradient(var(--brand-core),var(--brand-core));color:var(--white-1000);border:none;pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--brand-core),var(--brand-core));color:var(--white-1000);border:none;pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+
+          <!-- Fill - Inverted -->
+          <div class="token-row">
+            <div><span class="labelBold30">Fill – Inverted</span></div>
+            <div><div class="swatch surface-fillInverted" style="pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--neutral-200),var(--neutral-200)),linear-gradient(var(--inverted-1000),var(--inverted-1000));color:var(--neutral-1000);border:none;pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-500),var(--black-500)),linear-gradient(var(--inverted-1000),var(--inverted-1000));color:var(--neutral-1000);border:none;pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+
+          <!-- Fill - Black -->
+          <div class="token-row">
+            <div><span class="labelBold30">Fill – Black</span></div>
+            <div><div class="swatch surface-fillBlack" style="pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--white-300),var(--white-300)),linear-gradient(var(--black-1000),var(--black-1000));color:var(--white-1000);border:none;pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:var(--black-1000);color:var(--white-1000);border:none;pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+
+          <!-- Fill - White -->
+          <div class="token-row">
+            <div><span class="labelBold30">Fill – White</span></div>
+            <div><div class="swatch surface-fillWhite" style="pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-200),var(--black-200)),linear-gradient(var(--white-1000),var(--white-1000));color:var(--black-1000);border:none;pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-500),var(--black-500)),linear-gradient(var(--white-1000),var(--white-1000));color:var(--black-1000);border:none;pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+
+          <!-- Border - Neutral -->
+          <div class="token-row">
+            <div><span class="labelBold30">Border – Neutral</span></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:var(--neutral-000);border:2px solid var(--neutral-300);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--neutral-100),var(--neutral-100)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--neutral-200);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--neutral-200);color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div></div>
+          </div>
+
+          <!-- Border - Inverted -->
+          <div class="token-row">
+            <div><span class="labelBold30">Border – Inverted</span></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:var(--neutral-000);border:2px solid var(--inverted-300);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--inverted-100),var(--inverted-100)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--inverted-200);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--inverted-200);color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div></div>
+          </div>
+
+          <!-- Border - Black -->
+          <div class="token-row">
+            <div><span class="labelBold30">Border – Black</span></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:var(--neutral-000);border:2px solid var(--black-300);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--black-100),var(--black-100)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--black-200);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--black-200);color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div></div>
+          </div>
+
+          <!-- Border - White -->
+          <div class="token-row">
+            <div><span class="labelBold30">Border – White</span></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:var(--neutral-000);border:2px solid var(--black-300);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--white-200),var(--white-200)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--white-200);color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--neutral-000),var(--neutral-000));border:2px solid var(--white-200);color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div></div>
+          </div>
+
+          <!-- Wash - Neutral -->
+          <div class="token-row">
+            <div><span class="labelBold30">Wash – Neutral</span></div>
+            <div><div class="swatch" style="background:var(--neutral-100);border:none;color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--neutral-100),var(--neutral-100)),linear-gradient(var(--neutral-100),var(--neutral-100));border:none;color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--neutral-100),var(--neutral-100));border:none;color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+
+          <!-- Ghost -->
+          <div class="token-row">
+            <div><span class="labelBold30">Ghost</span></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:var(--neutral-000);border:none;color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--neutral-100),var(--neutral-100)),linear-gradient(var(--neutral-000),var(--neutral-000));border:none;color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div></div>
+            <div><div class="swatch-wrap checkerboard"><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--neutral-000),var(--neutral-000));border:none;color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div></div>
+          </div>
+
+          <!-- Card (no sections) -->
+          <div class="token-row">
+            <div><span class="labelBold30">Card</span></div>
+            <div><div class="swatch surface-card" style="pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--white-100),var(--white-100)),linear-gradient(var(--org-surface),var(--org-surface));border:none;color:var(--text-primary);pointer-events:none;"><span class="labelBold40">Aa</span></div></div>
+            <div><div class="swatch" style="background:linear-gradient(var(--black-300),var(--black-300)),linear-gradient(var(--org-surface),var(--org-surface));border:none;color:var(--text-primary);pointer-events:none;opacity:0.6;"><span class="labelBold40">Aa</span></div></div>
+          </div>
+        </div>
+
+        <!-- Live Interactive Demo -->
+        <div class="mt-600">
+          <div class="card-text-pair mb-300">
+            <h3 class="title70">Live Interactive Demo</h3>
+            <p class="labelRegular30 text-secondary">Click and hover these elements to see surface tokens in action.</p>
+          </div>
+
+          <div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+            <div class="combo-card surface-fillNeutral scale-500"><span class="labelBold30">Fill Neutral</span><div class="labelRegular20 mt-100" style="opacity:0.7;">+ scale-500</div></div>
+            <div class="combo-card surface-fillColor scale-500"><span class="labelBold30">Fill Color</span><div class="labelRegular20 mt-100" style="opacity:0.7;">+ scale-500</div></div>
+            <div class="combo-card surface-fillInverted scale-700"><span class="labelBold30">Fill Inverted</span><div class="labelRegular20 mt-100" style="opacity:0.7;">+ scale-700</div></div>
+            <div class="combo-card surface-fillBlack scale-500"><span class="labelBold30">Fill Black</span><div class="labelRegular20 mt-100" style="opacity:0.7;">+ scale-500</div></div>
+            <div class="combo-card surface-fillWhite scale-500"><span class="labelBold30">Fill White</span><div class="labelRegular20 mt-100" style="opacity:0.7;">+ scale-500</div></div>
+            <div class="combo-card surface-borderNeutral scale-700"><span class="labelBold30">Border Neutral</span><div class="labelRegular20 mt-100 text-secondary">+ scale-700</div></div>
+            <div class="combo-card surface-washNeutral scale-700"><span class="labelBold30">Wash Neutral</span><div class="labelRegular20 mt-100 text-secondary">+ scale-700</div></div>
+            <div class="combo-card surface-ghost scale-300"><span class="labelBold30">Ghost</span><div class="labelRegular20 mt-100 text-secondary">+ scale-300</div></div>
+            <div class="combo-card surface-card scale-700"><span class="labelBold30">Card</span><div class="labelRegular20 mt-100 text-secondary">+ scale-700</div></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 2: INTERACTIVE SCALE TOKENS
+         ============================================ -->
+    <section class="section py-large">
+      <div class="container-wide">
+
+        <!-- Section Header — Text Pair 8000 -->
+        <div class="card-text-pair mb-400">
+          <h2 class="display500">Interactive Scale Tokens</h2>
+          <p class="labelRegular40 text-secondary">3 scale tokens for different component sizes. Components expand on hover and shrink on press.</p>
+        </div>
+
+        <!-- Scale Spec Grid -->
+        <div class="scale-grid">
+          <div><span class="labelBold20 text-secondary text-uppercase">Token</span></div>
+          <div><span class="labelBold20 text-secondary text-uppercase">Default</span></div>
+          <div><span class="labelBold20 text-secondary text-uppercase">Hover (Web)</span></div>
+          <div><span class="labelBold20 text-secondary text-uppercase">Pressed</span></div>
+
+          <div><span class="labelBold30">Interaction 700</span></div>
+          <div><code class="labelRegular20">scale(1)</code></div>
+          <div><code class="labelRegular20">scale(1.01)</code></div>
+          <div><code class="labelRegular20">scale(0.99)</code></div>
+
+          <div><span class="labelBold30">Interaction 500</span></div>
+          <div><code class="labelRegular20">scale(1)</code></div>
+          <div><code class="labelRegular20">scale(1.025)</code></div>
+          <div><code class="labelRegular20">scale(0.975)</code></div>
+
+          <div><span class="labelBold30">Interaction 300</span></div>
+          <div><code class="labelRegular20">scale(1)</code></div>
+          <div><code class="labelRegular20">scale(1.035)</code></div>
+          <div><code class="labelRegular20">scale(0.965)</code></div>
+        </div>
+
+        <!-- Live Scale Demo -->
+        <div class="mt-600">
+          <div class="card-text-pair mb-300">
+            <h3 class="title70">Live Scale Demo</h3>
+            <p class="labelRegular30 text-secondary">Hover and click to see scale behavior at each size.</p>
+          </div>
+
+          <div class="flex-column gap-400">
+
+            <!-- Scale 700 -->
+            <div>
+              <p class="labelBold30 text-secondary mb-200">Interaction 700 — Cards / Large Components</p>
+              <div class="flex-row gap-200" style="flex-wrap:wrap;">
+                <div class="scale-card-demo surface-fillColor scale-700"><span class="labelBold40">Card</span></div>
+                <div class="scale-card-demo surface-fillNeutral scale-700"><span class="labelBold40">Card</span></div>
+                <div class="scale-card-demo surface-card scale-700"><span class="labelBold40">Card</span></div>
+              </div>
+            </div>
+
+            <!-- Scale 500 -->
+            <div>
+              <p class="labelBold30 text-secondary mb-200">Interaction 500 — Buttons</p>
+              <div class="flex-row gap-200" style="flex-wrap:wrap;align-items:center;">
+                <div class="scale-btn-demo surface-fillColor scale-500"><span class="labelBold30">Buy Tickets</span></div>
+                <div class="scale-btn-demo surface-fillNeutral scale-500"><span class="labelBold30">Learn More</span></div>
+                <div class="scale-btn-demo surface-borderNeutral scale-500"><span class="labelBold30">Cancel</span></div>
+              </div>
+            </div>
+
+            <!-- Scale 300 -->
+            <div>
+              <p class="labelBold30 text-secondary mb-200">Interaction 300 — Icon Buttons / Small</p>
+              <div class="flex-row gap-200" style="flex-wrap:wrap;align-items:center;">
+                <div class="scale-icon-demo surface-fillColor scale-300"><span class="labelBold40">+</span></div>
+                <div class="scale-icon-demo surface-fillNeutral scale-300"><span class="labelBold40">✕</span></div>
+                <div class="scale-icon-demo surface-borderNeutral scale-300"><span class="labelBold40">→</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage Code Reference -->
+        <div class="card-closed mt-600">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h3 class="title50">Usage — Combining Surface + Scale Tokens</h3>
+              <p class="labelRegular20 text-secondary">Apply both classes to any interactive element</p>
+            </div>
+          </div>
+          <div class="card-closed-body">
+            <pre class="code-block"><code class="bodyRegular20">&lt;!-- Card: fillNeutral surface + scale-700 --&gt;
+&lt;div class="surface-fillNeutral scale-700"&gt;
+  Card content
+&lt;/div&gt;
+
+&lt;!-- Button: fillColor surface + scale-500 --&gt;
+&lt;button class="surface-fillColor scale-500"&gt;
+  Buy Tickets
+&lt;/button&gt;
+
+&lt;!-- Icon button: borderNeutral + scale-300 --&gt;
+&lt;button class="surface-borderNeutral scale-300"&gt;
+  +
+&lt;/button&gt;
+
+&lt;!-- Ghost surface + card-size scale --&gt;
+&lt;div class="surface-ghost scale-700"&gt;
+  Clickable row
+&lt;/div&gt;</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const html = document.documentElement;
+    document.getElementById('themeSelect').addEventListener('change', e => {
+      html.setAttribute('data-theme', e.target.value);
+    });
+    document.getElementById('modeSelect').addEventListener('change', e => {
+      html.setAttribute('data-mode', e.target.value);
+    });
+  </script>
+</body>
+</html>

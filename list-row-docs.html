@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>List Row Component</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS Files (correct load order) -->
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <!-- List Row Components -->
+  <link rel="stylesheet" href="list-row-components.css">
+
+  <style>
+    /* ============================================
+       MINIMAL CUSTOM STYLES — Demo only
+       ============================================ */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-default);
+      backdrop-filter: blur(var(--background-blur));
+      -webkit-backdrop-filter: blur(var(--background-blur));
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .controls {
+      display: flex;
+      gap: var(--spacing-100);
+      align-items: center;
+    }
+
+    .section + .section {
+      border-top: 1px solid var(--border-default);
+    }
+
+    /* Demo row container — adds padding and bottom border to simulate a list */
+    .demo-row-container {
+      padding: var(--spacing-150) var(--spacing-200);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .demo-row-container:last-child {
+      border-bottom: none;
+    }
+
+    /* Demo group card */
+    .demo-group {
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-200);
+      overflow: hidden;
+    }
+
+    .demo-group-header {
+      padding: var(--spacing-200);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    /* Code block */
+    .code-block {
+      background: var(--neutral-100);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-200);
+      overflow-x: auto;
+      white-space: pre;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    /* Placeholder images */
+    .placeholder-img {
+      background: linear-gradient(135deg, var(--neutral-300), var(--neutral-200));
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       STICKY HEADER WITH THEME/MODE SWITCHERS
+       ============================================ -->
+  <header class="site-header">
+    <div class="container-wide px-large site-header-inner">
+      <span class="title60">List Row Component</span>
+      <div class="controls">
+        <select id="themeSelect" class="labelBold20" style="padding: 6px 12px; border-radius: var(--border-radius-100); border: 1px solid var(--border-default); background: var(--bg-surface); color: var(--text-primary);">
+          <option value="wolves">Wolves</option>
+          <option value="lynx">Lynx</option>
+          <option value="courage">Courage</option>
+          <option value="summit">Summit</option>
+          <option value="bucknell">Bucknell</option>
+          <option value="sounders">Sounders</option>
+          <option value="reign">Reign</option>
+          <option value="ncfc">NCFC</option>
+          <option value="jump">Jump</option>
+          <option value="athletics">Athletics</option>
+        </select>
+        <select id="modeSelect" class="labelBold20" style="padding: 6px 12px; border-radius: var(--border-radius-100); border: 1px solid var(--border-default); background: var(--bg-surface); color: var(--text-primary);">
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================
+         SECTION 1: SUBCOMPONENTS
+         ============================================ -->
+    <section class="section py-large">
+      <div class="container-wide px-large">
+
+        <div class="card-text-pair mb-card">
+          <h1 class="title70">Subcomponents</h1>
+          <p class="bodyRegular30 text-secondary">The building blocks used inside the List Row.</p>
+        </div>
+
+        <!-- Status Dot -->
+        <div class="card-closed mb-card">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h2 class="title50">Status Dot</h2>
+              <p class="labelRegular20 text-secondary">8px indicator — unread (blue) vs read (grey)</p>
+            </div>
+          </div>
+          <div class="card-closed-body" style="display: flex; gap: var(--spacing-400); align-items: center;">
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="status-dot"></div>
+              <span class="labelRegular20 text-secondary">Unread</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="status-dot read"></div>
+              <span class="labelRegular20 text-secondary">Read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Block -->
+        <div class="card-closed mb-card">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h2 class="title50">Info Item + Info Block</h2>
+              <p class="labelRegular20 text-secondary">Icon + optional label. Only the last item in a block shows its label.</p>
+            </div>
+          </div>
+          <div class="card-closed-body" style="display: flex; flex-direction: column; gap: var(--spacing-300);">
+            <div>
+              <span class="labelRegular10 text-secondary mb-100" style="display: block;">1 Item</span>
+              <div class="info-block">
+                <div class="info-item has-label">
+                  <span class="icon icon-200">event_seat</span>
+                  <span class="labelRegular10">Sec 101</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span class="labelRegular10 text-secondary mb-100" style="display: block;">2 Items</span>
+              <div class="info-block">
+                <div class="info-item">
+                  <span class="icon icon-200">event_seat</span>
+                </div>
+                <div class="info-item has-label">
+                  <span class="icon icon-200">confirmation_number</span>
+                  <span class="labelRegular10">2 Tickets</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <span class="labelRegular10 text-secondary mb-100" style="display: block;">4 Items</span>
+              <div class="info-block">
+                <div class="info-item">
+                  <span class="icon icon-200">event_seat</span>
+                </div>
+                <div class="info-item">
+                  <span class="icon icon-200">confirmation_number</span>
+                </div>
+                <div class="info-item">
+                  <span class="icon icon-200">receipt</span>
+                </div>
+                <div class="info-item has-label">
+                  <span class="icon icon-200">auto_awesome</span>
+                  <span class="labelRegular10">Premium</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="card-closed mb-card">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h2 class="title50">Tag + Tag Group</h2>
+              <p class="labelRegular20 text-secondary">Pill labels with optional icon and team color variant.</p>
+            </div>
+          </div>
+          <div class="card-closed-body" style="display: flex; flex-direction: column; gap: var(--spacing-300);">
+            <div style="display: flex; gap: var(--spacing-200); flex-wrap: wrap; align-items: center;">
+              <div class="tag"><span class="labelBold20">Default</span></div>
+              <div class="tag tag-team-color"><span class="labelBold20">Team Color</span></div>
+              <div class="tag tag-icon-leading">
+                <span class="icon icon-200">flag</span>
+                <span class="labelBold20">Leading Icon</span>
+              </div>
+              <div class="tag tag-icon-trailing">
+                <span class="labelBold20">Trailing Icon</span>
+                <span class="icon icon-200">flag</span>
+              </div>
+              <div class="tag tag-team-color tag-icon-leading">
+                <span class="icon icon-200">flag</span>
+                <span class="labelBold20">Team + Icon</span>
+              </div>
+            </div>
+            <div>
+              <span class="labelRegular10 text-secondary mb-100" style="display: block;">Tag Group (2)</span>
+              <div class="tag-group">
+                <div class="tag"><span class="labelBold20">General</span></div>
+                <div class="tag"><span class="labelBold20">VIP</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Switch -->
+        <div class="card-closed mb-card">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h2 class="title50">Switch (Web)</h2>
+              <p class="labelRegular20 text-secondary">iOS-style toggle using native checkbox. States via HTML attributes.</p>
+            </div>
+          </div>
+          <div class="card-closed-body" style="display: flex; gap: var(--spacing-400); align-items: center; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="switch">
+                <input type="checkbox" id="demo-switch-off">
+                <label for="demo-switch-off"></label>
+              </div>
+              <span class="labelRegular20 text-secondary">Off</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="switch">
+                <input type="checkbox" id="demo-switch-on" checked>
+                <label for="demo-switch-on"></label>
+              </div>
+              <span class="labelRegular20 text-secondary">On</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="switch">
+                <input type="checkbox" id="demo-switch-dis-off" disabled>
+                <label for="demo-switch-dis-off"></label>
+              </div>
+              <span class="labelRegular20 text-secondary">Disabled Off</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="switch">
+                <input type="checkbox" id="demo-switch-dis-on" checked disabled>
+                <label for="demo-switch-dis-on"></label>
+              </div>
+              <span class="labelRegular20 text-secondary">Disabled On</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stepper -->
+        <div class="card-closed mb-card">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h2 class="title50">Stepper (Web)</h2>
+              <p class="labelRegular20 text-secondary">Quantity selector with circle buttons. Min/max states disable the relevant button.</p>
+            </div>
+          </div>
+          <div class="card-closed-body" style="display: flex; gap: var(--spacing-400); align-items: center; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-100); align-items: center;">
+              <span class="labelRegular10 text-secondary">Min Value</span>
+              <div class="stepper">
+                <button class="stepper-btn disabled"><span class="icon icon-200">remove</span></button>
+                <span class="stepper-count labelBold50">0</span>
+                <button class="stepper-btn"><span class="icon icon-200">add</span></button>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-100); align-items: center;">
+              <span class="labelRegular10 text-secondary">Default</span>
+              <div class="stepper">
+                <button class="stepper-btn"><span class="icon icon-200">remove</span></button>
+                <span class="stepper-count labelBold50">2</span>
+                <button class="stepper-btn"><span class="icon icon-200">add</span></button>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--spacing-100); align-items: center;">
+              <span class="labelRegular10 text-secondary">Max Value</span>
+              <div class="stepper">
+                <button class="stepper-btn"><span class="icon icon-200">remove</span></button>
+                <span class="stepper-count labelBold50">20</span>
+                <button class="stepper-btn disabled"><span class="icon icon-200">add</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Select Box -->
+        <div class="card-closed mb-card">
+          <div class="card-closed-header">
+            <div class="card-text-pair">
+              <h2 class="title50">Select Box</h2>
+              <p class="labelRegular20 text-secondary">28px checkbox for multi-select / edit modes.</p>
+            </div>
+          </div>
+          <div class="card-closed-body" style="display: flex; gap: var(--spacing-400); align-items: center;">
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="select-box"></div>
+              <span class="labelRegular20 text-secondary">Default</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-150);">
+              <div class="select-box" style="background: var(--neutral-200);"></div>
+              <span class="labelRegular20 text-secondary">Disabled</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 2: LEADING VARIANTS
+         ============================================ -->
+    <section class="section py-large">
+      <div class="container-wide px-large">
+
+        <div class="card-text-pair mb-card">
+          <h1 class="title70">Leading Variants</h1>
+          <p class="bodyRegular30 text-secondary">Left-side slot options. Each shows the leading component inside a sample row.</p>
+        </div>
+
+        <div class="demo-group mb-card">
+          <div class="demo-group-header">
+            <span class="labelBold20 text-secondary">Leading Component → Row Preview</span>
+          </div>
+
+          <!-- Icon -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Icon</span>
+                  <span class="labelRegular10 text-secondary">24px Material icon</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Circle Icon -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <div class="circle-container">
+                  <span class="icon icon-200">star</span>
+                </div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Circle Icon</span>
+                  <span class="labelRegular10 text-secondary">24px icon in 40px neutral circle</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Icon + Circle Icon -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md" style="gap: 12px;">
+                <span class="icon icon-200">star</span>
+                <div class="circle-container">
+                  <span class="icon icon-200">star</span>
+                </div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Icon + Circle Icon</span>
+                  <span class="labelRegular10 text-secondary">Icon and circle icon with 12px gap</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Dot -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <div class="status-dot"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Status Dot</span>
+                  <span class="labelRegular10 text-secondary">8px unread indicator</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Logo -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-sm">
+                <div class="leading-logo placeholder-img" style="border-radius: var(--border-radius-50);"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Logo</span>
+                  <span class="labelRegular10 text-secondary">48×48 team logo</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Square Image -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-lg">
+                <div class="leading-image-square placeholder-img"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Square Image</span>
+                  <span class="labelRegular10 text-secondary">80×80, 8px radius</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Small Image -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-lg">
+                <div class="leading-image-small placeholder-img"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Small Image</span>
+                  <span class="labelRegular10 text-secondary">136×80, 8px radius</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Large Image -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-xl">
+                <div class="leading-image-large placeholder-img"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Large Image (Web Only)</span>
+                  <span class="labelRegular10 text-secondary">244×124, 8px radius</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Circle Letter -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <div class="circle-container">
+                  <span class="display100">A</span>
+                </div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Circle Letter</span>
+                  <span class="labelRegular10 text-secondary">Display letter in 40px circle</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Select -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <div class="select-box"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Select</span>
+                  <span class="labelRegular10 text-secondary">28px checkbox for multi-select mode</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <div class="leading-payment placeholder-img" style="border-radius: 3px;"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Leading: Payment</span>
+                  <span class="labelRegular10 text-secondary">33×24 payment card icon</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 3: TRAILING VARIANTS
+         ============================================ -->
+    <section class="section py-large">
+      <div class="container-wide px-large">
+
+        <div class="card-text-pair mb-card">
+          <h1 class="title70">Trailing Variants</h1>
+          <p class="bodyRegular30 text-secondary">Right-side slot options.</p>
+        </div>
+
+        <div class="demo-group mb-card">
+          <div class="demo-group-header">
+            <span class="labelBold20 text-secondary">Trailing Component → Row Preview</span>
+          </div>
+
+          <!-- 1 Icon -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: 1 Icon</span>
+                  <span class="labelRegular10 text-secondary">Chevron, disclosure indicator</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2 Icon -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: 2 Icon</span>
+                  <span class="labelRegular10 text-secondary">Circle button + chevron</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs" style="gap: 8px;">
+                <button class="stepper-btn" style="width: 40px; height: 40px;">
+                  <span class="icon icon-200">add</span>
+                </button>
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: Button</span>
+                  <span class="labelRegular10 text-secondary">Size 100 button from button system</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-lg">
+                <button class="btn btn-100 btn-primary">Label</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Link (Chip) -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: Text Link</span>
+                  <span class="labelRegular10 text-secondary">Borderless text action (chip)</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-md">
+                <span class="trailing-text-link labelBold20">Label</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Pair -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: Text Pair</span>
+                  <span class="labelRegular10 text-secondary">Right-aligned label + sublabel</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-sm">
+                <div class="trailing-text-pair">
+                  <span class="labelBold20">$42.00</span>
+                  <span class="labelRegular10 text-secondary">per ticket</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Switch -->
+          <div class="demo-row-container">
+            <div class="list-row not-tappable">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">notifications</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: Switch</span>
+                  <span class="labelRegular10 text-secondary">iOS-style toggle</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-md">
+                <div class="switch">
+                  <input type="checkbox" id="demo-trailing-switch" checked>
+                  <label for="demo-trailing-switch"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Select -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">star</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: Select</span>
+                  <span class="labelRegular10 text-secondary">Checkbox for multi-select</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-md">
+                <div class="select-box"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stepper -->
+          <div class="demo-row-container">
+            <div class="list-row not-tappable">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">local_activity</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Trailing: Stepper</span>
+                  <span class="labelRegular10 text-secondary">Quantity selector</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-md">
+                <div class="stepper">
+                  <button class="stepper-btn"><span class="icon icon-200">remove</span></button>
+                  <span class="stepper-count labelBold50">2</span>
+                  <button class="stepper-btn"><span class="icon icon-200">add</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 4: FULL COMPOSITION EXAMPLES
+         ============================================ -->
+    <section class="section py-large">
+      <div class="container-wide px-large">
+
+        <div class="card-text-pair mb-card">
+          <h1 class="title70">Full Composition Examples</h1>
+          <p class="bodyRegular30 text-secondary">Realistic rows showing how all pieces compose together.</p>
+        </div>
+
+        <div class="demo-group mb-card">
+          <div class="demo-group-header">
+            <span class="labelBold20 text-secondary">Realistic Row Examples</span>
+          </div>
+
+          <!-- Event ticket row -->
+          <div class="demo-row-container">
+            <div class="list-row surface-ghost">
+              <div class="leading leading-gap-lg">
+                <div class="leading-image-square placeholder-img"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Wolves vs Lakers</span>
+                  <span class="labelRegular10 text-secondary">Fri, Mar 14 · 7:00 PM</span>
+                </div>
+                <div class="tag-group">
+                  <div class="tag"><span class="labelBold20">Section 101</span></div>
+                  <div class="tag"><span class="labelBold20">Row A</span></div>
+                </div>
+                <div class="info-block">
+                  <div class="info-item">
+                    <span class="icon icon-200">event_seat</span>
+                  </div>
+                  <div class="info-item has-label">
+                    <span class="icon icon-200">confirmation_number</span>
+                    <span class="labelRegular10">2 Tickets</span>
+                  </div>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings toggle row -->
+          <div class="demo-row-container">
+            <div class="list-row not-tappable">
+              <div class="leading leading-gap-md">
+                <div class="circle-container">
+                  <span class="icon icon-200">notifications</span>
+                </div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Push Notifications</span>
+                  <span class="labelRegular10 text-secondary">Get alerts for upcoming events</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-md">
+                <div class="switch">
+                  <input type="checkbox" id="demo-notif-switch" checked>
+                  <label for="demo-notif-switch"></label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment method row -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <div class="leading-payment placeholder-img" style="border-radius: 3px;"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Visa ····4242</span>
+                  <span class="labelRegular10 text-secondary">Expires 12/27</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Concession order row with stepper -->
+          <div class="demo-row-container">
+            <div class="list-row not-tappable">
+              <div class="leading leading-gap-lg">
+                <div class="leading-image-square placeholder-img"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Classic Burger</span>
+                  <span class="labelRegular10 text-secondary">$12.50</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-md">
+                <div class="stepper">
+                  <button class="stepper-btn"><span class="icon icon-200">remove</span></button>
+                  <span class="stepper-count labelBold50">1</span>
+                  <button class="stepper-btn"><span class="icon icon-200">add</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simple navigation row -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-md">
+                <span class="icon icon-200">person</span>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Account Settings</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-xs">
+                <span class="icon icon-200">chevron_right</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row with trailing text pair -->
+          <div class="demo-row-container">
+            <div class="list-row">
+              <div class="leading leading-gap-sm">
+                <div class="leading-logo placeholder-img" style="border-radius: var(--border-radius-50);"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Upgrade to Courtside</span>
+                  <span class="labelRegular10 text-secondary">Section A, Row 1</span>
+                </div>
+              </div>
+              <div class="trailing trailing-gap-sm">
+                <div class="trailing-text-pair">
+                  <span class="labelBold20">$250.00</span>
+                  <span class="labelRegular10 text-secondary">per seat</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Disabled row -->
+          <div class="demo-row-container">
+            <div class="list-row disabled">
+              <div class="leading leading-gap-md">
+                <div class="select-box"></div>
+              </div>
+              <div class="list-row-content">
+                <div class="list-row-text-pair">
+                  <span class="labelBold30">Disabled Row</span>
+                  <span class="labelRegular10 text-secondary">30% opacity, no interaction</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const html = document.documentElement;
+    document.getElementById('themeSelect').addEventListener('change', e => {
+      html.setAttribute('data-theme', e.target.value);
+    });
+    document.getElementById('modeSelect').addEventListener('change', e => {
+      html.setAttribute('data-mode', e.target.value);
+    });
+  </script>
+</body>
+</html>

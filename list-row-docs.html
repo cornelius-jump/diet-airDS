@@ -316,7 +316,7 @@
             </div>
             <div style="display: flex; flex-direction: column; gap: var(--spacing-100); align-items: center;">
               <span class="labelRegular10 text-secondary">Max Value</span>
-              <div class="stepper">
+              <div class="stepper" data-min="0" data-max="20">
                 <button class="stepper-btn"><span class="icon icon-200">remove</span></button>
                 <span class="stepper-count labelBold50">20</span>
                 <button class="stepper-btn disabled"><span class="icon icon-200">add</span></button>
@@ -926,6 +926,26 @@
     });
     document.getElementById('modeSelect').addEventListener('change', e => {
       html.setAttribute('data-mode', e.target.value);
+    });
+
+    // Stepper functionality
+    document.querySelectorAll('.stepper').forEach(stepper => {
+      const minus = stepper.querySelector('.stepper-btn:first-child');
+      const plus = stepper.querySelector('.stepper-btn:last-child');
+      const count = stepper.querySelector('.stepper-count');
+      const min = parseInt(stepper.dataset.min ?? 0);
+      const max = parseInt(stepper.dataset.max ?? 99);
+
+      function update(val) {
+        val = Math.max(min, Math.min(max, val));
+        count.textContent = val;
+        minus.classList.toggle('disabled', val <= min);
+        plus.classList.toggle('disabled', val >= max);
+      }
+
+      minus.addEventListener('click', () => update(parseInt(count.textContent) - 1));
+      plus.addEventListener('click', () => update(parseInt(count.textContent) + 1));
+      update(parseInt(count.textContent));
     });
   </script>
 </body>

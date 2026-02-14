@@ -51,7 +51,7 @@ A lightweight experimental version of AirDS created for prompting Claude Code an
 Build this using the JUMP design system:
 https://diet-air-ds.vercel.app/component-prompt-guide.md
 
-Use data-theme="wolves" and data-mode="light"
+Use data-theme="wolves" and data-mode="dark"
 
 [Describe what you want to build]
 

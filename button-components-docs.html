@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Components — JUMP Design System</title>
+
+  <!-- Design System CSS Files (in correct load order) -->
+  <link rel="stylesheet" href="design-tokens-master.css">
+  <link rel="stylesheet" href="spacing-tokens.css">
+  <link rel="stylesheet" href="container-tokens.css">
+  <link rel="stylesheet" href="border-effects-tokens.css">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="text-styles-system.css">
+  <link rel="stylesheet" href="interactive-tokens.css">
+  <link rel="stylesheet" href="card-components.css">
+  <link rel="stylesheet" href="boilerplate.css">
+  
+  <!-- Button Components -->
+  <link rel="stylesheet" href="button-components.css">
+
+  <style>
+    /* ============================================
+       DOCUMENTATION PAGE STYLES
+       ============================================ */
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    /* Page header */
+    .doc-header {
+      background: var(--bg-nav);
+      backdrop-filter: blur(var(--background-blur));
+      border-bottom: var(--border-weight-50) solid var(--border-default);
+      padding: var(--spacing-300) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .doc-header-inner {
+      max-width: var(--container-wide);
+      margin: 0 auto;
+      padding: 0 var(--spacing-400);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .doc-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+    }
+    .doc-controls select,
+    .doc-controls button {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: var(--border-radius-50);
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    /* Section containers */
+    .doc-section {
+      max-width: var(--container-wide);
+      margin: 0 auto;
+      padding: var(--spacing-600) var(--spacing-400);
+    }
+    .doc-section + .doc-section {
+      border-top: var(--border-weight-50) solid var(--border-default);
+    }
+
+    /* Section titles */
+    .section-label {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: var(--border-radius-50);
+      background: var(--neutral-100);
+      margin-bottom: var(--spacing-150);
+    }
+
+    /* Demo grids */
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-300);
+      margin-bottom: var(--spacing-300);
+      flex-wrap: wrap;
+    }
+    .demo-row-label {
+      width: 100px;
+      flex-shrink: 0;
+    }
+
+    /* Type cards */
+    .type-card {
+      background: var(--bg-surface);
+      border: var(--border-weight-50) solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-400);
+      margin-bottom: var(--spacing-300);
+    }
+    .type-card-header {
+      display: flex;
+      align-items: baseline;
+      gap: var(--spacing-200);
+      margin-bottom: var(--spacing-300);
+      padding-bottom: var(--spacing-200);
+      border-bottom: var(--border-weight-50) solid var(--border-default);
+    }
+    .type-card-demo {
+      background: var(--bg-base);
+      border-radius: var(--border-radius-50);
+      padding: var(--spacing-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-300);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-300);
+    }
+    .type-card-demo-dark {
+      background: var(--neutral-1000);
+      border-radius: var(--border-radius-50);
+      padding: var(--spacing-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-300);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-300);
+    }
+
+    /* States grid */
+    .states-grid {
+      display: grid;
+      grid-template-columns: 100px repeat(3, 1fr);
+      gap: var(--spacing-200);
+      align-items: center;
+    }
+    .states-grid-header {
+      text-align: center;
+    }
+    .states-grid-cell {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Sizing table */
+    .sizing-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .sizing-table th,
+    .sizing-table td {
+      padding: var(--spacing-150) var(--spacing-200);
+      text-align: left;
+      border-bottom: var(--border-weight-50) solid var(--border-default);
+    }
+    .sizing-table th {
+      font-weight: 600;
+    }
+
+    /* Code blocks */
+    .code-block {
+      background: var(--neutral-100);
+      border-radius: var(--border-radius-50);
+      padding: var(--spacing-200) var(--spacing-300);
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+      color: var(--text-primary);
+      margin-top: var(--spacing-200);
+    }
+
+    /* Team showcase grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--spacing-300);
+    }
+    .team-card {
+      border: var(--border-weight-50) solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      overflow: hidden;
+    }
+    .team-card-header {
+      padding: var(--spacing-200) var(--spacing-300);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 12px;
+    }
+    .team-card-body {
+      padding: var(--spacing-300);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-150);
+    }
+    .team-card-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-100);
+    }
+
+    /* Circle button demo area */
+    .circle-demo-grid {
+      display: grid;
+      grid-template-columns: auto repeat(6, 1fr);
+      gap: var(--spacing-200);
+      align-items: center;
+    }
+    .circle-demo-cell {
+      display: flex;
+      justify-content: center;
+    }
+    .circle-demo-inverted,
+    .circle-demo-white {
+      background: var(--neutral-700);
+      border-radius: var(--border-radius-50);
+      padding: var(--spacing-200);
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Inline SVG icon for demos */
+    .icon-star { display: inline-flex; }
+    .icon-arrow { display: inline-flex; }
+    .icon-plus { display: inline-flex; }
+    .icon-trash { display: inline-flex; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .doc-header-inner { flex-direction: column; gap: var(--spacing-200); }
+      .states-grid { grid-template-columns: 80px repeat(3, 1fr); }
+      .team-grid { grid-template-columns: 1fr; }
+      .circle-demo-grid { grid-template-columns: auto repeat(3, 1fr); font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       HEADER WITH THEME/MODE CONTROLS
+       ============================================ -->
+  <header class="doc-header">
+    <div class="doc-header-inner">
+      <h1 class="title70">Button Components</h1>
+      <div class="doc-controls">
+        <select id="theme-select" onchange="changeTheme(this.value)">
+          <option value="wolves">Wolves</option>
+          <option value="lynx">Lynx</option>
+          <option value="courage">Courage</option>
+          <option value="summit">Summit</option>
+          <option value="bucknell">Bucknell</option>
+          <option value="sounders">Sounders</option>
+          <option value="reign">Reign</option>
+          <option value="ncfc">NCFC</option>
+          <option value="jump">Jump</option>
+          <option value="athletics">Athletics</option>
+        </select>
+        <button onclick="toggleMode()" id="mode-toggle">☼ Light</button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ============================================
+       SECTION 1: BUTTON TYPES OVERVIEW
+       ============================================ -->
+  <section class="doc-section">
+    <span class="section-label labelBold20">Overview</span>
+    <h2 class="title70 mb-200">Button Types</h2>
+    <p class="bodyRegular30 text-secondary mb-400">Eight button types organized by visual hierarchy and intent. Each type supports three sizes, icon placement, and full-width modes. White and White Tertiary are specifically designed for use on dark or brand-colored surfaces.</p>
+
+    <!-- Transactional -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">Transactional</h3>
+        <span class="labelRegular30 text-secondary">Revenue &amp; conversion actions</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for actions that directly drive revenue or conversion: Buy Tickets, Purchase, Add to Cart, Subscribe. This is the highest-emphasis button. Should be used sparingly — typically only one per view for the primary conversion action.</p>
+      <div class="type-card-demo">
+        <button class="btn btn-transactional btn-700">Buy Tickets</button>
+        <button class="btn btn-transactional btn-300 btn-icon-leading">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Buy Tickets</span>
+        </button>
+        <button class="btn btn-transactional btn-100">Purchase</button>
+      </div>
+      <div class="code-block">&lt;button class="btn btn-transactional btn-700"&gt;Buy Tickets&lt;/button&gt;
+&lt;button class="btn btn-transactional btn-300 btn-icon-leading"&gt;
+  &lt;svg class="btn-icon"&gt;...&lt;/svg&gt;
+  &lt;span&gt;Buy Tickets&lt;/span&gt;
+&lt;/button&gt;</div>
+    </div>
+
+    <!-- Primary -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">Primary</h3>
+        <span class="labelRegular30 text-secondary">Main page actions</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for the primary action on a page or within a context: Submit, Save, Confirm, Continue. Uses the team's brand-interactive color. Limit to one primary button per view section to maintain hierarchy.</p>
+      <div class="type-card-demo">
+        <button class="btn btn-primary btn-700">Continue</button>
+        <button class="btn btn-primary btn-300">Save</button>
+        <button class="btn btn-primary btn-100">Submit</button>
+      </div>
+      <div class="code-block">&lt;button class="btn btn-primary btn-300"&gt;Save&lt;/button&gt;</div>
+    </div>
+
+    <!-- Neutral -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">Neutral</h3>
+        <span class="labelRegular30 text-secondary">High-contrast, non-branded</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for high-contrast actions that should not carry brand emphasis. Uses neutral-1000 (black in light mode, white in dark mode). Good for sign-up flows, modals, or areas where brand color competes with content.</p>
+      <div class="type-card-demo">
+        <button class="btn btn-neutral btn-700">Sign Up</button>
+        <button class="btn btn-neutral btn-300">Learn More</button>
+        <button class="btn btn-neutral btn-100">Details</button>
+      </div>
+      <div class="code-block">&lt;button class="btn btn-neutral btn-300"&gt;Learn More&lt;/button&gt;</div>
+    </div>
+
+    <!-- Secondary -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">Secondary</h3>
+        <span class="labelRegular30 text-secondary">Outlined supporting actions</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use alongside primary buttons for supporting actions: Cancel, Back, View Details. The outlined style communicates lower emphasis than filled buttons while remaining clearly interactive.</p>
+      <div class="type-card-demo">
+        <button class="btn btn-secondary btn-700">Cancel</button>
+        <button class="btn btn-secondary btn-300">Back</button>
+        <button class="btn btn-secondary btn-100">View Details</button>
+      </div>
+      <div class="code-block">&lt;button class="btn btn-secondary btn-300"&gt;Cancel&lt;/button&gt;</div>
+    </div>
+
+    <!-- Tertiary -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">Tertiary</h3>
+        <span class="labelRegular30 text-secondary">Low-emphasis text actions</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for low-emphasis actions within content: links in context, optional actions, "Skip" or "Not now" options. No fill or border in default state — appears as styled text that gains a background on hover.</p>
+      <div class="type-card-demo">
+        <button class="btn btn-tertiary btn-700">Skip</button>
+        <button class="btn btn-tertiary btn-300 btn-icon-trailing">
+          <span>View All</span>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+        </button>
+        <button class="btn btn-tertiary btn-100">Not Now</button>
+      </div>
+      <div class="code-block">&lt;button class="btn btn-tertiary btn-300 btn-icon-trailing"&gt;
+  &lt;span&gt;View All&lt;/span&gt;
+  &lt;svg class="btn-icon"&gt;...&lt;/svg&gt;
+&lt;/button&gt;</div>
+    </div>
+
+    <!-- Destructive -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">Destructive</h3>
+        <span class="labelRegular30 text-secondary">Irreversible &amp; dangerous actions</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for actions that are permanent or dangerous: Delete, Remove, Revoke Access. The red fill signals caution. Always pair with a confirmation dialog for irreversible actions.</p>
+      <div class="type-card-demo">
+        <button class="btn btn-destructive btn-700">Delete Account</button>
+        <button class="btn btn-destructive btn-300 btn-icon-leading">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+          <span>Remove</span>
+        </button>
+        <button class="btn btn-destructive btn-100">Delete</button>
+      </div>
+      <div class="code-block">&lt;button class="btn btn-destructive btn-300"&gt;Delete&lt;/button&gt;</div>
+    </div>
+
+    <!-- White -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">White</h3>
+        <span class="labelRegular30 text-secondary">CTA on dark &amp; brand surfaces</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for high-contrast CTAs placed on dark backgrounds, brand-colored hero sections, or image overlays. Fill: white1000, Text: black1000. Uses the fillWhite interactive surface for hover/pressed states.</p>
+      <div class="type-card-demo-dark">
+        <button class="btn btn-white btn-700">Get Started</button>
+        <button class="btn btn-white btn-300 btn-icon-leading">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Buy Tickets</span>
+        </button>
+        <button class="btn btn-white btn-100">Details</button>
+      </div>
+      <div class="code-block">&lt;!-- Use on dark/brand backgrounds --&gt;
+&lt;div style="background: var(--brand-core);"&gt;
+  &lt;button class="btn btn-white btn-300"&gt;Get Started&lt;/button&gt;
+&lt;/div&gt;</div>
+    </div>
+
+    <!-- White Tertiary -->
+    <div class="type-card">
+      <div class="type-card-header">
+        <h3 class="title60">White Tertiary</h3>
+        <span class="labelRegular30 text-secondary">Low-emphasis on dark surfaces</span>
+      </div>
+      <p class="bodyRegular30 text-secondary mb-300">Use for low-emphasis actions on dark or brand-colored surfaces: secondary links, "Learn More", "Skip" on dark backgrounds. Transparent fill with white text, gains a subtle background on hover. Uses the ghost interactive surface.</p>
+      <div class="type-card-demo-dark">
+        <button class="btn btn-white-tertiary btn-700">Skip</button>
+        <button class="btn btn-white-tertiary btn-300 btn-icon-trailing">
+          <span>Learn More</span>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+        </button>
+        <button class="btn btn-white-tertiary btn-100">Not Now</button>
+      </div>
+      <div class="code-block">&lt;!-- Use on dark/brand backgrounds --&gt;
+&lt;div style="background: var(--brand-core);"&gt;
+  &lt;button class="btn btn-white-tertiary btn-300"&gt;Learn More&lt;/button&gt;
+&lt;/div&gt;</div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SECTION 2: SIZING & PADDING
+       ============================================ -->
+  <section class="doc-section">
+    <span class="section-label labelBold20">Specifications</span>
+    <h2 class="title70 mb-200">Sizing &amp; Padding</h2>
+    <p class="bodyRegular30 text-secondary mb-400">Three sizes with padding that adjusts based on icon placement to maintain optical balance.</p>
+
+    <table class="sizing-table mb-400">
+      <thead>
+        <tr>
+          <th class="labelBold30">Size</th>
+          <th class="labelBold30">Height</th>
+          <th class="labelBold30">Padding (no icon)</th>
+          <th class="labelBold30">Padding (icon side)</th>
+          <th class="labelBold30">Text Style</th>
+          <th class="labelBold30">Icon Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="bodyRegular30">700 (Large)</td>
+          <td class="bodyRegular30">56px</td>
+          <td class="bodyRegular30">32px</td>
+          <td class="bodyRegular30">28px</td>
+          <td class="bodyRegular30">labelBold40 (18px)</td>
+          <td class="bodyRegular30">24px</td>
+        </tr>
+        <tr>
+          <td class="bodyRegular30">300 (Small)</td>
+          <td class="bodyRegular30">40px</td>
+          <td class="bodyRegular30">24px</td>
+          <td class="bodyRegular30">20px</td>
+          <td class="bodyRegular30">labelBold30 (16px)</td>
+          <td class="bodyRegular30">20px</td>
+        </tr>
+        <tr>
+          <td class="bodyRegular30">100 (X-Small)</td>
+          <td class="bodyRegular30">32px</td>
+          <td class="bodyRegular30">16px</td>
+          <td class="bodyRegular30">14px</td>
+          <td class="bodyRegular30">labelBold20 (14px)</td>
+          <td class="bodyRegular30">16px</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Size comparison demo -->
+    <h3 class="title50 mb-200">Width: Hug Content</h3>
+    <div class="demo-row mb-400">
+      <span class="demo-row-label labelBold20">700</span>
+      <button class="btn btn-transactional btn-700">Label</button>
+      <button class="btn btn-transactional btn-700 btn-icon-leading">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <span>Label</span>
+      </button>
+      <button class="btn btn-transactional btn-700 btn-icon-trailing">
+        <span>Label</span>
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      </button>
+    </div>
+    <div class="demo-row mb-400">
+      <span class="demo-row-label labelBold20">300</span>
+      <button class="btn btn-transactional btn-300">Label</button>
+      <button class="btn btn-transactional btn-300 btn-icon-leading">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <span>Label</span>
+      </button>
+      <button class="btn btn-transactional btn-300 btn-icon-trailing">
+        <span>Label</span>
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      </button>
+    </div>
+    <div class="demo-row mb-400">
+      <span class="demo-row-label labelBold20">100</span>
+      <button class="btn btn-transactional btn-100">Label</button>
+      <button class="btn btn-transactional btn-100 btn-icon-leading">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <span>Label</span>
+      </button>
+      <button class="btn btn-transactional btn-100 btn-icon-trailing">
+        <span>Label</span>
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      </button>
+    </div>
+
+    <h3 class="title50 mb-200">Width: Fill Parent</h3>
+    <div style="max-width: 320px;">
+      <div class="mb-200"><button class="btn btn-transactional btn-700 btn-fill">Label</button></div>
+      <div class="mb-200"><button class="btn btn-transactional btn-300 btn-fill">Label</button></div>
+      <div class="mb-200"><button class="btn btn-transactional btn-100 btn-fill">Label</button></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SECTION 3: INTERACTIVE STATES
+       ============================================ -->
+  <section class="doc-section">
+    <span class="section-label labelBold20">Interaction</span>
+    <h2 class="title70 mb-200">States</h2>
+    <p class="bodyRegular30 text-secondary mb-200">All buttons use <strong>Interaction Scale 500</strong> (hover: 1.025×, press: 0.975×). Pressed states reduce child opacity to 60%.</p>
+    <p class="bodyRegular30 text-secondary mb-400">Hover over and click the buttons below to see the state transitions live.</p>
+
+    <div class="states-grid mb-400">
+      <!-- Headers -->
+      <div></div>
+      <div class="states-grid-header labelBold30">Transactional</div>
+      <div class="states-grid-header labelBold30">Secondary</div>
+      <div class="states-grid-header labelBold30">Tertiary</div>
+
+      <!-- Default -->
+      <div class="labelBold20">Default</div>
+      <div class="states-grid-cell">
+        <button class="btn btn-transactional btn-300 btn-icon-leading">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Label</span>
+        </button>
+      </div>
+      <div class="states-grid-cell">
+        <button class="btn btn-secondary btn-300 btn-icon-leading">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Label</span>
+        </button>
+      </div>
+      <div class="states-grid-cell">
+        <button class="btn btn-tertiary btn-300 btn-icon-leading">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Label</span>
+        </button>
+      </div>
+
+      <!-- Disabled -->
+      <div class="labelBold20">Disabled</div>
+      <div class="states-grid-cell">
+        <button class="btn btn-transactional btn-300 btn-icon-leading" disabled>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Label</span>
+        </button>
+      </div>
+      <div class="states-grid-cell">
+        <button class="btn btn-secondary btn-300 btn-icon-leading" disabled>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Label</span>
+        </button>
+      </div>
+      <div class="states-grid-cell">
+        <button class="btn btn-tertiary btn-300 btn-icon-leading" disabled>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span>Label</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SECTION 4: CIRCLE ICON BUTTONS
+       ============================================ -->
+  <section class="doc-section">
+    <span class="section-label labelBold20">Icon Buttons</span>
+    <h2 class="title70 mb-200">Circle Buttons</h2>
+    <p class="bodyRegular30 text-secondary mb-200">Circular icon-only buttons for compact actions. Uses <strong>Interaction Scale 300</strong> (hover: 1.035×, press: 0.965×).</p>
+    <p class="bodyRegular30 text-secondary mb-400">Two sizes: 700 (56×56px) and 300 (40×40px). Available in Team, Neutral, Inverted, Black, White, and Destructive variants across Primary, Secondary, and Tertiary hierarchies.</p>
+
+    <!-- Circle button sizing -->
+    <h3 class="title50 mb-300">Sizing</h3>
+    <div class="demo-row mb-200">
+      <span class="demo-row-label labelBold20">700 (56px)</span>
+      <button class="btn-circle btn-circle-700 btn-circle-team">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-700 btn-circle-neutral">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" style="font-size:24px; font-weight:700; font-family:Inter,sans-serif"><text x="7" y="18">1</text></svg>
+      </button>
+    </div>
+    <div class="demo-row mb-400">
+      <span class="demo-row-label labelBold20">300 (40px)</span>
+      <button class="btn-circle btn-circle-300 btn-circle-team">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-neutral">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" style="font-size:20px; font-weight:700; font-family:Inter,sans-serif"><text x="7" y="17">1</text></svg>
+      </button>
+    </div>
+
+    <!-- Circle button types -->
+    <h3 class="title50 mb-300">Variants</h3>
+    <div class="demo-row mb-200">
+      <span class="demo-row-label labelBold20">Primary</span>
+      <button class="btn-circle btn-circle-300 btn-circle-team">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-neutral">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-black">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-destructive">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div class="demo-row mb-200">
+      <span class="demo-row-label labelBold20">Secondary</span>
+      <button class="btn-circle btn-circle-300 btn-circle-team-secondary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-neutral-secondary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-destructive-secondary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+    <div class="demo-row mb-400">
+      <span class="demo-row-label labelBold20">Tertiary</span>
+      <button class="btn-circle btn-circle-300 btn-circle-team-tertiary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-neutral-tertiary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-destructive-tertiary">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       SECTION 5: BUTTON GROUPS
+       ============================================ -->
+  <section class="doc-section">
+    <span class="section-label labelBold20">Patterns</span>
+    <h2 class="title70 mb-200">Common Compositions</h2>
+    <p class="bodyRegular30 text-secondary mb-400">Standard button groupings for forms, modals, and action bars.</p>
+
+    <h3 class="title50 mb-200">Inline Group</h3>
+    <div class="btn-group mb-400">
+      <button class="btn btn-primary btn-300">Save Changes</button>
+      <button class="btn btn-secondary btn-300">Cancel</button>
+      <button class="btn btn-tertiary btn-300">Reset</button>
+    </div>
+
+    <h3 class="title50 mb-200">Stacked (Mobile)</h3>
+    <div style="max-width: 320px;">
+      <div class="btn-group-stack mb-400">
+        <button class="btn btn-transactional btn-700">Buy Tickets</button>
+        <button class="btn btn-secondary btn-700">View Details</button>
+      </div>
+    </div>
+
+    <h3 class="title50 mb-200">Destructive Confirmation</h3>
+    <div class="btn-group mb-400">
+      <button class="btn btn-destructive btn-300">Delete Account</button>
+      <button class="btn btn-secondary btn-300">Keep Account</button>
+    </div>
+  </section>
+
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="doc-section" style="text-align: center; padding: var(--spacing-400);">
+    <p class="labelRegular30 text-secondary">JUMP Design System — Button Components</p>
+  </footer>
+
+
+  <!-- ============================================
+       SCRIPTS
+       ============================================ -->
+  <script>
+    function changeTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    function toggleMode() {
+      const html = document.documentElement;
+      const current = html.getAttribute('data-mode');
+      const next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-mode', next);
+      document.getElementById('mode-toggle').textContent = next === 'light' ? '☼ Light' : '☾ Dark';
+    }
+
+    // Set initial state
+    document.getElementById('theme-select').value = 'wolves';
+  </script>
+
+</body>
+</html>

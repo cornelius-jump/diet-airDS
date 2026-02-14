@@ -307,6 +307,7 @@ REQUIRED CSS LOAD ORDER:
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 VALIDATION CHECKLIST - Verify before delivering:
 - [ ] All title+subtitle combinations use .card-text-pair
@@ -353,6 +354,7 @@ Provide complete HTML showing the component working with both themes.
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>
 <body>

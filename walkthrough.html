@@ -43,7 +43,7 @@
 }
 
 .doc-sidebar .select-wrap select {
-  background: var(--bg-surface);
+  background: var(--bg-base);
   border: 1px solid var(--border-default);
   border-radius: var(--border-radius-100);
   padding: var(--spacing-100) calc(var(--spacing-150) + 20px) var(--spacing-100) var(--spacing-100);
@@ -77,7 +77,6 @@
   gap: var(--spacing-150);
   padding-bottom: var(--spacing-200);
   margin-bottom: var(--spacing-200);
-  border-bottom: 1px solid var(--neutral-200);
 }
 
     /* ============================================
@@ -91,12 +90,12 @@
     .doc-sidebar {
       position: sticky;
       top: 0;
-      width: 200px;
+      width: 240px;
       flex-shrink: 0;
       height: 100vh;
       overflow-y: auto;
-      border-right: 1px solid var(--neutral-200);
-      padding: var(--spacing-300) var(--spacing-150) var(--spacing-300) var(--spacing-200);
+      background-color: var(--bg-surface);
+      padding: var(--spacing-300);
     }
 
     /* Hide scrollbar but keep scrollability */
@@ -150,8 +149,8 @@
     }
 
     .doc-sidebar nav a.active {
-      color: var(--brand-interactive);
-      border-left-color: var(--brand-interactive);
+      color: var(--interactive-transactional);
+      border-left-color: var(--interactive-transactional);
       font-weight: 600;
       background: var(--neutral-50);
     }
@@ -255,7 +254,7 @@
       flex-wrap: wrap;
     }
     .spacing-bar {
-      background: var(--brand-interactive);
+      background: var(--interactive-transactional);
       opacity: 0.3;
       border-radius: var(--border-radius-50);
       min-width: 20px;
@@ -297,7 +296,7 @@
       font-family: 'Inter', sans-serif;
       font-size: 12px;
       font-weight: 600;
-      color: var(--brand-interactive);
+      color: var(--interactive-transactional);
       text-decoration: none;
       padding: var(--spacing-50) var(--spacing-150);
       border-radius: 100px;
@@ -318,7 +317,7 @@
 
     /* Responsive spacing token bars */
     .doc-spacing-token-bar {
-      background: var(--brand-interactive);
+      background: var(--interactive-transactional);
       opacity: 0.25;
       border-radius: var(--border-radius-50);
       height: 12px;
@@ -370,7 +369,7 @@
       white-space: nowrap;
     }
     .doc-table td:first-child code {
-      color: var(--brand-interactive);
+      color: var(--interactive-transactional);
     }
     .doc-table .swatch-cell {
       display: flex;
@@ -387,7 +386,7 @@
     /* Section note / callout */
     .doc-note {
       background: var(--neutral-50);
-      border-left: 3px solid var(--brand-interactive);
+      border-left: 3px solid var(--interactive-transactional);
       border-radius: 0 var(--border-radius-50) var(--border-radius-50) 0;
       padding: var(--spacing-150) var(--spacing-200);
       margin: var(--spacing-200) 0;
@@ -429,22 +428,9 @@
       background: var(--bg-surface);
       border-radius: var(--border-radius-100);
       padding: var(--spacing-200) var(--spacing-250);
-      border: 1px solid var(--neutral-100);
     }
-    .doc-decision-q {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: var(--spacing-50);
-    }
-    .doc-decision-a {
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-    .doc-decision-a code {
+ 
+    .bodyRegular20 code {
       background: var(--neutral-100);
       padding: 1px 4px;
       border-radius: var(--border-radius-50);
@@ -501,7 +487,7 @@
           <option value="sounders">Sounders</option>
           <option value="reign">Reign</option>
           <option value="ncfc">NCFC</option>
-          <option value="jump">Jump</option>
+          <option value="jump" selected>Jump</option>
           <option value="athletics">Athletics</option>
         </select>
         <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
@@ -546,12 +532,12 @@
 <!-- ==========================================
      HERO
      ========================================== -->
-<div class="container-wide py-large">
+<div class="container-wide py-large mt-row">
   <div class="card-text-pair mb-200">
     <h1 class="display600">Diet AirDS</h1>
     <p class="labelRegular40 text-secondary">Token & Style Walkthrough — Visual Reference</p>
   </div>
-  <p class="bodyRegular30 text-secondary doc-prose">
+  <p class="bodyRegular30 text-primary doc-prose">
     A complete reference of every token, class, and utility available in the design system. Switch the <strong>theme</strong> and <strong>mode</strong> above to see every example update live.
   </p>
   <nav class="doc-nav hide-desktop">
@@ -579,24 +565,24 @@
 <!-- ==========================================
      0. OVERVIEW
      ========================================== -->
-<div class="container-wide py-large" id="overview">
+<div class="container-wide py-large border-top" id="overview">
   <p class="labelregular30 text-secondary mb-50">Section 0</p>
   <h2 class="title80">How the System Works</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">The design system is built on CSS custom properties (variables) and utility classes. Everything is controlled by two HTML attributes on the root element:</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">The design system is built on CSS custom properties (variables) and utility classes. Everything is controlled by two HTML attributes on the root element:</p>
 
   <div class="doc-note mt-200">
     <p class="bodyRegular30"><strong><code>data-theme</code></strong> — which team's brand to use (colors, display font, button shape)</p>
     <p class="bodyRegular30 mt-50"><strong><code>data-mode</code></strong> — <code>light</code> or <code>dark</code></p>
   </div>
 
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">When you change either attribute, the entire UI updates automatically. You never hardcode colors, fonts, or spacing — you reference tokens instead.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">When you change either attribute, the entire UI updates automatically. You never hardcode colors, fonts, or spacing — you reference tokens instead.</p>
 
   <div class="doc-code-block mt-200">
     <code>&lt;html data-theme="wolves" data-mode="dark"&gt;</code>
   </div>
 
   <h3 class="title50 mt-400 mb-100">CSS Files — Load Order Matters</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-200">These 12 files make up the full system. They must be loaded in this exact order because later files reference tokens defined in earlier ones.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-200">These 12 files make up the full system. They must be loaded in this exact order because later files reference tokens defined in earlier ones.</p>
 
   <div class="doc-table-wrap">
     <table class="doc-table">
@@ -629,10 +615,10 @@
 <!-- ==========================================
      1. COLORS
      ========================================== -->
-<div class="container-wide py-large" id="colors">
+<div class="container-wide py-large border-top" id="colors">
   <p class="labelregular30 text-secondary mb-50">Section 1</p>
   <h2 class="title80">Color Tokens</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
 
   <div class="doc-code-block mt-200">
     <code>Team + Mode defines → --org-base, --org-surface, etc.
@@ -696,7 +682,7 @@
       </tbody>
     </table>
   </div>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">These are built on the neutral scale — in light mode they're black-based, in dark mode they flip to white-based. Just use the semantic tokens.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">These are built on the neutral scale — in light mode they're black-based, in dark mode they flip to white-based. Just use the semantic tokens.</p>
 
   <h3 class="title50 mt-400 mb-100">Brand Tokens (Team-Specific)</h3>
   <div class="doc-preview">
@@ -715,7 +701,7 @@
         <span class="labelRegular10 text-secondary">dark</span>
       </div>
       <div class="swatch">
-        <div class="swatch-color" style="background: var(--brand-interactive);"></div>
+        <div class="swatch-color" style="background: var(--interactive-transactional);"></div>
         <span class="labelRegular10 text-secondary">interactive</span>
       </div>
       <div class="swatch">
@@ -732,14 +718,14 @@
         <tr><td><code>--brand-core</code></td><td>Primary brand color</td><td>#266092 (blue)</td><td>#006141 (green)</td></tr>
         <tr><td><code>--brand-light</code></td><td>Secondary/accent</td><td>#79BC43 (green)</td><td>#FFB819 (gold)</td></tr>
         <tr><td><code>--brand-dark</code></td><td>Dark brand variant</td><td>#0C233F (navy)</td><td>#051715 (dark green)</td></tr>
-        <tr><td><code>--brand-interactive</code></td><td>Links, active states</td><td>#266092 (blue)</td><td>#006141 (green)</td></tr>
+        <tr><td><code>--interactive-transactional</code></td><td>Links, active states</td><td>#266092 (blue)</td><td>#006141 (green)</td></tr>
         <tr><td><code>--brand-inverted</code></td><td>Accent for dark mode CTAs</td><td>#79BC43 (green)</td><td>#FFB819 (gold)</td></tr>
       </tbody>
     </table>
   </div>
 
   <h3 class="title50 mt-400 mb-100">Interactive Tokens (Buttons)</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">These control button colors and flip between light and dark mode automatically. In light mode, primary buttons typically use the brand color with white text. In dark mode, they often invert to white or accent buttons with black text.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">These control button colors and flip between light and dark mode automatically. In light mode, primary buttons typically use the brand color with white text. In dark mode, they often invert to white or accent buttons with black text.</p>
   <div class="doc-table-wrap">
     <table class="doc-table">
       <thead><tr><th>Token</th><th>Role</th></tr></thead>
@@ -768,7 +754,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Neutral Scale</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Opacity-based scale that flips between light and dark mode automatically.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Opacity-based scale that flips between light and dark mode automatically.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="swatch-row">
@@ -798,7 +784,7 @@
       </tbody>
     </table>
   </div>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">The <strong>inverted scale</strong> is the opposite of neutral (white-based in light, black-based in dark). Useful for overlays or reversed elements. <strong>White/Black scales</strong> are mode-agnostic — always the same regardless of light/dark.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">The <strong>inverted scale</strong> is the opposite of neutral (white-based in light, black-based in dark). Useful for overlays or reversed elements. <strong>White/Black scales</strong> are mode-agnostic — always the same regardless of light/dark.</p>
 
   <h3 class="title50 mt-400 mb-100">Status Colors</h3>
   <div class="doc-preview">
@@ -827,10 +813,10 @@
 <!-- ==========================================
      2. SPACING
      ========================================== -->
-<div class="container-wide py-large" id="spacing">
+<div class="container-wide py-large border-top" id="spacing">
   <p class="labelregular30 text-secondary mb-50">Section 2</p>
   <h2 class="title80">Spacing Tokens</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">All spacing is based on multiples of 8px. This keeps everything aligned and consistent. Fixed tokens stay constant; responsive tokens scale across breakpoints.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">All spacing is based on multiples of 8px. This keeps everything aligned and consistent. Fixed tokens stay constant; responsive tokens scale across breakpoints.</p>
 
   <div class="doc-note mt-200">
     <p class="bodyRegular30"><strong>Fixed tokens</strong> (e.g. <code>--spacing-300</code>) → internal component padding, button padding, anything that should stay the same size at all breakpoints.</p>
@@ -967,10 +953,10 @@
 <!-- ==========================================
      3. SPACING UTILITY CLASSES
      ========================================== -->
-<div class="container-wide py-large" id="spacing-utils">
+<div class="container-wide py-large border-top" id="spacing-utils">
   <p class="labelregular30 text-secondary mb-50">Section 3</p>
   <h2 class="title80">Spacing Utility Classes</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Every spacing token has matching utility classes in <code>boilerplate.css</code>. The naming pattern is consistent:</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Every spacing token has matching utility classes in <code>boilerplate.css</code>. The naming pattern is consistent:</p>
 
   <div class="doc-note mt-200">
     <p class="bodyRegular30"><strong>Pattern:</strong> <code>{property}-{value}</code></p>
@@ -992,7 +978,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Responsive Spacing Classes</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Same pattern using responsive token names. Each responsive token supports all the same property prefixes: <code>gap-*</code>, <code>mb-*</code>, <code>mt-*</code>, <code>my-*</code>, <code>pb-*</code>, <code>pt-*</code>, <code>py-*</code>, <code>mx-*</code>, <code>px-*</code>, <code>ml-*</code>, <code>mr-*</code>, <code>pl-*</code>, <code>pr-*</code></p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Same pattern using responsive token names. Each responsive token supports all the same property prefixes: <code>gap-*</code>, <code>mb-*</code>, <code>mt-*</code>, <code>my-*</code>, <code>pb-*</code>, <code>pt-*</code>, <code>py-*</code>, <code>mx-*</code>, <code>px-*</code>, <code>ml-*</code>, <code>mr-*</code>, <code>pl-*</code>, <code>pr-*</code></p>
   <div class="doc-preview">
     <span class="doc-preview-label">Examples</span>
     <div class="doc-demo-col">
@@ -1020,10 +1006,10 @@
 <!-- ==========================================
      4. CONTAINERS
      ========================================== -->
-<div class="container-wide py-large" id="containers">
+<div class="container-wide py-large border-top" id="containers">
   <p class="labelregular30 text-secondary mb-50">Section 4</p>
   <h2 class="title80">Container Classes</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">
+  <p class="bodyRegular30 text-primary doc-prose mt-100">
     Containers set a <code>max-width</code>, center content with <code>margin: auto</code>, and add responsive horizontal padding. Mix containers on the same page for different content zones.
   </p>
 
@@ -1044,7 +1030,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Mixing Containers on the Same Page</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">You can and should mix containers on the same page — use narrower containers for article-style content and wider ones for full-bleed sections.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">You can and should mix containers on the same page — use narrower containers for article-style content and wider ones for full-bleed sections.</p>
   <div class="doc-code-block">
     <code>&lt;nav&gt;
   &lt;div class="container-wide"&gt;&lt;!-- Nav content --&gt;&lt;/div&gt;
@@ -1122,12 +1108,12 @@
 <!-- ==========================================
      5. TYPOGRAPHY
      ========================================== -->
-<div class="container-wide py-large" id="typography">
+<div class="container-wide py-large border-top" id="typography">
   <p class="labelregular30 text-secondary mb-50">Section 5</p>
   <h2 class="title80">Typography Classes</h2>
 
   <h3 class="title50 mt-400 mb-100">Display Styles (Team Font)</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Each team's unique display font, weight, and letter spacing. For big, attention-grabbing headlines. Sizes vary per team.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Each team's unique display font, weight, and letter spacing. For big, attention-grabbing headlines. Sizes vary per team.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col">
@@ -1177,7 +1163,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Title Styles (Inter Bold — Same Everywhere)</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Structural headings within content. Consistent across all teams. Uses Inter Bold (700) with tight letter spacing.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Structural headings within content. Consistent across all teams. Uses Inter Bold (700) with tight letter spacing.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col">
@@ -1314,7 +1300,7 @@
         <tr><td><code>.text-placeholder</code></td><td>--neutral-500</td><td>Placeholder text</td></tr>
         <tr><td><code>.text-brand-core</code></td><td>--brand-core</td><td>Primary brand color</td></tr>
         <tr><td><code>.text-brand-light</code></td><td>--brand-light</td><td>Secondary brand color</td></tr>
-        <tr><td><code>.text-brand-interactive</code></td><td>--brand-interactive</td><td>Interactive/link color</td></tr>
+        <tr><td><code>.text-brand-interactive</code></td><td>--interactive-transactional</td><td>Interactive/link color</td></tr>
         <tr><td><code>.text-inverted</code></td><td>--inverted-1000</td><td>Inverted color (white on dark, black on light)</td></tr>
         <tr><td><code>.text-success</code></td><td>--status-success</td><td>Success green</td></tr>
         <tr><td><code>.text-warning</code></td><td>--status-warning</td><td>Warning amber</td></tr>
@@ -1375,10 +1361,10 @@
 <!-- ==========================================
      6. TEXT PAIRS
      ========================================== -->
-<div class="container-wide py-large" id="textpairs">
+<div class="container-wide py-large border-top" id="textpairs">
   <p class="labelregular30 text-secondary mb-50">Section 6</p>
   <h2 class="title80">Text Pairs</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Pre-defined label + sublabel combinations. Numbered 9000 (largest) to 1000 (smallest). Always wrap in <code>.card-text-pair</code> and always apply <code>.text-secondary</code> to sublabels.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Pre-defined label + sublabel combinations. Numbered 9000 (largest) to 1000 (smallest). Always wrap in <code>.card-text-pair</code> and always apply <code>.text-secondary</code> to sublabels.</p>
 
   <h3 class="title50 mt-400 mb-100">Quick Reference Table</h3>
   <div class="doc-table-wrap">
@@ -1483,10 +1469,10 @@
 <!-- ==========================================
      7. ICONS
      ========================================== -->
-<div class="container-wide py-large" id="icons">
+<div class="container-wide py-large border-top" id="icons">
   <p class="labelregular30 text-secondary mb-50">Section 7</p>
   <h2 class="title80">Icons</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Google Material Symbols Rounded via a variable font. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors. Icons inherit color from their parent.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Google Material Symbols Rounded via a variable font. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors. Icons inherit color from their parent.</p>
 
   <h3 class="title50 mt-400 mb-100">Icon Size Tokens</h3>
   <div class="doc-preview">
@@ -1565,7 +1551,7 @@
 
 
   <h3 class="title50 mt-400 mb-100">Icon + Text Pairing</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Icons align vertically with adjacent text via <code>vertical-align: middle</code>. Match icon size to the text size around it.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Icons align vertically with adjacent text via <code>vertical-align: middle</code>. Match icon size to the text size around it.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col">
@@ -1589,12 +1575,12 @@
 <!-- ==========================================
      8. BORDERS & EFFECTS
      ========================================== -->
-<div class="container-wide py-large" id="borders">
+<div class="container-wide py-large border-top" id="borders">
   <p class="labelregular30 text-secondary mb-50">Section 8</p>
   <h2 class="title80">Border & Effect Tokens</h2>
 
   <h3 class="title50 mt-400 mb-100">Border Radius</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">The <code>--button-border-radius</code> token is team-specific — it's automatically applied by the <code>.btn</code> and <code>.btn-circle</code> classes.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">The <code>--button-border-radius</code> token is team-specific — it's automatically applied by the <code>.btn</code> and <code>.btn-circle</code> classes.</p>
   <div class="doc-table-wrap">
     <table class="doc-table">
       <thead><tr><th>Token</th><th>Value</th><th>Use For</th></tr></thead>
@@ -1639,7 +1625,7 @@
         <div class="doc-radius-box" style="border-radius: var(--border-radius-200);"><span class="labelBold10">200</span></div>
       </div>
       <div class="doc-demo-cell">
-        <div class="doc-radius-box rounded-button" style="width: 120px; height: 48px; background: var(--brand-interactive);">
+        <div class="doc-radius-box rounded-button" style="width: 120px; height: 48px; background: var(--interactive-transactional);">
           <span class="labelBold10" style="color: var(--white-1000);">button</span>
         </div>
       </div>
@@ -1653,7 +1639,7 @@
       <tbody>
         <tr><td><code>--border-weight-50</code></td><td>1px</td><td>--neutral-200 (subtle)</td></tr>
         <tr><td><code>--border-weight-100</code></td><td>1px</td><td>--neutral-500 (standard)</td></tr>
-        <tr><td><code>--border-weight-200</code></td><td>2px</td><td>--neutral-1000 or --brand-interactive (heavy/focus)</td></tr>
+        <tr><td><code>--border-weight-200</code></td><td>2px</td><td>--neutral-1000 or --interactive-transactional (heavy/focus)</td></tr>
       </tbody>
     </table>
   </div>
@@ -1673,7 +1659,7 @@
         <tr><td><code>.border</code></td><td>1px solid with --border-default color</td></tr>
         <tr><td><code>.border-thin</code></td><td>1px solid with --neutral-200</td></tr>
         <tr><td><code>.border-heavy</code></td><td>2px solid with --neutral-1000</td></tr>
-        <tr><td><code>.border-interactive</code></td><td>2px solid with --brand-interactive</td></tr>
+        <tr><td><code>.border-interactive</code></td><td>2px solid with --interactive-transactional</td></tr>
         <tr><td><code>.border-top</code></td><td>1px solid border on top only</td></tr>
         <tr><td><code>.border-bottom</code></td><td>1px solid border on bottom only</td></tr>
         <tr><td><code>.border-left</code></td><td>1px solid border on left only</td></tr>
@@ -1704,10 +1690,10 @@
 <!-- ==========================================
      9. INTERACTIVE TOKENS
      ========================================== -->
-<div class="container-wide py-large" id="interactive">
+<div class="container-wide py-large border-top" id="interactive">
   <p class="labelregular30 text-secondary mb-50">Section 9</p>
   <h2 class="title80">Interactive Tokens</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Composable surface styles + scale transforms. Mix any surface with any scale. They come in two categories — <strong>surfaces</strong> (color/border changes) and <strong>scales</strong> (transform animations). Hover and click the examples below.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Composable surface styles + scale transforms. Mix any surface with any scale. They come in two categories — <strong>surfaces</strong> (color/border changes) and <strong>scales</strong> (transform animations). Hover and click the examples below.</p>
 
   <div class="doc-note mt-200">
     <p class="bodyRegular30"><strong>Important:</strong> Surface fill classes set their own <code>color</code> for correct contrast. Text style classes (e.g. <code>.labelBold30</code>) will override this with <code>var(--text-primary)</code>, causing broken contrast. Always add <code>color: inherit</code> to children inside filled surfaces. The <code>.btn</code> classes already handle this automatically.</p>
@@ -1798,10 +1784,10 @@
 <!-- ==========================================
      10. BUTTONS
      ========================================== -->
-<div class="container-wide py-large" id="buttons">
+<div class="container-wide py-large border-top" id="buttons">
   <p class="labelregular30 text-secondary mb-50">Section 10</p>
   <h2 class="title80">Button Components</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers. Only one Transactional or Primary button per view.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers. Only one Transactional or Primary button per view.</p>
 
   <h3 class="title50 mt-400 mb-100">Button Types</h3>
   <div class="doc-table-wrap">
@@ -1866,7 +1852,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Icon Placement</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Add an icon placement class alongside base+type+size to adjust padding for optical balance. Icons use the <code>.btn-icon</code> class for proper sizing.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Add an icon placement class alongside base+type+size to adjust padding for optical balance. Icons use the <code>.btn-icon</code> class for proper sizing.</p>
   <div class="doc-table-wrap">
     <table class="doc-table">
       <thead><tr><th>Modifier</th><th>Behavior</th><th>Icon Size (700 / 300 / 100)</th></tr></thead>
@@ -1924,7 +1910,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Circle Icon Buttons</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">For icon-only actions. Compose as: <code>.btn-circle</code> + size + type. Use <code>.scale-300</code> (built in).</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">For icon-only actions. Compose as: <code>.btn-circle</code> + size + type. Use <code>.scale-300</code> (built in).</p>
   <div class="doc-preview-grid">
     <div>
       <p class="labelBold20 mb-100">Sizes</p>
@@ -2002,14 +1988,14 @@
 <!-- ==========================================
      11. CARDS
      ========================================== -->
-<div class="container-wide py-large" id="cards">
+<div class="container-wide py-large border-top" id="cards">
   <p class="labelregular30 text-secondary mb-50">Section 11</p>
   <h2 class="title80">Card Components</h2>
 
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Two core layout types — <strong>Closed</strong> (full background, divided sections) and <strong>Open</strong> (transparent container with separated subsections). Add <code>-interactive</code> suffix for hover effects.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Two core layout types — <strong>Closed</strong> (full background, divided sections) and <strong>Open</strong> (transparent container with separated subsections). Add <code>-interactive</code> suffix for hover effects.</p>
 
   <h3 class="title50 mt-400 mb-100">Closed Layout Card</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">A full-background card with divided sections. Use for structured content like events, products, or details. Background: <code>--bg-surface</code>, Radius: 16px, Sections divided by 1px <code>--neutral-200</code> borders.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">A full-background card with divided sections. Use for structured content like events, products, or details. Background: <code>--bg-surface</code>, Radius: 16px, Sections divided by 1px <code>--neutral-200</code> borders.</p>
   <div class="doc-preview" style="background: var(--bg-base); border: 1px solid var(--neutral-200);">
     <span class="doc-preview-label">Live</span>
     <div style="max-width: 400px;">
@@ -2034,7 +2020,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Open Layout Card</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Transparent container with separated background subsections. Use for landing pages and feature highlights. Header: transparent; Subsections: <code>--bg-surface</code>, 16px radius, 24px padding; 20px gap between header and content, 12px gap between subsections.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Transparent container with separated background subsections. Use for landing pages and feature highlights. Header: transparent; Subsections: <code>--bg-surface</code>, 16px radius, 24px padding; 20px gap between header and content, 12px gap between subsections.</p>
   <div class="doc-preview" style="background: var(--bg-base); border: 1px solid var(--neutral-200);">
     <span class="doc-preview-label">Live</span>
     <div style="max-width: 600px;">
@@ -2096,10 +2082,10 @@
 <!-- ==========================================
      12. LIST ROWS
      ========================================== -->
-<div class="container-wide py-large" id="listrows">
+<div class="container-wide py-large border-top" id="listrows">
   <p class="labelregular30 text-secondary mb-50">Section 12</p>
   <h2 class="title80">List Row Components</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically. Use <code>.list-row-text-pair</code> (not <code>.card-text-pair</code>) inside list rows.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically. Use <code>.list-row-text-pair</code> (not <code>.card-text-pair</code>) inside list rows.</p>
 
   <div class="doc-note mt-200">
     <p class="bodyRegular30"><strong>List row text pair is fixed scale:</strong> <code>.labelBold30</code> label + <code>.labelRegular10</code> sublabel with 2px gap. Don't use <code>.card-text-pair</code> inside list rows — it has different spacing.</p>
@@ -2262,7 +2248,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Main Content Stacking Order</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100"><code>.list-row-content</code> stacks up to 3 sections vertically with 8px gap. Any section can be omitted.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100"><code>.list-row-content</code> stacks up to 3 sections vertically with 8px gap. Any section can be omitted.</p>
   <div class="doc-table-wrap">
     <table class="doc-table">
       <thead><tr><th>Order</th><th>Section</th><th>Class</th></tr></thead>
@@ -2313,7 +2299,7 @@
   </div>
 
   <div class="doc-note mt-200">
-    <p class="bodyRegular30"><strong>Switch dimensions:</strong> 51×31px with 27px knob. Off state: <code>--neutral-200</code> track. On (checked): <code>--brand-interactive</code> track. Disabled: <code>--neutral-100</code> track, faded knob.</p>
+    <p class="bodyRegular30"><strong>Switch dimensions:</strong> 51×31px with 27px knob. Off state: <code>--neutral-200</code> track. On (checked): <code>--interactive-transactional</code> track. Disabled: <code>--neutral-100</code> track, faded knob.</p>
     <p class="bodyRegular30 mt-100"><strong>Stepper:</strong> 40px circle buttons with <code>--neutral-300</code> border. Count uses <code>.labelBold50</code> (20px) in 32px-wide area. At min/max: add <code>.disabled</code> to the relevant <code>.stepper-btn</code> (not the HTML <code>disabled</code> attribute).</p>
     <p class="bodyRegular30 mt-100"><strong>Info block convention:</strong> Only the last <code>.info-item</code> shows its label (<code>.has-label</code>) — all others are icon-only.</p>
   </div>
@@ -2354,7 +2340,7 @@
 <!-- ==========================================
      13. LAYOUT
      ========================================== -->
-<div class="container-wide py-large" id="layout">
+<div class="container-wide py-large border-top" id="layout">
   <p class="labelregular30 text-secondary mb-50">Section 13</p>
   <h2 class="title80">Layout Utilities</h2>
 
@@ -2467,10 +2453,10 @@
 <!-- ==========================================
      13. TEAM REFERENCE
      ========================================== -->
-<div class="container-wide py-large" id="teams">
+<div class="container-wide py-large border-top" id="teams">
   <p class="labelregular30 text-secondary mb-50">Section 14</p>
   <h2 class="title80">Team Reference</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Set the active team by changing <code>data-theme</code> on the root element. Each team defines its display font, brand colors, and button border radius.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Set the active team by changing <code>data-theme</code> on the root element. Each team defines its display font, brand colors, and button border radius.</p>
 
   <div class="doc-table-wrap mt-300">
     <table class="doc-table">
@@ -2510,7 +2496,7 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Team Logo Assets</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Team logos are hosted as SVGs. Include all logos and use CSS to show only the active theme's logo — no JavaScript needed.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Team logos are hosted as SVGs. Include all logos and use CSS to show only the active theme's logo — no JavaScript needed.</p>
   <div class="doc-code-block">
     <code>&lt;!-- Include all logos, show only active --&gt;
 &lt;img src="images/wolves.svg" class="team-logo" data-logo="wolves"&gt;
@@ -2530,10 +2516,10 @@
 <!-- ==========================================
      15. BREAKPOINTS
      ========================================== -->
-<div class="container-wide py-large" id="breakpoints">
+<div class="container-wide py-large border-top" id="breakpoints">
   <p class="labelregular30 text-secondary mb-50">Section 15</p>
   <h2 class="title80">Breakpoints</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">The system uses three breakpoints consistently across containers, spacing, grid utilities, and show/hide classes.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">The system uses three breakpoints consistently across containers, spacing, grid utilities, and show/hide classes.</p>
 
   <div class="doc-table-wrap mt-300">
     <table class="doc-table">
@@ -2547,11 +2533,11 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Base Element Styles</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100"><code>boilerplate.css</code> includes sensible defaults for common elements:</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100"><code>boilerplate.css</code> includes sensible defaults for common elements:</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Reference</span>
     <div class="doc-demo-col">
-      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Links</span><span class="labelRegular20 text-secondary">Colored with <code>--brand-interactive</code>, no underline, opacity hover</span></div>
+      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Links</span><span class="labelRegular20 text-secondary">Colored with <code>--interactive-transactional</code>, no underline, opacity hover</span></div>
       <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Inputs/Textareas</span><span class="labelRegular20 text-secondary"><code>--bg-surface</code> background, <code>--border-default</code> border, 8px radius, focus uses <code>--border-active</code></span></div>
       <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Placeholders</span><span class="labelRegular20 text-secondary">Colored with <code>--text-placeholder</code></span></div>
       <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Images</span><span class="labelRegular20 text-secondary">max-width 100%, block display</span></div>
@@ -2564,61 +2550,61 @@
 <!-- ==========================================
      15. QUICK DECISION GUIDE
      ========================================== -->
-<div class="container-wide py-large" id="decisions">
+<div class="container-wide py-large border-top" id="decisions">
   <p class="labelregular30 text-secondary mb-50">Section 16</p>
   <h2 class="title80">Quick Decision Guide</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Common questions answered quickly.</p>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Common questions answered quickly.</p>
 
   <div class="doc-decision-grid mt-300">
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Which container should I use?</p>
-      <p class="doc-decision-a">Match content type to the table in Section 3. Articles get narrow, dashboards get extra-wide, most pages get <code>.container</code> or <code>.container-wide</code>.</p>
+      <p class="title50">Which container should I use?</p>
+      <p class="bodyRegular20">Match content type to the table in Section 3. Articles get narrow, dashboards get extra-wide, most pages get <code>.container</code> or <code>.container-wide</code>.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Fixed or responsive spacing?</p>
-      <p class="doc-decision-a">If it's inside a component (padding, internal gaps), use fixed. If it's between components or sections, use responsive.</p>
+      <p class="title50">Fixed or responsive spacing?</p>
+      <p class="bodyRegular20">If it's inside a component (padding, internal gaps), use fixed. If it's between components or sections, use responsive.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Display or title?</p>
-      <p class="doc-decision-a">Display is for big branded headlines (team font). Title is for structural headings within content (Inter Bold, same everywhere).</p>
+      <p class="title50">Display or title?</p>
+      <p class="bodyRegular20">Display is for big branded headlines (team font). Title is for structural headings within content (Inter Bold, same everywhere).</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Label or body?</p>
-      <p class="doc-decision-a">Labels are for short UI text (buttons, nav, metadata) with tight 1.2 line-height. Body is for paragraphs and longer content with comfortable 1.5 line-height.</p>
+      <p class="title50">Label or body?</p>
+      <p class="bodyRegular20">Labels are for short UI text (buttons, nav, metadata) with tight 1.2 line-height. Body is for paragraphs and longer content with comfortable 1.5 line-height.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">When do I use shadows?</p>
-      <p class="doc-decision-a">Only on sheets and modals. Never on regular cards — use <code>--bg-surface</code> and borders instead.</p>
+      <p class="title50">When do I use shadows?</p>
+      <p class="bodyRegular20">Only on sheets and modals. Never on regular cards — use <code>--bg-surface</code> and borders instead.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Which text pair?</p>
-      <p class="doc-decision-a">Match scale to context: 9000/8000 for heroes, 7000/6000 for section headers, 5000/4000 for cards, 3000–1000 for compact UI. Always wrap in <code>.card-text-pair</code>.</p>
+      <p class="title50">Which text pair?</p>
+      <p class="bodyRegular20">Match scale to context: 9000/8000 for heroes, 7000/6000 for section headers, 5000/4000 for cards, 3000–1000 for compact UI. Always wrap in <code>.card-text-pair</code>.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Which button type?</p>
-      <p class="doc-decision-a">Transactional for revenue, Primary for main action (1 per view), Secondary for alternatives, Tertiary for low-emphasis. <code>.btn-white</code> / <code>.btn-white-tertiary</code> on dark surfaces.</p>
+      <p class="title50">Which button type?</p>
+      <p class="bodyRegular20">Transactional for revenue, Primary for main action (1 per view), Secondary for alternatives, Tertiary for low-emphasis. <code>.btn-white</code> / <code>.btn-white-tertiary</code> on dark surfaces.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Which button size?</p>
-      <p class="doc-decision-a"><code>.btn-700</code> for hero CTAs and full-width mobile. <code>.btn-300</code> for standard forms/cards. <code>.btn-100</code> for compact/dense UI.</p>
+      <p class="title50">Which button size?</p>
+      <p class="bodyRegular20"><code>.btn-700</code> for hero CTAs and full-width mobile. <code>.btn-300</code> for standard forms/cards. <code>.btn-100</code> for compact/dense UI.</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Surface token or button class?</p>
-      <p class="doc-decision-a">Use <code>.btn</code> classes for actual buttons. Use <code>.surface-*</code> + <code>.scale-*</code> for custom interactive elements (cards, tabs, chips, etc.).</p>
+      <p class="title50">Surface token or button class?</p>
+      <p class="bodyRegular20">Use <code>.btn</code> classes for actual buttons. Use <code>.surface-*</code> + <code>.scale-*</code> for custom interactive elements (cards, tabs, chips, etc.).</p>
     </div>
 
     <div class="doc-decision-card">
-      <p class="doc-decision-q">Which leading/trailing variant?</p>
-      <p class="doc-decision-a">Match gap modifier to the inner component. Icons use <code>-md</code>, images use <code>-lg</code>/<code>-xl</code>, text pairs use <code>-sm</code>, chevrons use <code>-xs</code>.</p>
+      <p class="title50">Which leading/trailing variant?</p>
+      <p class="bodyRegular20">Match gap modifier to the inner component. Icons use <code>-md</code>, images use <code>-lg</code>/<code>-xl</code>, text pairs use <code>-sm</code>, chevrons use <code>-xs</code>.</p>
     </div>
 
   </div>

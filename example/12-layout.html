@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html data-mode="light" data-theme="jump" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+  Diet AirDS – Layout Utilities
+ </title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<!-- Design System CSS Files (correct load order) -->
+<link href="https://diet-air-ds.vercel.app/design-tokens-master.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/spacing-tokens.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/container-tokens.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/border-effects-tokens.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/fonts.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/text-styles-system.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/icons.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/card-components.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/interactive-tokens.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/button-components.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/list-row-components.css" rel="stylesheet"/>
+<link href="https://diet-air-ds.vercel.app/boilerplate.css" rel="stylesheet"/>
+<style>
+  /* ============================================
+       DOC-SPECIFIC STYLES
+       Page-only chrome. All demo content uses DS classes.
+       ============================================ */
+
+/* Sticky controls bar */
+.doc-controls {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border-default);
+  backdrop-filter: blur(var(--background-blur));
+  -webkit-backdrop-filter: blur(var(--background-blur));
+  padding: var(--spacing-150) 0;
+}
+
+/* the row that wraps responsively */
+.doc-controls-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  flex-wrap: wrap;
+}
+
+/* label + select stay together as one wrapping unit */
+.control-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-150);
+  flex: 0 0 auto;        /* wrap as a unit */
+}
+
+/* wrapper around select for icon positioning */
+.select-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Select styling + remove native arrow */
+.doc-controls .select-wrap select {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--border-radius-100);
+  padding: var(--spacing-100) calc(var(--spacing-150) + 28px) var(--spacing-100) var(--spacing-150);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+
+  min-width: 260px;      /* tweak/remove as needed */
+  width: 100%;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* optional: old Edge/IE cleanup (harmless elsewhere) */
+.doc-controls .select-wrap select::-ms-expand {
+  display: none;
+}
+
+/* material icon */
+.select-icon {
+  position: absolute;
+  right: 8px;           /* increase for more right-side padding */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.75;
+  font-size: 22px;
+  line-height: 1;
+
+  /* optional: keep symbol rendering consistent */
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+@media (max-width: 520px) {
+  .control-group{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr; /* label, then select fills */
+    align-items: center;
+    column-gap: var(--spacing-150);
+  }
+
+  .select-wrap{
+    width: 100%;
+  }
+
+  .doc-controls .select-wrap select{
+    width: 100%;
+    min-width: 0; /* important so it can shrink on small screens */
+  }
+}
+
+/* Optional: old Edge/IE cleanup (harmless elsewhere) */
+.doc-controls .select-wrap select::-ms-expand {
+  display: none;
+}
+
+    /* Prose text — max-width is doc-page-specific */
+    .doc-prose {
+      max-width: 720px;
+    }
+    .doc-prose code {
+      background: var(--neutral-100);
+      padding: 1px 6px;
+      border-radius: var(--border-radius-50);
+      font-size: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Preview box — the live rendered example area */
+    .doc-preview {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-400);
+      margin: var(--spacing-250) 0 var(--spacing-150);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-preview-multi {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-400);
+      margin: var(--spacing-100) 0 var(--spacing-50);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-preview.dark-surface {
+      background: var(--brand-dark);
+    }
+    .doc-preview-label {
+      position: absolute;
+      top: var(--spacing-100);
+      right: var(--spacing-150);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      opacity: 0.5;
+    }
+
+    /* Side-by-side preview grid */
+    .doc-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-200);
+      margin: var(--spacing-250) 0 var(--spacing-150);
+    }
+    @media (max-width: 768px) {
+      .doc-preview-grid { grid-template-columns: 1fr; }
+    }
+    .doc-preview-grid .doc-preview { margin: 0; }
+
+    /* Color swatch rows */
+    .swatch-row {
+      display: flex;
+      gap: var(--spacing-100);
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-100);
+      min-width: 72px;
+    }
+    .swatch-color {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--border-radius-200);
+      border: 1px solid var(--neutral-200);
+    }
+
+    /* Spacing visualization */
+    .spacing-vis {
+      display: flex;
+      align-items: flex-end;
+      gap: var(--spacing-100);
+      flex-wrap: wrap;
+    }
+    .spacing-bar {
+      background: var(--brand-interactive);
+      opacity: 0.3;
+      border-radius: var(--border-radius-50);
+      min-width: 20px;
+    }
+
+    /* Demo cell — centered label + annotation stacks */
+    .doc-demo-cell {
+      text-align: center;
+    }
+
+    /* Demo column — vertical flex stack */
+    .doc-demo-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-100);
+    }
+
+    /* Helper: flex row for inline demos */
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+      flex-wrap: wrap;
+    }
+    .demo-row-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-200);
+    }
+
+    /* Nav links */
+    .doc-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-100);
+      margin: var(--spacing-200) 0;
+    }
+    .doc-nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--brand-interactive);
+      text-decoration: none;
+      padding: var(--spacing-50) var(--spacing-150);
+      border-radius: 100px;
+      background: var(--neutral-50);
+      transition: background 120ms ease;
+    }
+    .doc-nav a:hover { background: var(--neutral-100); }
+
+    /* Border radius demo boxes */
+    .doc-radius-box {
+      width: 64px;
+      height: 64px;
+      background: var(--neutral-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Responsive spacing token bars */
+    .doc-spacing-token-bar {
+      background: var(--brand-interactive);
+      opacity: 0.25;
+      border-radius: var(--border-radius-50);
+      height: 12px;
+    }
+
+    /* List row demo container */
+    .doc-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--neutral-100);
+      border-radius: var(--border-radius-100);
+      overflow: hidden;
+      max-width: 500px;
+    }
+    .doc-list-row {
+      background: var(--bg-surface);
+      padding: var(--spacing-150) var(--spacing-200);
+    }
+
+    /* Gap demo boxes */
+    .doc-gap-box {
+      width: 40px;
+      height: 24px;
+      background: var(--neutral-200);
+      border-radius: var(--border-radius-50);
+    }
+ </style>
+</head>
+<body>
+<div class="doc-controls">
+<div class="container-wide">
+<div class="doc-controls-inner">
+<div class="control-group">
+<span class="labelBold20">Theme:</span>
+<span class="select-wrap">
+<select id="themeSelect" onchange="setTheme(this.value)">
+<option value="wolves">Timberwolves</option>
+<option value="lynx">Lynx</option>
+<option value="courage">Courage</option>
+<option value="summit">Summit FC</option>
+<option value="bucknell">Bucknell</option>
+<option value="sounders">Sounders</option>
+<option value="reign">Reign</option>
+<option value="ncfc">NCFC</option>
+<option value="jump">Jump</option>
+<option value="athletics">Athletics</option>
+</select>
+<span aria-hidden="true" class="material-symbols-rounded select-icon">expand_more</span>
+</span>
+</div>
+<div class="control-group">
+<span class="labelBold20">Mode:</span>
+<span class="select-wrap">
+<select id="modeSelect" onchange="setMode(this.value)">
+<option value="light">Light</option>
+<option value="dark">Dark</option>
+</select>
+<span aria-hidden="true" class="material-symbols-rounded select-icon">expand_more</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+<div class="container-wide py-large" id="layout">
+
+<h3 class="title50 mt-400 mb-100">Grid Columns (responsive)</h3>
+<div class="doc-preview">
+<span class="doc-preview-label">Live — resize browser</span>
+<div class="grid gap-card grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+<div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">1</span></div>
+<div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">2</span></div>
+<div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">3</span></div>
+<div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">4</span></div>
+<div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">5</span></div>
+<div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">6</span></div>
+</div>
+<p class="labelRegular10 text-secondary mt-100">3 cols desktop → 2 cols tablet → 1 col mobile</p>
+</div>
+<h3 class="title50 mt-400 mb-100">Named Gap Shortcuts</h3>
+<div class="doc-preview">
+<span class="doc-preview-label">Live</span>
+<div class="doc-demo-col">
+<div class="demo-row">
+<span class="labelBold20" style="min-width: 56px;">.gap-xs</span>
+<div class="demo-row" style="gap: var(--spacing-100);">
+<div class="doc-gap-box"></div>
+<div class="doc-gap-box"></div>
+<div class="doc-gap-box"></div>
+</div>
+<span class="labelRegular10 text-secondary">8px</span>
+</div>
+<div class="demo-row">
+<span class="labelBold20" style="min-width: 56px;">.gap-md</span>
+<div class="demo-row" style="gap: var(--spacing-200);">
+<div class="doc-gap-box"></div>
+<div class="doc-gap-box"></div>
+<div class="doc-gap-box"></div>
+</div>
+<span class="labelRegular10 text-secondary">16px</span>
+</div>
+<div class="demo-row">
+<span class="labelBold20" style="min-width: 56px;">.gap-xl</span>
+<div class="demo-row" style="gap: var(--spacing-400);">
+<div class="doc-gap-box"></div>
+<div class="doc-gap-box"></div>
+<div class="doc-gap-box"></div>
+</div>
+<span class="labelRegular10 text-secondary">32px</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function setTheme(val) {
+    document.documentElement.setAttribute('data-theme', val);
+  }
+  function setMode(val) {
+    document.documentElement.setAttribute('data-mode', val);
+  }
+</script>
+</body>
+</html>

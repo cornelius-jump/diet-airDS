@@ -284,6 +284,134 @@
       height: 12px;
     }
 
+    /* ============================================
+       DOC TABLE STYLES
+       ============================================ */
+    .doc-table-wrap {
+      overflow-x: auto;
+      margin: var(--spacing-200) 0 var(--spacing-150);
+    }
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+    }
+    .doc-table th {
+      text-align: left;
+      padding: var(--spacing-100) var(--spacing-150);
+      border-bottom: 2px solid var(--neutral-200);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .doc-table td {
+      padding: var(--spacing-100) var(--spacing-150);
+      border-bottom: 1px solid var(--neutral-100);
+      color: var(--text-primary);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .doc-table tr:last-child td {
+      border-bottom: none;
+    }
+    .doc-table tr:hover td {
+      background: var(--neutral-50);
+    }
+    .doc-table code {
+      background: var(--neutral-100);
+      padding: 1px 5px;
+      border-radius: var(--border-radius-50);
+      font-size: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      white-space: nowrap;
+    }
+    .doc-table td:first-child code {
+      color: var(--brand-interactive);
+    }
+    .doc-table .swatch-cell {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-100);
+    }
+    .doc-table .swatch-cell-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid var(--neutral-200);
+      flex-shrink: 0;
+    }
+    /* Section note / callout */
+    .doc-note {
+      background: var(--neutral-50);
+      border-left: 3px solid var(--brand-interactive);
+      border-radius: 0 var(--border-radius-50) var(--border-radius-50) 0;
+      padding: var(--spacing-150) var(--spacing-200);
+      margin: var(--spacing-200) 0;
+    }
+    .doc-note code {
+      background: var(--neutral-100);
+      padding: 1px 5px;
+      border-radius: var(--border-radius-50);
+      font-size: 12px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    /* Dark code block */
+    .doc-code-block {
+      background: var(--neutral-1000);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-200) var(--spacing-250);
+      margin: var(--spacing-150) 0;
+      overflow-x: auto;
+    }
+    .doc-code-block code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      color: var(--inverted-1000);
+      line-height: 1.7;
+      white-space: pre;
+      display: block;
+    }
+    /* Quick decision grid */
+    .doc-decision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-200);
+      margin-top: var(--spacing-200);
+    }
+    @media (max-width: 768px) {
+      .doc-decision-grid { grid-template-columns: 1fr; }
+    }
+    .doc-decision-card {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-200) var(--spacing-250);
+      border: 1px solid var(--neutral-100);
+    }
+    .doc-decision-q {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--spacing-50);
+    }
+    .doc-decision-a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .doc-decision-a code {
+      background: var(--neutral-100);
+      padding: 1px 4px;
+      border-radius: var(--border-radius-50);
+      font-size: 11px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
     /* List row demo container */
     .doc-list-container {
       display: flex;
@@ -365,8 +493,10 @@
     A complete reference of every token, class, and utility available in the design system. Switch the <strong>theme</strong> and <strong>mode</strong> above to see every example update live.
   </p>
   <nav class="doc-nav">
+    <a href="#overview">Overview</a>
     <a href="#colors">Colors</a>
     <a href="#spacing">Spacing</a>
+    <a href="#spacing-utils">Spacing Utils</a>
     <a href="#containers">Containers</a>
     <a href="#typography">Typography</a>
     <a href="#textpairs">Text Pairs</a>
@@ -377,7 +507,60 @@
     <a href="#cards">Cards</a>
     <a href="#listrows">List Rows</a>
     <a href="#layout">Layout</a>
+    <a href="#teams">Teams</a>
+    <a href="#breakpoints">Breakpoints</a>
+    <a href="#decisions">Quick Decisions</a>
   </nav>
+</div>
+
+
+<!-- ==========================================
+     0. OVERVIEW
+     ========================================== -->
+<div class="container-wide py-large" id="overview">
+  <p class="labelregular30 text-secondary mb-50">Section 0</p>
+  <h2 class="title80">How the System Works</h2>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">The design system is built on CSS custom properties (variables) and utility classes. Everything is controlled by two HTML attributes on the root element:</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong><code>data-theme</code></strong> — which team's brand to use (colors, display font, button shape)</p>
+    <p class="bodyRegular30 mt-50"><strong><code>data-mode</code></strong> — <code>light</code> or <code>dark</code></p>
+  </div>
+
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">When you change either attribute, the entire UI updates automatically. You never hardcode colors, fonts, or spacing — you reference tokens instead.</p>
+
+  <div class="doc-code-block mt-200">
+    <code>&lt;html data-theme="wolves" data-mode="dark"&gt;</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">CSS Files — Load Order Matters</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-200">These 12 files make up the full system. They must be loaded in this exact order because later files reference tokens defined in earlier ones.</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>File</th>
+          <th>What It Does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>design-tokens-master.css</code></td><td>Core color tokens, brand colors per team, neutral/inverted scales, semantic tokens</td></tr>
+        <tr><td>2</td><td><code>spacing-tokens.css</code></td><td>Fixed spacing scale (4px–80px) and responsive spacing tokens</td></tr>
+        <tr><td>3</td><td><code>container-tokens.css</code></td><td>Max-width container classes (640px–1600px) with responsive padding</td></tr>
+        <tr><td>4</td><td><code>border-effects-tokens.css</code></td><td>Border radius, border weight, drop shadow tokens and utility classes</td></tr>
+        <tr><td>5</td><td><code>fonts.css</code></td><td>@font-face declarations for all team display fonts</td></tr>
+        <tr><td>6</td><td><code>text-styles-system.css</code></td><td>Typography classes (display, title, label, body) and text utility classes</td></tr>
+        <tr><td>7</td><td><code>icons.css</code></td><td>Icon size tokens and utility classes for Material Symbols Rounded</td></tr>
+        <tr><td>8</td><td><code>card-components.css</code></td><td>Card layout patterns (closed, open, interactive) and card grid classes</td></tr>
+        <tr><td>9</td><td><code>interactive-tokens.css</code></td><td>Interactive surface styles (12 types) and scale transforms (3 levels)</td></tr>
+        <tr><td>10</td><td><code>button-components.css</code></td><td>Button system: 8 types, 3 sizes, icon variants, circle buttons, groups</td></tr>
+        <tr><td>11</td><td><code>list-row-components.css</code></td><td>List row system: 3-slot architecture, subcomponents (tags, switches, steppers)</td></tr>
+        <tr><td>12</td><td><code>boilerplate.css</code></td><td>CSS reset, layout helpers, all spacing utility classes, grid utilities, responsive show/hide</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -388,6 +571,11 @@
   <p class="labelregular30 text-secondary mb-50">Section 1</p>
   <h2 class="title80">Color Tokens</h2>
   <p class="bodyRegular30 text-secondary doc-prose mt-100">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
+
+  <div class="doc-code-block mt-200">
+    <code>Team + Mode defines → --org-base, --org-surface, etc.
+          ↓ Semantic tokens  → --bg-base, --bg-surface, etc.  ← USE THESE</code>
+  </div>
 
   <h3 class="title50 mt-400 mb-100">Background Tokens</h3>
   <div class="doc-preview">
@@ -412,6 +600,18 @@
     </div>
   </div>
 
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th><th>Light Mode</th><th>Dark Mode</th></tr></thead>
+      <tbody>
+        <tr><td><code>--bg-base</code></td><td>Main page background</td><td>White (#FFFFFF)</td><td>Near-black (#081627 wolves, #111111 others)</td></tr>
+        <tr><td><code>--bg-surface</code></td><td>Cards, tiles, elevated areas</td><td>Light gray (#EEF2F6 wolves, #F4F4F4 others)</td><td>Dark surface (#0C233F wolves, #1F1F1F others)</td></tr>
+        <tr><td><code>--bg-sheet</code></td><td>Modals, sheets, highest layer</td><td>White (#FFFFFF)</td><td>Slightly lighter (#112B4A wolves, #292929 others)</td></tr>
+        <tr><td><code>--bg-nav</code></td><td>Navigation bar (use with blur)</td><td>Semi-transparent white</td><td>Dark surface or semi-transparent dark</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Text Tokens</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
@@ -422,6 +622,19 @@
       <p class="labelBold30 text-placeholder">--text-placeholder — Input placeholders</p>
     </div>
   </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th><th>When to Use</th></tr></thead>
+      <tbody>
+        <tr><td><code>--text-primary</code></td><td>Highest contrast text</td><td>Headlines, body copy, anything that needs to be clearly readable</td></tr>
+        <tr><td><code>--text-secondary</code></td><td>Medium contrast text</td><td>Subtitles, captions, metadata, supporting info</td></tr>
+        <tr><td><code>--text-disabled</code></td><td>Low contrast text</td><td>Disabled states, unavailable options</td></tr>
+        <tr><td><code>--text-placeholder</code></td><td>Input placeholder text</td><td>Empty form fields</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">These are built on the neutral scale — in light mode they're black-based, in dark mode they flip to white-based. Just use the semantic tokens.</p>
 
   <h3 class="title50 mt-400 mb-100">Brand Tokens (Team-Specific)</h3>
   <div class="doc-preview">
@@ -450,6 +663,48 @@
     </div>
   </div>
 
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th><th>Example (Wolves)</th><th>Example (Athletics)</th></tr></thead>
+      <tbody>
+        <tr><td><code>--brand-core</code></td><td>Primary brand color</td><td>#266092 (blue)</td><td>#006141 (green)</td></tr>
+        <tr><td><code>--brand-light</code></td><td>Secondary/accent</td><td>#79BC43 (green)</td><td>#FFB819 (gold)</td></tr>
+        <tr><td><code>--brand-dark</code></td><td>Dark brand variant</td><td>#0C233F (navy)</td><td>#051715 (dark green)</td></tr>
+        <tr><td><code>--brand-interactive</code></td><td>Links, active states</td><td>#266092 (blue)</td><td>#006141 (green)</td></tr>
+        <tr><td><code>--brand-inverted</code></td><td>Accent for dark mode CTAs</td><td>#79BC43 (green)</td><td>#FFB819 (gold)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Interactive Tokens (Buttons)</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">These control button colors and flip between light and dark mode automatically. In light mode, primary buttons typically use the brand color with white text. In dark mode, they often invert to white or accent buttons with black text.</p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>--interactive-primary</code></td><td>Primary button background</td></tr>
+        <tr><td><code>--interactive-primary-text</code></td><td>Text on primary buttons</td></tr>
+        <tr><td><code>--interactive-secondary-text</code></td><td>Text on secondary (outlined) buttons</td></tr>
+        <tr><td><code>--interactive-tertiary-text</code></td><td>Text on tertiary (ghost) buttons</td></tr>
+        <tr><td><code>--interactive-transactional</code></td><td>CTA / purchase button background</td></tr>
+        <tr><td><code>--interactive-transactional-text</code></td><td>Text on transactional buttons</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Border Tokens</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>--border-default</code></td><td>Standard borders (subtle, uses neutral-300)</td></tr>
+        <tr><td><code>--border-hover</code></td><td>Hover state borders (medium contrast, neutral-500)</td></tr>
+        <tr><td><code>--border-active</code></td><td>Focus/active borders (high contrast, neutral-1000)</td></tr>
+        <tr><td><code>--border-disabled</code></td><td>Disabled element borders (neutral-200)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Neutral Scale</h3>
   <p class="bodyRegular30 text-secondary doc-prose mb-100">Opacity-based scale that flips between light and dark mode automatically.</p>
   <div class="doc-preview">
@@ -466,6 +721,23 @@
     </div>
   </div>
 
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Light Mode</th><th>Dark Mode</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--neutral-50</code></td><td>rgba(0,0,0,0.03)</td><td>rgba(255,255,255,0.05)</td><td>Barely visible tint</td></tr>
+        <tr><td><code>--neutral-100</code></td><td>rgba(0,0,0,0.04)</td><td>rgba(255,255,255,0.1)</td><td>Subtle backgrounds</td></tr>
+        <tr><td><code>--neutral-200</code></td><td>rgba(0,0,0,0.1)</td><td>rgba(255,255,255,0.15)</td><td>Light borders</td></tr>
+        <tr><td><code>--neutral-300</code></td><td>rgba(0,0,0,0.15)</td><td>rgba(255,255,255,0.25)</td><td>Default borders</td></tr>
+        <tr><td><code>--neutral-500</code></td><td>rgba(0,0,0,0.4)</td><td>rgba(255,255,255,0.55)</td><td>Placeholder text</td></tr>
+        <tr><td><code>--neutral-700</code></td><td>rgba(0,0,0,0.65)</td><td>rgba(255,255,255,0.75)</td><td>Secondary text</td></tr>
+        <tr><td><code>--neutral-900</code></td><td>rgba(0,0,0,0.85)</td><td>rgba(255,255,255,0.95)</td><td>Near-opaque</td></tr>
+        <tr><td><code>--neutral-1000</code></td><td>rgba(0,0,0,1)</td><td>rgba(255,255,255,1)</td><td>Full contrast</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">The <strong>inverted scale</strong> is the opposite of neutral (white-based in light, black-based in dark). Useful for overlays or reversed elements. <strong>White/Black scales</strong> are mode-agnostic — always the same regardless of light/dark.</p>
+
   <h3 class="title50 mt-400 mb-100">Status Colors</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
@@ -476,6 +748,17 @@
       <div class="swatch"><div class="swatch-color" style="background: var(--status-info);"></div><span class="labelRegular10 text-secondary">info</span></div>
     </div>
   </div>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Light Mode</th><th>Dark Mode</th></tr></thead>
+      <tbody>
+        <tr><td><code>--status-success</code></td><td>#007A47</td><td>#00A96E</td></tr>
+        <tr><td><code>--status-warning</code></td><td>#D2811E</td><td>#F6AF24</td></tr>
+        <tr><td><code>--status-error</code></td><td>#D42F21</td><td>#E43E2F</td></tr>
+        <tr><td><code>--status-info</code></td><td>#0671E5</td><td>#3892F3</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -485,7 +768,12 @@
 <div class="container-wide py-large" id="spacing">
   <p class="labelregular30 text-secondary mb-50">Section 2</p>
   <h2 class="title80">Spacing Tokens</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">All spacing is based on the <strong>8px grid</strong>. Fixed tokens stay constant, responsive tokens shrink on smaller screens.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">All spacing is based on multiples of 8px. This keeps everything aligned and consistent. Fixed tokens stay constant; responsive tokens scale across breakpoints.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Fixed tokens</strong> (e.g. <code>--spacing-300</code>) → internal component padding, button padding, anything that should stay the same size at all breakpoints.</p>
+    <p class="bodyRegular30 mt-50"><strong>Responsive tokens</strong> (e.g. <code>--spacing-card</code>, <code>--margin-large</code>) → gaps between cards, section margins, page-level spacing that should feel proportional.</p>
+  </div>
 
   <h3 class="title50 mt-400 mb-100">Fixed Spacing Scale (4px – 80px)</h3>
   <div class="doc-preview">
@@ -546,6 +834,27 @@
     </div>
   </div>
 
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Multiplier</th><th>Common Use</th></tr></thead>
+      <tbody>
+        <tr><td><code>--spacing-50</code></td><td>4px</td><td>0.5×</td><td>Minimal gaps, icon padding</td></tr>
+        <tr><td><code>--spacing-100</code></td><td>8px</td><td>1×</td><td>Tight spacing, compact layouts</td></tr>
+        <tr><td><code>--spacing-150</code></td><td>12px</td><td>1.5×</td><td>Small gaps between related items</td></tr>
+        <tr><td><code>--spacing-200</code></td><td>16px</td><td>2×</td><td>Standard spacing, input padding</td></tr>
+        <tr><td><code>--spacing-250</code></td><td>20px</td><td>2.5×</td><td>Card internal padding</td></tr>
+        <tr><td><code>--spacing-300</code></td><td>24px</td><td>3×</td><td>Comfortable spacing between sections</td></tr>
+        <tr><td><code>--spacing-400</code></td><td>32px</td><td>4×</td><td>Large gaps between components</td></tr>
+        <tr><td><code>--spacing-500</code></td><td>40px</td><td>5×</td><td>Extra large section spacing</td></tr>
+        <tr><td><code>--spacing-600</code></td><td>48px</td><td>6×</td><td>Major section breaks</td></tr>
+        <tr><td><code>--spacing-700</code></td><td>56px</td><td>7×</td><td>Large section breaks</td></tr>
+        <tr><td><code>--spacing-800</code></td><td>64px</td><td>8×</td><td>Hero-level spacing</td></tr>
+        <tr><td><code>--spacing-900</code></td><td>72px</td><td>9×</td><td>Maximum fixed spacing</td></tr>
+        <tr><td><code>--spacing-1000</code></td><td>80px</td><td>10×</td><td>Landing page spacing</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Responsive Spacing (resize browser to see change)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
@@ -577,6 +886,72 @@
       </div>
     </div>
   </div>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Mobile &lt;500px</th><th>Tablet 500–1099px</th><th>Desktop 1100px+</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--spacing-row</code></td><td>8px</td><td>12px</td><td>16px</td><td>Event rows, selectors, short wide objects</td></tr>
+        <tr><td><code>--spacing-card</code></td><td>16px</td><td>20px</td><td>24px</td><td>Space between cards in a grid</td></tr>
+        <tr><td><code>--spacing-content</code></td><td>32px</td><td>40px</td><td>48px</td><td>Between major content sections</td></tr>
+        <tr><td><code>--margin-small</code></td><td>16px</td><td>32px</td><td>48px</td><td>Detailed interfaces, compact page margins</td></tr>
+        <tr><td><code>--margin-large</code></td><td>16px</td><td>40px</td><td>64px</td><td>Standard page margins (most pages)</td></tr>
+        <tr><td><code>--margin-landing</code></td><td>24px</td><td>48px</td><td>80px</td><td>Landing pages, hero sections, open layouts</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     2b. SPACING UTILITY CLASSES
+     ========================================== -->
+<div class="container-wide py-large" id="spacing-utils">
+  <p class="labelregular30 text-secondary mb-50">Section 2b</p>
+  <h2 class="title80">Spacing Utility Classes</h2>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Every spacing token has matching utility classes in <code>boilerplate.css</code>. The naming pattern is consistent:</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Pattern:</strong> <code>{property}-{value}</code></p>
+    <p class="bodyRegular30 mt-100"><strong>Properties:</strong> <code>m</code> · <code>mt</code> · <code>mb</code> · <code>ml</code> · <code>mr</code> · <code>mx</code> · <code>my</code> · <code>p</code> · <code>pt</code> · <code>pb</code> · <code>pl</code> · <code>pr</code> · <code>px</code> · <code>py</code> · <code>gap</code> · <code>gap-x</code> · <code>gap-y</code></p>
+    <p class="bodyRegular30 mt-50"><strong>Values:</strong> <code>50</code> · <code>100</code> · <code>150</code> · <code>200</code> · <code>250</code> · <code>300</code> · <code>400</code> · <code>500</code> · <code>600</code> · <code>700</code> · <code>800</code> · <code>900</code></p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Fixed Spacing Examples</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Examples</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><code class="labelBold20">.p-300</code><span class="labelRegular20 text-secondary ml-auto">padding: 24px all sides</span></div>
+      <div class="demo-row"><code class="labelBold20">.mb-200</code><span class="labelRegular20 text-secondary ml-auto">margin-bottom: 16px</span></div>
+      <div class="demo-row"><code class="labelBold20">.px-400</code><span class="labelRegular20 text-secondary ml-auto">padding-left + right: 32px</span></div>
+      <div class="demo-row"><code class="labelBold20">.my-100</code><span class="labelRegular20 text-secondary ml-auto">margin-top + bottom: 8px</span></div>
+      <div class="demo-row"><code class="labelBold20">.gap-150</code><span class="labelRegular20 text-secondary ml-auto">flex/grid gap: 12px</span></div>
+      <div class="demo-row"><code class="labelBold20">.gap-x-200</code><span class="labelRegular20 text-secondary ml-auto">column-gap: 16px</span></div>
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Responsive Spacing Classes</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Same pattern using responsive token names. Each responsive token supports all the same property prefixes: <code>gap-*</code>, <code>mb-*</code>, <code>mt-*</code>, <code>my-*</code>, <code>pb-*</code>, <code>pt-*</code>, <code>py-*</code>, <code>mx-*</code>, <code>px-*</code>, <code>ml-*</code>, <code>mr-*</code>, <code>pl-*</code>, <code>pr-*</code></p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Examples</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><code class="labelBold20">.gap-row</code><span class="labelRegular20 text-secondary ml-auto">8px → 12px → 16px</span></div>
+      <div class="demo-row"><code class="labelBold20">.gap-card</code><span class="labelRegular20 text-secondary ml-auto">16px → 20px → 24px</span></div>
+      <div class="demo-row"><code class="labelBold20">.py-large</code><span class="labelRegular20 text-secondary ml-auto">16px → 40px → 64px</span></div>
+      <div class="demo-row"><code class="labelBold20">.my-landing</code><span class="labelRegular20 text-secondary ml-auto">24px → 48px → 80px</span></div>
+      <div class="demo-row"><code class="labelBold20">.mb-content</code><span class="labelRegular20 text-secondary ml-auto">32px → 40px → 48px</span></div>
+      <div class="demo-row"><code class="labelBold20">.py-small</code><span class="labelRegular20 text-secondary ml-auto">16px → 32px → 48px</span></div>
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Other Margin Utilities</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Examples</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><code class="labelBold20">.mx-auto</code><span class="labelRegular20 text-secondary ml-auto">center horizontally</span></div>
+      <div class="demo-row"><code class="labelBold20">.ml-auto</code><span class="labelRegular20 text-secondary ml-auto">push to right</span></div>
+      <div class="demo-row"><code class="labelBold20">.mr-auto</code><span class="labelRegular20 text-secondary ml-auto">push to left</span></div>
+    </div>
+  </div>
 </div>
 
 
@@ -587,8 +962,40 @@
   <p class="labelregular30 text-secondary mb-50">Section 3</p>
   <h2 class="title80">Container Classes</h2>
   <p class="bodyRegular30 text-secondary doc-prose mt-100">
-    Containers set a <code>max-width</code>, center content, and add responsive horizontal padding. Mix containers on the same page for different content zones.
+    Containers set a <code>max-width</code>, center content with <code>margin: auto</code>, and add responsive horizontal padding. Mix containers on the same page for different content zones.
   </p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Max Width</th><th>Padding (Mobile → Tablet → Desktop)</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.container-maximum</code></td><td>1600px</td><td>16px → 24px → 48px</td><td>Landing page heroes, full-width dashboards</td></tr>
+        <tr><td><code>.container-extra-wide</code></td><td>1440px</td><td>16px → 24px → 48px</td><td>Complex dashboards, data-heavy pages</td></tr>
+        <tr><td><code>.container-wide</code></td><td>1280px</td><td>16px → 24px → 32px</td><td>Standard pages with sidebars, event listings</td></tr>
+        <tr><td><code>.container</code></td><td>1200px</td><td>16px → 24px → 32px</td><td>Default / general purpose</td></tr>
+        <tr><td><code>.container-medium</code></td><td>1024px</td><td>16px → 24px → 32px</td><td>Article pages, form pages</td></tr>
+        <tr><td><code>.container-narrow</code></td><td>768px</td><td>16px → 24px → 32px</td><td>Long-form reading, centered forms, legal pages</td></tr>
+        <tr><td><code>.container-compact</code></td><td>640px</td><td>16px → 24px → 32px</td><td>Single column content, confirmation pages</td></tr>
+        <tr><td><code>.container-fluid</code></td><td>none</td><td>16px → 24px → 32px</td><td>Full-width sections, maps, video players</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Mixing Containers on the Same Page</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">You can and should mix containers on the same page — use narrower containers for article-style content and wider ones for full-bleed sections.</p>
+  <div class="doc-code-block">
+    <code>&lt;nav&gt;
+  &lt;div class="container-wide"&gt;&lt;!-- Nav content --&gt;&lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;section class="py-landing"&gt;
+  &lt;div class="container-maximum"&gt;&lt;!-- Hero content --&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;article class="py-large"&gt;
+  &lt;div class="container-narrow"&gt;&lt;!-- Article body --&gt;&lt;/div&gt;
+&lt;/article&gt;</code>
+  </div>
 
   <div>
     
@@ -658,7 +1065,7 @@
   <h2 class="title80">Typography Classes</h2>
 
   <h3 class="title50 mt-400 mb-100">Display Styles (Team Font)</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Each team's unique display font, weight, and letter spacing. For big, attention-grabbing headlines.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Each team's unique display font, weight, and letter spacing. For big, attention-grabbing headlines. Sizes vary per team.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col">
@@ -671,8 +1078,44 @@
     </div>
   </div>
 
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Line Height</th><th>Typical Use</th></tr></thead>
+      <tbody>
+        <tr><td><code>.display900</code></td><td>76px</td><td>Largest hero headlines</td></tr>
+        <tr><td><code>.display800</code></td><td>68px</td><td>Large hero text</td></tr>
+        <tr><td><code>.display700</code></td><td>60px</td><td>Medium-large display</td></tr>
+        <tr><td><code>.display600</code></td><td>52px</td><td>Medium display (hero subheads)</td></tr>
+        <tr><td><code>.display500</code></td><td>44px</td><td>Page-level headers</td></tr>
+        <tr><td><code>.display400</code></td><td>36px</td><td>Section headers</td></tr>
+        <tr><td><code>.display300</code></td><td>28px</td><td>Component headers</td></tr>
+        <tr><td><code>.display200</code></td><td>24px</td><td>Small display</td></tr>
+        <tr><td><code>.display100</code></td><td>20px</td><td>Smallest display</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-300 mb-100">display600 Example by Team</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Team</th><th>Font</th><th>Size</th></tr></thead>
+      <tbody>
+        <tr><td>Wolves</td><td>Futura Wolves Autocaps (800)</td><td>56px</td></tr>
+        <tr><td>Lynx</td><td>Futura Caps (700)</td><td>52px</td></tr>
+        <tr><td>Courage</td><td>Public Caps Pro (800)</td><td>46px</td></tr>
+        <tr><td>Summit</td><td>MARTIN Caps Custom (400)</td><td>62px</td></tr>
+        <tr><td>Bucknell</td><td>Teko Caps (700)</td><td>60px</td></tr>
+        <tr><td>Sounders</td><td>Futura Caps (700)</td><td>52px</td></tr>
+        <tr><td>Reign</td><td>Manner Pro (700)</td><td>52px</td></tr>
+        <tr><td>NCFC</td><td>Public Caps Pro (900)</td><td>46px</td></tr>
+        <tr><td>Jump</td><td>Inter (900)</td><td>46px</td></tr>
+        <tr><td>Athletics</td><td>Proxima Caps (900)</td><td>52px</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Title Styles (Inter Bold — Same Everywhere)</h3>
-  <p class="bodyRegular30 text-secondary doc-prose mb-100">Structural headings within content. Consistent across all teams.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Structural headings within content. Consistent across all teams. Uses Inter Bold (700) with tight letter spacing.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col">
@@ -682,6 +1125,19 @@
       <span class="title60">.title60 — 24px</span>
       <span class="title50">.title50 — 20px</span>
     </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Size</th><th>Letter Spacing</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.title90</code></td><td>36px</td><td>-0.03em</td><td>Page titles</td></tr>
+        <tr><td><code>.title80</code></td><td>32px</td><td>-0.03em</td><td>Section titles</td></tr>
+        <tr><td><code>.title70</code></td><td>28px</td><td>-0.03em</td><td>Subsection titles</td></tr>
+        <tr><td><code>.title60</code></td><td>24px</td><td>-0.03em</td><td>Card titles</td></tr>
+        <tr><td><code>.title50</code></td><td>20px</td><td>-0.03em</td><td>Small titles, card headers</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <h3 class="title50 mt-400 mb-100">Label & Body Styles</h3>
@@ -716,6 +1172,61 @@
     </div>
   </div>
 
+  <div class="doc-preview-grid mt-200">
+    <div>
+      <p class="labelBold20 mb-100">Label Bold — Inter Semi-Bold (600), 1.2 line-height</p>
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
+          <tbody>
+            <tr><td><code>.labelBold50</code></td><td>20px</td><td>Large UI labels</td></tr>
+            <tr><td><code>.labelBold40</code></td><td>16px</td><td>Buttons, nav links</td></tr>
+            <tr><td><code>.labelBold30</code></td><td>14px</td><td>Standard bold labels</td></tr>
+            <tr><td><code>.labelBold20</code></td><td>12px</td><td>Small bold labels, badges</td></tr>
+            <tr><td><code>.labelBold10</code></td><td>10px</td><td>Tiny labels</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="labelBold20 mb-100 mt-200">Label Regular — Inter Regular (400), 1.2 line-height</p>
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
+          <tbody>
+            <tr><td><code>.labelRegular50</code></td><td>20px</td><td>Large metadata</td></tr>
+            <tr><td><code>.labelRegular40</code></td><td>16px</td><td>Standard metadata</td></tr>
+            <tr><td><code>.labelRegular30</code></td><td>14px</td><td>Captions, bylines</td></tr>
+            <tr><td><code>.labelRegular20</code></td><td>12px</td><td>Small metadata, timestamps</td></tr>
+            <tr><td><code>.labelRegular10</code></td><td>10px</td><td>Tiny metadata</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <p class="labelBold20 mb-100">Body Bold — Inter Semi-Bold (600), 1.5 line-height</p>
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
+          <tbody>
+            <tr><td><code>.bodyBold40</code></td><td>16px</td><td>Emphasized body text</td></tr>
+            <tr><td><code>.bodyBold30</code></td><td>14px</td><td>Standard emphasized</td></tr>
+            <tr><td><code>.bodyBold20</code></td><td>13px</td><td>Small emphasized</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="labelBold20 mb-100 mt-200">Body Regular — Inter Regular (400), 1.5 line-height</p>
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
+          <tbody>
+            <tr><td><code>.bodyRegular40</code></td><td>16px</td><td>Large body text</td></tr>
+            <tr><td><code>.bodyRegular30</code></td><td>14px</td><td>Standard body text (most common)</td></tr>
+            <tr><td><code>.bodyRegular20</code></td><td>13px</td><td>Small body / compact text</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Text Color Modifiers</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
@@ -731,6 +1242,71 @@
       <span class="labelBold30 text-info">.text-info</span>
     </div>
   </div>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Token Used</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>.text-primary</code></td><td>--neutral-1000</td><td>High contrast (default)</td></tr>
+        <tr><td><code>.text-secondary</code></td><td>--neutral-700</td><td>Medium contrast — sublabels, captions</td></tr>
+        <tr><td><code>.text-disabled</code></td><td>--neutral-300</td><td>Disabled state</td></tr>
+        <tr><td><code>.text-placeholder</code></td><td>--neutral-500</td><td>Placeholder text</td></tr>
+        <tr><td><code>.text-brand-core</code></td><td>--brand-core</td><td>Primary brand color</td></tr>
+        <tr><td><code>.text-brand-light</code></td><td>--brand-light</td><td>Secondary brand color</td></tr>
+        <tr><td><code>.text-brand-interactive</code></td><td>--brand-interactive</td><td>Interactive/link color</td></tr>
+        <tr><td><code>.text-inverted</code></td><td>--inverted-1000</td><td>Inverted color (white on dark, black on light)</td></tr>
+        <tr><td><code>.text-success</code></td><td>--status-success</td><td>Success green</td></tr>
+        <tr><td><code>.text-warning</code></td><td>--status-warning</td><td>Warning amber</td></tr>
+        <tr><td><code>.text-error</code></td><td>--status-error</td><td>Error red</td></tr>
+        <tr><td><code>.text-info</code></td><td>--status-info</td><td>Info blue</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Text Utility Classes</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Reference</span>
+    <div class="doc-demo-col">
+      <div class="demo-row" style="gap: var(--spacing-300); flex-wrap: wrap;">
+        <div>
+          <p class="labelBold20 mb-50">Alignment</p>
+          <div class="doc-demo-col">
+            <code class="labelRegular20">.text-left</code>
+            <code class="labelRegular20">.text-center</code>
+            <code class="labelRegular20">.text-right</code>
+            <code class="labelRegular20">.text-justify</code>
+          </div>
+        </div>
+        <div>
+          <p class="labelBold20 mb-50">Transform</p>
+          <div class="doc-demo-col">
+            <code class="labelRegular20">.text-uppercase</code>
+            <code class="labelRegular20">.text-lowercase</code>
+            <code class="labelRegular20">.text-capitalize</code>
+            <code class="labelRegular20">.text-normal-case</code>
+          </div>
+        </div>
+        <div>
+          <p class="labelBold20 mb-50">Decoration</p>
+          <div class="doc-demo-col">
+            <code class="labelRegular20">.text-underline</code>
+            <code class="labelRegular20">.text-line-through</code>
+            <code class="labelRegular20">.text-no-underline</code>
+          </div>
+        </div>
+        <div>
+          <p class="labelBold20 mb-50">Truncation</p>
+          <div class="doc-demo-col">
+            <code class="labelRegular20">.text-truncate</code>
+            <span class="labelRegular10 text-secondary">Single line with ellipsis</span>
+            <code class="labelRegular20">.text-truncate-2</code>
+            <span class="labelRegular10 text-secondary">Clamp to 2 lines</span>
+            <code class="labelRegular20">.text-truncate-3</code>
+            <span class="labelRegular10 text-secondary">Clamp to 3 lines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
@@ -742,34 +1318,61 @@
   <h2 class="title80">Text Pairs</h2>
   <p class="bodyRegular30 text-secondary doc-prose mt-100">Pre-defined label + sublabel combinations. Numbered 9000 (largest) to 1000 (smallest). Always wrap in <code>.card-text-pair</code> and always apply <code>.text-secondary</code> to sublabels.</p>
 
+  <h3 class="title50 mt-400 mb-100">Quick Reference Table</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Pair</th><th>Label Style</th><th>Sublabel Style</th><th>Gap</th><th>Use Case</th></tr></thead>
+      <tbody>
+        <tr><td>9000</td><td><code>.display600</code></td><td><code>.labelRegular50</code></td><td>8px</td><td>Hero headlines, landing pages</td></tr>
+        <tr><td>8000</td><td><code>.display500</code></td><td><code>.labelRegular40</code></td><td>8px</td><td>Page headers, feature headlines</td></tr>
+        <tr><td>7000</td><td><code>.display400</code></td><td><code>.labelRegular30</code></td><td>4px</td><td>Section headers, modal headers</td></tr>
+        <tr><td>6000</td><td><code>.display300</code></td><td><code>.labelRegular20</code></td><td>2px</td><td>Component headers, large cards</td></tr>
+        <tr><td><strong>5000</strong></td><td><code>.title50</code></td><td><code>.labelRegular20</code></td><td>2px</td><td><strong>Card headers (MOST COMMON)</strong></td></tr>
+        <tr><td>4000</td><td><code>.labelBold40</code></td><td><code>.labelRegular20</code></td><td>2px</td><td>Small cards, compact components</td></tr>
+        <tr><td>3000</td><td><code>.labelBold30</code></td><td><code>.labelRegular10</code></td><td>2px</td><td>Dense layouts, table headers</td></tr>
+        <tr><td>2000</td><td><code>.labelBold20</code></td><td><code>.labelRegular10</code></td><td>1px</td><td>Small components, badges</td></tr>
+        <tr><td>1000</td><td><code>.labelBold10</code></td><td><code>.labelRegular10</code></td><td>1px</td><td>Minimal UI, inline metadata</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Rules:</strong></p>
+    <p class="bodyRegular30 mt-50">1. Always use <code>.text-secondary</code> on sublabels for proper hierarchy.</p>
+    <p class="bodyRegular30 mt-50">2. Always wrap in <code>.card-text-pair</code> — don't just stack bare label + sublabel elements.</p>
+    <p class="bodyRegular30 mt-50">3. Don't mix scales — pair 9000's label (<code>display600</code>) only pairs with <code>labelRegular50</code>, never with <code>labelRegular10</code>.</p>
+    <p class="bodyRegular30 mt-50">4. Use semantic HTML — <code>h1</code> for page titles, <code>h2</code> for sections, <code>h3</code> for cards.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Live Examples</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col" style="gap: var(--spacing-400);">
       <div>
         <p class="labelRegular10 text-secondary mb-50">Text Pair 9000 — Hero</p>
         <div class="card-text-pair">
-          <h1 class="display600">HERO HEADLINE</h1>
+          <h1 class="display600">Hero Headline</h1>
           <p class="labelRegular50 text-secondary">Supporting message for the hero section</p>
         </div>
       </div>
       <div>
         <p class="labelRegular10 text-secondary mb-50">Text Pair 8000 — Page Header</p>
         <div class="card-text-pair">
-          <h1 class="display500">PAGE TITLE</h1>
+          <h1 class="display500">Page Title</h1>
           <p class="labelRegular40 text-secondary">Page description text</p>
         </div>
       </div>
       <div>
         <p class="labelRegular10 text-secondary mb-50">Text Pair 7000 — Section Header</p>
         <div class="card-text-pair">
-          <h2 class="display400">SECTION TITLE</h2>
+          <h2 class="display400">Section Title</h2>
           <p class="labelRegular30 text-secondary">Section description</p>
         </div>
       </div>
       <div>
         <p class="labelRegular10 text-secondary mb-50">Text Pair 6000 — Component Header</p>
         <div class="card-text-pair">
-          <h3 class="display300">COMPONENT TITLE</h3>
+          <h3 class="display300">Component Title</h3>
           <p class="labelRegular20 text-secondary">Component description</p>
         </div>
       </div>
@@ -821,9 +1424,9 @@
 <div class="container-wide py-large" id="icons">
   <p class="labelregular30 text-secondary mb-50">Section 6</p>
   <h2 class="title80">Icons</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Google Material Symbols Rounded. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Google Material Symbols Rounded via a variable font. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors. Icons inherit color from their parent.</p>
 
-  <h3 class="title50 mt-400 mb-100">Icon Sizes</h3>
+  <h3 class="title50 mt-400 mb-100">Icon Size Tokens</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="demo-row" style="align-items: flex-end;">
@@ -852,6 +1455,20 @@
         <p class="labelRegular10 text-secondary mt-50">600 (48px)</p>
       </div>
     </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Class</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--icon-size-100</code></td><td>16px</td><td><code>.icon-100</code></td><td>Compact UI, inline with small text</td></tr>
+        <tr><td><code>--icon-size-200</code></td><td>20px</td><td><code>.icon-200</code></td><td>Inline with body/label text</td></tr>
+        <tr><td><code>--icon-size-300</code></td><td>24px</td><td><code>.icon-300</code></td><td>Default — standard UI icons</td></tr>
+        <tr><td><code>--icon-size-400</code></td><td>32px</td><td><code>.icon-400</code></td><td>Emphasized icons, empty states</td></tr>
+        <tr><td><code>--icon-size-500</code></td><td>40px</td><td><code>.icon-500</code></td><td>Large feature icons</td></tr>
+        <tr><td><code>--icon-size-600</code></td><td>48px</td><td><code>.icon-600</code></td><td>Illustrative icons, hero areas</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <h3 class="title50 mt-400 mb-100">Outlined vs Filled</h3>
@@ -883,6 +1500,27 @@
       <span class="icon icon-400 text-info">info</span>
     </div>
   </div>
+
+
+  <h3 class="title50 mt-400 mb-100">Icon + Text Pairing</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Icons align vertically with adjacent text via <code>vertical-align: middle</code>. Match icon size to the text size around it.</p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="doc-demo-col">
+      <p class="bodyRegular30"><span class="icon icon-200">schedule</span> 7:00 PM CT — icon-200 (20px) with bodyRegular30</p>
+      <span class="labelBold30"><span class="icon icon-200">location_on</span> Target Center — icon-200 (20px) with labelBold30</span>
+    </div>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Size matching guide:</strong></p>
+    <p class="bodyRegular30 mt-50"><code>.icon-100</code> (16px) — Inline with <code>.labelBold20</code> / <code>.labelRegular20</code></p>
+    <p class="bodyRegular30 mt-50"><code>.icon-200</code> (20px) — Inline with <code>.bodyRegular30</code> / <code>.labelBold30</code></p>
+    <p class="bodyRegular30 mt-50"><code>.icon-300</code> (24px) — Default. Nav, buttons, cards</p>
+    <p class="bodyRegular30 mt-50"><code>.icon-400</code> (32px) — Section headers, emphasized</p>
+    <p class="bodyRegular30 mt-50"><code>.icon-500</code> (40px) — Large feature icons, empty states</p>
+    <p class="bodyRegular30 mt-50"><code>.icon-600</code> (48px) — Illustrative, hero sections</p>
+  </div>
 </div>
 
 
@@ -894,6 +1532,38 @@
   <h2 class="title80">Border & Effect Tokens</h2>
 
   <h3 class="title50 mt-400 mb-100">Border Radius</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">The <code>--button-border-radius</code> token is team-specific — it's automatically applied by the <code>.btn</code> and <code>.btn-circle</code> classes.</p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--border-radius-50</code></td><td>4px</td><td>Small elements, badges, tags</td></tr>
+        <tr><td><code>--border-radius-100</code></td><td>8px</td><td>Cards, inputs, standard UI</td></tr>
+        <tr><td><code>--border-radius-200</code></td><td>16px</td><td>Large cards, hero sections</td></tr>
+        <tr><td><code>--button-border-radius</code></td><td>Team-specific</td><td>Buttons (8px wolves/summit, 12px lynx, 100px all others)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-100">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Scope</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><code>.rounded-50</code></td><td>All corners</td><td>4px</td></tr>
+        <tr><td><code>.rounded-100</code></td><td>All corners</td><td>8px</td></tr>
+        <tr><td><code>.rounded-200</code></td><td>All corners</td><td>16px</td></tr>
+        <tr><td><code>.rounded-button</code></td><td>All corners</td><td>Team-specific</td></tr>
+        <tr><td><code>.rounded-t-100</code></td><td>Top corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-b-100</code></td><td>Bottom corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-l-100</code></td><td>Left corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-r-100</code></td><td>Right corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-tl-100</code></td><td>Top-left only</td><td>8px</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">All directional variants exist for <code>-50</code>, <code>-100</code>, and <code>-200</code>.</p>
+
+  <h3 class="title50 mt-400 mb-100">Live Preview</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="demo-row">
@@ -914,7 +1584,17 @@
     </div>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Border Utilities</h3>
+  <h3 class="title50 mt-400 mb-100">Border Weight & Utilities</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Typical Border Color</th></tr></thead>
+      <tbody>
+        <tr><td><code>--border-weight-50</code></td><td>1px</td><td>--neutral-200 (subtle)</td></tr>
+        <tr><td><code>--border-weight-100</code></td><td>1px</td><td>--neutral-500 (standard)</td></tr>
+        <tr><td><code>--border-weight-200</code></td><td>2px</td><td>--neutral-1000 or --brand-interactive (heavy/focus)</td></tr>
+      </tbody>
+    </table>
+  </div>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="demo-row">
@@ -923,6 +1603,38 @@
       <div class="border-heavy rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-heavy</span></div>
       <div class="border-interactive rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-interactive</span></div>
     </div>
+  </div>
+  <div class="doc-table-wrap mt-100">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>What It Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>.border</code></td><td>1px solid with --border-default color</td></tr>
+        <tr><td><code>.border-thin</code></td><td>1px solid with --neutral-200</td></tr>
+        <tr><td><code>.border-heavy</code></td><td>2px solid with --neutral-1000</td></tr>
+        <tr><td><code>.border-interactive</code></td><td>2px solid with --brand-interactive</td></tr>
+        <tr><td><code>.border-top</code></td><td>1px solid border on top only</td></tr>
+        <tr><td><code>.border-bottom</code></td><td>1px solid border on bottom only</td></tr>
+        <tr><td><code>.border-left</code></td><td>1px solid border on left only</td></tr>
+        <tr><td><code>.border-right</code></td><td>1px solid border on right only</td></tr>
+        <tr><td><code>.border-none</code></td><td>Remove border</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">Border color classes: <code>.border-default</code> · <code>.border-hover</code> · <code>.border-active</code> · <code>.border-neutral-200</code> · <code>.border-neutral-500</code> · <code>.border-neutral-1000</code> · <code>.border-brand-interactive</code></p>
+
+  <h3 class="title50 mt-400 mb-100">Drop Shadows</h3>
+  <div class="doc-note">
+    <p class="bodyRegular30"><strong>Shadows are reserved for elevated surfaces only</strong> — sheets and modals. Do not use them on regular cards. Use <code>--bg-surface</code> and borders instead.</p>
+  </div>
+  <div class="doc-table-wrap mt-100">
+    <table class="doc-table">
+      <thead><tr><th>Token / Class</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--shadow-sheet</code> / <code>.shadow-sheet</code></td><td>Mobile bottom sheets, elevated cards</td></tr>
+        <tr><td><code>--shadow-modal</code> / <code>.shadow-modal</code></td><td>Desktop modals, overlays (highest elevation)</td></tr>
+        <tr><td><code>.shadow-none</code></td><td>Remove shadow</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -933,7 +1645,11 @@
 <div class="container-wide py-large" id="interactive">
   <p class="labelregular30 text-secondary mb-50">Section 8</p>
   <h2 class="title80">Interactive Tokens</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">Composable surface styles + scale transforms. Mix any surface with any scale. Hover and click the examples below.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Composable surface styles + scale transforms. Mix any surface with any scale. They come in two categories — <strong>surfaces</strong> (color/border changes) and <strong>scales</strong> (transform animations). Hover and click the examples below.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Important:</strong> Surface fill classes set their own <code>color</code> for correct contrast. Text style classes (e.g. <code>.labelBold30</code>) will override this with <code>var(--text-primary)</code>, causing broken contrast. Always add <code>color: inherit</code> to children inside filled surfaces. The <code>.btn</code> classes already handle this automatically.</p>
+  </div>
 
   <h3 class="title50 mt-400 mb-100">Fill Surfaces</h3>
   <div class="doc-preview">
@@ -947,6 +1663,19 @@
     </div>
   </div>
 
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Default</th><th>Hover</th><th>Text Color</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.surface-fillNeutral</code></td><td>--neutral-1000</td><td>inverted-200 overlay</td><td>--inverted-1000</td><td>High-contrast neutral buttons</td></tr>
+        <tr><td><code>.surface-fillColor</code></td><td>--brand-core</td><td>white-300 overlay</td><td>--white-1000</td><td>Brand-colored elements</td></tr>
+        <tr><td><code>.surface-fillInverted</code></td><td>--inverted-1000</td><td>neutral-200 overlay</td><td>--neutral-1000</td><td>Inverted contrast elements</td></tr>
+        <tr><td><code>.surface-fillBlack</code></td><td>--black-1000</td><td>white-300 overlay</td><td>--white-1000</td><td>Always-black elements</td></tr>
+        <tr><td><code>.surface-fillWhite</code></td><td>--white-1000</td><td>black-200 overlay</td><td>--black-1000</td><td>Always-white elements</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Border Surfaces</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Hover / Click me</span>
@@ -956,6 +1685,21 @@
       <div class="surface-washNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">washNeutral</span></div>
       <div class="surface-ghost rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">ghost</span></div>
     </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Default Border</th><th>Hover</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.surface-borderNeutral</code></td><td>--neutral-300</td><td>neutral-100 fill, neutral-200 border</td><td>Outlined buttons, card borders</td></tr>
+        <tr><td><code>.surface-borderInverted</code></td><td>--inverted-300</td><td>inverted-100 fill</td><td>Inverted outlined elements</td></tr>
+        <tr><td><code>.surface-borderBlack</code></td><td>--black-300</td><td>black-100 fill</td><td>Always-black outlined</td></tr>
+        <tr><td><code>.surface-borderWhite</code></td><td>--black-300</td><td>white-200 fill</td><td>Always-white outlined</td></tr>
+        <tr><td><code>.surface-washNeutral</code></td><td>--neutral-100 fill</td><td>neutral-100 overlay</td><td>Subtle tinted backgrounds</td></tr>
+        <tr><td><code>.surface-ghost</code></td><td>transparent</td><td>neutral-100 fill</td><td>Ghost/text-only buttons</td></tr>
+        <tr><td><code>.surface-card</code></td><td>--org-surface fill</td><td>white-100 overlay</td><td>Interactive card backgrounds</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <h3 class="title50 mt-400 mb-100">Scale Tokens (combine with any surface)</h3>
@@ -976,6 +1720,16 @@
       </div>
     </div>
   </div>
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Hover Scale</th><th>Active Scale</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.scale-700</code></td><td>1.01</td><td>0.99</td><td>Cards, large components</td></tr>
+        <tr><td><code>.scale-500</code></td><td>1.025</td><td>0.975</td><td>Buttons, medium components</td></tr>
+        <tr><td><code>.scale-300</code></td><td>1.035</td><td>0.965</td><td>Icon buttons, small components</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -985,9 +1739,26 @@
 <div class="container-wide py-large" id="buttons">
   <p class="labelregular30 text-secondary mb-50">Section 9</p>
   <h2 class="title80">Button Components</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers. Only one Transactional or Primary button per view.</p>
 
-  <h3 class="title50 mt-400 mb-100">Button Types (All at btn-300)</h3>
+  <h3 class="title50 mt-400 mb-100">Button Types</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>#</th><th>Class</th><th>Surface</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><code>.btn-transactional</code></td><td>Transactional fill</td><td>Revenue actions — Buy, Purchase, Add to Cart</td></tr>
+        <tr><td>2</td><td><code>.btn-primary</code></td><td>Primary fill</td><td>Main page action — Submit, Save, Confirm</td></tr>
+        <tr><td>3</td><td><code>.btn-neutral</code></td><td>Neutral-1000 fill</td><td>High-contrast neutral CTA</td></tr>
+        <tr><td>4</td><td><code>.btn-secondary</code></td><td>Outlined (neutral-300 border)</td><td>Supporting actions — Cancel, Back</td></tr>
+        <tr><td>5</td><td><code>.btn-tertiary</code></td><td>Ghost (transparent)</td><td>Low-emphasis text actions</td></tr>
+        <tr><td>6</td><td><code>.btn-destructive</code></td><td>Status-error fill</td><td>Dangerous actions — Delete, Remove</td></tr>
+        <tr><td>7</td><td><code>.btn-white</code></td><td>White fill, black text</td><td>CTA on dark/brand surfaces</td></tr>
+        <tr><td>8</td><td><code>.btn-white-tertiary</code></td><td>Ghost, white text</td><td>Low-emphasis on dark surfaces</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Live Preview — All Types at btn-300</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live — hover me</span>
     <div class="demo-row">
@@ -998,6 +1769,18 @@
       <button class="btn btn-tertiary btn-300">Tertiary</button>
       <button class="btn btn-destructive btn-300">Destructive</button>
     </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Button Sizes</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Height</th><th>Horizontal Padding</th><th>Font</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.btn-700</code></td><td>56px</td><td>32px</td><td>16px Semi-Bold</td><td>Hero CTAs, full-width mobile buttons</td></tr>
+        <tr><td><code>.btn-300</code></td><td>40px</td><td>24px</td><td>14px Semi-Bold</td><td>Standard buttons in forms and cards</td></tr>
+        <tr><td><code>.btn-100</code></td><td>32px</td><td>16px</td><td>14px Semi-Bold</td><td>Compact UI, table actions, dense layouts</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <h3 class="title50 mt-400 mb-100">White Buttons (for dark/brand surfaces)</h3>
@@ -1020,7 +1803,21 @@
     <p class="labelRegular10 text-secondary mt-100">56px → 40px → 32px height</p>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Icon Variants</h3>
+  <h3 class="title50 mt-400 mb-100">Icon Placement</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Add an icon placement class alongside base+type+size to adjust padding for optical balance. Icons use the <code>.btn-icon</code> class for proper sizing.</p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Modifier</th><th>Behavior</th><th>Icon Size (700 / 300 / 100)</th></tr></thead>
+      <tbody>
+        <tr><td><code>.btn-icon-leading</code></td><td>Icon before label</td><td>24px / 20px / 16px</td></tr>
+        <tr><td><code>.btn-icon-trailing</code></td><td>Icon after label</td><td>24px / 20px / 16px</td></tr>
+        <tr><td><code>.btn-icon-only</code></td><td>Icon only (no label)</td><td>24px / 20px / 16px</td></tr>
+        <tr><td><code>.btn-fill</code></td><td>Full parent width (100%)</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Icon Variants — Live</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="demo-row">
@@ -1041,6 +1838,17 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Button States</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>State</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td>Default</td><td>Normal appearance</td></tr>
+        <tr><td>Hover</td><td>white-300 or neutral-100 overlay + scale(1.025)</td></tr>
+        <tr><td>Pressed</td><td>black-300 overlay + scale(0.975) + 60% child opacity</td></tr>
+        <tr><td>Disabled</td><td>40% opacity, cursor: not-allowed, no scale</td></tr>
+      </tbody>
+    </table>
+  </div>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="demo-row">
@@ -1054,6 +1862,39 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Circle Icon Buttons</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">For icon-only actions. Compose as: <code>.btn-circle</code> + size + type. Use <code>.scale-300</code> (built in).</p>
+  <div class="doc-preview-grid">
+    <div>
+      <p class="labelBold20 mb-100">Sizes</p>
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Dimensions</th><th>Icon Size</th></tr></thead>
+          <tbody>
+            <tr><td><code>.btn-circle-700</code></td><td>56×56px</td><td>32px</td></tr>
+            <tr><td><code>.btn-circle-300</code></td><td>40×40px</td><td>24px</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <p class="labelBold20 mb-100">Fill Types</p>
+      <div class="doc-table-wrap">
+        <table class="doc-table">
+          <thead><tr><th>Class</th><th>Background</th></tr></thead>
+          <tbody>
+            <tr><td><code>.btn-circle-team</code></td><td>--interactive-primary</td></tr>
+            <tr><td><code>.btn-circle-neutral</code></td><td>--neutral-1000</td></tr>
+            <tr><td><code>.btn-circle-inverted</code></td><td>--inverted-1000</td></tr>
+            <tr><td><code>.btn-circle-black</code></td><td>--black-1000</td></tr>
+            <tr><td><code>.btn-circle-white</code></td><td>--white-1000</td></tr>
+            <tr><td><code>.btn-circle-destructive</code></td><td>--status-error</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">Secondary (outlined) variants: <code>.btn-circle-team-secondary</code> · <code>.btn-circle-neutral-secondary</code> · <code>.btn-circle-destructive-secondary</code></p>
+  <p class="labelRegular10 text-secondary mt-50">Tertiary (ghost) variants: <code>.btn-circle-team-tertiary</code> · <code>.btn-circle-neutral-tertiary</code> · <code>.btn-circle-destructive-tertiary</code></p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live — hover me</span>
     <div class="demo-row">
@@ -1067,7 +1908,16 @@
     </div>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Button Groups</h3>
+  <h3 class="title50 mt-400 mb-100">Button Group Utilities</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Layout</th></tr></thead>
+      <tbody>
+        <tr><td><code>.btn-group</code></td><td>Horizontal row, center-aligned, 12px gap</td></tr>
+        <tr><td><code>.btn-group-stack</code></td><td>Vertical column, 12px gap, full-width buttons</td></tr>
+      </tbody>
+    </table>
+  </div>
   <div class="doc-preview-grid">
     <div class="doc-preview">
       <span class="doc-preview-label">.btn-group</span>
@@ -1094,8 +1944,11 @@
   <p class="labelregular30 text-secondary mb-50">Section 10</p>
   <h2 class="title80">Card Components</h2>
 
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Two core layout types — <strong>Closed</strong> (full background, divided sections) and <strong>Open</strong> (transparent container with separated subsections). Add <code>-interactive</code> suffix for hover effects.</p>
+
   <h3 class="title50 mt-400 mb-100">Closed Layout Card</h3>
-  <div class="doc-preview" style="background: var(--bg-base);>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">A full-background card with divided sections. Use for structured content like events, products, or details. Background: <code>--bg-surface</code>, Radius: 16px, Sections divided by 1px <code>--neutral-200</code> borders.</p>
+  <div class="doc-preview" style="background: var(--bg-base); border: 1px solid var(--neutral-200);">
     <span class="doc-preview-label">Live</span>
     <div style="max-width: 400px;">
       <div class="card-closed">
@@ -1119,13 +1972,14 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Open Layout Card</h3>
-  <div class="doc-preview" style="background: var(--bg-base);">
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Transparent container with separated background subsections. Use for landing pages and feature highlights. Header: transparent; Subsections: <code>--bg-surface</code>, 16px radius, 24px padding; 20px gap between header and content, 12px gap between subsections.</p>
+  <div class="doc-preview" style="background: var(--bg-base); border: 1px solid var(--neutral-200);">
     <span class="doc-preview-label">Live</span>
     <div style="max-width: 600px;">
       <div class="card-open">
         <div class="card-open-header">
           <div class="card-text-pair">
-            <h2 class="display400">UPCOMING EVENTS</h2>
+            <h2 class="display400">Upcoming Events</h2>
             <p class="labelRegular30 text-secondary">Don't miss what's coming up this month</p>
           </div>
         </div>
@@ -1146,6 +2000,34 @@
       </div>
     </div>
   </div>
+
+
+  <h3 class="title50 mt-400 mb-100">Card Utilities</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>.card-text-pair</code></td><td>Flex column with 2px gap — use for all title + subtitle combos</td></tr>
+        <tr><td><code>.card-actions</code></td><td>Generic action container (flex, 12px gap)</td></tr>
+        <tr><td><code>.card-actions-horizontal</code></td><td>Horizontal button row</td></tr>
+        <tr><td><code>.card-actions-vertical</code></td><td>Stacked button column (8px gap)</td></tr>
+        <tr><td><code>.card-closed-interactive</code></td><td>Closed card with border + hover state</td></tr>
+        <tr><td><code>.card-open-section-interactive</code></td><td>Open subsection with hover state</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Card Grid Classes</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Gap Token</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.card-grid</code></td><td>--spacing-card (responsive)</td><td>Standard card grids</td></tr>
+        <tr><td><code>.card-grid-closed</code></td><td>--spacing-row (responsive)</td><td>Tight grids</td></tr>
+        <tr><td><code>.card-grid-open</code></td><td>--spacing-content (responsive)</td><td>Spacious grids</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
@@ -1155,9 +2037,70 @@
 <div class="container-wide py-large" id="listrows">
   <p class="labelregular30 text-secondary mb-50">Section 11</p>
   <h2 class="title80">List Row Components</h2>
-  <p class="bodyRegular30 text-secondary doc-prose mt-100">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically. Use <code>.list-row-text-pair</code> (not <code>.card-text-pair</code>) inside list rows.</p>
 
-  <h3 class="title50 mt-400 mb-100">Basic List Rows</h3>
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>List row text pair is fixed scale:</strong> <code>.labelBold30</code> label + <code>.labelRegular10</code> sublabel with 2px gap. Don't use <code>.card-text-pair</code> inside list rows — it has different spacing.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">List Row States</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Behavior</th></tr></thead>
+      <tbody>
+        <tr><td><code>.list-row</code></td><td>Default (tappable, pointer cursor)</td></tr>
+        <tr><td><code>.list-row.not-tappable</code></td><td>No pointer cursor</td></tr>
+        <tr><td><code>.list-row.disabled</code></td><td>30% opacity, no interaction</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Leading Slot Gap Modifiers</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Gap Modifier</th><th>Gap Size</th><th>Use With</th></tr></thead>
+      <tbody>
+        <tr><td><code>.leading-gap-sm</code></td><td>8px</td><td>Logo variants</td></tr>
+        <tr><td><code>.leading-gap-md</code></td><td>12px</td><td>Icon, circle, select box</td></tr>
+        <tr><td><code>.leading-gap-lg</code></td><td>16px</td><td>Square/small image</td></tr>
+        <tr><td><code>.leading-gap-xl</code></td><td>24px</td><td>Large image</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-200 mb-100">Leading Inner Components</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Component</th><th>Class</th><th>Size</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Icon</td><td><code>.icon .icon-200</code></td><td>20px</td><td>Simple icon</td></tr>
+        <tr><td>Circle Icon</td><td><code>.circle-container + icon</code></td><td>40×40px</td><td>Icon in neutral circle</td></tr>
+        <tr><td>Circle Letter</td><td><code>.circle-container + .display100</code></td><td>40×40px</td><td>Letter in neutral circle</td></tr>
+        <tr><td>Select Box</td><td><code>.select-box</code></td><td>28×28px</td><td>Checkbox for multi-select</td></tr>
+        <tr><td>Status Dot</td><td><code>.status-dot</code></td><td>8×8px</td><td>Blue (unread) or gray (<code>.read</code>)</td></tr>
+        <tr><td>Square Image</td><td><code>.leading-image-square</code></td><td>80×80px</td><td>Square thumbnail</td></tr>
+        <tr><td>Small Image</td><td><code>.leading-image-small</code></td><td>136×80px</td><td>Wide thumbnail</td></tr>
+        <tr><td>Large Image</td><td><code>.leading-image-large</code></td><td>244×124px</td><td>Hero-size image</td></tr>
+        <tr><td>Logo</td><td><code>.leading-logo</code></td><td>48×48px</td><td>Team logo</td></tr>
+        <tr><td>Payment</td><td><code>.leading-payment</code></td><td>33×24px</td><td>Payment card icon</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Trailing Slot Gap Modifiers</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Gap Modifier</th><th>Gap Size</th><th>Use With</th></tr></thead>
+      <tbody>
+        <tr><td><code>.trailing-gap-xs</code></td><td>2px</td><td>Icon (chevron, arrow)</td></tr>
+        <tr><td><code>.trailing-gap-sm</code></td><td>4px</td><td>Text pair</td></tr>
+        <tr><td><code>.trailing-gap-md</code></td><td>8px</td><td>Text link</td></tr>
+        <tr><td><code>.trailing-gap-lg</code></td><td>12px</td><td>Button</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Basic List Rows — Live</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-list-container">
@@ -1256,7 +2199,20 @@
     </div>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Subcomponents</h3>
+  <h3 class="title50 mt-400 mb-100">Main Content Stacking Order</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100"><code>.list-row-content</code> stacks up to 3 sections vertically with 8px gap. Any section can be omitted.</p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Order</th><th>Section</th><th>Class</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Text Pair</td><td><code>.list-row-text-pair</code></td></tr>
+        <tr><td>2</td><td>Tag Group</td><td><code>.tag-group</code> containing <code>.tag</code> elements</td></tr>
+        <tr><td>3</td><td>Info Block</td><td><code>.info-block</code> containing <code>.info-item</code> elements</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Subcomponents — Live</h3>
   <div class="doc-preview-grid">
     <div class="doc-preview">
       <span class="doc-preview-label">Tags</span>
@@ -1294,7 +2250,13 @@
     </div>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Leading Slot Variants</h3>
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Switch dimensions:</strong> 51×31px with 27px knob. Off state: <code>--neutral-200</code> track. On (checked): <code>--brand-interactive</code> track. Disabled: <code>--neutral-100</code> track, faded knob.</p>
+    <p class="bodyRegular30 mt-100"><strong>Stepper:</strong> 40px circle buttons with <code>--neutral-300</code> border. Count uses <code>.labelBold50</code> (20px) in 32px-wide area. At min/max: add <code>.disabled</code> to the relevant <code>.stepper-btn</code> (not the HTML <code>disabled</code> attribute).</p>
+    <p class="bodyRegular30 mt-100"><strong>Info block convention:</strong> Only the last <code>.info-item</code> shows its label (<code>.has-label</code>) — all others are icon-only.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Leading Slot Variants — Live</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="demo-row">
@@ -1334,6 +2296,32 @@
   <p class="labelregular30 text-secondary mb-50">Section 12</p>
   <h2 class="title80">Layout Utilities</h2>
 
+  <h3 class="title50 mt-400 mb-100">Flexbox Helpers</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.flex-center</code></td><td>Centers content both directions + min-height 100vh</td></tr>
+        <tr><td><code>.flex-column</code></td><td>flex-direction: column</td></tr>
+        <tr><td><code>.flex-row</code></td><td>flex-direction: row</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Named Gap Shortcuts</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><code>.gap-xs</code></td><td>8px</td></tr>
+        <tr><td><code>.gap-sm</code></td><td>12px</td></tr>
+        <tr><td><code>.gap-md</code></td><td>16px</td></tr>
+        <tr><td><code>.gap-lg</code></td><td>24px</td></tr>
+        <tr><td><code>.gap-xl</code></td><td>32px</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 class="title50 mt-400 mb-100">Grid Columns (responsive)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live — resize browser</span>
@@ -1348,7 +2336,38 @@
     <p class="labelRegular10 text-secondary mt-100">3 cols desktop → 2 cols tablet → 1 col mobile</p>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Named Gap Shortcuts</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Breakpoint</th><th>Columns</th></tr></thead>
+      <tbody>
+        <tr><td><code>.grid-cols-1-mobile</code></td><td>&lt; 500px</td><td>1</td></tr>
+        <tr><td><code>.grid-cols-2-tablet</code></td><td>500–1099px</td><td>2</td></tr>
+        <tr><td><code>.grid-cols-3-tablet</code></td><td>500–1099px</td><td>3</td></tr>
+        <tr><td><code>.grid-cols-2-desktop</code></td><td>1100px+</td><td>2</td></tr>
+        <tr><td><code>.grid-cols-3-desktop</code></td><td>1100px+</td><td>3</td></tr>
+        <tr><td><code>.grid-cols-4-desktop</code></td><td>1100px+</td><td>4</td></tr>
+        <tr><td><code>.grid-auto-fit</code></td><td>All</td><td>Auto-fill, 300px min</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Responsive Show/Hide</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Visible On</th></tr></thead>
+      <tbody>
+        <tr><td><code>.hide-mobile</code></td><td>Hidden below 500px</td></tr>
+        <tr><td><code>.hide-tablet</code></td><td>Hidden 500–1099px</td></tr>
+        <tr><td><code>.hide-desktop</code></td><td>Hidden 1100px+</td></tr>
+        <tr><td><code>.hide-mobile-tablet</code></td><td>Hidden below 1100px</td></tr>
+        <tr><td><code>.show-mobile</code></td><td>Shown only below 500px</td></tr>
+        <tr><td><code>.show-tablet</code></td><td>Shown only 500–1099px</td></tr>
+        <tr><td><code>.show-desktop</code></td><td>Shown only 1100px+</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Named Gap Shortcuts — Live</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="doc-demo-col">
@@ -1382,6 +2401,167 @@
     </div>
   </div>
 </div>
+
+<!-- ==========================================
+     13. TEAM REFERENCE
+     ========================================== -->
+<div class="container-wide py-large" id="teams">
+  <p class="labelregular30 text-secondary mb-50">Section 13</p>
+  <h2 class="title80">Team Reference</h2>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Set the active team by changing <code>data-theme</code> on the root element. Each team defines its display font, brand colors, and button border radius.</p>
+
+  <div class="doc-table-wrap mt-300">
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>data-theme</th>
+          <th>Display Font</th>
+          <th>Weight</th>
+          <th>Brand Core</th>
+          <th>Brand Accent</th>
+          <th>Button Radius</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Timberwolves</td><td><code>wolves</code></td><td>Futura Wolves Autocaps</td><td>800</td><td>#266092</td><td>#79BC43</td><td>8px</td></tr>
+        <tr><td>Lynx</td><td><code>lynx</code></td><td>Futura Caps</td><td>700</td><td>#266092</td><td>#79BC43</td><td>12px</td></tr>
+        <tr><td>Courage</td><td><code>courage</code></td><td>Public Caps Pro</td><td>800</td><td>#AB0033</td><td>#B4A269</td><td>100px</td></tr>
+        <tr><td>Summit FC</td><td><code>summit</code></td><td>MARTIN Caps Custom</td><td>400</td><td>#20604E</td><td>#E6B93F</td><td>8px</td></tr>
+        <tr><td>Bucknell</td><td><code>bucknell</code></td><td>Teko Caps</td><td>700</td><td>#003865</td><td>#E87722</td><td>100px</td></tr>
+        <tr><td>Sounders</td><td><code>sounders</code></td><td>Futura Caps</td><td>700</td><td>#2DC84D</td><td>#7CE0D3</td><td>100px</td></tr>
+        <tr><td>Reign</td><td><code>reign</code></td><td>Manner Pro</td><td>700</td><td>#232F79</td><td>#E0BE85</td><td>100px</td></tr>
+        <tr><td>NCFC</td><td><code>ncfc</code></td><td>Public Caps Pro</td><td>900</td><td>#00416B</td><td>#B4A269</td><td>100px</td></tr>
+        <tr><td>Jump</td><td><code>jump</code></td><td>Inter</td><td>900</td><td>#657DFF</td><td>#CCFF00</td><td>100px</td></tr>
+        <tr><td>Athletics</td><td><code>athletics</code></td><td>Proxima Caps</td><td>900</td><td>#006141</td><td>#FFB819</td><td>100px</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Testing Across Themes</h3>
+  <div class="doc-code-block">
+    <code>&lt;!-- Light Mode - Wolves --&gt;
+&lt;html data-theme="wolves" data-mode="light"&gt;
+
+&lt;!-- Dark Mode - Athletics --&gt;
+&lt;html data-theme="athletics" data-mode="dark"&gt;</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Team Logo Assets</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Team logos are hosted as SVGs. Include all logos and use CSS to show only the active theme's logo — no JavaScript needed.</p>
+  <div class="doc-code-block">
+    <code>&lt;!-- Include all logos, show only active --&gt;
+&lt;img src="images/wolves.svg" class="team-logo" data-logo="wolves"&gt;
+&lt;img src="images/athletics.svg" class="team-logo" data-logo="athletics"&gt;
+&lt;!-- ...etc --&gt;
+
+&lt;style&gt;
+.team-logo { display: none; }
+[data-theme="wolves"] .team-logo[data-logo="wolves"] { display: block; }
+[data-theme="athletics"] .team-logo[data-logo="athletics"] { display: block; }
+&lt;/style&gt;</code>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">When referencing the hosted design system, use the full URL: <code>https://diet-air-ds.vercel.app/images/wolves.svg</code></p>
+</div>
+
+
+<!-- ==========================================
+     14. BREAKPOINTS
+     ========================================== -->
+<div class="container-wide py-large" id="breakpoints">
+  <p class="labelregular30 text-secondary mb-50">Section 14</p>
+  <h2 class="title80">Breakpoints</h2>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">The system uses three breakpoints consistently across containers, spacing, grid utilities, and show/hide classes.</p>
+
+  <div class="doc-table-wrap mt-300">
+    <table class="doc-table">
+      <thead><tr><th>Name</th><th>Range</th><th>Container Padding</th></tr></thead>
+      <tbody>
+        <tr><td>Mobile</td><td>0 – 499px</td><td>16px</td></tr>
+        <tr><td>Tablet</td><td>500 – 1099px</td><td>24px</td></tr>
+        <tr><td>Desktop</td><td>1100px+</td><td>32px (48px for maximum/extra-wide)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Base Element Styles</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100"><code>boilerplate.css</code> includes sensible defaults for common elements:</p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Reference</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Links</span><span class="labelRegular20 text-secondary">Colored with <code>--brand-interactive</code>, no underline, opacity hover</span></div>
+      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Inputs/Textareas</span><span class="labelRegular20 text-secondary"><code>--bg-surface</code> background, <code>--border-default</code> border, 8px radius, focus uses <code>--border-active</code></span></div>
+      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Placeholders</span><span class="labelRegular20 text-secondary">Colored with <code>--text-placeholder</code></span></div>
+      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Images</span><span class="labelRegular20 text-secondary">max-width 100%, block display</span></div>
+      <div class="demo-row"><span class="labelBold20" style="min-width: 120px;">Body</span><span class="labelRegular20 text-secondary"><code>--bg-base</code> background, <code>--text-primary</code> color, system font stack</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     15. QUICK DECISION GUIDE
+     ========================================== -->
+<div class="container-wide py-large" id="decisions">
+  <p class="labelregular30 text-secondary mb-50">Section 15</p>
+  <h2 class="title80">Quick Decision Guide</h2>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Common questions answered quickly.</p>
+
+  <div class="doc-decision-grid mt-300">
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Which container should I use?</p>
+      <p class="doc-decision-a">Match content type to the table in Section 3. Articles get narrow, dashboards get extra-wide, most pages get <code>.container</code> or <code>.container-wide</code>.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Fixed or responsive spacing?</p>
+      <p class="doc-decision-a">If it's inside a component (padding, internal gaps), use fixed. If it's between components or sections, use responsive.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Display or title?</p>
+      <p class="doc-decision-a">Display is for big branded headlines (team font). Title is for structural headings within content (Inter Bold, same everywhere).</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Label or body?</p>
+      <p class="doc-decision-a">Labels are for short UI text (buttons, nav, metadata) with tight 1.2 line-height. Body is for paragraphs and longer content with comfortable 1.5 line-height.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">When do I use shadows?</p>
+      <p class="doc-decision-a">Only on sheets and modals. Never on regular cards — use <code>--bg-surface</code> and borders instead.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Which text pair?</p>
+      <p class="doc-decision-a">Match scale to context: 9000/8000 for heroes, 7000/6000 for section headers, 5000/4000 for cards, 3000–1000 for compact UI. Always wrap in <code>.card-text-pair</code>.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Which button type?</p>
+      <p class="doc-decision-a">Transactional for revenue, Primary for main action (1 per view), Secondary for alternatives, Tertiary for low-emphasis. <code>.btn-white</code> / <code>.btn-white-tertiary</code> on dark surfaces.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Which button size?</p>
+      <p class="doc-decision-a"><code>.btn-700</code> for hero CTAs and full-width mobile. <code>.btn-300</code> for standard forms/cards. <code>.btn-100</code> for compact/dense UI.</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Surface token or button class?</p>
+      <p class="doc-decision-a">Use <code>.btn</code> classes for actual buttons. Use <code>.surface-*</code> + <code>.scale-*</code> for custom interactive elements (cards, tabs, chips, etc.).</p>
+    </div>
+
+    <div class="doc-decision-card">
+      <p class="doc-decision-q">Which leading/trailing variant?</p>
+      <p class="doc-decision-a">Match gap modifier to the inner component. Icons use <code>-md</code>, images use <code>-lg</code>/<code>-xl</code>, text pairs use <code>-sm</code>, chevrons use <code>-xs</code>.</p>
+    </div>
+
+  </div>
+</div>
+
 
 <!-- ==========================================
      FOOTER

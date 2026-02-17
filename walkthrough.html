@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="wolves" data-mode="light">
+<html lang="en" data-theme="jump" data-mode="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JUMP Design System – Token & Style Walkthrough</title>
+  <title>Diet AirDS – Token & Style Walkthrough</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,70 +27,114 @@
   <style>
     /* ============================================
        DOC-SPECIFIC STYLES
-       Minimal styling for the walkthrough page itself.
-       All demo content uses design system classes.
+       Page-only chrome. All demo content uses DS classes.
        ============================================ */
 
-    /* Sticky controls bar */
-    .doc-controls {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      background: var(--bg-nav);
-      border-bottom: 1px solid var(--border-default);
-      backdrop-filter: blur(var(--background-blur));
-      -webkit-backdrop-filter: blur(var(--background-blur));
-      padding: 12px 0;
-    }
-    .doc-controls-inner {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .doc-controls select {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-default);
-      border-radius: 8px;
-      padding: 6px 12px;
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      cursor: pointer;
-    }
+/* Sticky controls bar */
+.doc-controls {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--bg-nav);
+  border-bottom: 1px solid var(--border-default);
+  backdrop-filter: blur(var(--background-blur));
+  -webkit-backdrop-filter: blur(var(--background-blur));
+  padding: var(--spacing-150) 0;
+}
 
-    /* Section spacing */
-    .doc-section {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--neutral-100);
-    }
-    .doc-section:last-child { border-bottom: none; }
+/* the row that wraps responsively */
+.doc-controls-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+  flex-wrap: wrap;
+}
 
-    /* Section title */
-    .doc-section-num {
-      font-family: 'Inter', sans-serif;
-      font-weight: 600;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-    }
+/* label + select stay together as one wrapping unit */
+.control-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-150);
+  flex: 0 0 auto;        /* wrap as a unit */
+}
 
-    /* Prose text */
+/* wrapper around select for icon positioning */
+.select-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Select styling + remove native arrow */
+.doc-controls .select-wrap select {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--border-radius-100);
+  padding: var(--spacing-100) calc(var(--spacing-150) + 28px) var(--spacing-100) var(--spacing-150);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+
+  min-width: 260px;      /* tweak/remove as needed */
+  width: 100%;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* optional: old Edge/IE cleanup (harmless elsewhere) */
+.doc-controls .select-wrap select::-ms-expand {
+  display: none;
+}
+
+/* material icon */
+.select-icon {
+  position: absolute;
+  right: 8px;           /* increase for more right-side padding */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  opacity: 0.75;
+  font-size: 22px;
+  line-height: 1;
+
+  /* optional: keep symbol rendering consistent */
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+@media (max-width: 520px) {
+  .control-group{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr; /* label, then select fills */
+    align-items: center;
+    column-gap: var(--spacing-150);
+  }
+
+  .select-wrap{
+    width: 100%;
+  }
+
+  .doc-controls .select-wrap select{
+    width: 100%;
+    min-width: 0; /* important so it can shrink on small screens */
+  }
+}
+
+/* Optional: old Edge/IE cleanup (harmless elsewhere) */
+.doc-controls .select-wrap select::-ms-expand {
+  display: none;
+}
+
+    /* Prose text — max-width is doc-page-specific */
     .doc-prose {
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text-secondary);
       max-width: 720px;
     }
-    .doc-prose strong { color: var(--text-primary); font-weight: 600; }
     .doc-prose code {
       background: var(--neutral-100);
       padding: 1px 6px;
-      border-radius: 4px;
+      border-radius: var(--border-radius-50);
       font-size: 12px;
       font-family: 'SF Mono', 'Fira Code', monospace;
     }
@@ -98,21 +142,29 @@
     /* Preview box — the live rendered example area */
     .doc-preview {
       background: var(--bg-surface);
-      border: 1px solid var(--neutral-200);
-      border-radius: 16px;
-      padding: 32px;
-      margin: 20px 0 12px;
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-400);
+      margin: var(--spacing-250) 0 var(--spacing-150);
       position: relative;
       overflow: hidden;
     }
+
+    .doc-preview-multi {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      padding: var(--spacing-400);
+      margin: var(--spacing-100) 0 var(--spacing-50);
+      position: relative;
+      overflow: hidden;
+    }
+
     .doc-preview.dark-surface {
-      background: var(--brand-dark, #0C233F);
+      background: var(--brand-dark);
     }
     .doc-preview-label {
       position: absolute;
-      top: 10px;
-      right: 14px;
-      font-family: 'Inter', sans-serif;
+      top: var(--spacing-100);
+      right: var(--spacing-150);
       font-size: 10px;
       font-weight: 600;
       letter-spacing: 0.06em;
@@ -125,8 +177,8 @@
     .doc-preview-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 20px 0 12px;
+      gap: var(--spacing-200);
+      margin: var(--spacing-250) 0 var(--spacing-150);
     }
     @media (max-width: 768px) {
       .doc-preview-grid { grid-template-columns: 1fr; }
@@ -136,7 +188,7 @@
     /* Color swatch rows */
     .swatch-row {
       display: flex;
-      gap: 8px;
+      gap: var(--spacing-100);
       flex-wrap: wrap;
       align-items: stretch;
     }
@@ -144,126 +196,61 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: var(--spacing-100);
       min-width: 72px;
     }
     .swatch-color {
       width: 56px;
       height: 56px;
-      border-radius: 12px;
+      border-radius: var(--border-radius-200);
       border: 1px solid var(--neutral-200);
-    }
-    .swatch-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 10px;
-      color: var(--text-secondary);
-      text-align: center;
-    }
-    .swatch-wide {
-      width: 100%;
-      height: 48px;
-      border-radius: 8px;
-      border: 1px solid var(--neutral-200);
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 8px;
     }
 
     /* Spacing visualization */
     .spacing-vis {
       display: flex;
       align-items: flex-end;
-      gap: 6px;
+      gap: var(--spacing-100);
       flex-wrap: wrap;
     }
     .spacing-bar {
       background: var(--brand-interactive);
       opacity: 0.3;
-      border-radius: 4px;
+      border-radius: var(--border-radius-50);
       min-width: 20px;
     }
-    .spacing-bar-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 9px;
-      color: var(--text-secondary);
+
+    /* Demo cell — centered label + annotation stacks */
+    .doc-demo-cell {
       text-align: center;
-      margin-top: 4px;
     }
 
-    /* Table styles */
-    .doc-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      margin: 16px 0;
-    }
-    .doc-table th {
-      text-align: left;
-      font-weight: 600;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: var(--text-secondary);
-      padding: 8px 12px;
-      border-bottom: 2px solid var(--neutral-200);
-    }
-    .doc-table td {
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--neutral-100);
-      color: var(--text-primary);
-      vertical-align: middle;
-    }
-    .doc-table code {
-      background: var(--neutral-100);
-      padding: 1px 5px;
-      border-radius: 3px;
-      font-size: 11px;
-      font-family: 'SF Mono', 'Fira Code', monospace;
-    }
-
-    /* Subtitle for sub-sections */
-    .doc-subtitle {
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--text-primary);
-      margin: 32px 0 8px;
-      letter-spacing: -0.02em;
+    /* Demo column — vertical flex stack */
+    .doc-demo-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-100);
     }
 
     /* Helper: flex row for inline demos */
     .demo-row {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: var(--spacing-150);
       flex-wrap: wrap;
     }
     .demo-row-stack {
       display: flex;
       flex-direction: column;
-      gap: 16px;
-    }
-
-    /* Helper: annotation text below demos */
-    .demo-annotation {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      color: var(--text-secondary);
-      opacity: 0.6;
-      margin-top: 6px;
+      gap: var(--spacing-200);
     }
 
     /* Nav links */
     .doc-nav {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px;
-      margin: 16px 0;
+      gap: var(--spacing-100);
+      margin: var(--spacing-200) 0;
     }
     .doc-nav a {
       font-family: 'Inter', sans-serif;
@@ -271,16 +258,53 @@
       font-weight: 600;
       color: var(--brand-interactive);
       text-decoration: none;
-      padding: 4px 10px;
+      padding: var(--spacing-50) var(--spacing-150);
       border-radius: 100px;
       background: var(--neutral-50);
       transition: background 120ms ease;
     }
     .doc-nav a:hover { background: var(--neutral-100); }
 
-    /* Utility */
-    .mb-0 { margin-bottom: 0 !important; }
-    .gap-24 { gap: 24px; }
+    /* Border radius demo boxes */
+    .doc-radius-box {
+      width: 64px;
+      height: 64px;
+      background: var(--neutral-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Responsive spacing token bars */
+    .doc-spacing-token-bar {
+      background: var(--brand-interactive);
+      opacity: 0.25;
+      border-radius: var(--border-radius-50);
+      height: 12px;
+    }
+
+    /* List row demo container */
+    .doc-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--neutral-100);
+      border-radius: var(--border-radius-100);
+      overflow: hidden;
+      max-width: 500px;
+    }
+    .doc-list-row {
+      background: var(--bg-surface);
+      padding: var(--spacing-150) var(--spacing-200);
+    }
+
+    /* Gap demo boxes */
+    .doc-gap-box {
+      width: 40px;
+      height: 24px;
+      background: var(--neutral-200);
+      border-radius: var(--border-radius-50);
+    }
   </style>
 </head>
 <body>
@@ -291,37 +315,52 @@
 <div class="doc-controls">
   <div class="container-wide">
     <div class="doc-controls-inner">
-      <span class="labelBold20">Theme:</span>
-      <select id="themeSelect" onchange="setTheme(this.value)">
-        <option value="wolves">Timberwolves</option>
-        <option value="lynx">Lynx</option>
-        <option value="courage">Courage</option>
-        <option value="summit">Summit FC</option>
-        <option value="bucknell">Bucknell</option>
-        <option value="sounders">Sounders</option>
-        <option value="reign">Reign</option>
-        <option value="ncfc">NCFC</option>
-        <option value="jump">Jump</option>
-        <option value="athletics">Athletics</option>
-      </select>
-      <span class="labelBold20">Mode:</span>
-      <select id="modeSelect" onchange="setMode(this.value)">
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-      </select>
+
+      <div class="control-group">
+        <span class="labelBold20">Theme:</span>
+        <span class="select-wrap">
+          <select id="themeSelect" onchange="setTheme(this.value)">
+            <option value="wolves">Timberwolves</option>
+            <option value="lynx">Lynx</option>
+            <option value="courage">Courage</option>
+            <option value="summit">Summit FC</option>
+            <option value="bucknell">Bucknell</option>
+            <option value="sounders">Sounders</option>
+            <option value="reign">Reign</option>
+            <option value="ncfc">NCFC</option>
+            <option value="jump">Jump</option>
+            <option value="athletics">Athletics</option>
+          </select>
+          <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+        </span>
+      </div>
+
+      <div class="control-group">
+        <span class="labelBold20">Mode:</span>
+        <span class="select-wrap">
+          <select id="modeSelect" onchange="setMode(this.value)">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+          <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+        </span>
+      </div>
+
     </div>
   </div>
 </div>
 
+
+
 <!-- ==========================================
      HERO
      ========================================== -->
-<div class="container-wide" style="padding-top: 64px; padding-bottom: 32px;">
-  <div class="card-text-pair" style="gap: 8px;">
-    <h1 class="display600">JUMP DESIGN SYSTEM</h1>
+<div class="container-wide py-large">
+  <div class="card-text-pair mb-200">
+    <h1 class="display600">Diet AirDS</h1>
     <p class="labelRegular40 text-secondary">Token & Style Walkthrough — Visual Reference</p>
   </div>
-  <p class="doc-prose" style="margin-top: 16px;">
+  <p class="bodyRegular30 text-secondary doc-prose">
     A complete reference of every token, class, and utility available in the design system. Switch the <strong>theme</strong> and <strong>mode</strong> above to see every example update live.
   </p>
   <nav class="doc-nav">
@@ -344,96 +383,96 @@
 <!-- ==========================================
      1. COLORS
      ========================================== -->
-<div class="container-wide doc-section" id="colors">
-  <div class="doc-section-num">Section 1</div>
+<div class="container-wide py-large" id="colors">
+  <p class="labelregular30 text-secondary mb-50">Section 1</p>
   <h2 class="title80">Color Tokens</h2>
-  <p class="doc-prose">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
 
-  <div class="doc-subtitle">Background Tokens</div>
+  <h3 class="title50 mt-400 mb-100">Background Tokens</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-      <div style="background: var(--bg-base); border: 1px solid var(--neutral-200); border-radius: 12px; padding: 20px; text-align: center;">
+    <div class="grid gap-card grid-cols-4-desktop grid-cols-2-tablet grid-cols-1-mobile">
+      <div class="border rounded-200 p-250" style="background: var(--bg-base); text-align: center;">
         <span class="labelBold20">--bg-base</span>
-        <p class="labelRegular10 text-secondary" style="margin-top: 4px;">Page background</p>
+        <p class="labelRegular10 text-secondary mt-50">Page background</p>
       </div>
-      <div style="background: var(--bg-surface); border: 1px solid var(--neutral-200); border-radius: 12px; padding: 20px; text-align: center;">
+      <div class="border rounded-200 p-250" style="background: var(--bg-surface); text-align: center;">
         <span class="labelBold20">--bg-surface</span>
-        <p class="labelRegular10 text-secondary" style="margin-top: 4px;">Cards, tiles</p>
+        <p class="labelRegular10 text-secondary mt-50">Cards, tiles</p>
       </div>
-      <div style="background: var(--bg-sheet); border: 1px solid var(--neutral-200); border-radius: 12px; padding: 20px; text-align: center;">
+      <div class="border rounded-200 p-250" style="background: var(--bg-sheet); text-align: center;">
         <span class="labelBold20">--bg-sheet</span>
-        <p class="labelRegular10 text-secondary" style="margin-top: 4px;">Modals, sheets</p>
+        <p class="labelRegular10 text-secondary mt-50">Modals, sheets</p>
       </div>
-      <div style="background: var(--bg-nav); border: 1px solid var(--neutral-200); border-radius: 12px; padding: 20px; text-align: center; backdrop-filter: blur(25px);">
+      <div class="border rounded-200 p-250" style="background: var(--bg-nav); text-align: center; backdrop-filter: blur(var(--background-blur));">
         <span class="labelBold20">--bg-nav</span>
-        <p class="labelRegular10 text-secondary" style="margin-top: 4px;">Nav bar + blur</p>
+        <p class="labelRegular10 text-secondary mt-50">Nav bar + blur</p>
       </div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Text Tokens</div>
+  <h3 class="title50 mt-400 mb-100">Text Tokens</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <p class="labelBold30" style="color: var(--text-primary);">--text-primary — Headlines, body copy, high contrast</p>
-      <p class="labelBold30" style="color: var(--text-secondary);">--text-secondary — Subtitles, captions, metadata</p>
-      <p class="labelBold30" style="color: var(--text-disabled);">--text-disabled — Disabled states</p>
-      <p class="labelBold30" style="color: var(--text-placeholder);">--text-placeholder — Input placeholders</p>
+    <div class="doc-demo-col">
+      <p class="labelBold30 text-primary">--text-primary — Headlines, body copy, high contrast</p>
+      <p class="labelBold30 text-secondary">--text-secondary — Subtitles, captions, metadata</p>
+      <p class="labelBold30 text-disabled">--text-disabled — Disabled states</p>
+      <p class="labelBold30 text-placeholder">--text-placeholder — Input placeholders</p>
     </div>
   </div>
 
-  <div class="doc-subtitle">Brand Tokens (Team-Specific)</div>
+  <h3 class="title50 mt-400 mb-100">Brand Tokens (Team-Specific)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="swatch-row">
       <div class="swatch">
         <div class="swatch-color" style="background: var(--brand-core);"></div>
-        <span class="swatch-label">core</span>
+        <span class="labelRegular10 text-secondary">core</span>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: var(--brand-light);"></div>
-        <span class="swatch-label">light</span>
+        <span class="labelRegular10 text-secondary">light</span>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: var(--brand-dark);"></div>
-        <span class="swatch-label">dark</span>
+        <span class="labelRegular10 text-secondary">dark</span>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: var(--brand-interactive);"></div>
-        <span class="swatch-label">interactive</span>
+        <span class="labelRegular10 text-secondary">interactive</span>
       </div>
       <div class="swatch">
         <div class="swatch-color" style="background: var(--brand-inverted);"></div>
-        <span class="swatch-label">inverted</span>
+        <span class="labelRegular10 text-secondary">inverted</span>
       </div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Neutral Scale</div>
-  <p class="doc-prose">Opacity-based scale that flips between light and dark mode automatically.</p>
+  <h3 class="title50 mt-400 mb-100">Neutral Scale</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Opacity-based scale that flips between light and dark mode automatically.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="swatch-row">
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-50);"></div><span class="swatch-label">50</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-100);"></div><span class="swatch-label">100</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-200);"></div><span class="swatch-label">200</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-300);"></div><span class="swatch-label">300</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-500);"></div><span class="swatch-label">500</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-700);"></div><span class="swatch-label">700</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-900);"></div><span class="swatch-label">900</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-1000);"></div><span class="swatch-label">1000</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-50);"></div><span class="labelRegular10 text-secondary">50</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-100);"></div><span class="labelRegular10 text-secondary">100</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-200);"></div><span class="labelRegular10 text-secondary">200</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-300);"></div><span class="labelRegular10 text-secondary">300</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-500);"></div><span class="labelRegular10 text-secondary">500</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-700);"></div><span class="labelRegular10 text-secondary">700</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-900);"></div><span class="labelRegular10 text-secondary">900</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-1000);"></div><span class="labelRegular10 text-secondary">1000</span></div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Status Colors</div>
+  <h3 class="title50 mt-400 mb-100">Status Colors</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="swatch-row">
-      <div class="swatch"><div class="swatch-color" style="background: var(--status-success);"></div><span class="swatch-label">success</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--status-warning);"></div><span class="swatch-label">warning</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--status-error);"></div><span class="swatch-label">error</span></div>
-      <div class="swatch"><div class="swatch-color" style="background: var(--status-info);"></div><span class="swatch-label">info</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-success);"></div><span class="labelRegular10 text-secondary">success</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-warning);"></div><span class="labelRegular10 text-secondary">warning</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-error);"></div><span class="labelRegular10 text-secondary">error</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-info);"></div><span class="labelRegular10 text-secondary">info</span></div>
     </div>
   </div>
 </div>
@@ -442,97 +481,97 @@
 <!-- ==========================================
      2. SPACING
      ========================================== -->
-<div class="container-wide doc-section" id="spacing">
-  <div class="doc-section-num">Section 2</div>
+<div class="container-wide py-large" id="spacing">
+  <p class="labelregular30 text-secondary mb-50">Section 2</p>
   <h2 class="title80">Spacing Tokens</h2>
-  <p class="doc-prose">All spacing is based on the <strong>8px grid</strong>. Fixed tokens stay constant, responsive tokens shrink on smaller screens.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">All spacing is based on the <strong>8px grid</strong>. Fixed tokens stay constant, responsive tokens shrink on smaller screens.</p>
 
-  <div class="doc-subtitle">Fixed Spacing Scale (4px – 80px)</div>
+  <h3 class="title50 mt-400 mb-100">Fixed Spacing Scale (4px – 80px)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="spacing-vis">
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 4px;"></div>
-        <div class="spacing-bar-label">50<br>4px</div>
+        <p class="labelRegular10 text-secondary mt-50">50<br>4px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 8px;"></div>
-        <div class="spacing-bar-label">100<br>8px</div>
+        <p class="labelRegular10 text-secondary mt-50">100<br>8px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 12px;"></div>
-        <div class="spacing-bar-label">150<br>12px</div>
+        <p class="labelRegular10 text-secondary mt-50">150<br>12px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 16px;"></div>
-        <div class="spacing-bar-label">200<br>16px</div>
+        <p class="labelRegular10 text-secondary mt-50">200<br>16px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 20px;"></div>
-        <div class="spacing-bar-label">250<br>20px</div>
+        <p class="labelRegular10 text-secondary mt-50">250<br>20px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 24px;"></div>
-        <div class="spacing-bar-label">300<br>24px</div>
+        <p class="labelRegular10 text-secondary mt-50">300<br>24px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 32px;"></div>
-        <div class="spacing-bar-label">400<br>32px</div>
+        <p class="labelRegular10 text-secondary mt-50">400<br>32px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 40px;"></div>
-        <div class="spacing-bar-label">500<br>40px</div>
+        <p class="labelRegular10 text-secondary mt-50">500<br>40px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 48px;"></div>
-        <div class="spacing-bar-label">600<br>48px</div>
+        <p class="labelRegular10 text-secondary mt-50">600<br>48px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 56px;"></div>
-        <div class="spacing-bar-label">700<br>56px</div>
+        <p class="labelRegular10 text-secondary mt-50">700<br>56px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 64px;"></div>
-        <div class="spacing-bar-label">800<br>64px</div>
+        <p class="labelRegular10 text-secondary mt-50">800<br>64px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 72px;"></div>
-        <div class="spacing-bar-label">900<br>72px</div>
+        <p class="labelRegular10 text-secondary mt-50">900<br>72px</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="spacing-bar" style="width: 20px; height: 80px;"></div>
-        <div class="spacing-bar-label">1000<br>80px</div>
+        <p class="labelRegular10 text-secondary mt-50">1000<br>80px</p>
       </div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Responsive Spacing (resize browser to see change)</div>
+  <h3 class="title50 mt-400 mb-100">Responsive Spacing (resize browser to see change)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span class="labelBold20" style="width: 80px;">row</span>
-        <div style="background: var(--brand-interactive); opacity: 0.25; border-radius: 4px; height: 12px; width: var(--spacing-row);"></div>
+    <div class="doc-demo-col">
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">row</span>
+        <div class="doc-spacing-token-bar" style="width: var(--spacing-row);"></div>
         <span class="labelRegular10 text-secondary">8→12→16px</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span class="labelBold20" style="width: 80px;">card</span>
-        <div style="background: var(--brand-interactive); opacity: 0.25; border-radius: 4px; height: 12px; width: var(--spacing-card);"></div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">card</span>
+        <div class="doc-spacing-token-bar" style="width: var(--spacing-card);"></div>
         <span class="labelRegular10 text-secondary">16→20→24px</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span class="labelBold20" style="width: 80px;">content</span>
-        <div style="background: var(--brand-interactive); opacity: 0.25; border-radius: 4px; height: 12px; width: var(--spacing-content);"></div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">content</span>
+        <div class="doc-spacing-token-bar" style="width: var(--spacing-content);"></div>
         <span class="labelRegular10 text-secondary">32→40→48px</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span class="labelBold20" style="width: 80px;">margin-lg</span>
-        <div style="background: var(--brand-interactive); opacity: 0.25; border-radius: 4px; height: 12px; width: var(--margin-large);"></div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">margin-lg</span>
+        <div class="doc-spacing-token-bar" style="width: var(--margin-large);"></div>
         <span class="labelRegular10 text-secondary">16→40→64px</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <span class="labelBold20" style="width: 80px;">landing</span>
-        <div style="background: var(--brand-interactive); opacity: 0.25; border-radius: 4px; height: 12px; width: var(--margin-landing);"></div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">landing</span>
+        <div class="doc-spacing-token-bar" style="width: var(--margin-landing);"></div>
         <span class="labelRegular10 text-secondary">24→48→80px</span>
       </div>
     </div>
@@ -543,35 +582,68 @@
 <!-- ==========================================
      3. CONTAINERS
      ========================================== -->
-<div class="container-wide doc-section" id="containers">
-  <div class="doc-section-num">Section 3</div>
+<div class="container-wide py-large" id="containers">
+  <p class="labelregular30 text-secondary mb-50">Section 3</p>
   <h2 class="title80">Container Classes</h2>
-  <p class="doc-prose">Containers set a <code>max-width</code>, center content, and add responsive horizontal padding. Mix containers on the same page for different content zones.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">
+    Containers set a <code>max-width</code>, center content, and add responsive horizontal padding. Mix containers on the same page for different content zones.
+  </p>
 
-  <div class="doc-preview" style="padding: 24px 0; overflow-x: auto;">
-    <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 8px; min-width: 600px;">
-      <div style="max-width: 1600px; width: 100%; background: var(--brand-interactive); opacity: 0.08; border-radius: 6px; padding: 8px 12px; position: relative;">
-        <span class="labelBold10">.container-maximum — 1600px</span>
+  <div>
+    
+
+    <!-- Each example below is the real container class, so resizing shows behavior -->
+    <div class="doc-demo-col mt-300" style="display: grid; gap: var(--spacing-50);">
+
+      <div class="doc-preview-multi container-maximum">
+        
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container-maximum — 1600px</span>
+       
       </div>
-      <div style="max-width: 1440px; width: 100%; background: var(--brand-interactive); opacity: 0.12; border-radius: 6px; padding: 8px 12px;">
-        <span class="labelBold10">.container-extra-wide — 1440px</span>
+
+      <div class="doc-preview-multi container-extra-wide">
+        
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container-extra-wide — 1440px</span>
+       
       </div>
-      <div style="max-width: 1280px; width: 100%; background: var(--brand-interactive); opacity: 0.16; border-radius: 6px; padding: 8px 12px;">
-        <span class="labelBold10">.container-wide — 1280px</span>
+
+      <div class="doc-preview-multi container-wide">
+       
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container-wide — 1280px</span>
+       
       </div>
-      <div style="max-width: 1200px; width: 100%; background: var(--brand-interactive); opacity: 0.20; border-radius: 6px; padding: 8px 12px;">
-        <span class="labelBold10">.container — 1200px</span>
+
+      <div class="doc-preview-multi container">
+       
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container — 1200px</span>
+       
       </div>
-      <div style="max-width: 1024px; width: 100%; background: var(--brand-interactive); opacity: 0.24; border-radius: 6px; padding: 8px 12px;">
-        <span class="labelBold10">.container-medium — 1024px</span>
+
+      <div class="doc-preview-multi container-medium">
+        
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container-medium — 1024px</span>
+        
       </div>
-      <div style="max-width: 768px; width: 100%; background: var(--brand-interactive); opacity: 0.28; border-radius: 6px; padding: 8px 12px;">
-        <span class="labelBold10">.container-narrow — 768px</span>
+
+      <div class="doc-preview-multi container-narrow">
+        
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container-narrow — 768px</span>
+        
       </div>
-      <div style="max-width: 640px; width: 100%; background: var(--brand-interactive); opacity: 0.32; border-radius: 6px; padding: 8px 12px;">
-        <span class="labelBold10">.container-compact — 640px</span>
+
+      <div class="doc-preview-multi container-compact">
+        
+          <span class="doc-preview-label">Live</span>
+          <span class="labelBold30 text-primary">.container-compact — 640px</span>
+        
       </div>
+
     </div>
   </div>
 </div>
@@ -580,15 +652,15 @@
 <!-- ==========================================
      4. TYPOGRAPHY
      ========================================== -->
-<div class="container-wide doc-section" id="typography">
-  <div class="doc-section-num">Section 4</div>
+<div class="container-wide py-large" id="typography">
+  <p class="labelregular30 text-secondary mb-50">Section 4</p>
   <h2 class="title80">Typography Classes</h2>
 
-  <div class="doc-subtitle">Display Styles (Team Font)</div>
-  <p class="doc-prose">Each team's unique display font, weight, and letter spacing. For big, attention-grabbing headlines.</p>
+  <h3 class="title50 mt-400 mb-100">Display Styles (Team Font)</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Each team's unique display font, weight, and letter spacing. For big, attention-grabbing headlines.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 4px;">
+    <div class="doc-demo-col">
       <span class="display900">.display900</span>
       <span class="display700">.display700</span>
       <span class="display500">.display500</span>
@@ -598,11 +670,11 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Title Styles (Inter Bold — Same Everywhere)</div>
-  <p class="doc-prose">Structural headings within content. Consistent across all teams.</p>
+  <h3 class="title50 mt-400 mb-100">Title Styles (Inter Bold — Same Everywhere)</h3>
+  <p class="bodyRegular30 text-secondary doc-prose mb-100">Structural headings within content. Consistent across all teams.</p>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 6px;">
+    <div class="doc-demo-col">
       <span class="title90">.title90 — 36px</span>
       <span class="title80">.title80 — 32px</span>
       <span class="title70">.title70 — 28px</span>
@@ -611,17 +683,17 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Label & Body Styles</div>
+  <h3 class="title50 mt-400 mb-100">Label & Body Styles</h3>
   <div class="doc-preview-grid">
     <div class="doc-preview">
       <span class="doc-preview-label">Labels</span>
-      <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div class="doc-demo-col">
         <span class="labelBold50">.labelBold50 — 20px</span>
         <span class="labelBold40">.labelBold40 — 16px</span>
         <span class="labelBold30">.labelBold30 — 14px</span>
         <span class="labelBold20">.labelBold20 — 12px</span>
         <span class="labelBold10">.labelBold10 — 10px</span>
-        <div style="border-top: 1px solid var(--neutral-100); margin: 6px 0;"></div>
+        <div style="border-top: 1px solid var(--neutral-100);"></div>
         <span class="labelRegular50 text-secondary">.labelRegular50 — 20px</span>
         <span class="labelRegular40 text-secondary">.labelRegular40 — 16px</span>
         <span class="labelRegular30 text-secondary">.labelRegular30 — 14px</span>
@@ -631,11 +703,11 @@
     </div>
     <div class="doc-preview">
       <span class="doc-preview-label">Body</span>
-      <div style="display: flex; flex-direction: column; gap: 6px;">
+      <div class="doc-demo-col">
         <span class="bodyBold40">.bodyBold40 — 16px</span>
         <span class="bodyBold30">.bodyBold30 — 14px</span>
         <span class="bodyBold20">.bodyBold20 — 13px</span>
-        <div style="border-top: 1px solid var(--neutral-100); margin: 6px 0;"></div>
+        <div style="border-top: 1px solid var(--neutral-100);"></div>
         <span class="bodyRegular40">.bodyRegular40 — 16px</span>
         <span class="bodyRegular30">.bodyRegular30 — 14px</span>
         <span class="bodyRegular20">.bodyRegular20 — 13px</span>
@@ -643,10 +715,10 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Text Color Modifiers</div>
+  <h3 class="title50 mt-400 mb-100">Text Color Modifiers</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 20px;">
+    <div class="demo-row">
       <span class="labelBold30 text-primary">.text-primary</span>
       <span class="labelBold30 text-secondary">.text-secondary</span>
       <span class="labelBold30 text-disabled">.text-disabled</span>
@@ -664,74 +736,74 @@
 <!-- ==========================================
      5. TEXT PAIRS
      ========================================== -->
-<div class="container-wide doc-section" id="textpairs">
-  <div class="doc-section-num">Section 5</div>
+<div class="container-wide py-large" id="textpairs">
+  <p class="labelregular30 text-secondary mb-50">Section 5</p>
   <h2 class="title80">Text Pairs</h2>
-  <p class="doc-prose">Pre-defined label + sublabel combinations. Numbered 9000 (largest) to 1000 (smallest). Always wrap in <code>.card-text-pair</code> and always apply <code>.text-secondary</code> to sublabels.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Pre-defined label + sublabel combinations. Numbered 9000 (largest) to 1000 (smallest). Always wrap in <code>.card-text-pair</code> and always apply <code>.text-secondary</code> to sublabels.</p>
 
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 28px;">
+    <div class="doc-demo-col" style="gap: var(--spacing-400);">
       <div>
-        <div class="demo-annotation">Text Pair 9000 — Hero</div>
-        <div class="card-text-pair" style="gap: 8px;">
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 9000 — Hero</p>
+        <div class="card-text-pair">
           <h1 class="display600">HERO HEADLINE</h1>
           <p class="labelRegular50 text-secondary">Supporting message for the hero section</p>
         </div>
       </div>
       <div>
-        <div class="demo-annotation">Text Pair 8000 — Page Header</div>
-        <div class="card-text-pair" style="gap: 8px;">
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 8000 — Page Header</p>
+        <div class="card-text-pair">
           <h1 class="display500">PAGE TITLE</h1>
           <p class="labelRegular40 text-secondary">Page description text</p>
         </div>
       </div>
       <div>
-        <div class="demo-annotation">Text Pair 7000 — Section Header</div>
-        <div class="card-text-pair" style="gap: 4px;">
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 7000 — Section Header</p>
+        <div class="card-text-pair">
           <h2 class="display400">SECTION TITLE</h2>
           <p class="labelRegular30 text-secondary">Section description</p>
         </div>
       </div>
       <div>
-        <div class="demo-annotation">Text Pair 6000 — Component Header</div>
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 6000 — Component Header</p>
         <div class="card-text-pair">
           <h3 class="display300">COMPONENT TITLE</h3>
           <p class="labelRegular20 text-secondary">Component description</p>
         </div>
       </div>
       <div>
-        <div class="demo-annotation">Text Pair 5000 — Card Header</div>
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 5000 — Card Header</p>
         <div class="card-text-pair">
           <h3 class="title50">Card Title</h3>
           <p class="labelRegular20 text-secondary">Card metadata • Jan 15, 2025</p>
         </div>
       </div>
       <div>
-        <div class="demo-annotation">Text Pair 4000 — Small Card</div>
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 4000 — Small Card</p>
         <div class="card-text-pair">
           <h4 class="labelBold40">Item Title</h4>
           <p class="labelRegular20 text-secondary">Item metadata</p>
         </div>
       </div>
       <div>
-        <div class="demo-annotation">Text Pair 3000 — Compact</div>
+        <p class="labelRegular10 text-secondary mb-50">Text Pair 3000 — Compact</p>
         <div class="card-text-pair">
           <h5 class="labelBold30">Compact Title</h5>
           <p class="labelRegular10 text-secondary">Compact metadata</p>
         </div>
       </div>
-      <div style="display: flex; gap: 40px;">
+      <div class="demo-row" style="gap: var(--spacing-500); align-items: flex-start;">
         <div>
-          <div class="demo-annotation">Text Pair 2000</div>
-          <div class="card-text-pair" style="gap: 1px;">
+          <p class="labelRegular10 text-secondary mb-50">Text Pair 2000</p>
+          <div class="card-text-pair">
             <h6 class="labelBold20">Small Title</h6>
             <p class="labelRegular10 text-secondary">Small metadata</p>
           </div>
         </div>
         <div>
-          <div class="demo-annotation">Text Pair 1000</div>
-          <div class="card-text-pair" style="gap: 1px;">
+          <p class="labelRegular10 text-secondary mb-50">Text Pair 1000</p>
+          <div class="card-text-pair">
             <span class="labelBold10">Minimal Title</span>
             <span class="labelRegular10 text-secondary">Minimal metadata</span>
           </div>
@@ -745,61 +817,61 @@
 <!-- ==========================================
      6. ICONS
      ========================================== -->
-<div class="container-wide doc-section" id="icons">
-  <div class="doc-section-num">Section 6</div>
+<div class="container-wide py-large" id="icons">
+  <p class="labelregular30 text-secondary mb-50">Section 6</p>
   <h2 class="title80">Icons</h2>
-  <p class="doc-prose">Google Material Symbols Rounded. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Google Material Symbols Rounded. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors.</p>
 
-  <div class="doc-subtitle">Icon Sizes</div>
+  <h3 class="title50 mt-400 mb-100">Icon Sizes</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 24px; align-items: flex-end;">
-      <div style="text-align: center;">
+    <div class="demo-row" style="align-items: flex-end;">
+      <div class="doc-demo-cell">
         <span class="icon icon-100">home</span>
-        <div class="demo-annotation">100 (16px)</div>
+        <p class="labelRegular10 text-secondary mt-50">100 (16px)</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <span class="icon icon-200">home</span>
-        <div class="demo-annotation">200 (20px)</div>
+        <p class="labelRegular10 text-secondary mt-50">200 (20px)</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <span class="icon">home</span>
-        <div class="demo-annotation">300 (24px)</div>
+        <p class="labelRegular10 text-secondary mt-50">300 (24px)</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <span class="icon icon-400">home</span>
-        <div class="demo-annotation">400 (32px)</div>
+        <p class="labelRegular10 text-secondary mt-50">400 (32px)</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <span class="icon icon-500">home</span>
-        <div class="demo-annotation">500 (40px)</div>
+        <p class="labelRegular10 text-secondary mt-50">500 (40px)</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <span class="icon icon-600">home</span>
-        <div class="demo-annotation">600 (48px)</div>
+        <p class="labelRegular10 text-secondary mt-50">600 (48px)</p>
       </div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Outlined vs Filled</div>
+  <h3 class="title50 mt-400 mb-100">Outlined vs Filled</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 24px;">
-      <div style="text-align: center;"><span class="icon icon-400">favorite</span><div class="demo-annotation">outlined</div></div>
-      <div style="text-align: center;"><span class="icon icon-400 icon-filled">favorite</span><div class="demo-annotation">filled</div></div>
-      <div style="text-align: center;"><span class="icon icon-400">star</span><div class="demo-annotation">outlined</div></div>
-      <div style="text-align: center;"><span class="icon icon-400 icon-filled">star</span><div class="demo-annotation">filled</div></div>
-      <div style="text-align: center;"><span class="icon icon-400">bookmark</span><div class="demo-annotation">outlined</div></div>
-      <div style="text-align: center;"><span class="icon icon-400 icon-filled">bookmark</span><div class="demo-annotation">filled</div></div>
-      <div style="text-align: center;"><span class="icon icon-400">notifications</span><div class="demo-annotation">outlined</div></div>
-      <div style="text-align: center;"><span class="icon icon-400 icon-filled">notifications</span><div class="demo-annotation">filled</div></div>
+    <div class="demo-row">
+      <div class="doc-demo-cell"><span class="icon icon-400">favorite</span><p class="labelRegular10 text-secondary mt-50">outlined</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400 icon-filled">favorite</span><p class="labelRegular10 text-secondary mt-50">filled</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400">star</span><p class="labelRegular10 text-secondary mt-50">outlined</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400 icon-filled">star</span><p class="labelRegular10 text-secondary mt-50">filled</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400">bookmark</span><p class="labelRegular10 text-secondary mt-50">outlined</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400 icon-filled">bookmark</span><p class="labelRegular10 text-secondary mt-50">filled</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400">notifications</span><p class="labelRegular10 text-secondary mt-50">outlined</p></div>
+      <div class="doc-demo-cell"><span class="icon icon-400 icon-filled">notifications</span><p class="labelRegular10 text-secondary mt-50">filled</p></div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Icon Colors</div>
+  <h3 class="title50 mt-400 mb-100">Icon Colors</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 16px;">
+    <div class="demo-row">
       <span class="icon icon-400 text-primary">home</span>
       <span class="icon icon-400 text-secondary">info</span>
       <span class="icon icon-400 text-brand-core">sports_soccer</span>
@@ -816,25 +888,35 @@
 <!-- ==========================================
      7. BORDERS & EFFECTS
      ========================================== -->
-<div class="container-wide doc-section" id="borders">
-  <div class="doc-section-num">Section 7</div>
+<div class="container-wide py-large" id="borders">
+  <p class="labelregular30 text-secondary mb-50">Section 7</p>
   <h2 class="title80">Border & Effect Tokens</h2>
 
-  <div class="doc-subtitle">Border Radius</div>
+  <h3 class="title50 mt-400 mb-100">Border Radius</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 20px;">
-      <div style="width: 64px; height: 64px; background: var(--neutral-200); border-radius: var(--border-radius-50); display: flex; align-items: center; justify-content: center;"><span class="labelBold10">50</span></div>
-      <div style="width: 64px; height: 64px; background: var(--neutral-200); border-radius: var(--border-radius-100); display: flex; align-items: center; justify-content: center;"><span class="labelBold10">100</span></div>
-      <div style="width: 64px; height: 64px; background: var(--neutral-200); border-radius: var(--border-radius-200); display: flex; align-items: center; justify-content: center;"><span class="labelBold10">200</span></div>
-      <div style="width: 120px; height: 48px; background: var(--brand-interactive); border-radius: var(--button-border-radius); display: flex; align-items: center; justify-content: center; color: var(--white-1000);"><span class="labelBold10">button</span></div>
+    <div class="demo-row">
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box" style="border-radius: var(--border-radius-50);"><span class="labelBold10">50</span></div>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box" style="border-radius: var(--border-radius-100);"><span class="labelBold10">100</span></div>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box" style="border-radius: var(--border-radius-200);"><span class="labelBold10">200</span></div>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box rounded-button" style="width: 120px; height: 48px; background: var(--brand-interactive);">
+          <span class="labelBold10" style="color: var(--white-1000);">button</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Border Utilities</div>
+  <h3 class="title50 mt-400 mb-100">Border Utilities</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 16px;">
+    <div class="demo-row">
       <div class="border rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border</span></div>
       <div class="border-thin rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-thin</span></div>
       <div class="border-heavy rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-heavy</span></div>
@@ -847,49 +929,49 @@
 <!-- ==========================================
      8. INTERACTIVE TOKENS
      ========================================== -->
-<div class="container-wide doc-section" id="interactive">
-  <div class="doc-section-num">Section 8</div>
+<div class="container-wide py-large" id="interactive">
+  <p class="labelregular30 text-secondary mb-50">Section 8</p>
   <h2 class="title80">Interactive Tokens</h2>
-  <p class="doc-prose">Composable surface styles + scale transforms. Mix any surface with any scale. Hover and click the examples below.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">Composable surface styles + scale transforms. Mix any surface with any scale. Hover and click the examples below.</p>
 
-  <div class="doc-subtitle">Fill Surfaces</div>
+  <h3 class="title50 mt-400 mb-100">Fill Surfaces</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Hover / Click me</span>
-    <div class="demo-row" style="gap: 12px;">
-      <div class="surface-fillNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">fillNeutral</span></div>
-      <div class="surface-fillColor rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">fillColor</span></div>
-      <div class="surface-fillInverted rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">fillInverted</span></div>
-      <div class="surface-fillBlack rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">fillBlack</span></div>
-      <div class="surface-fillWhite rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">fillWhite</span></div>
+    <div class="demo-row">
+      <div class="surface-fillNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">fillNeutral</span></div>
+      <div class="surface-fillColor rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">fillColor</span></div>
+      <div class="surface-fillInverted rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">fillInverted</span></div>
+      <div class="surface-fillBlack rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">fillBlack</span></div>
+      <div class="surface-fillWhite rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">fillWhite</span></div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Border Surfaces</div>
+  <h3 class="title50 mt-400 mb-100">Border Surfaces</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Hover / Click me</span>
-    <div class="demo-row" style="gap: 12px;">
-      <div class="surface-borderNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">borderNeutral</span></div>
-      <div class="surface-borderInverted rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">borderInverted</span></div>
-      <div class="surface-washNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">washNeutral</span></div>
-      <div class="surface-ghost rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20">ghost</span></div>
+    <div class="demo-row">
+      <div class="surface-borderNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">borderNeutral</span></div>
+      <div class="surface-borderInverted rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">borderInverted</span></div>
+      <div class="surface-washNeutral rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">washNeutral</span></div>
+      <div class="surface-ghost rounded-100 p-200" style="min-width: 120px; text-align: center;"><span class="labelBold20" style="color: inherit;">ghost</span></div>
     </div>
   </div>
 
-  <div class="doc-subtitle">Scale Tokens (combine with any surface)</div>
+  <h3 class="title50 mt-400 mb-100">Scale Tokens (combine with any surface)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Hover / Click me</span>
-    <div class="demo-row" style="gap: 12px;">
-      <div class="surface-fillColor scale-700 rounded-100 p-300" style="text-align: center;">
-        <span class="labelBold20">scale-700</span>
-        <div class="demo-annotation" style="color: inherit; opacity: 0.6;">Cards (1.01)</div>
+    <div class="demo-row">
+      <div class="surface-fillColor scale-700 rounded-100 p-300 doc-demo-cell">
+        <span class="labelBold20" style="color: inherit;">scale-700</span>
+        <p class="labelRegular10 mt-50" style="color: inherit; opacity: 0.6;">Cards (1.01)</p>
       </div>
-      <div class="surface-fillColor scale-500 rounded-100 p-300" style="text-align: center;">
-        <span class="labelBold20">scale-500</span>
-        <div class="demo-annotation" style="color: inherit; opacity: 0.6;">Buttons (1.025)</div>
+      <div class="surface-fillColor scale-500 rounded-100 p-300 doc-demo-cell">
+        <span class="labelBold20" style="color: inherit;">scale-500</span>
+        <p class="labelRegular10 mt-50" style="color: inherit; opacity: 0.6;">Buttons (1.025)</p>
       </div>
-      <div class="surface-fillColor scale-300 rounded-100 p-300" style="text-align: center;">
-        <span class="labelBold20">scale-300</span>
-        <div class="demo-annotation" style="color: inherit; opacity: 0.6;">Icons (1.035)</div>
+      <div class="surface-fillColor scale-300 rounded-100 p-300 doc-demo-cell">
+        <span class="labelBold20" style="color: inherit;">scale-300</span>
+        <p class="labelRegular10 mt-50" style="color: inherit; opacity: 0.6;">Icons (1.035)</p>
       </div>
     </div>
   </div>
@@ -899,15 +981,15 @@
 <!-- ==========================================
      9. BUTTONS
      ========================================== -->
-<div class="container-wide doc-section" id="buttons">
-  <div class="doc-section-num">Section 9</div>
+<div class="container-wide py-large" id="buttons">
+  <p class="labelregular30 text-secondary mb-50">Section 9</p>
   <h2 class="title80">Button Components</h2>
-  <p class="doc-prose">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers.</p>
 
-  <div class="doc-subtitle">Button Types (All at btn-300)</div>
+  <h3 class="title50 mt-400 mb-100">Button Types (All at btn-300)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live — hover me</span>
-    <div class="demo-row" style="gap: 10px;">
+    <div class="demo-row">
       <button class="btn btn-transactional btn-300">Transactional</button>
       <button class="btn btn-primary btn-300">Primary</button>
       <button class="btn btn-neutral btn-300">Neutral</button>
@@ -917,30 +999,30 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">White Buttons (for dark/brand surfaces)</div>
+  <h3 class="title50 mt-400 mb-100">White Buttons (for dark/brand surfaces)</h3>
   <div class="doc-preview dark-surface">
     <span class="doc-preview-label" style="color: var(--white-500);">Live — dark surface</span>
-    <div class="demo-row" style="gap: 10px;">
+    <div class="demo-row">
       <button class="btn btn-white btn-300">White</button>
       <button class="btn btn-white-tertiary btn-300">White Tertiary</button>
     </div>
   </div>
 
-  <div class="doc-subtitle">Button Sizes</div>
+  <h3 class="title50 mt-400 mb-100">Button Sizes</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 12px; align-items: center;">
+    <div class="demo-row">
       <button class="btn btn-primary btn-700">Large (700)</button>
       <button class="btn btn-primary btn-300">Small (300)</button>
       <button class="btn btn-primary btn-100">XSmall (100)</button>
     </div>
-    <div class="demo-annotation">56px → 40px → 32px height</div>
+    <p class="labelRegular10 text-secondary mt-100">56px → 40px → 32px height</p>
   </div>
 
-  <div class="doc-subtitle">Icon Variants</div>
+  <h3 class="title50 mt-400 mb-100">Icon Variants</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 12px;">
+    <div class="demo-row">
       <button class="btn btn-primary btn-300 btn-icon-leading">
         <span class="icon icon-200 btn-icon">add</span>
         <span>Leading</span>
@@ -957,10 +1039,10 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Button States</div>
+  <h3 class="title50 mt-400 mb-100">Button States</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 12px;">
+    <div class="demo-row">
       <button class="btn btn-primary btn-300">Default</button>
       <button class="btn btn-primary btn-300" disabled>Disabled</button>
       <button class="btn btn-secondary btn-300">Default</button>
@@ -970,10 +1052,10 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Circle Icon Buttons</div>
+  <h3 class="title50 mt-400 mb-100">Circle Icon Buttons</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live — hover me</span>
-    <div class="demo-row" style="gap: 10px;">
+    <div class="demo-row">
       <button class="btn-circle btn-circle-700 btn-circle-team"><span class="icon btn-icon">add</span></button>
       <button class="btn-circle btn-circle-300 btn-circle-team"><span class="icon icon-200 btn-icon">add</span></button>
       <button class="btn-circle btn-circle-300 btn-circle-neutral"><span class="icon icon-200 btn-icon">share</span></button>
@@ -984,7 +1066,7 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Button Groups</div>
+  <h3 class="title50 mt-400 mb-100">Button Groups</h3>
   <div class="doc-preview-grid">
     <div class="doc-preview">
       <span class="doc-preview-label">.btn-group</span>
@@ -1007,12 +1089,12 @@
 <!-- ==========================================
      10. CARDS
      ========================================== -->
-<div class="container-wide doc-section" id="cards">
-  <div class="doc-section-num">Section 10</div>
+<div class="container-wide py-large" id="cards">
+  <p class="labelregular30 text-secondary mb-50">Section 10</p>
   <h2 class="title80">Card Components</h2>
 
-  <div class="doc-subtitle">Closed Layout Card</div>
-  <div class="doc-preview">
+  <h3 class="title50 mt-400 mb-100">Closed Layout Card</h3>
+  <div class="doc-preview" style="background: var(--bg-base);>
     <span class="doc-preview-label">Live</span>
     <div style="max-width: 400px;">
       <div class="card-closed">
@@ -1035,13 +1117,13 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Open Layout Card</div>
+  <h3 class="title50 mt-400 mb-100">Open Layout Card</h3>
   <div class="doc-preview" style="background: var(--bg-base);">
     <span class="doc-preview-label">Live</span>
     <div style="max-width: 600px;">
       <div class="card-open">
         <div class="card-open-header">
-          <div class="card-text-pair" style="gap: 4px;">
+          <div class="card-text-pair">
             <h2 class="display400">UPCOMING EVENTS</h2>
             <p class="labelRegular30 text-secondary">Don't miss what's coming up this month</p>
           </div>
@@ -1069,18 +1151,18 @@
 <!-- ==========================================
      11. LIST ROWS
      ========================================== -->
-<div class="container-wide doc-section" id="listrows">
-  <div class="doc-section-num">Section 11</div>
+<div class="container-wide py-large" id="listrows">
+  <p class="labelregular30 text-secondary mb-50">Section 11</p>
   <h2 class="title80">List Row Components</h2>
-  <p class="doc-prose">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically.</p>
+  <p class="bodyRegular30 text-secondary doc-prose mt-100">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically.</p>
 
-  <div class="doc-subtitle">Basic List Rows</div>
+  <h3 class="title50 mt-400 mb-100">Basic List Rows</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 1px; background: var(--neutral-100); border-radius: 12px; overflow: hidden; max-width: 500px;">
+    <div class="doc-list-container">
 
       <!-- Icon + chevron -->
-      <div class="list-row" style="background: var(--bg-surface); padding: 12px 16px;">
+      <div class="list-row doc-list-row">
         <div class="leading leading-gap-md">
           <span class="icon icon-200">settings</span>
         </div>
@@ -1096,7 +1178,7 @@
       </div>
 
       <!-- Circle icon + switch -->
-      <div class="list-row" style="background: var(--bg-surface); padding: 12px 16px;">
+      <div class="list-row doc-list-row">
         <div class="leading leading-gap-md">
           <div class="circle-container">
             <span class="icon icon-200">notifications</span>
@@ -1117,7 +1199,7 @@
       </div>
 
       <!-- Status dot + text pair trailing -->
-      <div class="list-row" style="background: var(--bg-surface); padding: 12px 16px;">
+      <div class="list-row doc-list-row">
         <div class="leading leading-gap-md">
           <div class="status-dot"></div>
         </div>
@@ -1138,13 +1220,13 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Rich List Row (Image + Tags + Info Block)</div>
+  <h3 class="title50 mt-400 mb-100">Rich List Row (Image + Tags + Info Block)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="max-width: 550px; padding: 12px 16px; background: var(--bg-surface); border-radius: 12px;">
+    <div class="doc-list-row rounded-100" style="max-width: 550px; background: var(--bg-surface);">
       <div class="list-row">
         <div class="leading leading-gap-lg">
-          <div class="leading-image-square" style="background: var(--brand-core); display: flex; align-items: center; justify-content: center; border-radius: 8px; width: 80px; height: 80px;">
+          <div class="leading-image-square rounded-100" style="background: var(--brand-core); display: flex; align-items: center; justify-content: center;">
             <span class="icon icon-400" style="color: var(--white-1000);">sports_basketball</span>
           </div>
         </div>
@@ -1173,11 +1255,11 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Subcomponents</div>
+  <h3 class="title50 mt-400 mb-100">Subcomponents</h3>
   <div class="doc-preview-grid">
     <div class="doc-preview">
       <span class="doc-preview-label">Tags</span>
-      <div class="demo-row-stack" style="gap: 12px;">
+      <div class="demo-row-stack">
         <div class="demo-row">
           <div class="tag"><span class="labelBold20">Default</span></div>
           <div class="tag tag-team-color"><span class="labelBold20">Team Color</span></div>
@@ -1196,8 +1278,8 @@
     </div>
     <div class="doc-preview">
       <span class="doc-preview-label">Switch & Stepper</span>
-      <div class="demo-row-stack" style="gap: 16px;">
-        <div class="demo-row" style="gap: 16px;">
+      <div class="demo-row-stack">
+        <div class="demo-row">
           <div class="switch"><input type="checkbox" id="s-off"><label for="s-off"></label></div>
           <div class="switch"><input type="checkbox" id="s-on" checked><label for="s-on"></label></div>
           <div class="switch"><input type="checkbox" id="s-dis" disabled><label for="s-dis"></label></div>
@@ -1211,33 +1293,33 @@
     </div>
   </div>
 
-  <div class="doc-subtitle">Leading Slot Variants</div>
+  <h3 class="title50 mt-400 mb-100">Leading Slot Variants</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div class="demo-row" style="gap: 20px; align-items: center;">
-      <div style="text-align: center;">
+    <div class="demo-row">
+      <div class="doc-demo-cell">
         <span class="icon icon-200">event</span>
-        <div class="demo-annotation">Icon</div>
+        <p class="labelRegular10 text-secondary mt-50">Icon</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="circle-container"><span class="icon icon-200">star</span></div>
-        <div class="demo-annotation">Circle Icon</div>
+        <p class="labelRegular10 text-secondary mt-50">Circle Icon</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="circle-container"><span class="display100">A</span></div>
-        <div class="demo-annotation">Circle Letter</div>
+        <p class="labelRegular10 text-secondary mt-50">Circle Letter</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="select-box"></div>
-        <div class="demo-annotation">Select Box</div>
+        <p class="labelRegular10 text-secondary mt-50">Select Box</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="status-dot"></div>
-        <div class="demo-annotation">Unread</div>
+        <p class="labelRegular10 text-secondary mt-50">Unread</p>
       </div>
-      <div style="text-align: center;">
+      <div class="doc-demo-cell">
         <div class="status-dot read"></div>
-        <div class="demo-annotation">Read</div>
+        <p class="labelRegular10 text-secondary mt-50">Read</p>
       </div>
     </div>
   </div>
@@ -1247,64 +1329,52 @@
 <!-- ==========================================
      12. LAYOUT
      ========================================== -->
-<div class="container-wide doc-section" id="layout">
-  <div class="doc-section-num">Section 12</div>
+<div class="container-wide py-large" id="layout">
+  <p class="labelregular30 text-secondary mb-50">Section 12</p>
   <h2 class="title80">Layout Utilities</h2>
 
-  <div class="doc-subtitle">Grid Columns (responsive)</div>
+  <h3 class="title50 mt-400 mb-100">Grid Columns (responsive)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live — resize browser</span>
     <div class="grid gap-card grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
-      <div style="background: var(--neutral-100); border-radius: 8px; padding: 16px; text-align: center;">
-        <span class="labelBold20">1</span>
-      </div>
-      <div style="background: var(--neutral-100); border-radius: 8px; padding: 16px; text-align: center;">
-        <span class="labelBold20">2</span>
-      </div>
-      <div style="background: var(--neutral-100); border-radius: 8px; padding: 16px; text-align: center;">
-        <span class="labelBold20">3</span>
-      </div>
-      <div style="background: var(--neutral-100); border-radius: 8px; padding: 16px; text-align: center;">
-        <span class="labelBold20">4</span>
-      </div>
-      <div style="background: var(--neutral-100); border-radius: 8px; padding: 16px; text-align: center;">
-        <span class="labelBold20">5</span>
-      </div>
-      <div style="background: var(--neutral-100); border-radius: 8px; padding: 16px; text-align: center;">
-        <span class="labelBold20">6</span>
-      </div>
+      <div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">1</span></div>
+      <div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">2</span></div>
+      <div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">3</span></div>
+      <div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">4</span></div>
+      <div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">5</span></div>
+      <div class="rounded-100 p-200" style="background: var(--neutral-100); text-align: center;"><span class="labelBold20">6</span></div>
     </div>
-    <div class="demo-annotation">3 cols desktop → 2 cols tablet → 1 col mobile</div>
+    <p class="labelRegular10 text-secondary mt-100">3 cols desktop → 2 cols tablet → 1 col mobile</p>
   </div>
 
-  <div class="doc-subtitle">Named Gap Shortcuts</div>
+  <h3 class="title50 mt-400 mb-100">Named Gap Shortcuts</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
-    <div style="display: flex; flex-direction: column; gap: 12px;">
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span class="labelBold20" style="width: 56px;">.gap-xs</span>
-        <div style="display: flex; gap: 8px;">
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
+    <div class="doc-demo-col">
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 56px;">.gap-xs</span>
+        <div class="demo-row" style="gap: var(--spacing-100);">
+          <div class="doc-gap-box"></div>
+          <div class="doc-gap-box"></div>
+          <div class="doc-gap-box"></div>
         </div>
         <span class="labelRegular10 text-secondary">8px</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span class="labelBold20" style="width: 56px;">.gap-md</span>
-        <div style="display: flex; gap: 16px;">
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 56px;">.gap-md</span>
+        <div class="demo-row" style="gap: var(--spacing-200);">
+          <div class="doc-gap-box"></div>
+          <div class="doc-gap-box"></div>
+          <div class="doc-gap-box"></div>
         </div>
         <span class="labelRegular10 text-secondary">16px</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <span class="labelBold20" style="width: 56px;">.gap-xl</span>
-        <div style="display: flex; gap: 32px;">
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
-          <div style="width: 40px; height: 24px; background: var(--neutral-200); border-radius: 4px;"></div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 56px;">.gap-xl</span>
+        <div class="demo-row" style="gap: var(--spacing-400);">
+          <div class="doc-gap-box"></div>
+          <div class="doc-gap-box"></div>
+          <div class="doc-gap-box"></div>
         </div>
         <span class="labelRegular10 text-secondary">32px</span>
       </div>
@@ -1315,9 +1385,9 @@
 <!-- ==========================================
      FOOTER
      ========================================== -->
-<div style="padding: 48px 0; text-align: center;">
-  <p class="labelRegular20 text-secondary">JUMP Design System – Visual Walkthrough</p>
-  <p class="labelRegular10 text-secondary" style="margin-top: 4px;">Switch themes and modes using the controls at the top of the page</p>
+<div class="py-600" style="text-align: center;">
+  <p class="labelRegular20 text-secondary">Diet AirDS: Visual Walkthrough</p>
+  <p class="labelRegular10 text-secondary mt-50">Switch themes and modes using the controls at the top of the page</p>
 </div>
 
 <script>

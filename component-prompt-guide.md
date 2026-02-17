@@ -1056,3 +1056,60 @@ Let's iterate until it matches my vision, then we'll add it to the guide.
 <!-- Dark Mode - Athletics -->
 <html data-theme="athletics" data-mode="dark">
 ```
+
+### Team Logo Assets
+
+Team logos are hosted as SVGs in the `/images/` folder on the design system domain. When a component needs a team logo, use the file that matches the current `data-theme` value.
+
+| Theme | Logo Path |
+|-------|-----------|
+| `wolves` | `images/wolves.svg` |
+| `lynx` | `images/lynx.svg` |
+| `courage` | `images/courage.svg` |
+| `summit` | `images/summit.svg` |
+| `bucknell` | `images/bucknell.svg` |
+| `sounders` | `images/sounders.svg` |
+| `reign` | `images/reign.svg` |
+| `ncfc` | `images/ncfc.svg` |
+| `jump` | `images/jump.svg` |
+| `athletics` | `images/athletics.svg` |
+
+**Usage Pattern — Show/Hide by Theme:**
+
+When building a component that displays a team logo, include all logo `<img>` tags and use CSS to show only the one matching the active theme. This keeps the component fully themeable without JavaScript.
+
+```html
+<!-- Team Logo Images (only the active theme's logo displays) -->
+<img src="images/wolves.svg" alt="Team Logo" class="team-logo" data-logo="wolves">
+<img src="images/lynx.svg" alt="Team Logo" class="team-logo" data-logo="lynx">
+<img src="images/courage.svg" alt="Team Logo" class="team-logo" data-logo="courage">
+<img src="images/summit.svg" alt="Team Logo" class="team-logo" data-logo="summit">
+<img src="images/bucknell.svg" alt="Team Logo" class="team-logo" data-logo="bucknell">
+<img src="images/sounders.svg" alt="Team Logo" class="team-logo" data-logo="sounders">
+<img src="images/reign.svg" alt="Team Logo" class="team-logo" data-logo="reign">
+<img src="images/ncfc.svg" alt="Team Logo" class="team-logo" data-logo="ncfc">
+<img src="images/jump.svg" alt="Team Logo" class="team-logo" data-logo="jump">
+<img src="images/athletics.svg" alt="Team Logo" class="team-logo" data-logo="athletics">
+```
+
+```css
+/* Hide all logos by default, show only the active theme's logo */
+.team-logo { display: none; }
+[data-theme="wolves"] .team-logo[data-logo="wolves"] { display: block; }
+[data-theme="lynx"] .team-logo[data-logo="lynx"] { display: block; }
+[data-theme="courage"] .team-logo[data-logo="courage"] { display: block; }
+[data-theme="summit"] .team-logo[data-logo="summit"] { display: block; }
+[data-theme="bucknell"] .team-logo[data-logo="bucknell"] { display: block; }
+[data-theme="sounders"] .team-logo[data-logo="sounders"] { display: block; }
+[data-theme="reign"] .team-logo[data-logo="reign"] { display: block; }
+[data-theme="ncfc"] .team-logo[data-logo="ncfc"] { display: block; }
+[data-theme="jump"] .team-logo[data-logo="jump"] { display: block; }
+[data-theme="athletics"] .team-logo[data-logo="athletics"] { display: block; }
+```
+
+**⚠️ IMPORTANT:**
+- When referencing the hosted design system, use the full URL: `https://diet-air-ds.vercel.app/images/wolves.svg`
+- When building pages within the design system repo itself, use relative paths: `images/wolves.svg`
+- Logo filenames always match the `data-theme` value exactly (lowercase)
+- Size logos with CSS (`width`/`height`) — they are SVGs and scale cleanly at any size
+- ❌ Do NOT hardcode a single team logo — always use the show/hide pattern so the component works across all themes

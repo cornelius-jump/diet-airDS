@@ -60,13 +60,15 @@
 
     /* ─── Page header ─── */
     .page-header {
-      padding: var(--spacing-600) var(--margin-large) var(--spacing-300);
+      padding-top: var(--spacing-600);
+      padding-bottom: var(--spacing-300);
       border-bottom: var(--border-weight-100) solid var(--neutral-200);
       background: var(--bg-nav);
     }
 
     .holding-banner {
-      padding: var(--spacing-200) var(--margin-large);
+      padding-top: var(--spacing-200);
+      padding-bottom: var(--spacing-200);
       border-bottom: var(--border-weight-100) solid var(--neutral-200);
       background: var(--bg-nav);
     }
@@ -76,9 +78,8 @@
       display: grid;
       grid-template-columns: 1fr 360px;
       gap: var(--spacing-content);
-      padding: var(--margin-large);
-      max-width: 1200px;
-      margin: 0 auto;
+      padding-top: var(--margin-large);
+      padding-bottom: var(--margin-large);
       align-items: start;
     }
 
@@ -400,20 +401,24 @@
        PAGE HEADER
   ═══════════════════════════════════════════ -->
   <div class="page-header">
-    <div class="card-text-pair">
-      <h1 class="display500">CHECKOUT</h1>
-      <p class="labelRegular20 text-secondary">Your tickets will be available once your purchase has been successfully completed</p>
+    <div class="container">
+      <div class="card-text-pair">
+        <h1 class="display500">CHECKOUT</h1>
+        <p class="labelRegular20 text-secondary">Your tickets will be available once your purchase has been successfully completed</p>
+      </div>
     </div>
   </div>
 
   <div class="holding-banner">
-    <p class="labelRegular20 text-secondary">Holding seats for <span class="timer-highlight">11:59</span></p>
+    <div class="container">
+      <p class="labelRegular20 text-secondary">Holding seats for <span class="timer-highlight">11:59</span></p>
+    </div>
   </div>
 
   <!-- ═══════════════════════════════════════════
        MAIN LAYOUT
   ═══════════════════════════════════════════ -->
-  <main class="checkout-layout">
+  <main class="checkout-layout container">
 
     <!-- ─── LEFT COLUMN ─── -->
     <div class="checkout-left">

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diet AirDS “ Token & Style Walkthrough</title>
+  <title>Diet AirDS – Token & Style Walkthrough</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -665,7 +665,7 @@
      0. OVERVIEW
      ========================================== -->
 <div class="container-wide py-large border-top" id="overview">
-  <p class="labelregular30 text-secondary mb-50">Section 0</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 0</p>
   <h2 class="title80">How the System Works</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">The design system is built on CSS custom properties (variables) and utility classes. Everything is controlled by two HTML attributes on the root element:</p>
 
@@ -694,8 +694,8 @@
       </thead>
       <tbody>
         <tr><td>1</td><td><code>design-tokens-master.css</code></td><td>Core color tokens, brand colors per team, neutral/inverted scales, semantic tokens</td></tr>
-        <tr><td>2</td><td><code>spacing-tokens.css</code></td><td>Fixed spacing scale (4px“80px) and responsive spacing tokens</td></tr>
-        <tr><td>3</td><td><code>container-tokens.css</code></td><td>Max-width container classes (640px“1600px) with responsive padding</td></tr>
+        <tr><td>2</td><td><code>spacing-tokens.css</code></td><td>Fixed spacing scale (4px–80px) and responsive spacing tokens</td></tr>
+        <tr><td>3</td><td><code>container-tokens.css</code></td><td>Max-width container classes (640px–1600px) with responsive padding</td></tr>
         <tr><td>4</td><td><code>border-effects-tokens.css</code></td><td>Border radius, border weight, drop shadow tokens and utility classes</td></tr>
         <tr><td>5</td><td><code>fonts.css</code></td><td>@font-face declarations for all team display fonts</td></tr>
         <tr><td>6</td><td><code>text-styles-system.css</code></td><td>Typography classes (display, title, label, body) and text utility classes</td></tr>
@@ -715,7 +715,7 @@
      1. COLORS
      ========================================== -->
 <div class="container-wide py-large border-top" id="colors">
-  <p class="labelregular30 text-secondary mb-50">Section 1</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 1</p>
   <h2 class="title80">Color Tokens</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
 
@@ -918,7 +918,7 @@
      2. SPACING
      ========================================== -->
 <div class="container-wide py-large border-top" id="spacing">
-  <p class="labelregular30 text-secondary mb-50">Section 2</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 2</p>
   <h2 class="title80">Spacing Tokens</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">All spacing is based on multiples of 8px. This keeps everything aligned and consistent. Fixed tokens stay constant; responsive tokens scale across breakpoints.</p>
 
@@ -927,7 +927,7 @@
     <p class="bodyRegular30 mt-50"><strong>Responsive tokens</strong> (e.g. <code>--spacing-card</code>, <code>--margin-large</code>) → gaps between cards, section margins, page-level spacing that should feel proportional.</p>
   </div>
 
-  <h3 class="title50 mt-400 mb-100">Fixed Spacing Scale (4px “ 80px)</h3>
+  <h3 class="title50 mt-400 mb-100">Fixed Spacing Scale (4px – 80px)</h3>
   <div class="doc-preview">
     <span class="doc-preview-label">Live</span>
     <div class="spacing-vis">
@@ -1040,7 +1040,7 @@
   </div>
   <div class="doc-table-wrap">
     <table class="doc-table">
-      <thead><tr><th>Token</th><th>Mobile &lt;500px</th><th>Tablet 500“1099px</th><th>Desktop 1100px+</th><th>Best For</th></tr></thead>
+      <thead><tr><th>Token</th><th>Mobile &lt;500px</th><th>Tablet 500–1099px</th><th>Desktop 1100px+</th><th>Best For</th></tr></thead>
       <tbody>
         <tr><td><code>--spacing-row</code></td><td>8px</td><td>12px</td><td>16px</td><td>Event rows, selectors, short wide objects</td></tr>
         <tr><td><code>--spacing-card</code></td><td>16px</td><td>20px</td><td>24px</td><td>Space between cards in a grid</td></tr>
@@ -1058,7 +1058,7 @@
      3. SPACING UTILITY CLASSES
      ========================================== -->
 <div class="container-wide py-large border-top" id="spacing-utils">
-  <p class="labelregular30 text-secondary mb-50">Section 3</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 3</p>
   <h2 class="title80">Spacing Utility Classes</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Every spacing token has matching utility classes in <code>boilerplate.css</code>. The naming pattern is consistent:</p>
 
@@ -1111,7 +1111,7 @@
      4. CONTAINERS
      ========================================== -->
 <div class="container-wide py-large border-top" id="containers">
-  <p class="labelregular30 text-secondary mb-50">Section 4</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 4</p>
   <h2 class="title80">Container Classes</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">
     Containers set a <code>max-width</code>, center content with <code>margin: auto</code>, and add responsive horizontal padding. Mix containers on the same page for different content zones.
@@ -1213,7 +1213,7 @@
      5. TYPOGRAPHY
      ========================================== -->
 <div class="container-wide py-large border-top" id="typography">
-  <p class="labelregular30 text-secondary mb-50">Section 5</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 5</p>
   <h2 class="title80">Typography Classes</h2>
 
   <h3 class="title50 mt-400 mb-100">Display Styles (Team Font)</h3>
@@ -1298,28 +1298,28 @@
       <span class="doc-preview-label">Labels</span>
       <div class="doc-demo-col">
         <span class="labelBold50">.labelBold50 — 20px</span>
-        <span class="labelBold40">.labelBold40 — 16px</span>
-        <span class="labelBold30">.labelBold30 — 14px</span>
-        <span class="labelBold20">.labelBold20 — 12px</span>
-        <span class="labelBold10">.labelBold10 — 10px</span>
+        <span class="labelBold40">.labelBold40 — 18px</span>
+        <span class="labelBold30">.labelBold30 — 16px</span>
+        <span class="labelBold20">.labelBold20 — 14px</span>
+        <span class="labelBold10">.labelBold10 — 12px</span>
         <div style="border-top: 1px solid var(--neutral-100);"></div>
         <span class="labelRegular50 text-secondary">.labelRegular50 — 20px</span>
-        <span class="labelRegular40 text-secondary">.labelRegular40 — 16px</span>
-        <span class="labelRegular30 text-secondary">.labelRegular30 — 14px</span>
-        <span class="labelRegular20 text-secondary">.labelRegular20 — 12px</span>
-        <span class="labelRegular10 text-secondary">.labelRegular10 — 10px</span>
+        <span class="labelRegular40 text-secondary">.labelRegular40 — 18px</span>
+        <span class="labelRegular30 text-secondary">.labelRegular30 — 16px</span>
+        <span class="labelRegular20 text-secondary">.labelRegular20 — 14px</span>
+        <span class="labelRegular10 text-secondary">.labelRegular10 — 12px</span>
       </div>
     </div>
     <div class="doc-preview">
       <span class="doc-preview-label">Body</span>
       <div class="doc-demo-col">
-        <span class="bodyBold40">.bodyBold40 — 16px</span>
-        <span class="bodyBold30">.bodyBold30 — 14px</span>
-        <span class="bodyBold20">.bodyBold20 — 13px</span>
+        <span class="bodyBold40">.bodyBold40 — 18px</span>
+        <span class="bodyBold30">.bodyBold30 — 16px</span>
+        <span class="bodyBold20">.bodyBold20 — 14px</span>
         <div style="border-top: 1px solid var(--neutral-100);"></div>
-        <span class="bodyRegular40">.bodyRegular40 — 16px</span>
-        <span class="bodyRegular30">.bodyRegular30 — 14px</span>
-        <span class="bodyRegular20">.bodyRegular20 — 13px</span>
+        <span class="bodyRegular40">.bodyRegular40 — 18px</span>
+        <span class="bodyRegular30">.bodyRegular30 — 16px</span>
+        <span class="bodyRegular20">.bodyRegular20 — 14px</span>
       </div>
     </div>
   </div>
@@ -1332,10 +1332,10 @@
           <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
           <tbody>
             <tr><td><code>.labelBold50</code></td><td>20px</td><td>Large UI labels</td></tr>
-            <tr><td><code>.labelBold40</code></td><td>16px</td><td>Buttons, nav links</td></tr>
-            <tr><td><code>.labelBold30</code></td><td>14px</td><td>Standard bold labels</td></tr>
-            <tr><td><code>.labelBold20</code></td><td>12px</td><td>Small bold labels, badges</td></tr>
-            <tr><td><code>.labelBold10</code></td><td>10px</td><td>Tiny labels</td></tr>
+            <tr><td><code>.labelBold40</code></td><td>18px</td><td>Buttons, nav links</td></tr>
+            <tr><td><code>.labelBold30</code></td><td>16px</td><td>Standard bold labels</td></tr>
+            <tr><td><code>.labelBold20</code></td><td>14px</td><td>Small bold labels, badges</td></tr>
+            <tr><td><code>.labelBold10</code></td><td>12px</td><td>Tiny labels</td></tr>
           </tbody>
         </table>
       </div>
@@ -1345,10 +1345,10 @@
           <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
           <tbody>
             <tr><td><code>.labelRegular50</code></td><td>20px</td><td>Large metadata</td></tr>
-            <tr><td><code>.labelRegular40</code></td><td>16px</td><td>Standard metadata</td></tr>
-            <tr><td><code>.labelRegular30</code></td><td>14px</td><td>Captions, bylines</td></tr>
-            <tr><td><code>.labelRegular20</code></td><td>12px</td><td>Small metadata, timestamps</td></tr>
-            <tr><td><code>.labelRegular10</code></td><td>10px</td><td>Tiny metadata</td></tr>
+            <tr><td><code>.labelRegular40</code></td><td>18px</td><td>Standard metadata</td></tr>
+            <tr><td><code>.labelRegular30</code></td><td>16px</td><td>Captions, bylines</td></tr>
+            <tr><td><code>.labelRegular20</code></td><td>14px</td><td>Small metadata, timestamps</td></tr>
+            <tr><td><code>.labelRegular10</code></td><td>12px</td><td>Tiny metadata</td></tr>
           </tbody>
         </table>
       </div>
@@ -1359,9 +1359,9 @@
         <table class="doc-table">
           <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
           <tbody>
-            <tr><td><code>.bodyBold40</code></td><td>16px</td><td>Emphasized body text</td></tr>
-            <tr><td><code>.bodyBold30</code></td><td>14px</td><td>Standard emphasized</td></tr>
-            <tr><td><code>.bodyBold20</code></td><td>13px</td><td>Small emphasized</td></tr>
+            <tr><td><code>.bodyBold40</code></td><td>18px</td><td>Emphasized body text</td></tr>
+            <tr><td><code>.bodyBold30</code></td><td>16px</td><td>Standard emphasized</td></tr>
+            <tr><td><code>.bodyBold20</code></td><td>14px</td><td>Small emphasized</td></tr>
           </tbody>
         </table>
       </div>
@@ -1370,9 +1370,9 @@
         <table class="doc-table">
           <thead><tr><th>Class</th><th>Size</th><th>Use For</th></tr></thead>
           <tbody>
-            <tr><td><code>.bodyRegular40</code></td><td>16px</td><td>Large body text</td></tr>
-            <tr><td><code>.bodyRegular30</code></td><td>14px</td><td>Standard body text (most common)</td></tr>
-            <tr><td><code>.bodyRegular20</code></td><td>13px</td><td>Small body / compact text</td></tr>
+            <tr><td><code>.bodyRegular40</code></td><td>18px</td><td>Large body text</td></tr>
+            <tr><td><code>.bodyRegular30</code></td><td>16px</td><td>Standard body text (most common)</td></tr>
+            <tr><td><code>.bodyRegular20</code></td><td>14px</td><td>Small body / compact text</td></tr>
           </tbody>
         </table>
       </div>
@@ -1466,7 +1466,7 @@
      6. TEXT PAIRS
      ========================================== -->
 <div class="container-wide py-large border-top" id="textpairs">
-  <p class="labelregular30 text-secondary mb-50">Section 6</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 6</p>
   <h2 class="title80">Text Pairs</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Pre-defined label + sublabel combinations. Numbered 9000 (largest) to 1000 (smallest). Always wrap in <code>.card-text-pair</code> and always apply <code>.text-secondary</code> to sublabels.</p>
 
@@ -1574,7 +1574,7 @@
      7. ICONS
      ========================================== -->
 <div class="container-wide py-large border-top" id="icons">
-  <p class="labelregular30 text-secondary mb-50">Section 7</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 7</p>
   <h2 class="title80">Icons</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Google Material Symbols Rounded via a variable font. Default is 24px outlined. Add <code>.icon-filled</code> for solid, size classes for different sizes, and <code>.text-*</code> for colors. Icons inherit color from their parent.</p>
 
@@ -1680,7 +1680,7 @@
      8. BORDERS & EFFECTS
      ========================================== -->
 <div class="container-wide py-large border-top" id="borders">
-  <p class="labelregular30 text-secondary mb-50">Section 8</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 8</p>
   <h2 class="title80">Border & Effect Tokens</h2>
 
   <h3 class="title50 mt-400 mb-100">Border Radius</h3>
@@ -1795,7 +1795,7 @@
      9. INTERACTIVE TOKENS
      ========================================== -->
 <div class="container-wide py-large border-top" id="interactive">
-  <p class="labelregular30 text-secondary mb-50">Section 9</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 9</p>
   <h2 class="title80">Interactive Tokens</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Composable surface styles + scale transforms. Mix any surface with any scale. They come in two categories — <strong>surfaces</strong> (color/border changes) and <strong>scales</strong> (transform animations). Hover and click the examples below.</p>
 
@@ -1889,7 +1889,7 @@
      10. BUTTONS
      ========================================== -->
 <div class="container-wide py-large border-top" id="buttons">
-  <p class="labelregular30 text-secondary mb-50">Section 10</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 10</p>
   <h2 class="title80">Button Components</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">8 types, 3 sizes, icon variants, width modes, and circle buttons. All use <code>.btn</code> base class + type + size modifiers. Only one Transactional or Primary button per view.</p>
 
@@ -2093,7 +2093,7 @@
      11. CARDS
      ========================================== -->
 <div class="container-wide py-large border-top" id="cards">
-  <p class="labelregular30 text-secondary mb-50">Section 11</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 11</p>
   <h2 class="title80">Card Components</h2>
 
   <p class="bodyRegular30 text-primary doc-prose mt-100">Two core layout types — <strong>Closed</strong> (full background, divided sections) and <strong>Open</strong> (transparent container with separated subsections). Add <code>-interactive</code> suffix for hover effects.</p>
@@ -2187,7 +2187,7 @@
      12. LIST ROWS
      ========================================== -->
 <div class="container-wide py-large border-top" id="listrows">
-  <p class="labelregular30 text-secondary mb-50">Section 12</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 12</p>
   <h2 class="title80">List Row Components</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">3-slot architecture: <strong>Leading → Main Content → Trailing</strong>. Each slot is optional. Main content stacks text pair, tags, and info blocks vertically. Use <code>.list-row-text-pair</code> (not <code>.card-text-pair</code>) inside list rows.</p>
 
@@ -2445,7 +2445,7 @@
      13. LAYOUT
      ========================================== -->
 <div class="container-wide py-large border-top" id="layout">
-  <p class="labelregular30 text-secondary mb-50">Section 13</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 13</p>
   <h2 class="title80">Layout Utilities</h2>
 
   <h3 class="title50 mt-400 mb-100">Flexbox Helpers</h3>
@@ -2493,8 +2493,8 @@
       <thead><tr><th>Class</th><th>Breakpoint</th><th>Columns</th></tr></thead>
       <tbody>
         <tr><td><code>.grid-cols-1-mobile</code></td><td>&lt; 500px</td><td>1</td></tr>
-        <tr><td><code>.grid-cols-2-tablet</code></td><td>500“1099px</td><td>2</td></tr>
-        <tr><td><code>.grid-cols-3-tablet</code></td><td>500“1099px</td><td>3</td></tr>
+        <tr><td><code>.grid-cols-2-tablet</code></td><td>500–1099px</td><td>2</td></tr>
+        <tr><td><code>.grid-cols-3-tablet</code></td><td>500–1099px</td><td>3</td></tr>
         <tr><td><code>.grid-cols-2-desktop</code></td><td>1100px+</td><td>2</td></tr>
         <tr><td><code>.grid-cols-3-desktop</code></td><td>1100px+</td><td>3</td></tr>
         <tr><td><code>.grid-cols-4-desktop</code></td><td>1100px+</td><td>4</td></tr>
@@ -2509,11 +2509,11 @@
       <thead><tr><th>Class</th><th>Visible On</th></tr></thead>
       <tbody>
         <tr><td><code>.hide-mobile</code></td><td>Hidden below 500px</td></tr>
-        <tr><td><code>.hide-tablet</code></td><td>Hidden 500“1099px</td></tr>
+        <tr><td><code>.hide-tablet</code></td><td>Hidden 500–1099px</td></tr>
         <tr><td><code>.hide-desktop</code></td><td>Hidden 1100px+</td></tr>
         <tr><td><code>.hide-mobile-tablet</code></td><td>Hidden below 1100px</td></tr>
         <tr><td><code>.show-mobile</code></td><td>Shown only below 500px</td></tr>
-        <tr><td><code>.show-tablet</code></td><td>Shown only 500“1099px</td></tr>
+        <tr><td><code>.show-tablet</code></td><td>Shown only 500–1099px</td></tr>
         <tr><td><code>.show-desktop</code></td><td>Shown only 1100px+</td></tr>
       </tbody>
     </table>
@@ -2558,7 +2558,7 @@
      13. TEAM REFERENCE
      ========================================== -->
 <div class="container-wide py-large border-top" id="teams">
-  <p class="labelregular30 text-secondary mb-50">Section 14</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 14</p>
   <h2 class="title80">Team Reference</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Set the active team by changing <code>data-theme</code> on the root element. Each team defines its display font, brand colors, and button border radius.</p>
 
@@ -2621,7 +2621,7 @@
      15. BREAKPOINTS
      ========================================== -->
 <div class="container-wide py-large border-top" id="breakpoints">
-  <p class="labelregular30 text-secondary mb-50">Section 15</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 15</p>
   <h2 class="title80">Breakpoints</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">The system uses three breakpoints consistently across containers, spacing, grid utilities, and show/hide classes.</p>
 
@@ -2629,8 +2629,8 @@
     <table class="doc-table">
       <thead><tr><th>Name</th><th>Range</th><th>Container Padding</th></tr></thead>
       <tbody>
-        <tr><td>Mobile</td><td>0 “ 499px</td><td>16px</td></tr>
-        <tr><td>Tablet</td><td>500 “ 1099px</td><td>24px</td></tr>
+        <tr><td>Mobile</td><td>0 – 499px</td><td>16px</td></tr>
+        <tr><td>Tablet</td><td>500 – 1099px</td><td>24px</td></tr>
         <tr><td>Desktop</td><td>1100px+</td><td>32px (48px for maximum/extra-wide)</td></tr>
       </tbody>
     </table>
@@ -2655,7 +2655,7 @@
      15. QUICK DECISION GUIDE
      ========================================== -->
 <div class="container-wide py-large border-top" id="decisions">
-  <p class="labelregular30 text-secondary mb-50">Section 16</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 16</p>
   <h2 class="title80">Quick Decision Guide</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Common questions answered quickly.</p>
 
@@ -2688,7 +2688,7 @@
 
     <div class="doc-decision-card">
       <p class="title50">Which text pair?</p>
-      <p class="bodyRegular20">Match scale to context: 9000/8000 for heroes, 7000/6000 for section headers, 5000/4000 for cards, 3000“1000 for compact UI. Always wrap in <code>.card-text-pair</code>.</p>
+      <p class="bodyRegular20">Match scale to context: 9000/8000 for heroes, 7000/6000 for section headers, 5000/4000 for cards, 3000–1000 for compact UI. Always wrap in <code>.card-text-pair</code>.</p>
     </div>
 
     <div class="doc-decision-card">

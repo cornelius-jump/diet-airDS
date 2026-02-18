@@ -145,7 +145,6 @@
   flex-direction: row;
   gap: var(--spacing-150);
   align-items: center;
-  margin-top: var(--spacing-200);
 }
 
 /* Vertical card actions */

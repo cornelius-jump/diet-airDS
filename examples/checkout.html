@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Minnesota Timberwolves</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <style>
+    /* ─── Page Shell ─── */
+    body {
+      min-height: 100vh;
+      background: var(--bg-base);
+    }
+
+    /* ─── Top nav bar ─── */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-100) var(--margin-large);
+      background: var(--bg-nav, var(--bg-surface));
+      border-bottom: var(--border-weight-100) solid var(--neutral-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar-team {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+    }
+
+    .top-bar-name {
+      color: inherit;
+    }
+
+    .top-bar-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-100);
+    }
+
+    /* ─── Page header ─── */
+    .page-header {
+      padding: var(--spacing-300) var(--margin-large);
+      border-bottom: var(--border-weight-100) solid var(--neutral-200);
+      background: var(--bg-nav);
+    }
+
+    .holding-banner {
+      padding: var(--spacing-200) var(--margin-large);
+      border-bottom: var(--border-weight-100) solid var(--neutral-200);
+      background: var(--bg-nav);
+    }
+
+    /* ─── Main layout ─── */
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: var(--spacing-content);
+      padding: var(--margin-large);
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .checkout-left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-card);
+    }
+
+    .checkout-right {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-card);
+    }
+
+    /* ─── Matchup hero image ─── */
+    .matchup-image {
+      display: flex;
+      height: 160px;
+      overflow: hidden;
+      /* Top radius only — matches card-closed radius on its first child */
+      border-radius: var(--border-radius-200) var(--border-radius-200) 0 0;
+    }
+
+    .matchup-team {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .matchup-team img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    /* ─── Payment method radio row ─── */
+    /* Sits between card-closed-header and card-closed-body — needs its own divider */
+    .payment-radio-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+      padding: var(--spacing-200) var(--spacing-250);
+      border-bottom: var(--border-weight-100) solid var(--neutral-200);
+    }
+
+    .radio-dot {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      background: var(--brand-interactive);
+      border: var(--border-weight-100) solid var(--neutral-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .radio-dot-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    /* ─── Form inputs ─── */
+    /* No DS input component exists — custom only where necessary */
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-50);
+    }
+
+    .form-field label {
+      padding-left: var(--spacing-100);
+      padding-bottom: var(--spacing-100);
+      color: inherit;
+    }
+
+    .form-input {
+      background: transparent;
+      border: var(--border-weight-100) solid var(--neutral-300);
+      border-radius: var(--border-radius-100); /* 8px per DS */
+      padding: var(--spacing-200);
+      height: 56px;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.15s, border-width 0.15s;
+    }
+
+    .form-input::placeholder {
+      color: var(--text-placeholder);
+    }
+
+    /* Focus: 2px border + brand-interactive per DS border-interactive pattern */
+    .form-input:focus {
+      border-width: var(--border-weight-200);
+      border-color: var(--brand-interactive);
+    }
+
+    /* State select dropdown arrow */
+    .form-input-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right var(--spacing-150) center;
+      padding-right: var(--spacing-400);
+      cursor: pointer;
+    }
+
+    /* ─── Form row grid ─── */
+    /* 4-col desktop → 2-col mobile (no DS grid component for this) */
+    .form-row-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: var(--spacing-100);
+    }
+
+    /* ─── Card brand icons ─── */
+    .card-brands {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-100);
+      padding: var(--spacing-100) 0;
+    }
+
+    /* ─── Checkbox ─── */
+    /* DS uses Leading/Select (28×28, border-radius-50=4px) for checkboxes */
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+      padding: var(--spacing-100) 0;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border: var(--border-weight-100) solid var(--neutral-300);
+      border-radius: var(--border-radius-50); /* 4px per DS select box */
+      cursor: pointer;
+      position: relative;
+      background: transparent;
+      flex-shrink: 0;
+    }
+
+    .checkbox-row input[type="checkbox"]:checked {
+      background: var(--brand-interactive);
+      border-color: var(--brand-interactive);
+    }
+
+    .checkbox-row input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 13l4 4L19 7' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 18px;
+    }
+
+    /* ─── Terms checkbox (uses same checkbox pattern, no .checkbox-row wrapper) ─── */
+    .terms-row {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-200);
+      padding: var(--spacing-200) 0;
+    }
+
+    .terms-row input[type="checkbox"] {
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border: var(--border-weight-100) solid var(--neutral-300);
+      border-radius: var(--border-radius-50);
+      cursor: pointer;
+      position: relative;
+      background: transparent;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .terms-row input[type="checkbox"]:checked {
+      background: var(--brand-interactive);
+      border-color: var(--brand-interactive);
+    }
+
+    .terms-row input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5 13l4 4L19 7' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 18px;
+    }
+
+    /* ─── Place order container ─── */
+    .place-order-container {
+      padding-top: var(--spacing-400);
+      padding-bottom: var(--spacing-300);
+    }
+
+    /* ─── Order summary line items ─── */
+    /* These live inside .card-closed-body — just need flex layout */
+    .line-items {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-100);
+    }
+
+    .line-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Total row — its own card-closed-footer with top border */
+    .line-item-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ─── Seat line items (tickets expandable) ─── */
+    .seat-items {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-200);
+      padding-top: var(--spacing-200);
+    }
+
+    .seat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ─── Status success color ─── */
+    .text-success {
+      color: var(--status-success) !important;
+    }
+
+    /* ─── Timer highlight ─── */
+    .timer-highlight {
+      color: var(--brand-interactive);
+      font-weight: 600;
+    }
+
+    /* ─── Powered by footer ─── */
+    .powered-by {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-100);
+      padding: var(--spacing-300) var(--margin-large);
+      border-top: var(--border-weight-100) solid var(--neutral-200);
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 768px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+      }
+
+      /* Right col (matchup + order summary) stacks first on mobile */
+      .checkout-right { order: -1; }
+
+      /* 4-col → 2-col on mobile */
+      .form-row-grid { grid-template-columns: 1fr 1fr; }
+
+      /* Full-width button on mobile only */
+      .place-order-container .btn { width: 100%; }
+    }
+
+    /* ─── DS rule: color:inherit inside surface fills ─── */
+    .surface-fillNeutral *,
+    .surface-fillColor *,
+    .surface-fillInverted *,
+    .surface-fillBlack *,
+    .surface-fillWhite * {
+      color: inherit;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       TOP BAR
+  ═══════════════════════════════════════════ -->
+  <header class="top-bar">
+    <div class="top-bar-team">
+      <div class="leading-logo" role="img" aria-label="Minnesota Timberwolves logo" style="width:48px;height:48px;"></div>
+      <span class="display100 top-bar-name">TIMBERWOLVES</span>
+    </div>
+    <div class="top-bar-actions">
+      <button class="btn-circle btn-circle-300 btn-circle-neutral-tertiary" aria-label="Notifications">
+        <span class="btn-icon material-symbols-rounded">notifications</span>
+      </button>
+      <button class="btn-circle btn-circle-300 btn-circle-team" aria-label="Account">
+        <span class="btn-icon" style="color:inherit;font-family:'Inter',sans-serif;font-weight:600;font-size:16px;">A</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE HEADER
+  ═══════════════════════════════════════════ -->
+  <div class="page-header">
+    <div class="card-text-pair">
+      <h1 class="display400">CHECKOUT</h1>
+      <p class="labelRegular20 text-secondary">Your tickets will be available once your purchase has been successfully completed</p>
+    </div>
+  </div>
+
+  <div class="holding-banner">
+    <p class="labelRegular20 text-secondary">Holding seats for <span class="timer-highlight">11:59</span></p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN LAYOUT
+  ═══════════════════════════════════════════ -->
+  <main class="checkout-layout">
+
+    <!-- ─── LEFT COLUMN ─── -->
+    <div class="checkout-left">
+
+      <!-- DELIVERY CARD -->
+      <div class="card-closed">
+        <div class="card-closed-header">
+          <div class="card-text-pair">
+            <h2 class="display300">DELIVERY</h2>
+          </div>
+        </div>
+        <div class="card-closed-body">
+          <div class="list-row not-tappable">
+            <div class="leading leading-gap-md">
+              <div class="circle-container">
+                <span class="icon icon-200 material-symbols-rounded">account_circle</span>
+              </div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Hammed Kohistani</span>
+                <span class="labelRegular10 text-secondary">hammed@jump.com</span>
+                <span class="labelRegular10 text-secondary">(702) 883-2151</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENT METHOD CARD -->
+      <div class="card-closed">
+        <div class="card-closed-header">
+          <div class="card-text-pair">
+            <h2 class="display300">PAYMENT METHOD</h2>
+          </div>
+        </div>
+
+        <!-- Add Card radio row — between header and body, uses DS neutral-200 divider -->
+        <div class="payment-radio-row">
+          <div class="radio-dot">
+            <div class="radio-dot-inner"></div>
+          </div>
+          <div class="list-row not-tappable" style="flex:1;padding:0;">
+            <div class="leading leading-gap-md">
+              <span class="icon icon-200 material-symbols-rounded">credit_card</span>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Add Card</span>
+                <span class="labelRegular10 text-secondary">US &amp; Canadian cards accepted 🇺🇸 🇨🇦</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card form body -->
+        <div class="card-closed-body" style="display:flex;flex-direction:column;gap:var(--spacing-200);">
+
+          <!-- Card brand icons -->
+          <div class="card-brands">
+            <svg width="34" height="22" viewBox="0 0 34 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:var(--border-radius-50);">
+              <rect width="34" height="22" rx="3" fill="#016FD0"/>
+              <text x="17" y="15" font-family="Arial" font-weight="bold" font-size="9" fill="white" text-anchor="middle" letter-spacing="0.5">AMEX</text>
+            </svg>
+            <svg width="34" height="22" viewBox="0 0 34 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:var(--border-radius-50);">
+              <rect width="34" height="22" rx="3" fill="#231F20"/>
+              <circle cx="21" cy="11" r="6" fill="#F76E20"/>
+              <text x="8" y="14" font-family="Arial" font-weight="bold" font-size="6.5" fill="white" letter-spacing="0.3">DISC</text>
+            </svg>
+            <svg width="34" height="22" viewBox="0 0 34 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:var(--border-radius-50);">
+              <rect width="34" height="22" rx="3" fill="#252525"/>
+              <circle cx="13" cy="11" r="6" fill="#EB001B"/>
+              <circle cx="21" cy="11" r="6" fill="#F79E1B"/>
+              <path d="M17 6.5A6 6 0 0 1 21 11 6 6 0 0 1 17 15.5 6 6 0 0 1 13 11 6 6 0 0 1 17 6.5z" fill="#FF5F00"/>
+            </svg>
+            <svg width="34" height="22" viewBox="0 0 34 22" fill="none" xmlns="http://www.w3.org/2000/svg" style="border-radius:var(--border-radius-50);">
+              <rect width="34" height="22" rx="3" fill="#1434CB"/>
+              <text x="17" y="15" font-family="Arial" font-style="italic" font-weight="bold" font-size="11" fill="white" text-anchor="middle" letter-spacing="-0.5">VISA</text>
+            </svg>
+          </div>
+
+          <!-- Name on Card -->
+          <div class="form-field">
+            <label for="name-on-card" class="labelBold20">Name on Card</label>
+            <input id="name-on-card" class="form-input" type="text" placeholder="First and last name" value="Hammed Kohistani">
+          </div>
+
+          <!-- Card Number -->
+          <div class="form-field">
+            <label for="card-number" class="labelBold20">Card Number</label>
+            <input id="card-number" class="form-input" type="text" placeholder="Card number" value="4111 1111 1111 1111">
+          </div>
+
+          <!-- Expiration / CVV / State / Zip — 4-col desktop, 2-col mobile -->
+          <div class="form-row-grid">
+            <div class="form-field">
+              <label for="expiration" class="labelBold20">Expiration</label>
+              <input id="expiration" class="form-input" type="text" placeholder="MM/YY" value="01/27">
+            </div>
+            <div class="form-field">
+              <label for="cvv" class="labelBold20">Security Code</label>
+              <input id="cvv" class="form-input" type="text" placeholder="CVV" value="123">
+            </div>
+            <div class="form-field">
+              <label for="state" class="labelBold20">State</label>
+              <select id="state" class="form-input form-input-select">
+                <option value="">Select</option>
+                <option value="AL">AL</option><option value="AK">AK</option>
+                <option value="AZ">AZ</option><option value="CA">CA</option>
+                <option value="CO">CO</option><option value="FL">FL</option>
+                <option value="GA">GA</option><option value="HI">HI</option>
+                <option value="IL">IL</option><option value="MN" selected>MN</option>
+                <option value="NV">NV</option><option value="NY">NY</option>
+                <option value="TX">TX</option><option value="WA">WA</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="zip" class="labelBold20">Zip code</label>
+              <input id="zip" class="form-input" type="text" placeholder="Zip code" value="92101">
+            </div>
+          </div>
+
+          <!-- Save card checkbox -->
+          <div class="checkbox-row">
+            <input type="checkbox" id="save-card" checked>
+            <label for="save-card" class="labelRegular20">Save this card for future purchases</label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TERMS + PLACE ORDER -->
+      <div>
+        <div class="terms-row">
+          <input type="checkbox" id="terms">
+          <label for="terms" class="labelRegular20 text-secondary" style="cursor:pointer;">
+            By checking this box, I agree to the
+            <a href="#" style="color:var(--brand-interactive);">Ticket Terms</a>
+            and
+            <a href="#" style="color:var(--brand-interactive);">Fan Code of Conduct.</a>
+            Tickets may only be resold via the official Timberwolves app or website, and violations may lead to revocation. The Timberwolves reserve the right to cancel any order. Orders placed in an attempt to violate posted ticket limits or other terms may be canceled without notice. The ability to manage your tickets will be available within 48 hours of the event.
+          </label>
+        </div>
+
+        <div class="place-order-container">
+          <button class="btn btn-transactional btn-700 btn-icon-leading">
+            <span class="btn-icon material-symbols-rounded" style="font-variation-settings:'FILL' 1;">lock</span>
+            <span>Place Order</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <!-- end .checkout-left -->
+
+    <!-- ─── RIGHT COLUMN ─── -->
+    <div class="checkout-right">
+
+      <!-- MATCHUP + EVENT INFO CARD -->
+      <div class="card-closed" style="overflow:hidden;">
+        <div class="matchup-image">
+          <div class="matchup-team" style="background:#a00d33;">
+            <img src="https://www.figma.com/api/mcp/asset/0530db9c-386d-4965-af4a-f44523ef96c9" alt="Chicago Bulls">
+          </div>
+          <div class="matchup-team" style="background:var(--brand-core,#266092);">
+            <img src="https://www.figma.com/api/mcp/asset/eea74f22-14ae-4f58-8772-97e5275460dd" alt="Minnesota Timberwolves">
+          </div>
+        </div>
+
+        <!-- Event details — card-closed-header provides padding + bottom border -->
+        <div class="card-closed-header">
+          <div class="card-text-pair">
+            <h3 class="title50">Chicago Bulls @ Minnesota Timberwolves</h3>
+            <p class="labelRegular20 text-secondary">Thu, Jan 18, 7:00 PM</p>
+            <p class="labelRegular20 text-secondary">Target Center</p>
+          </div>
+        </div>
+
+        <!-- Tickets + seat rows — single card-closed-body, no divider between them -->
+        <div class="card-closed-body">
+          <div class="list-row not-tappable">
+            <div class="leading leading-gap-md">
+              <span class="icon icon-200 material-symbols-rounded">confirmation_number</span>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">2 Tickets</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-xs">
+              <span class="icon icon-200 material-symbols-rounded">expand_less</span>
+            </div>
+          </div>
+          <div class="seat-items">
+            <div class="seat-item">
+              <span class="labelRegular20 text-secondary">Section 212, Row A, Seat 1</span>
+              <span class="labelBold20">$45.00</span>
+            </div>
+            <div class="seat-item">
+              <span class="labelRegular20 text-secondary">Section 212, Row A, Seat 2</span>
+              <span class="labelBold20">$45.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY CARD -->
+      <div class="card-closed">
+        <div class="card-closed-header">
+          <div class="card-text-pair">
+            <h2 class="display300">ORDER SUMMARY</h2>
+          </div>
+        </div>
+
+        <!-- Line items — card-closed-body -->
+        <div class="card-closed-body">
+          <div class="line-items">
+            <div class="line-item">
+              <span class="labelBold20">Subtotal</span>
+              <span class="labelRegular20 text-secondary">$90.00</span>
+            </div>
+            <div class="line-item">
+              <span class="labelRegular20 text-secondary">Ticket Credits</span>
+              <span class="labelBold20 text-success">-$75.00</span>
+            </div>
+            <div class="line-item">
+              <span class="labelRegular20 text-secondary">Fees</span>
+              <span class="labelRegular20 text-secondary">$5.00</span>
+            </div>
+            <div class="line-item">
+              <span class="labelRegular20 text-secondary">Estimated Taxes</span>
+              <span class="labelRegular20 text-secondary">$5.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Total — card-closed-footer (top border from card-closed-body:last-child rule doesn't apply here, so we use footer which has no border itself; the border-top comes from card-closed-body preceding it) -->
+        <div class="card-closed-footer">
+          <div class="line-item-total">
+            <span class="labelBold40">Total</span>
+            <span class="labelBold40">$25.00</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end .checkout-right -->
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="powered-by">
+    <span class="labelRegular20 text-secondary">Powered by</span>
+    <img src="https://diet-air-ds.vercel.app/images/jump-logo.svg" alt="Jump" style="height:20px; filter: brightness(0) invert(1);">
+  </footer>
+
+</body>
+</html>

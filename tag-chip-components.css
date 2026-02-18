@@ -85,6 +85,11 @@
   color: var(--brand-interactive);
 }
 
+/* Force children to inherit color (text style classes override with --text-primary) */
+.tag.tag-team-color * {
+  color: inherit;
+}
+
 /* Icon position: Leading  — icon first, then label */
 .tag.tag-icon-leading {
   padding-left: var(--spacing-100);  /* 8px */
@@ -137,6 +142,11 @@
 /* Team color: override text color to brand interactive */
 .chip.chip-team-color {
   color: var(--brand-interactive);
+}
+
+/* Force children to inherit color (text style classes override with --text-primary) */
+.chip.chip-team-color * {
+  color: inherit;
 }
 
 /* Disabled: freeze all interaction, fade all content */

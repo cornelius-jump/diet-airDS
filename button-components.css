@@ -513,6 +513,17 @@
   line-height: 1;
   display: block;
 }
+/* Letter/avatar variant — overrides btn-icon icon sizing for plain text content */
+.btn-circle .btn-circle-letter {
+  width: auto;
+  height: auto;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 1;
+  display: block;
+}
+.btn-circle-700 .btn-circle-letter { font-size: 20px; }
+.btn-circle-300 .btn-circle-letter { font-size: 16px; }
 
 /* Circle Sizes */
 .btn-circle-700 {

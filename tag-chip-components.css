@@ -1,0 +1,213 @@
+/* =============================================================================
+   TAG & CHIP COMPONENTS — Diet AirDS
+   =============================================================================
+   
+   TAG: A static label badge. Used for metadata, categories, status.
+     - Structure: .tag [+ .tag-team-color] [+ .tag-icon-leading | .tag-icon-trailing]
+   
+   CHIP: An interactive filter/toggle. Used in filter bars, selection UIs.
+     - Structure: .chip [+ .chip-ghost] [+ .chip-team-color] [+ .chip-icon-leading | .chip-icon-trailing]
+     - States: default, :hover, :active, .is-disabled
+   
+   Both components:
+   - 32px height
+   - 4px border-radius
+   - labelBold20: Inter Semi Bold 14px / -0.28px letter-spacing
+   - Icon: 24x24 Material Symbols
+   ============================================================================= */
+
+
+/* =============================================================================
+   SHARED BASE
+   ============================================================================= */
+
+.tag,
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border-radius: 4px;
+  gap: var(--spacing-50); /* 4px between icon and label */
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Icon sizing inside tag/chip */
+.tag .material-symbols-rounded,
+.chip .material-symbols-rounded {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* Inherit color from parent */
+  color: inherit;
+}
+
+
+/* =============================================================================
+   TAG COMPONENT
+   =============================================================================
+   
+   Tag is a static, non-interactive label badge.
+   
+   Variants:
+     Default      — neutral tinted bg, neutral text
+     Team Color   — brand-tinted bg, brand interactive text
+   
+   Icon Positions:
+     None         — px-200 (12px) on both sides
+     Leading      — pl-100 (8px) pr-200 (12px)
+     Trailing     — pl-200 (12px) pr-100 (8px)
+   ============================================================================= */
+
+.tag {
+  background-color: var(--neutral-100); /* rgba(0,0,0,0.04) */
+  color: var(--text-primary);
+  padding-inline: var(--spacing-150); /* 12px — fallback, icon modifiers override */
+  padding-block: var(--spacing-50);  /* 4px */
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Team color variant: brand-tinted frosted background */
+.tag.tag-team-color {
+  /* White at 95% over the brand color, simulating the Figma frosted brand bg */
+  background-color: color-mix(in srgb, var(--brand-core) 8%, white 92%);
+  color: var(--brand-interactive);
+}
+
+/* Icon position: Leading  — icon first, then label */
+.tag.tag-icon-leading {
+  padding-left: var(--spacing-100);  /* 8px */
+  padding-right: 12px;
+}
+
+/* Icon position: Trailing — label first, then icon */
+.tag.tag-icon-trailing {
+  padding-left: 12px;
+  padding-right: var(--spacing-100); /* 8px */
+}
+
+
+/* =============================================================================
+   CHIP COMPONENT
+   =============================================================================
+   
+   Chip is an interactive filter/selection control.
+   
+   Styles:
+     Default (Bordered) — transparent bg + 1px neutral border
+     Ghost              — transparent bg, no border (add .chip-ghost)
+   
+   Colors:
+     Default    — neutral text
+     Team Color — brand interactive text (add .chip-team-color)
+   
+   States:
+     :hover     — subtle bg tint + darker border (bordered) / bg tint only (ghost)
+     :active    — pressed inset effect, reduced opacity
+     .is-disabled — pointer-events off, opacity 25%
+   
+   Icon Positions:
+     None         — px 12px
+     Leading      — pl-100 (8px) pr-200 (12px) 
+     Trailing     — pl-200 (12px) pr-100 (8px)
+   ============================================================================= */
+
+.chip {
+  background-color: transparent;
+  border: 1px solid var(--border-default); /* neutral-300 ~rgba(0,0,0,0.15) */
+  color: var(--text-primary);
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+  transition: background-color 80ms ease, border-color 80ms ease, opacity 80ms ease;
+  position: relative;
+}
+
+/* Ghost: no border */
+.chip.chip-ghost {
+  border-color: transparent;
+}
+
+/* Team color: brand text */
+.chip.chip-team-color {
+  color: var(--brand-interactive);
+}
+
+/* ---- States ---- */
+
+/* Hover */
+.chip:hover:not(.is-disabled) {
+  background-color: var(--neutral-100); /* rgba(0,0,0,0.04) */
+  border-color: var(--border-hover);    /* neutral-200 ~rgba(0,0,0,0.10) */
+}
+
+.chip.chip-ghost:hover:not(.is-disabled) {
+  background-color: var(--neutral-100);
+  border-color: transparent;
+}
+
+/* Pressed / Active */
+.chip:active:not(.is-disabled) {
+  background-color: var(--neutral-300); /* rgba(0,0,0,0.15) — black300 */
+  border-color: var(--border-hover);
+  opacity: 0.6;
+  /* Inset pressed feel: 2px inset on all sides via padding adjustment */
+  padding-inline: calc(12px - 2px);
+  padding-block: 2px;
+}
+
+.chip.chip-ghost:active:not(.is-disabled) {
+  border-color: transparent;
+}
+
+/* Disabled */
+.chip.is-disabled {
+  pointer-events: none;
+  cursor: default;
+  border-color: var(--neutral-100); /* very faint border */
+}
+
+.chip.is-disabled .chip-label,
+.chip.is-disabled .material-symbols-rounded {
+  opacity: 0.25;
+}
+
+/* Ghost disabled */
+.chip.chip-ghost.is-disabled {
+  border-color: transparent;
+}
+
+/* ---- Icon Positions ---- */
+
+.chip.chip-icon-leading {
+  padding-left: var(--spacing-100);  /* 8px */
+  padding-right: 12px;
+}
+
+.chip.chip-icon-trailing {
+  padding-left: 12px;
+  padding-right: var(--spacing-100); /* 8px */
+}
+
+/* Maintain icon position during press */
+.chip.chip-icon-leading:active:not(.is-disabled) {
+  padding-left: calc(var(--spacing-100) - 2px);
+  padding-right: calc(12px - 2px);
+}
+
+.chip.chip-icon-trailing:active:not(.is-disabled) {
+  padding-left: calc(12px - 2px);
+  padding-right: calc(var(--spacing-100) - 2px);
+}

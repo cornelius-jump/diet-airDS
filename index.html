@@ -135,6 +135,94 @@
       margin-top: var(--spacing-150);
     }
 
+    /* ============================================
+       SIDEBAR LAYOUT
+       ============================================ */
+    .doc-layout {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .doc-sidebar {
+      position: sticky;
+      top: 56px;
+      width: 240px;
+      flex-shrink: 0;
+      height: calc(100vh - 56px);
+      overflow-y: auto;
+      background-color: var(--bg-surface);
+      padding: var(--spacing-300);
+    }
+
+    /* Hide scrollbar but keep scrollability */
+    .doc-sidebar::-webkit-scrollbar { display: none; }
+    .doc-sidebar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .doc-sidebar-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-150);
+      padding-left: var(--spacing-100);
+    }
+
+    .doc-sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .doc-sidebar nav a span {
+      display: inline-block;
+      width: 20px;
+      font-size: 10px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .doc-sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-50);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 5px var(--spacing-100);
+      border-radius: var(--border-radius-50);
+      border-left: 2px solid transparent;
+      line-height: 1.3;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+
+    .doc-sidebar nav a:hover {
+      color: var(--text-primary);
+      background: var(--neutral-50);
+    }
+
+    .doc-sidebar nav a.active {
+      color: var(--interactive-transactional);
+      border-left-color: var(--interactive-transactional);
+      font-weight: 600;
+      background: var(--neutral-50);
+    }
+
+    .doc-main {
+      flex: 1;
+      min-width: 0;
+      max-width: var(--container-medium);
+      margin: 0 auto;
+    }
+
+    @media (max-width: 1099px) {
+      .doc-sidebar { display: none; }
+      .doc-main { max-width: 100%; }
+    }
+
     /* Note / callout box — mirrors walkthrough doc-note */
     .doc-note {
       background: var(--neutral-50);
@@ -204,13 +292,35 @@
   </div>
 </header>
 
+<!-- TWO-COLUMN LAYOUT -->
+<div class="doc-layout">
+
+<!-- SIDEBAR -->
+<aside class="doc-sidebar">
+  <p class="doc-sidebar-title">Sections</p>
+  <nav>
+    <a href="#how-to-use"><span>0</span>How to Use</a>
+    <a href="#wolves"><span>1</span>Wolves</a>
+    <a href="#lynx"><span>2</span>Lynx</a>
+    <a href="#courage"><span>3</span>Courage</a>
+    <a href="#summit"><span>4</span>Summit</a>
+    <a href="#bucknell"><span>5</span>Bucknell</a>
+    <a href="#sounders"><span>6</span>Sounders</a>
+    <a href="#reign"><span>7</span>Reign</a>
+    <a href="#ncfc"><span>8</span>NCFC</a>
+    <a href="#jump"><span>9</span>Jump</a>
+    <a href="#athletics"><span>10</span>Athletics</a>
+  </nav>
+</aside>
+
 <!-- MAIN CONTENT -->
-<div class="container-medium mt-row">
+<div class="doc-main">
+<div class="container-wide mt-row">
 
   <!-- Hero -->
   <div class="py-large">
     <div class="card-text-pair mb-200">
-      <h1 class="display600">Diet AirDS</h1>
+      <h1 class="display600">Getting Started</h1>
       <p class="labelRegular40 text-secondary">Prompt Library — Build with AI using real design tokens</p>
     </div>
     <p class="bodyRegular30 text-primary doc-prose">
@@ -219,7 +329,7 @@
   </div>
 
   <!-- How to Use -->
-  <div class="border-top py-large">
+  <div class="border-top py-large" id="how-to-use">
     <div class="card-text-pair mb-200">
       <h2 class="title80">How to Use</h2>
     </div>
@@ -231,15 +341,9 @@
     </div>
   </div>
 
-  <!-- Prompt Cards -->
-  <div class="border-top py-large">
-    <div class="card-text-pair mb-300">
-      <h2 class="title80">Prompts by Team</h2>
-      <p class="labelRegular30 text-secondary">Each prompt is pre-configured with the correct theme</p>
-    </div>
-
-    <!-- Wolves -->
-    <div class="card-closed mb-300">
+  <!-- Wolves -->
+  <div class="border-top py-large" id="wolves">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Minnesota Timberwolves</h3>
@@ -261,8 +365,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
       </div>
     </div>
 
-    <!-- Lynx -->
-    <div class="card-closed mb-300">
+  </div><!-- /wolves -->
+
+  <!-- Lynx -->
+  <div class="border-top py-large" id="lynx">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Minnesota Lynx</h3>
@@ -283,9 +390,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /lynx -->
 
-    <!-- Courage -->
-    <div class="card-closed mb-300">
+  <!-- Courage -->
+  <div class="border-top py-large" id="courage">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">North Carolina Courage</h3>
@@ -306,9 +415,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /courage -->
 
-    <!-- Summit -->
-    <div class="card-closed mb-300">
+  <!-- Summit -->
+  <div class="border-top py-large" id="summit">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Denver Summit FC</h3>
@@ -329,9 +440,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /summit -->
 
-    <!-- Bucknell -->
-    <div class="card-closed mb-300">
+  <!-- Bucknell -->
+  <div class="border-top py-large" id="bucknell">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Bucknell Bison</h3>
@@ -352,9 +465,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /bucknell -->
 
-    <!-- Sounders -->
-    <div class="card-closed mb-300">
+  <!-- Sounders -->
+  <div class="border-top py-large" id="sounders">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Seattle Sounders FC</h3>
@@ -375,9 +490,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /sounders -->
 
-    <!-- Reign -->
-    <div class="card-closed mb-300">
+  <!-- Reign -->
+  <div class="border-top py-large" id="reign">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Seattle Reign FC</h3>
@@ -398,9 +515,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /reign -->
 
-    <!-- NCFC -->
-    <div class="card-closed mb-300">
+  <!-- NCFC -->
+  <div class="border-top py-large" id="ncfc">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">North Carolina Football Club</h3>
@@ -421,9 +540,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /ncfc -->
 
-    <!-- Jump -->
-    <div class="card-closed mb-300">
+  <!-- Jump -->
+  <div class="border-top py-large" id="jump">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Jump Default</h3>
@@ -444,9 +565,11 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
+  </div><!-- /jump -->
 
-    <!-- Athletics -->
-    <div class="card-closed mb-300">
+  <!-- Athletics -->
+  <div class="border-top py-large" id="athletics">
+    <div class="card-closed">
       <div class="card-closed-header">
         <div class="card-text-pair">
           <h3 class="title50">Las Vegas Athletics</h3>
@@ -467,18 +590,17 @@ Always make sure you use the CSS files contained in the .md above. Only create c
         </div>
       </div>
     </div>
-
-  </div><!-- /border-top py-large -->
+  </div><!-- /athletics -->
 
   <!-- Footer -->
-  <footer class="border-top py-large text-center">
-    <div class="card-text-pair">
-      <p class="labelRegular20 text-secondary">Diet AirDS – Prompt Library</p>
-      <p class="labelRegular10 text-secondary">Switch themes and modes using the controls at the top of the page</p>
-    </div>
-  </footer>
+  <div class="py-600 text-center">
+    <p class="labelRegular20 text-secondary">Diet AirDS – Prompt Library</p>
+    <p class="labelRegular10 text-secondary mt-50">Switch themes and modes using the controls at the top of the page</p>
+  </div>
 
-</div><!-- /container-medium -->
+</div><!-- /container-wide -->
+</div><!-- /doc-main -->
+</div><!-- /doc-layout -->
 
 <script>
   const root = document.documentElement;
@@ -490,6 +612,22 @@ Always make sure you use the CSS files contained in the .md above. Only create c
   document.getElementById('modeSelect').addEventListener('change', function() {
     root.setAttribute('data-mode', this.value);
   });
+
+  // Sidebar active link highlighting
+  const sidebarLinks = document.querySelectorAll('.doc-sidebar nav a');
+  const sections = document.querySelectorAll('[id]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        sidebarLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`.doc-sidebar nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
 
   function copyPrompt(button, theme, mode) {
     const promptText = `Build this using Diet AirDS:\nhttps://diet-air-ds.vercel.app/component-prompt-guide.md\n\nUse data-theme="${theme}" and data-mode="${mode}"\n\nAlways make sure you use the CSS files contained in the .md above. Only create custom styling if there is nothing applicable in Diet AirDS.\n\n[Describe what you want to build]`;

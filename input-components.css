@@ -422,8 +422,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
   color: var(--text-secondary);
   pointer-events: none;
   font-size: 24px; /* for Material Symbols */

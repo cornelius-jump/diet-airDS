@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="jump" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet AirDS — Example Pages</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS Files (load in this exact order) -->
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <style>
+    /* ============================================
+       PAGE-SPECIFIC STYLES ONLY
+       All component/token styles come from the DS
+       ============================================ */
+
+    /* ---- Org Nav ---- */
+    .org-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 var(--spacing-300);
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-default);
+      backdrop-filter: blur(var(--background-blur));
+      -webkit-backdrop-filter: blur(var(--background-blur));
+    }
+
+    .org-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+    }
+
+    /* ---- Select controls (matches walkthrough.html pattern exactly) ---- */
+    .controls {
+      display: flex;
+      gap: var(--spacing-100);
+      align-items: center;
+    }
+
+    .select-wrap {
+      position: relative;
+      display: flex;
+    }
+
+    .select-wrap select {
+      background: var(--bg-base);
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-100) calc(var(--spacing-150) + 20px) var(--spacing-100) var(--spacing-100);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .select-wrap select::-ms-expand { display: none; }
+
+    .select-icon {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: 0.75;
+      font-size: 18px;
+      line-height: 1;
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
+    }
+
+    /* ---- Examples grid ---- */
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--spacing-300);
+    }
+
+    /* ---- Example card ---- */
+    .example-card {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-200);
+      overflow: hidden;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      transition: opacity 0.15s ease;
+    }
+
+    .example-card:hover {
+      opacity: 0.85;
+    }
+
+    /* ---- Scaled iframe thumbnail ---- */
+    .card-thumbnail {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--bg-base);
+      overflow: hidden;
+      flex-shrink: 0;
+      container-type: inline-size;
+    }
+
+    .card-thumbnail iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1280px;
+      height: 800px;
+      border: none;
+      /* Scale so the 1280px iframe always fills the container width exactly */
+      transform: scale(calc(100cqi / 1280px));
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    /* ---- Card body ---- */
+    .card-body {
+      padding: var(--spacing-200) var(--spacing-250);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-150);
+      flex: 1;
+    }
+
+    /* ---- Token tag row ---- */
+    .token-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-50);
+    }
+
+    /* ---- Card footer ---- */
+    .card-footer {
+      padding: var(--spacing-150) var(--spacing-250) var(--spacing-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+      .examples-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================
+       ORG NAV
+       ============================================ -->
+  <header class="org-nav">
+
+    <div class="org-nav-logo">
+      <span class="material-symbols-rounded icon-filled text-secondary">water_full</span>
+      <span class="labelBold40">DIET AIRDS</span>
+    </div>
+
+    <div class="controls">
+      <div class="select-wrap">
+        <select id="themeSelect">
+          <option value="wolves">Wolves</option>
+          <option value="lynx">Lynx</option>
+          <option value="courage">Courage</option>
+          <option value="summit">Summit</option>
+          <option value="bucknell">Bucknell</option>
+          <option value="sounders">Sounders</option>
+          <option value="reign">Reign</option>
+          <option value="ncfc">NCFC</option>
+          <option value="jump" selected>JUMP</option>
+          <option value="athletics">Athletics</option>
+        </select>
+        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+      </div>
+      <div class="select-wrap">
+        <select id="modeSelect">
+          <option value="light" selected>Light</option>
+          <option value="dark">Dark</option>
+        </select>
+        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+      </div>
+    </div>
+
+  </header>
+
+  <!-- ============================================
+       MAIN
+       ============================================ -->
+  <main>
+    <div class="container-wide py-large">
+
+      <!-- Page header — Text Pair 7000 -->
+      <div class="card-text-pair mb-400">
+        <h1 class="display400">Example Pages</h1>
+        <p class="labelRegular30 text-secondary">Real-world UI patterns built with Diet AirDS tokens and components. Click any card to open the live example.</p>
+      </div>
+
+      <!-- ============================================
+           EXAMPLES GRID
+           ============================================ -->
+      <div class="examples-grid">
+
+        <!-- ---- Checkout ---- -->
+        <a class="example-card" href="https://diet-air-ds.vercel.app/examples/checkout.html" target="_blank">
+          <div class="card-thumbnail">
+            <iframe src="https://diet-air-ds.vercel.app/examples/checkout.html"
+                    loading="lazy"
+                    title="Checkout example preview"
+                    tabindex="-1"
+                    aria-hidden="true"></iframe>
+          </div>
+          <div class="card-body">
+            <div class="card-text-pair">
+              <h2 class="labelBold40">Checkout</h2>
+              <p class="labelRegular20 text-secondary">Ticket purchase flow with order summary, payment form, and seat selection.</p>
+            </div>
+            <div class="token-tags">
+              <div class="tag"><span class="labelBold20">card-closed</span></div>
+              <div class="tag"><span class="labelBold20">list-row</span></div>
+              <div class="tag"><span class="labelBold20">btn-primary</span></div>
+              <div class="tag"><span class="labelBold20">text-pairs</span></div>
+              <div class="tag"><span class="labelBold20">bg-surface</span></div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="labelRegular10 text-secondary">Wolves theme</span>
+            <span class="material-symbols-rounded text-secondary">open_in_new</span>
+          </div>
+        </a>
+
+        <!-- TEMPLATE — duplicate this block to add more examples:
+        <a class="example-card" href="URL" target="_blank">
+          <div class="card-thumbnail">
+            <iframe src="URL" loading="lazy" title="Preview" tabindex="-1" aria-hidden="true"></iframe>
+          </div>
+          <div class="card-body">
+            <div class="card-text-pair">
+              <h2 class="labelBold40">Page Name</h2>
+              <p class="labelRegular20 text-secondary">Short description of the page.</p>
+            </div>
+            <div class="token-tags">
+              <div class="tag"><span class="labelBold20">token-name</span></div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span class="labelRegular10 text-secondary">Theme name</span>
+            <span class="material-symbols-rounded text-secondary">open_in_new</span>
+          </div>
+        </a>
+        -->
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============================================
+       THEME / MODE SWITCHER
+       ============================================ -->
+  <script>
+    const root = document.documentElement;
+
+    document.getElementById('themeSelect').addEventListener('change', function() {
+      root.setAttribute('data-theme', this.value);
+    });
+
+    document.getElementById('modeSelect').addEventListener('change', function() {
+      root.setAttribute('data-mode', this.value);
+    });
+  </script>
+
+</body>
+</html>

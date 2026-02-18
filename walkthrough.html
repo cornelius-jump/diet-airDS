@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
   <style>
@@ -618,10 +619,11 @@
     <a href="#buttons"><span>10</span>Buttons</a>
     <a href="#cards"><span>11</span>Cards</a>
     <a href="#listrows"><span>12</span>List Rows</a>
-    <a href="#layout"><span>13</span>Layout</a>
-    <a href="#teams"><span>14</span>Teams</a>
-    <a href="#breakpoints"><span>15</span>Breakpoints</a>
-    <a href="#decisions"><span>16</span>Quick Decisions</a>
+    <a href="#inputs"><span>13</span>Inputs</a>
+    <a href="#layout"><span>14</span>Layout</a>
+    <a href="#teams"><span>15</span>Teams</a>
+    <a href="#breakpoints"><span>16</span>Breakpoints</a>
+    <a href="#decisions"><span>17</span>Quick Decisions</a>
   </nav>
 </aside>
 
@@ -653,6 +655,7 @@
     <a href="#buttons">Buttons</a>
     <a href="#cards">Cards</a>
     <a href="#listrows">List Rows</a>
+    <a href="#inputs">Inputs</a>
     <a href="#layout">Layout</a>
     <a href="#teams">Teams</a>
     <a href="#breakpoints">Breakpoints</a>
@@ -2443,10 +2446,166 @@
 
 
 <!-- ==========================================
-     13. LAYOUT
+     13. INPUT COMPONENTS
+     ========================================== -->
+<div class="container-wide py-large border-top" id="inputs">
+  <p class="labelRegular30 text-secondary mb-50">Section 13</p>
+  <h2 class="title80">Input Components</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Single-line text inputs and select dropdowns with full state, variant, and modifier support. All inputs share consistent structure, styling, and focus states.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Focus color:</strong> Input fields use <code>--org-primary-button</code> for focus border, label, and icon colors. Select placeholder text uses <code>--text-secondary</code>.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Input Field Structure</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Every input follows a consistent wrapper structure:</p>
+  <div class="doc-code-block">
+    <code>&lt;div class="input-field"&gt;
+  &lt;!-- Label row (optional) --&gt;
+  &lt;div class="input-label-row"&gt;
+    &lt;label class="input-label"&gt;Label&lt;/label&gt;
+    &lt;a class="input-link"&gt;Optional link&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Input and message wrapper --&gt;
+  &lt;div class="input-and-message"&gt;
+    &lt;div class="input-control"&gt;
+      &lt;span class="input-icon material-symbols-rounded"&gt;icon&lt;/span&gt;
+      &lt;input type="text" placeholder="Placeholder"&gt;
+      &lt;button class="input-clear material-symbols-rounded"&gt;close&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p class="input-message"&gt;Helper or error message&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Input States</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.is-error</code></td><td>Red border, shake animation, error message color</td></tr>
+        <tr><td><code>.is-disabled</code></td><td>25% opacity, no pointer events</td></tr>
+        <tr><td><code>.has-value</code></td><td>Shows clear button (text inputs only)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">State classes go on the <code>.input-field</code> wrapper.</p>
+
+  <h3 class="title50 mt-400 mb-100">Text Input Variants</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Variant</th><th>Elements</th></tr></thead>
+      <tbody>
+        <tr><td>Basic</td><td><code>&lt;input&gt;</code> only</td></tr>
+        <tr><td>With label</td><td><code>.input-label-row</code> + <code>&lt;input&gt;</code></td></tr>
+        <tr><td>Leading icon</td><td><code>.input-icon</code> + <code>&lt;input&gt;</code></td></tr>
+        <tr><td>Trailing clear</td><td><code>&lt;input&gt;</code> + <code>.input-clear</code></td></tr>
+        <tr><td>Icon + clear</td><td><code>.input-icon</code> + <code>&lt;input&gt;</code> + <code>.input-clear</code></td></tr>
+        <tr><td>Label with link</td><td><code>.input-label</code> + <code>.input-link</code> (e.g. "Forgot password?")</td></tr>
+        <tr><td>Helper message</td><td><code>.input-message</code> after <code>.input-control</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Select Dropdowns</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Add <code>.input-select</code> modifier to <code>.input-field</code>. Uses native <code>&lt;select&gt;</code> as invisible overlay for accessibility.</p>
+  <div class="doc-code-block">
+    <code>&lt;div class="input-field input-select" id="select-1"&gt;
+  &lt;div class="input-and-message"&gt;
+    &lt;div class="input-control"&gt;
+      &lt;span class="input-select-display is-placeholder" id="sel-1-display"&gt;
+        Choose option
+      &lt;/span&gt;
+      &lt;span class="input-select-chevron material-symbols-rounded"&gt;
+        arrow_drop_down
+      &lt;/span&gt;
+      &lt;select id="sel-1"
+        onchange="syncSelect('select-1', 'sel-1-display', this)"
+        onfocus="openSelect('select-1')"
+        onblur="closeSelect('select-1')"&gt;
+        &lt;option value="" disabled selected&gt;Choose option&lt;/option&gt;
+        &lt;option value="1"&gt;Option 1&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Icon choice:</strong> Select dropdowns use <code>arrow_drop_down</code> icon (not <code>expand_more</code>). The chevron rotates 180° when the dropdown is open.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Required JavaScript Helpers</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Input fields with clear buttons or select dropdowns need these helpers:</p>
+  <div class="doc-code-block">
+    <code>// Text input with clear button
+function syncHasValue(fieldId, input) {
+  const field = document.getElementById(fieldId);
+  field.classList.toggle('has-value', input.value.trim());
+}
+
+function clearInput(fieldId, inputId) {
+  const field = document.getElementById(fieldId);
+  const input = document.getElementById(inputId);
+  input.value = '';
+  field.classList.remove('has-value', 'is-error');
+  input.focus();
+}
+
+// Select dropdown
+function syncSelect(fieldId, displayId, selectEl) {
+  const display = document.getElementById(displayId);
+  const chosen = selectEl.options[selectEl.selectedIndex];
+  if (chosen && chosen.value) {
+    display.textContent = chosen.text;
+    display.classList.remove('is-placeholder');
+  } else {
+    display.textContent = chosen.text;
+    display.classList.add('is-placeholder');
+  }
+}
+
+function openSelect(fieldId) {
+  document.getElementById(fieldId).classList.add('is-open');
+}
+
+function closeSelect(fieldId) {
+  document.getElementById(fieldId).classList.remove('is-open');
+}</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Design Specifications</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Property</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Height</td><td>56px</td></tr>
+        <tr><td>Padding</td><td>16px left, 8px right</td></tr>
+        <tr><td>Border radius</td><td>8px (<code>--border-radius-100</code>)</td></tr>
+        <tr><td>Default border</td><td>1px solid <code>--neutral-300</code></td></tr>
+        <tr><td>Focus border</td><td>2px solid <code>--org-primary-button</code></td></tr>
+        <tr><td>Error border</td><td><code>--status-error</code></td></tr>
+        <tr><td>Icon size</td><td>24px</td></tr>
+        <tr><td>Chevron size</td><td>24×24px container, rotates 180° when open</td></tr>
+        <tr><td>Clear button</td><td>40×40px hit target, 24px icon</td></tr>
+        <tr><td>Label to input gap</td><td>2px (<code>--spacing-25</code>)</td></tr>
+        <tr><td>Input to message gap</td><td>8px (<code>--spacing-100</code>)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>CSS load order:</strong> Include <code>input-components.css</code> after base system files and before <code>boilerplate.css</code>. See the file load order at the top of this page.</p>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     14. LAYOUT
      ========================================== -->
 <div class="container-wide py-large border-top" id="layout">
-  <p class="labelRegular30 text-secondary mb-50">Section 13</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 14</p>
   <h2 class="title80">Layout Utilities</h2>
 
   <h3 class="title50 mt-400 mb-100">Flexbox Helpers</h3>
@@ -2556,10 +2715,10 @@
 </div>
 
 <!-- ==========================================
-     13. TEAM REFERENCE
+     15. TEAM REFERENCE
      ========================================== -->
 <div class="container-wide py-large border-top" id="teams">
-  <p class="labelRegular30 text-secondary mb-50">Section 14</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 15</p>
   <h2 class="title80">Team Reference</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Set the active team by changing <code>data-theme</code> on the root element. Each team defines its display font, brand colors, and button border radius.</p>
 
@@ -2601,28 +2760,73 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Team Logo Assets</h3>
-  <p class="bodyRegular30 text-primary doc-prose mb-100">Team logos are hosted as SVGs. Include all logos and use CSS to show only the active theme's logo — no JavaScript needed.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Team logos are hosted as SVGs in the <code>images/</code> folder. Include all logos and use CSS to show only the active theme's logo — no JavaScript needed.</p>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>Team</th><th>Filename</th><th>Hosted URL</th></tr></thead>
+      <tbody>
+        <tr><td>Timberwolves</td><td><code>wolves.svg</code></td><td>https://diet-air-ds.vercel.app/images/wolves.svg</td></tr>
+        <tr><td>Lynx</td><td><code>lynx.svg</code></td><td>https://diet-air-ds.vercel.app/images/lynx.svg</td></tr>
+        <tr><td>Courage</td><td><code>courage.svg</code></td><td>https://diet-air-ds.vercel.app/images/courage.svg</td></tr>
+        <tr><td>Summit FC</td><td><code>summit.svg</code></td><td>https://diet-air-ds.vercel.app/images/summit.svg</td></tr>
+        <tr><td>Bucknell</td><td><code>bucknell.svg</code></td><td>https://diet-air-ds.vercel.app/images/bucknell.svg</td></tr>
+        <tr><td>NCFC</td><td><code>ncfc.svg</code></td><td>https://diet-air-ds.vercel.app/images/ncfc.svg</td></tr>
+        <tr><td>Jump</td><td><code>jump.svg</code> or <code>jump-logo.svg</code></td><td>https://diet-air-ds.vercel.app/images/jump.svg</td></tr>
+        <tr><td>Athletics</td><td><code>athletics.svg</code></td><td>https://diet-air-ds.vercel.app/images/athletics.svg</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="bodyRegular30 text-primary doc-prose mt-300 mb-100"><strong>Implementation pattern:</strong> Include all logos and use CSS to show only the active theme's logo.</p>
   <div class="doc-code-block">
     <code>&lt;!-- Include all logos, show only active --&gt;
-&lt;img src="images/wolves.svg" class="team-logo" data-logo="wolves"&gt;
-&lt;img src="images/athletics.svg" class="team-logo" data-logo="athletics"&gt;
-&lt;!-- ...etc --&gt;
+&lt;img src="images/wolves.svg" class="team-logo" data-logo="wolves" alt="Timberwolves"&gt;
+&lt;img src="images/lynx.svg" class="team-logo" data-logo="lynx" alt="Lynx"&gt;
+&lt;img src="images/courage.svg" class="team-logo" data-logo="courage" alt="Courage"&gt;
+&lt;img src="images/summit.svg" class="team-logo" data-logo="summit" alt="Summit FC"&gt;
+&lt;img src="images/bucknell.svg" class="team-logo" data-logo="bucknell" alt="Bucknell"&gt;
+&lt;img src="images/ncfc.svg" class="team-logo" data-logo="ncfc" alt="NCFC"&gt;
+&lt;img src="images/jump.svg" class="team-logo" data-logo="jump" alt="Jump"&gt;
+&lt;img src="images/athletics.svg" class="team-logo" data-logo="athletics" alt="Athletics"&gt;
 
 &lt;style&gt;
-.team-logo { display: none; }
-[data-theme="wolves"] .team-logo[data-logo="wolves"] { display: block; }
-[data-theme="athletics"] .team-logo[data-logo="athletics"] { display: block; }
+  .team-logo { display: none; }
+  [data-theme="wolves"] .team-logo[data-logo="wolves"] { display: block; }
+  [data-theme="lynx"] .team-logo[data-logo="lynx"] { display: block; }
+  [data-theme="courage"] .team-logo[data-logo="courage"] { display: block; }
+  [data-theme="summit"] .team-logo[data-logo="summit"] { display: block; }
+  [data-theme="bucknell"] .team-logo[data-logo="bucknell"] { display: block; }
+  [data-theme="ncfc"] .team-logo[data-logo="ncfc"] { display: block; }
+  [data-theme="jump"] .team-logo[data-logo="jump"] { display: block; }
+  [data-theme="athletics"] .team-logo[data-logo="athletics"] { display: block; }
 &lt;/style&gt;</code>
   </div>
-  <p class="labelRegular10 text-secondary mt-50">When referencing the hosted design system, use the full URL: <code>https://diet-air-ds.vercel.app/images/wolves.svg</code></p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Using the CSS variable approach:</strong> Each team theme defines a <code>--team-logo-url</code> token that automatically points to the correct logo. Use this for background images or anywhere CSS custom properties are supported.</p>
+  </div>
+
+  <div class="doc-code-block mt-100">
+    <code>&lt;!-- CSS variable approach (no theme-specific selectors needed) --&gt;
+&lt;div class="team-logo-container"
+     style="background-image: var(--team-logo-url);
+            width: 100px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;"&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <p class="labelRegular10 text-secondary mt-50">When referencing the hosted design system, always use the full URL: <code>https://diet-air-ds.vercel.app/images/[filename].svg</code></p>
 </div>
 
 
 <!-- ==========================================
-     15. BREAKPOINTS
+     16. BREAKPOINTS
      ========================================== -->
 <div class="container-wide py-large border-top" id="breakpoints">
-  <p class="labelRegular30 text-secondary mb-50">Section 15</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 16</p>
   <h2 class="title80">Breakpoints</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">The system uses three breakpoints consistently across containers, spacing, grid utilities, and show/hide classes.</p>
 
@@ -2653,10 +2857,10 @@
 
 
 <!-- ==========================================
-     15. QUICK DECISION GUIDE
+     17. QUICK DECISION GUIDE
      ========================================== -->
 <div class="container-wide py-large border-top" id="decisions">
-  <p class="labelRegular30 text-secondary mb-50">Section 16</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 17</p>
   <h2 class="title80">Quick Decision Guide</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Common questions answered quickly.</p>
 

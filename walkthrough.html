@@ -2134,7 +2134,7 @@
         <tr><td>Square Image</td><td><code>.leading-image-square</code></td><td>80Ã—80px</td><td>Square thumbnail</td></tr>
         <tr><td>Small Image</td><td><code>.leading-image-small</code></td><td>136Ã—80px</td><td>Wide thumbnail</td></tr>
         <tr><td>Large Image</td><td><code>.leading-image-large</code></td><td>244Ã—124px</td><td>Hero-size image</td></tr>
-        <tr><td>Logo</td><td><code>.leading-logo</code></td><td>48Ã—48px</td><td>Team logo</td></tr>
+        <tr><td>Logo</td><td><code>.leading-logo</code></td><td>48×48px</td><td>Auto-renders active team logo via <code>--team-logo-url</code> — use a <code>&lt;div&gt;</code>, no src needed</td></tr>
         <tr><td>Payment</td><td><code>.leading-payment</code></td><td>33Ã—24px</td><td>Payment card icon</td></tr>
       </tbody>
     </table>
@@ -2501,20 +2501,14 @@
   </div>
 
   <h3 class="title50 mt-400 mb-100">Team Logo Assets</h3>
-  <p class="bodyRegular30 text-primary doc-prose mb-100">Team logos are hosted as SVGs. Include all logos and use CSS to show only the active theme's logo — no JavaScript needed.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Team logos render automatically via CSS. Each <code>[data-theme]</code> sets a <code>--team-logo-url</code> variable pointing to the hosted SVG — no <code>src</code> attribute or JavaScript needed. Just drop in a <code>&lt;div class="leading-logo"&gt;</code> and the active theme handles the rest.</p>
   <div class="doc-code-block">
-    <code>&lt;!-- Include all logos, show only active --&gt;
-&lt;img src="images/wolves.svg" class="team-logo" data-logo="wolves"&gt;
-&lt;img src="images/athletics.svg" class="team-logo" data-logo="athletics"&gt;
-&lt;!-- ...etc --&gt;
-
-&lt;style&gt;
-.team-logo { display: none; }
-[data-theme="wolves"] .team-logo[data-logo="wolves"] { display: block; }
-[data-theme="athletics"] .team-logo[data-logo="athletics"] { display: block; }
-&lt;/style&gt;</code>
+    <code>&lt;!-- Team logo — renders automatically from active theme --&gt;
+&lt;div class="leading leading-gap-sm"&gt;
+  &lt;div class="leading-logo" role="img" aria-label="Team logo"&gt;&lt;/div&gt;
+&lt;/div&gt;</code>
   </div>
-  <p class="labelRegular10 text-secondary mt-50">When referencing the hosted design system, use the full URL: <code>https://diet-air-ds.vercel.app/images/wolves.svg</code></p>
+  <p class="labelRegular10 text-secondary mt-50">SVGs are hosted at <code>https://diet-air-ds.vercel.app/images/[team-slug].svg</code>. The <code>--team-logo-url</code> token is defined for all 10 teams in <code>design-tokens-master.css</code>.</p>
 </div>
 
 

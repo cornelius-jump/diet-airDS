@@ -392,9 +392,9 @@ The leading slot holds the left-side element. Choose a **gap modifier** based on
   <img class="leading-image-large" src="..." alt="">
 </div>
 
-<!-- Team Logo (48×48) -->
+<!-- Team Logo (48×48) — auto-renders active team's logo, no src needed -->
 <div class="leading leading-gap-sm">
-  <img class="leading-logo" src="..." alt="">
+  <div class="leading-logo" role="img" aria-label="Team logo"></div>
 </div>
 
 <!-- Payment Icon (33×24) -->

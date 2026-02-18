@@ -33,7 +33,7 @@
        .input-control
          .input-icon                 (optional leading icon)
          .input-select-display       (visible selected value text)
-         .input-select-chevron       (expand_more icon, always shown)
+         .input-select-chevron       (arrow_drop_down icon, always shown)
          select                      (native, invisible overlay)
        .input-message                (optional helper/error)
 

@@ -42,14 +42,13 @@
 /* Icon sizing inside tag/chip */
 .tag .material-symbols-rounded,
 .chip .material-symbols-rounded {
-  font-size: 24px;
-  width: 24px;
-  height: 24px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  /* Inherit color from parent */
   color: inherit;
 }
 

@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
   <style>
@@ -149,54 +151,7 @@
     }
 
     /* ─── Form inputs ─── */
-    /* No DS input component exists — custom only where necessary */
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-50);
-    }
-
-    .form-field label {
-      padding-left: var(--spacing-100);
-      padding-bottom: var(--spacing-100);
-      color: inherit;
-    }
-
-    .form-input {
-      background: transparent;
-      border: var(--border-weight-100) solid var(--neutral-300);
-      border-radius: var(--border-radius-100); /* 8px per DS */
-      padding: var(--spacing-200);
-      height: 56px;
-      width: 100%;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-      box-sizing: border-box;
-      outline: none;
-      transition: border-color 0.15s, border-width 0.15s;
-    }
-
-    .form-input::placeholder {
-      color: var(--text-placeholder);
-    }
-
-    /* Focus: 2px border + brand-interactive per DS border-interactive pattern */
-    .form-input:focus {
-      border-width: var(--border-weight-200);
-      border-color: var(--brand-interactive);
-    }
-
-    /* State select dropdown arrow */
-    .form-input-select {
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right var(--spacing-150) center;
-      padding-right: var(--spacing-400);
-      cursor: pointer;
-    }
+    /* Now using input-components.css from the design system */
 
     /* ─── Form row grid ─── */
     /* 4-col desktop → 2-col mobile (no DS grid component for this) */
@@ -501,43 +456,84 @@
           </div>
 
           <!-- Name on Card -->
-          <div class="form-field">
-            <label for="name-on-card" class="labelBold20">Name on Card</label>
-            <input id="name-on-card" class="form-input" type="text" placeholder="First and last name" value="Hammed Kohistani">
+          <div class="input-field">
+            <div class="input-label-row">
+              <label class="input-label" for="name-on-card">Name on Card</label>
+            </div>
+            <div class="input-and-message">
+              <div class="input-control">
+                <input id="name-on-card" type="text" placeholder="First and last name" value="Hammed Kohistani">
+              </div>
+            </div>
           </div>
 
           <!-- Card Number -->
-          <div class="form-field">
-            <label for="card-number" class="labelBold20">Card Number</label>
-            <input id="card-number" class="form-input" type="text" placeholder="Card number" value="4111 1111 1111 1111">
+          <div class="input-field">
+            <div class="input-label-row">
+              <label class="input-label" for="card-number">Card Number</label>
+            </div>
+            <div class="input-and-message">
+              <div class="input-control">
+                <input id="card-number" type="text" placeholder="Card number" value="4111 1111 1111 1111">
+              </div>
+            </div>
           </div>
 
           <!-- Expiration / CVV / State / Zip — 4-col desktop, 2-col mobile -->
           <div class="form-row-grid">
-            <div class="form-field">
-              <label for="expiration" class="labelBold20">Expiration</label>
-              <input id="expiration" class="form-input" type="text" placeholder="MM/YY" value="01/27">
+            <div class="input-field">
+              <div class="input-label-row">
+                <label class="input-label" for="expiration">Expiration</label>
+              </div>
+              <div class="input-and-message">
+                <div class="input-control">
+                  <input id="expiration" type="text" placeholder="MM/YY" value="01/27">
+                </div>
+              </div>
             </div>
-            <div class="form-field">
-              <label for="cvv" class="labelBold20">Security Code</label>
-              <input id="cvv" class="form-input" type="text" placeholder="CVV" value="123">
+            <div class="input-field">
+              <div class="input-label-row">
+                <label class="input-label" for="cvv">Security Code</label>
+              </div>
+              <div class="input-and-message">
+                <div class="input-control">
+                  <input id="cvv" type="text" placeholder="CVV" value="123">
+                </div>
+              </div>
             </div>
-            <div class="form-field">
-              <label for="state" class="labelBold20">State</label>
-              <select id="state" class="form-input form-input-select">
-                <option value="">Select</option>
-                <option value="AL">AL</option><option value="AK">AK</option>
-                <option value="AZ">AZ</option><option value="CA">CA</option>
-                <option value="CO">CO</option><option value="FL">FL</option>
-                <option value="GA">GA</option><option value="HI">HI</option>
-                <option value="IL">IL</option><option value="MN" selected>MN</option>
-                <option value="NV">NV</option><option value="NY">NY</option>
-                <option value="TX">TX</option><option value="WA">WA</option>
-              </select>
+            <div class="input-field input-select" id="state-select">
+              <div class="input-label-row">
+                <label class="input-label" for="state">State</label>
+              </div>
+              <div class="input-and-message">
+                <div class="input-control">
+                  <span class="input-select-display" id="state-display">MN</span>
+                  <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+                  <select id="state"
+                    onchange="syncSelect('state-select', 'state-display', this)"
+                    onfocus="openSelect('state-select')"
+                    onblur="closeSelect('state-select')">
+                    <option value="">Select</option>
+                    <option value="AL">AL</option><option value="AK">AK</option>
+                    <option value="AZ">AZ</option><option value="CA">CA</option>
+                    <option value="CO">CO</option><option value="FL">FL</option>
+                    <option value="GA">GA</option><option value="HI">HI</option>
+                    <option value="IL">IL</option><option value="MN" selected>MN</option>
+                    <option value="NV">NV</option><option value="NY">NY</option>
+                    <option value="TX">TX</option><option value="WA">WA</option>
+                  </select>
+                </div>
+              </div>
             </div>
-            <div class="form-field">
-              <label for="zip" class="labelBold20">Zip code</label>
-              <input id="zip" class="form-input" type="text" placeholder="Zip code" value="92101">
+            <div class="input-field">
+              <div class="input-label-row">
+                <label class="input-label" for="zip">Zip code</label>
+              </div>
+              <div class="input-and-message">
+                <div class="input-control">
+                  <input id="zip" type="text" placeholder="Zip code" value="92101">
+                </div>
+              </div>
             </div>
           </div>
 
@@ -676,6 +672,29 @@
     <span class="labelRegular20 text-secondary">Powered by</span>
     <img src="https://diet-air-ds.vercel.app/images/jump-logo.svg" alt="Jump" style="height:20px; filter: brightness(0) invert(1);">
   </footer>
+
+  <script>
+    // Select dropdown helpers
+    function syncSelect(fieldId, displayId, selectEl) {
+      const display = document.getElementById(displayId);
+      const chosen = selectEl.options[selectEl.selectedIndex];
+      if (chosen && chosen.value) {
+        display.textContent = chosen.text;
+        display.classList.remove('is-placeholder');
+      } else {
+        display.textContent = chosen.text;
+        display.classList.add('is-placeholder');
+      }
+    }
+
+    function openSelect(fieldId) {
+      document.getElementById(fieldId).classList.add('is-open');
+    }
+
+    function closeSelect(fieldId) {
+      document.getElementById(fieldId).classList.remove('is-open');
+    }
+  </script>
 
 </body>
 </html>

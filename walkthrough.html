@@ -61,26 +61,10 @@
       gap: var(--spacing-50);
     }
 
-    .org-nav-links a {
-      font-family: 'Inter', sans-serif;
+    /* Adjust chip sizing for nav */
+    .org-nav-links .chip {
+      height: 28px;
       font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      padding: var(--spacing-50) var(--spacing-150);
-      border-radius: var(--border-radius-100);
-      transition: color 0.15s, background 0.15s;
-    }
-
-    .org-nav-links a:hover {
-      color: var(--text-primary);
-      background: var(--neutral-100);
-    }
-
-    .org-nav-links a.active {
-      color: var(--text-primary);
-      font-weight: 600;
-      background: var(--neutral-100);
     }
 
     .org-nav-controls {
@@ -89,38 +73,26 @@
       align-items: center;
     }
 
-    .org-nav .select-wrap {
-      position: relative;
-      display: flex;
+    /* Compact input-select styling for nav controls */
+    .org-nav-controls .input-field {
+      margin: 0;
     }
 
-    .org-nav .select-wrap select {
-      background: var(--bg-base);
-      border: 1px solid var(--border-default);
-      border-radius: var(--border-radius-100);
-      padding: var(--spacing-100) calc(var(--spacing-150) + 20px) var(--spacing-100) var(--spacing-100);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
+    .org-nav-controls .input-control {
+      height: 36px;
+      min-width: 120px;
+      padding-left: var(--spacing-100);
+      padding-right: var(--spacing-100);
+    }
+
+    .org-nav-controls .input-select-display {
       font-size: 12px;
-      cursor: pointer;
-      width: 100%;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
     }
 
-    .org-nav .select-wrap select::-ms-expand { display: none; }
-
-    .org-nav .select-icon {
-      position: absolute;
-      right: 4px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      opacity: 0.75;
+    .org-nav-controls .input-select-chevron {
+      width: 20px;
+      height: 20px;
       font-size: 18px;
-      line-height: 1;
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
     }
 
     @media (max-width: 600px) {
@@ -568,32 +540,42 @@
     <span class="display200 text-primary">Diet AirDS</span>
   </a>
   <nav class="org-nav-links">
-    <a href="/index.html">Getting Started</a>
-    <a href="/walkthrough.html" class="active">Tokens & Styles</a>
-    <a href="/examples/index.html">Examples</a>
+    <a href="/index.html" class="chip surface-ghost scale-300">Getting Started</a>
+    <a href="/walkthrough.html" class="chip surface-ghost scale-300 chip-team-color">Tokens & Styles</a>
+    <a href="/examples/index.html" class="chip surface-ghost scale-300">Examples</a>
   </nav>
   <div class="org-nav-controls">
-    <div class="select-wrap">
-      <select id="topThemeSelect">
-        <option value="wolves">Wolves</option>
-        <option value="lynx">Lynx</option>
-        <option value="courage">Courage</option>
-        <option value="summit">Summit</option>
-        <option value="bucknell">Bucknell</option>
-        <option value="sounders">Sounders</option>
-        <option value="reign">Reign</option>
-        <option value="ncfc">NCFC</option>
-        <option value="jump" selected>JUMP</option>
-        <option value="athletics">Athletics</option>
-      </select>
-      <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+    <div class="input-field input-select" id="top-theme-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-theme-display">JUMP</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topThemeSelect" onchange="syncSelect('top-theme-select', 'top-theme-display', this); root.setAttribute('data-theme', this.value);" onfocus="openSelect('top-theme-select')" onblur="closeSelect('top-theme-select')">
+            <option value="wolves">Wolves</option>
+            <option value="lynx">Lynx</option>
+            <option value="courage">Courage</option>
+            <option value="summit">Summit</option>
+            <option value="bucknell">Bucknell</option>
+            <option value="sounders">Sounders</option>
+            <option value="reign">Reign</option>
+            <option value="ncfc">NCFC</option>
+            <option value="jump" selected>JUMP</option>
+            <option value="athletics">Athletics</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div class="select-wrap">
-      <select id="topModeSelect">
-        <option value="light" selected>Light</option>
-        <option value="dark">Dark</option>
-      </select>
-      <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+    <div class="input-field input-select" id="top-mode-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-mode-display">Light</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topModeSelect" onchange="syncSelect('top-mode-select', 'top-mode-display', this); root.setAttribute('data-mode', this.value);" onfocus="openSelect('top-mode-select')" onblur="closeSelect('top-mode-select')">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -3407,13 +3389,6 @@ function closeSelect(fieldId) {
 
 <script>
   const root = document.documentElement;
-
-  document.getElementById('topThemeSelect').addEventListener('change', function() {
-    root.setAttribute('data-theme', this.value);
-  });
-  document.getElementById('topModeSelect').addEventListener('change', function() {
-    root.setAttribute('data-mode', this.value);
-  });
 
   // Sidebar active link highlighting
   const sidebarLinks = document.querySelectorAll('.doc-sidebar nav a');

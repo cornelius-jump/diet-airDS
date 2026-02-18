@@ -22,6 +22,8 @@
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
   <style>
@@ -59,26 +61,10 @@
       gap: var(--spacing-50);
     }
 
-    .org-nav-links a {
-      font-family: 'Inter', sans-serif;
+    /* Adjust chip sizing for nav */
+    .org-nav-links .chip {
+      height: 28px;
       font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      text-decoration: none;
-      padding: var(--spacing-50) var(--spacing-150);
-      border-radius: var(--border-radius-100);
-      transition: color 0.15s, background 0.15s;
-    }
-
-    .org-nav-links a:hover {
-      color: var(--text-primary);
-      background: var(--neutral-100);
-    }
-
-    .org-nav-links a.active {
-      color: var(--text-primary);
-      font-weight: 600;
-      background: var(--neutral-100);
     }
 
     .org-nav-controls {
@@ -92,38 +78,26 @@
     }
 
     /* ---- Select controls ---- */
-    .select-wrap {
-      position: relative;
-      display: flex;
+    /* Nav controls use compact input-select components */
+    .org-nav-controls .input-field {
+      margin: 0;
     }
 
-    .select-wrap select {
-      background: var(--bg-base);
-      border: 1px solid var(--border-default);
-      border-radius: var(--border-radius-100);
-      padding: var(--spacing-100) calc(var(--spacing-150) + 20px) var(--spacing-100) var(--spacing-100);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
+    .org-nav-controls .input-control {
+      height: 36px;
+      min-width: 120px;
+      padding-left: var(--spacing-100);
+      padding-right: var(--spacing-100);
+    }
+
+    .org-nav-controls .input-select-display {
       font-size: 12px;
-      cursor: pointer;
-      width: 100%;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
     }
 
-    .select-wrap select::-ms-expand { display: none; }
-
-    .select-icon {
-      position: absolute;
-      right: 4px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      opacity: 0.75;
+    .org-nav-controls .input-select-chevron {
+      width: 20px;
+      height: 20px;
       font-size: 18px;
-      line-height: 1;
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
     }
 
     /* ---- Examples grid ---- */
@@ -218,33 +192,43 @@
     </a>
 
     <nav class="org-nav-links">
-      <a href="/index.html">Getting Started</a>
-      <a href="/walkthrough.html">Tokens & Styles</a>
-      <a href="/examples/index.html" class="active">Examples</a>
+      <a href="/index.html" class="chip surface-ghost scale-300">Getting Started</a>
+      <a href="/walkthrough.html" class="chip surface-ghost scale-300">Tokens & Styles</a>
+      <a href="/examples/index.html" class="chip surface-ghost scale-300 chip-team-color">Examples</a>
     </nav>
 
     <div class="org-nav-controls">
-      <div class="select-wrap">
-        <select id="themeSelect">
-          <option value="wolves">Wolves</option>
-          <option value="lynx">Lynx</option>
-          <option value="courage">Courage</option>
-          <option value="summit">Summit</option>
-          <option value="bucknell">Bucknell</option>
-          <option value="sounders">Sounders</option>
-          <option value="reign">Reign</option>
-          <option value="ncfc">NCFC</option>
-          <option value="jump" selected>JUMP</option>
-          <option value="athletics">Athletics</option>
-        </select>
-        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+      <div class="input-field input-select" id="theme-select">
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-select-display" id="theme-display">JUMP</span>
+            <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+            <select id="themeSelect" onchange="syncSelect('theme-select', 'theme-display', this); root.setAttribute('data-theme', this.value);" onfocus="openSelect('theme-select')" onblur="closeSelect('theme-select')">
+              <option value="wolves">Wolves</option>
+              <option value="lynx">Lynx</option>
+              <option value="courage">Courage</option>
+              <option value="summit">Summit</option>
+              <option value="bucknell">Bucknell</option>
+              <option value="sounders">Sounders</option>
+              <option value="reign">Reign</option>
+              <option value="ncfc">NCFC</option>
+              <option value="jump" selected>JUMP</option>
+              <option value="athletics">Athletics</option>
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="select-wrap">
-        <select id="modeSelect">
-          <option value="light" selected>Light</option>
-          <option value="dark">Dark</option>
-        </select>
-        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+      <div class="input-field input-select" id="mode-select">
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-select-display" id="mode-display">Light</span>
+            <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+            <select id="modeSelect" onchange="syncSelect('mode-select', 'mode-display', this); root.setAttribute('data-mode', this.value);" onfocus="openSelect('mode-select')" onblur="closeSelect('mode-select')">
+              <option value="light" selected>Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -378,18 +362,28 @@
   </main>
 
   <!-- ============================================
-       THEME / MODE SWITCHER
+       THEME / MODE SWITCHER + SELECT HELPERS
        ============================================ -->
   <script>
     const root = document.documentElement;
 
-    document.getElementById('themeSelect').addEventListener('change', function() {
-      root.setAttribute('data-theme', this.value);
-    });
+    // Select dropdown helpers
+    function syncSelect(fieldId, displayId, selectEl) {
+      const display = document.getElementById(displayId);
+      const chosen = selectEl.options[selectEl.selectedIndex];
+      if (chosen && chosen.value) {
+        display.textContent = chosen.text;
+        display.classList.remove('is-placeholder');
+      }
+    }
 
-    document.getElementById('modeSelect').addEventListener('change', function() {
-      root.setAttribute('data-mode', this.value);
-    });
+    function openSelect(fieldId) {
+      document.getElementById(fieldId).classList.add('is-open');
+    }
+
+    function closeSelect(fieldId) {
+      document.getElementById(fieldId).classList.remove('is-open');
+    }
   </script>
 
 </body>

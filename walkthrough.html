@@ -603,36 +603,6 @@
 
 <!-- SIDEBAR -->
 <aside class="doc-sidebar">
-  <div class="doc-sidebar-controls">
-    <div class="control-group">
-      <p class="doc-sidebar-title" style="margin-bottom: 0;">Theme</p>
-      <span class="select-wrap">
-        <select id="themeSelect" onchange="setTheme(this.value)">
-          <option value="wolves">Timberwolves</option>
-          <option value="lynx">Lynx</option>
-          <option value="courage">Courage</option>
-          <option value="summit">Summit FC</option>
-          <option value="bucknell">Bucknell</option>
-          <option value="sounders">Sounders</option>
-          <option value="reign">Reign</option>
-          <option value="ncfc">NCFC</option>
-          <option value="jump" selected>Jump</option>
-          <option value="athletics">Athletics</option>
-        </select>
-        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
-      </span>
-    </div>
-    <div class="control-group">
-      <p class="doc-sidebar-title" style="margin-bottom: 0;">Mode</p>
-      <span class="select-wrap">
-        <select id="modeSelect" onchange="setMode(this.value)">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-        </select>
-        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
-      </span>
-    </div>
-  </div>
   <p class="doc-sidebar-title">Sections</p>
   <nav>
     <a href="#overview"><span>0</span>Overview</a>
@@ -2764,22 +2734,11 @@
 <script>
   const root = document.documentElement;
 
-  function setTheme(val) {
-    root.setAttribute('data-theme', val);
-    document.getElementById('topThemeSelect').value = val;
-    document.getElementById('themeSelect').value = val;
-  }
-  function setMode(val) {
-    root.setAttribute('data-mode', val);
-    document.getElementById('topModeSelect').value = val;
-    document.getElementById('modeSelect').value = val;
-  }
-
   document.getElementById('topThemeSelect').addEventListener('change', function() {
-    setTheme(this.value);
+    root.setAttribute('data-theme', this.value);
   });
   document.getElementById('topModeSelect').addEventListener('change', function() {
-    setMode(this.value);
+    root.setAttribute('data-mode', this.value);
   });
 
   // Sidebar active link highlighting

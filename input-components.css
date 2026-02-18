@@ -413,7 +413,7 @@
 
 /* Placeholder colour before a real value is chosen */
 .input-select-display.is-placeholder {
-  color: var(--text-placeholder);
+  color: var(--text-secondary);
 }
 
 /* Chevron — permanent trailing icon, always visible */

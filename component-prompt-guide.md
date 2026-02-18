@@ -130,6 +130,11 @@
    - Use `.list-row-text-pair` (NOT `.card-text-pair`) for label+sublabel inside list rows
    - Use built-in subcomponents: `.tag`, `.info-block`, `.status-dot`, `.switch`, `.stepper`
 
+9. **NEVER use `--brand-interactive` or `--brand-inverted` directly — use the mode-aware tokens**
+   - Use `--color-interactive` for links, active states, focus rings, icon accents, and brand-colored text
+   - Use `--color-inverted` for the complementary brand color
+   - These tokens swap correctly between light and dark mode; the `--brand-*` originals do not
+
 ---
 
 ## Text Pairs - Choose the Right Scale
@@ -708,6 +713,27 @@ List rows don't include their own padding or dividers. Wrap them in a container 
 </div>
 ```
 
+### Wrong: Using `--brand-interactive` or `--brand-inverted` Directly
+```html
+<!-- ❌ WRONG — these tokens are static and don't switch with light/dark mode.
+     In dark mode, --brand-interactive stays as the light-mode brand color,
+     causing poor contrast against dark backgrounds. -->
+<a style="color: var(--brand-interactive);">Learn More</a>
+<span class="icon" style="color: var(--brand-inverted);">star</span>
+```
+
+### Right: Use `--color-interactive` and `--color-inverted`
+```html
+<!-- ✅ CORRECT — these tokens swap automatically:
+     Light mode: --color-interactive = brand-interactive, --color-inverted = brand-inverted
+     Dark mode:  --color-interactive = brand-inverted,   --color-inverted = brand-interactive -->
+<a style="color: var(--color-interactive);">Learn More</a>
+<span class="icon" style="color: var(--color-interactive);">star</span>
+
+<!-- Or use the utility class (already updated to use the right token): -->
+<a class="text-brand-interactive">Learn More</a>
+```
+
 ---
 
 ## Master Prompt Template
@@ -723,6 +749,7 @@ CRITICAL REQUIREMENTS (NON-NEGOTIABLE):
 5. ✅ Component must work with data-theme="wolves" AND data-theme="athletics" (test both)
 6. ✅ ALWAYS use button component classes (.btn + type + size) - NEVER custom buttons
 7. ✅ ALWAYS use list row component classes for list items - NEVER custom list rows
+8. ✅ ALWAYS use --color-interactive and --color-inverted for brand-colored elements - NEVER --brand-interactive or --brand-inverted
 
 TEXT PAIRS - USE FOR ALL TITLE+SUBTITLE COMBINATIONS:
 - Hero sections: Text Pair 9000 or 8000
@@ -785,6 +812,7 @@ VALIDATION CHECKLIST - Verify before delivering:
 - [ ] List row leading slots have correct gap modifier for content type
 - [ ] List row trailing slots have correct gap modifier for content type
 - [ ] Tags inside list rows use .tag (with optional .tag-team-color, .tag-icon-leading/trailing)
+- [ ] Brand-colored elements use --color-interactive / --color-inverted (NOT --brand-interactive / --brand-inverted)
 
 OUTPUT:
 Provide complete HTML showing the component working with both themes.
@@ -883,7 +911,13 @@ Choose the right container for your content:
 **Brand:**
 - `--brand-core` - Primary brand color
 - `--brand-light` - Secondary brand color
-- `--brand-interactive` - Links, active states
+- `--brand-dark` - Dark brand variant
+
+**Brand Color (Mode-Sympathetic) — ALWAYS use these instead of `--brand-interactive` / `--brand-inverted` directly:**
+- `--color-interactive` - In light mode: the brand's interactive color. In dark mode: the inverted accent. Use for links, active states, focus rings, icon accents, and anything that should "pop" as the primary brand color for the current mode.
+- `--color-inverted` - The opposite of `--color-interactive`. Use when you need the secondary brand color that complements interactive in the current mode.
+
+> ⚠️ **Never use `--brand-interactive` or `--brand-inverted` directly in components.** They are static and don't switch with light/dark mode. `--color-interactive` and `--color-inverted` are their mode-aware replacements.
 
 **Interactive:**
 - `--interactive-primary` - Primary buttons
@@ -1056,60 +1090,3 @@ Let's iterate until it matches my vision, then we'll add it to the guide.
 <!-- Dark Mode - Athletics -->
 <html data-theme="athletics" data-mode="dark">
 ```
-
-### Team Logo Assets
-
-Team logos are hosted as SVGs in the `/images/` folder on the design system domain. When a component needs a team logo, use the file that matches the current `data-theme` value.
-
-| Theme | Logo Path |
-|-------|-----------|
-| `wolves` | `images/wolves.svg` |
-| `lynx` | `images/lynx.svg` |
-| `courage` | `images/courage.svg` |
-| `summit` | `images/summit.svg` |
-| `bucknell` | `images/bucknell.svg` |
-| `sounders` | `images/sounders.svg` |
-| `reign` | `images/reign.svg` |
-| `ncfc` | `images/ncfc.svg` |
-| `jump` | `images/jump.svg` |
-| `athletics` | `images/athletics.svg` |
-
-**Usage Pattern — Show/Hide by Theme:**
-
-When building a component that displays a team logo, include all logo `<img>` tags and use CSS to show only the one matching the active theme. This keeps the component fully themeable without JavaScript.
-
-```html
-<!-- Team Logo Images (only the active theme's logo displays) -->
-<img src="images/wolves.svg" alt="Team Logo" class="team-logo" data-logo="wolves">
-<img src="images/lynx.svg" alt="Team Logo" class="team-logo" data-logo="lynx">
-<img src="images/courage.svg" alt="Team Logo" class="team-logo" data-logo="courage">
-<img src="images/summit.svg" alt="Team Logo" class="team-logo" data-logo="summit">
-<img src="images/bucknell.svg" alt="Team Logo" class="team-logo" data-logo="bucknell">
-<img src="images/sounders.svg" alt="Team Logo" class="team-logo" data-logo="sounders">
-<img src="images/reign.svg" alt="Team Logo" class="team-logo" data-logo="reign">
-<img src="images/ncfc.svg" alt="Team Logo" class="team-logo" data-logo="ncfc">
-<img src="images/jump.svg" alt="Team Logo" class="team-logo" data-logo="jump">
-<img src="images/athletics.svg" alt="Team Logo" class="team-logo" data-logo="athletics">
-```
-
-```css
-/* Hide all logos by default, show only the active theme's logo */
-.team-logo { display: none; }
-[data-theme="wolves"] .team-logo[data-logo="wolves"] { display: block; }
-[data-theme="lynx"] .team-logo[data-logo="lynx"] { display: block; }
-[data-theme="courage"] .team-logo[data-logo="courage"] { display: block; }
-[data-theme="summit"] .team-logo[data-logo="summit"] { display: block; }
-[data-theme="bucknell"] .team-logo[data-logo="bucknell"] { display: block; }
-[data-theme="sounders"] .team-logo[data-logo="sounders"] { display: block; }
-[data-theme="reign"] .team-logo[data-logo="reign"] { display: block; }
-[data-theme="ncfc"] .team-logo[data-logo="ncfc"] { display: block; }
-[data-theme="jump"] .team-logo[data-logo="jump"] { display: block; }
-[data-theme="athletics"] .team-logo[data-logo="athletics"] { display: block; }
-```
-
-**⚠️ IMPORTANT:**
-- When referencing the hosted design system, use the full URL: `https://diet-air-ds.vercel.app/images/wolves.svg`
-- When building pages within the design system repo itself, use relative paths: `images/wolves.svg`
-- Logo filenames always match the `data-theme` value exactly (lowercase)
-- Size logos with CSS (`width`/`height`) — they are SVGs and scale cleanly at any size
-- ❌ Do NOT hardcode a single team logo — always use the show/hide pattern so the component works across all themes

@@ -105,8 +105,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 36px;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (43.2px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -116,8 +116,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 32px;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (38.4px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -127,8 +127,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 28px;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (33.6px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -138,8 +138,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 24px;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (28.8px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -149,8 +149,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+  letter-spacing: -3%;
+  line-height: 1.2; /* Default (24px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -165,8 +165,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (24px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -176,8 +176,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (19.2px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -187,8 +187,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (16.8px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -198,8 +198,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (14.4px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -209,8 +209,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (12px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -225,8 +225,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 20px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (24px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -236,8 +236,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (19.2px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -247,8 +247,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (16.8px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -258,8 +258,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (14.4px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -269,8 +269,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 10px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  letter-spacing: -2%;
+  line-height: 1.2; /* Default (12px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 0px;
@@ -285,8 +285,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (24px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 3.5px;
@@ -296,8 +296,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (21px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 3.5px;
@@ -307,8 +307,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 13px;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (19.5px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 2.5px;
@@ -323,8 +323,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (24px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 3.5px;
@@ -334,8 +334,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (21px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 3.5px;
@@ -345,8 +345,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 13px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (19.5px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 2.5px;
@@ -361,8 +361,8 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.5;
+  letter-spacing: -2%;
+  line-height: 1.5; /* Default (18px) */
   color: var(--text-primary);
   text-transform: none;
   top-bottom-padding: 3px;
@@ -398,7 +398,11 @@
 }
 
 .text-brand-interactive {
-  color: var(--brand-interactive) !important;
+  color: var(--color-interactive) !important;
+}
+
+.text-brand-inverted {
+  color: var(--color-inverted) !important;
 }
 
 .text-inverted {

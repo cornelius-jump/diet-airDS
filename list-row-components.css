@@ -15,8 +15,8 @@
    8px indicator circle for read/unread state.
    
    Variants:
-     .status-dot           → Unread (--status-info blue)
-     .status-dot.read      → Read (--neutral-200 grey)
+     .status-dot           â†’ Unread (--status-info blue)
+     .status-dot.read      â†’ Read (--neutral-200 grey)
    
    Usage:
      <div class="status-dot"></div>
@@ -43,8 +43,8 @@
    24px icon, optional 12px label text.
    
    Variants:
-     .info-item              → Icon only (no label)
-     .info-item.has-label    → Icon + label with 4px gap
+     .info-item              â†’ Icon only (no label)
+     .info-item.has-label    â†’ Icon + label with 4px gap
    
    Usage:
      <div class="info-item">
@@ -56,7 +56,7 @@
      </div>
    
    Pattern: In an Info Block, only the LAST item
-   shows its label — all others are icon-only.
+   shows its label â€” all others are icon-only.
    ============================================ */
 
 .info-item {
@@ -73,7 +73,7 @@
 /* ============================================
    INFO BLOCK
    ============================================
-   Wrapping row of 1–4 Info Items.
+   Wrapping row of 1â€“4 Info Items.
    
    Usage:
      <div class="info-block">
@@ -105,10 +105,10 @@
    32px height, 4px radius, backdrop blur.
    
    Variants:
-     .tag                    → Default (neutral-100 bg)
-     .tag.tag-team-color     → Brand colored bg + text
-     .tag.tag-icon-leading   → Icon before label
-     .tag.tag-icon-trailing  → Icon after label
+     .tag                    â†’ Default (neutral-100 bg)
+     .tag.tag-team-color     â†’ Brand colored bg + text
+     .tag.tag-icon-leading   â†’ Icon before label
+     .tag.tag-icon-trailing  â†’ Icon after label
    
    Usage:
      <div class="tag">
@@ -149,8 +149,8 @@
 .tag.tag-team-color {
   background:
     linear-gradient(var(--inverted-900), var(--inverted-900)),
-    linear-gradient(var(--brand-interactive), var(--brand-interactive));
-  color: var(--brand-interactive);
+    linear-gradient(var(--color-interactive), var(--color-interactive));
+  color: var(--color-interactive);
 }
 
 .tag.tag-team-color * {
@@ -161,7 +161,7 @@
 /* ============================================
    TAG GROUP
    ============================================
-   Flex row of 1–2 Tags with 8px gap.
+   Flex row of 1â€“2 Tags with 8px gap.
    
    Usage:
      <div class="tag-group">
@@ -180,12 +180,12 @@
 /* ============================================
    SWITCH (WEB)
    ============================================
-   iOS-style toggle, 51×31px with 27px knob.
+   iOS-style toggle, 51Ã—31px with 27px knob.
    Uses native checkbox for accessibility.
    
    States driven by HTML attributes:
-     checked   → On (brand-interactive track)
-     disabled  → Muted (neutral-100 track, faded knob)
+     checked   â†’ On (brand-interactive track)
+     disabled  â†’ Muted (neutral-100 track, faded knob)
    
    Usage:
      <div class="switch">
@@ -246,7 +246,7 @@
 
 /* On (checked) */
 .switch input:checked + label {
-  background: var(--brand-interactive);
+  background: var(--color-interactive);
 }
 
 .switch input:checked + label::after {
@@ -275,10 +275,10 @@
    Base class + gap modifier + inner component.
    
    Gap modifiers:
-     .leading-gap-sm   → 8px  (Logo variants)
-     .leading-gap-md   → 12px (Icon, Circle, Select, etc)
-     .leading-gap-lg   → 16px (Square/Small image)
-     .leading-gap-xl   → 24px (Large image)
+     .leading-gap-sm   â†’ 8px  (Logo variants)
+     .leading-gap-md   â†’ 12px (Icon, Circle, Select, etc)
+     .leading-gap-lg   â†’ 16px (Square/Small image)
+     .leading-gap-xl   â†’ 24px (Large image)
    
    Usage:
      <div class="leading leading-gap-md">
@@ -385,7 +385,7 @@
 /* ============================================
    LEADING LOGO
    ============================================
-   48×48 team logo in leading slot.
+   48Ã—48 team logo in leading slot.
    
    Usage:
      <img class="leading-logo" src="..." alt="">
@@ -425,10 +425,10 @@
    padding-left as the gap from main content.
    
    Gap modifiers:
-     .trailing-gap-xs   → 2px  (Icon variants)
-     .trailing-gap-sm   → 4px  (Text Pair)
-     .trailing-gap-md   → 8px  (Text Link)
-     .trailing-gap-lg   → 12px (Button)
+     .trailing-gap-xs   â†’ 2px  (Icon variants)
+     .trailing-gap-sm   â†’ 4px  (Text Pair)
+     .trailing-gap-md   â†’ 8px  (Text Link)
+     .trailing-gap-lg   â†’ 12px (Button)
    
    Usage:
      <div class="trailing trailing-gap-xs">
@@ -562,12 +562,12 @@
    LIST ROW (PARENT)
    ============================================
    Composable row with 3-slot architecture:
-   Leading → Main Content → Trailing
+   Leading â†’ Main Content â†’ Trailing
    
    States:
-     .list-row                → Default (tappable)
-     .list-row.not-tappable   → No pointer cursor
-     .list-row.disabled       → 30% opacity, no interaction
+     .list-row                â†’ Default (tappable)
+     .list-row.not-tappable   â†’ No pointer cursor
+     .list-row.disabled       â†’ 30% opacity, no interaction
    
    Main content stacks Text Pair, Tag Group,
    and Info Block vertically with 8px gap.

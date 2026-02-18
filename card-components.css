@@ -99,7 +99,7 @@
 }
 
 .card-closed-interactive:hover {
-  border-color: var(--brand-interactive);
+  border-color: var(--color-interactive);
   transform: translateY(-2px);
 }
 
@@ -115,7 +115,7 @@
 }
 
 .card-open-section-interactive:hover {
-  border-color: var(--brand-interactive);
+  border-color: var(--color-interactive);
   transform: translateY(-2px);
 }
 
@@ -145,6 +145,7 @@
   flex-direction: row;
   gap: var(--spacing-150);
   align-items: center;
+  margin-top: var(--spacing-200);
 }
 
 /* Vertical card actions */

@@ -183,7 +183,7 @@
 .border-neutral-200 { border-color: var(--neutral-200); }
 .border-neutral-500 { border-color: var(--neutral-500); }
 .border-neutral-1000 { border-color: var(--neutral-1000); }
-.border-brand-interactive { border-color: var(--brand-interactive); }
+.border-brand-interactive { border-color: var(--color-interactive); }
 .border-default { border-color: var(--border-default); }
 .border-hover { border-color: var(--border-hover); }
 .border-active { border-color: var(--border-active); }
@@ -230,7 +230,7 @@
 .border-interactive {
   border-width: var(--border-weight-200);
   border-style: solid;
-  border-color: var(--brand-interactive);
+  border-color: var(--color-interactive);
 }
 
 /* Directional borders with default styling */

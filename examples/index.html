@@ -30,7 +30,7 @@
        All component/token styles come from the DS
        ============================================ */
 
-    /* ---- Org Nav ---- */
+    /* ---- Universal Top Nav ---- */
     .org-nav {
       position: sticky;
       top: 0;
@@ -50,15 +50,48 @@
       display: flex;
       align-items: center;
       gap: var(--spacing-150);
+      text-decoration: none;
     }
 
-    /* ---- Select controls (matches walkthrough.html pattern exactly) ---- */
-    .controls {
+    .org-nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-50);
+    }
+
+    .org-nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: var(--spacing-50) var(--spacing-150);
+      border-radius: var(--border-radius-100);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .org-nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--neutral-100);
+    }
+
+    .org-nav-links a.active {
+      color: var(--text-primary);
+      font-weight: 600;
+      background: var(--neutral-100);
+    }
+
+    .org-nav-controls {
       display: flex;
       gap: var(--spacing-100);
       align-items: center;
     }
 
+    @media (max-width: 600px) {
+      .org-nav-links { display: none; }
+    }
+
+    /* ---- Select controls ---- */
     .select-wrap {
       position: relative;
       display: flex;
@@ -179,12 +212,18 @@
        ============================================ -->
   <header class="org-nav">
 
-    <div class="org-nav-logo">
+    <a class="org-nav-logo" href="/index.html">
       <span class="material-symbols-rounded icon-filled text-primary">water_full</span>
       <span class="display200 text-primary">Diet AirDS</span>
-    </div>
+    </a>
 
-    <div class="controls">
+    <nav class="org-nav-links">
+      <a href="/index.html">Prompts</a>
+      <a href="/walkthrough.html">Walkthrough</a>
+      <a href="/examples/index.html" class="active">Examples</a>
+    </nav>
+
+    <div class="org-nav-controls">
       <div class="select-wrap">
         <select id="themeSelect">
           <option value="wolves">Wolves</option>

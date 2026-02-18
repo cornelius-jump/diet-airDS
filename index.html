@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="jump" data-mode="dark">
+<html lang="en" data-theme="jump" data-mode="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,8 @@
   <!-- Critical Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
   <!-- Design System CSS Files -->
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
@@ -17,68 +17,106 @@
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
   <style>
-    .controls-bar {
-      background: var(--bg-surface);
-      border-radius: var(--border-radius-200);
-      padding: var(--spacing-200);
-      margin-bottom: var(--spacing-400);
-      display: flex;
-      gap: var(--spacing-200);
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .control-group {
+    /* ---- Universal Top Nav ---- */
+    .org-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       display: flex;
       align-items: center;
-      gap: var(--spacing-100);
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 var(--spacing-300);
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-default);
+      backdrop-filter: blur(var(--background-blur));
+      -webkit-backdrop-filter: blur(var(--background-blur));
     }
 
-    .theme-select {
-      background: var(--bg-base);
-      color: var(--text-primary);
-      border: var(--border-weight-100) solid var(--border-default);
+    .org-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+      text-decoration: none;
+    }
+
+    .org-nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-50);
+    }
+
+    .org-nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: var(--spacing-50) var(--spacing-150);
       border-radius: var(--border-radius-100);
-      padding: 8px 12px;
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 14px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .org-nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--neutral-100);
+    }
+
+    .org-nav-links a.active {
+      color: var(--text-primary);
       font-weight: 600;
+      background: var(--neutral-100);
+    }
+
+    .org-nav-controls {
+      display: flex;
+      gap: var(--spacing-100);
+      align-items: center;
+    }
+
+    .select-wrap {
+      position: relative;
+      display: flex;
+    }
+
+    .select-wrap select {
+      background: var(--bg-base);
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-100) calc(var(--spacing-150) + 20px) var(--spacing-100) var(--spacing-100);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
       cursor: pointer;
-      transition: border-color 0.2s ease;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
     }
 
-    .theme-select:hover {
-      border-color: var(--brand-interactive);
+    .select-wrap select::-ms-expand { display: none; }
+
+    .select-icon {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: 0.75;
+      font-size: 18px;
+      line-height: 1;
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
     }
 
-    .theme-select:focus {
-      outline: 2px solid var(--brand-interactive);
-      outline-offset: 2px;
-    }
-
-    .mode-toggle {
-      background: var(--interactive-primary);
-      color: var(--interactive-primary-text);
-      border: none;
-      border-radius: var(--button-border-radius);
-      padding: 8px 16px;
-      cursor: pointer;
-      font-family: 'Inter', system-ui, sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      transition: opacity 0.2s ease;
-    }
-
-    .mode-toggle:hover {
-      opacity: 0.9;
-    }
-
-    .mode-toggle:active {
-      transform: scale(0.98);
+    @media (max-width: 600px) {
+      .org-nav-links { display: none; }
     }
 
     .prompt-card {
@@ -137,31 +175,45 @@
   </style>
 </head>
 <body>
-  <div class="container-medium">
 
-    <!-- Theme Controls -->
-    <div class="controls-bar" style="margin-top: var(--spacing-400);">
-      <div class="control-group">
-        <label class="labelBold30 text-secondary" for="theme-select">Theme:</label>
-        <select id="theme-select" class="theme-select" onchange="changeTheme(this.value)">
-          <option value="wolves">Timberwolves</option>
+  <!-- Universal Top Nav -->
+  <header class="org-nav">
+    <a class="org-nav-logo" href="/index.html">
+      <span class="material-symbols-rounded icon-filled text-primary">water_full</span>
+      <span class="display200 text-primary">Diet AirDS</span>
+    </a>
+    <nav class="org-nav-links">
+      <a href="/index.html" class="active">Prompts</a>
+      <a href="/walkthrough.html">Walkthrough</a>
+      <a href="/examples/index.html">Examples</a>
+    </nav>
+    <div class="org-nav-controls">
+      <div class="select-wrap">
+        <select id="themeSelect">
+          <option value="wolves">Wolves</option>
           <option value="lynx">Lynx</option>
           <option value="courage">Courage</option>
-          <option value="summit">Summit FC</option>
+          <option value="summit">Summit</option>
           <option value="bucknell">Bucknell</option>
           <option value="sounders">Sounders</option>
           <option value="reign">Reign</option>
           <option value="ncfc">NCFC</option>
-          <option value="jump" selected>Jump</option>
+          <option value="jump" selected>JUMP</option>
           <option value="athletics">Athletics</option>
         </select>
+        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
       </div>
-      <div class="control-group">
-        <button class="mode-toggle" onclick="toggleMode()">
-          <span id="mode-icon">☀️</span> <span id="mode-text">Change to Light Mode</span>
-        </button>
+      <div class="select-wrap">
+        <select id="modeSelect">
+          <option value="light" selected>Light</option>
+          <option value="dark">Dark</option>
+        </select>
+        <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
       </div>
     </div>
+  </header>
+
+  <div class="container-medium">
 
     <!-- Hero Section - Using Text Pair 8000 -->
     <section class="hero-section">
@@ -365,44 +417,15 @@ Always make sure you use the CSS files contained in the .md above. Only create c
   </div>
 
   <script>
-    // Initialize theme and mode
-    function initializeTheme() {
-      const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme') || 'jump';
-      const currentMode = html.getAttribute('data-mode') || 'dark';
-      
-      document.getElementById('theme-select').value = currentTheme;
-      updateModeButton(currentMode);
-    }
+    const root = document.documentElement;
 
-    // Change theme
-    function changeTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
+    document.getElementById('themeSelect').addEventListener('change', function() {
+      root.setAttribute('data-theme', this.value);
+    });
 
-    // Toggle mode
-    function toggleMode() {
-      const html = document.documentElement;
-      const currentMode = html.getAttribute('data-mode');
-      const newMode = currentMode === 'light' ? 'dark' : 'light';
-      
-      html.setAttribute('data-mode', newMode);
-      updateModeButton(newMode);
-    }
-
-    // Update mode button appearance
-    function updateModeButton(mode) {
-      const icon = document.getElementById('mode-icon');
-      const text = document.getElementById('mode-text');
-      
-      if (mode === 'dark') {
-        icon.textContent = '☼';
-        text.textContent = 'Switch to Light Mode';
-      } else {
-        icon.textContent = '☾';
-        text.textContent = 'Switch to Dark Mode';
-      }
-    }
+    document.getElementById('modeSelect').addEventListener('change', function() {
+      root.setAttribute('data-mode', this.value);
+    });
 
     // Copy prompt function
     function copyPrompt(button, theme) {
@@ -428,8 +451,6 @@ Use data-theme="${theme}" and data-mode="light"
       });
     }
 
-    // Initialize on page load
-    initializeTheme();
   </script>
 </body>
 </html>

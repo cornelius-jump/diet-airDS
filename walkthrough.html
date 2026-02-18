@@ -30,6 +30,101 @@
        Page-only chrome. All demo content uses DS classes.
        ============================================ */
 
+    /* ---- Universal Top Nav ---- */
+    .org-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      padding: 0 var(--spacing-300);
+      background: var(--bg-nav);
+      border-bottom: 1px solid var(--border-default);
+      backdrop-filter: blur(var(--background-blur));
+      -webkit-backdrop-filter: blur(var(--background-blur));
+    }
+
+    .org-nav-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+      text-decoration: none;
+    }
+
+    .org-nav-links {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-50);
+    }
+
+    .org-nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: var(--spacing-50) var(--spacing-150);
+      border-radius: var(--border-radius-100);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .org-nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--neutral-100);
+    }
+
+    .org-nav-links a.active {
+      color: var(--text-primary);
+      font-weight: 600;
+      background: var(--neutral-100);
+    }
+
+    .org-nav-controls {
+      display: flex;
+      gap: var(--spacing-100);
+      align-items: center;
+    }
+
+    .org-nav .select-wrap {
+      position: relative;
+      display: flex;
+    }
+
+    .org-nav .select-wrap select {
+      background: var(--bg-base);
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-100) calc(var(--spacing-150) + 20px) var(--spacing-100) var(--spacing-100);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .org-nav .select-wrap select::-ms-expand { display: none; }
+
+    .org-nav .select-icon {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: 0.75;
+      font-size: 18px;
+      line-height: 1;
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;
+    }
+
+    @media (max-width: 600px) {
+      .org-nav-links { display: none; }
+    }
+
 /* Sidebar select controls */
 .doc-sidebar .control-group {
   display: flex;
@@ -89,10 +184,10 @@
 
     .doc-sidebar {
       position: sticky;
-      top: 0;
+      top: 56px;
       width: 240px;
       flex-shrink: 0;
-      height: 100vh;
+      height: calc(100vh - 56px);
       overflow-y: auto;
       background-color: var(--bg-surface);
       padding: var(--spacing-300);
@@ -464,8 +559,42 @@
 </head>
 <body>
 
-
-
+<!-- Universal Top Nav -->
+<header class="org-nav">
+  <a class="org-nav-logo" href="/index.html">
+    <span class="material-symbols-rounded icon-filled text-primary">water_full</span>
+    <span class="display200 text-primary">Diet AirDS</span>
+  </a>
+  <nav class="org-nav-links">
+    <a href="/index.html">Prompts</a>
+    <a href="/walkthrough.html" class="active">Walkthrough</a>
+    <a href="/examples/index.html">Examples</a>
+  </nav>
+  <div class="org-nav-controls">
+    <div class="select-wrap">
+      <select id="topThemeSelect">
+        <option value="wolves">Wolves</option>
+        <option value="lynx">Lynx</option>
+        <option value="courage">Courage</option>
+        <option value="summit">Summit</option>
+        <option value="bucknell">Bucknell</option>
+        <option value="sounders">Sounders</option>
+        <option value="reign">Reign</option>
+        <option value="ncfc">NCFC</option>
+        <option value="jump" selected>JUMP</option>
+        <option value="athletics">Athletics</option>
+      </select>
+      <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+    </div>
+    <div class="select-wrap">
+      <select id="topModeSelect">
+        <option value="light" selected>Light</option>
+        <option value="dark">Dark</option>
+      </select>
+      <span class="material-symbols-rounded select-icon" aria-hidden="true">expand_more</span>
+    </div>
+  </div>
+</header>
 
 <!-- ==========================================
      TWO-COLUMN LAYOUT
@@ -2633,12 +2762,25 @@
 </div><!-- /doc-layout -->
 
 <script>
+  const root = document.documentElement;
+
   function setTheme(val) {
-    document.documentElement.setAttribute('data-theme', val);
+    root.setAttribute('data-theme', val);
+    document.getElementById('topThemeSelect').value = val;
+    document.getElementById('themeSelect').value = val;
   }
   function setMode(val) {
-    document.documentElement.setAttribute('data-mode', val);
+    root.setAttribute('data-mode', val);
+    document.getElementById('topModeSelect').value = val;
+    document.getElementById('modeSelect').value = val;
   }
+
+  document.getElementById('topThemeSelect').addEventListener('change', function() {
+    setTheme(this.value);
+  });
+  document.getElementById('topModeSelect').addEventListener('change', function() {
+    setMode(this.value);
+  });
 
   // Sidebar active link highlighting
   const sidebarLinks = document.querySelectorAll('.doc-sidebar nav a');

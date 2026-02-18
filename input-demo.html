@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Component — Diet AirDS</title>
+
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+  <link rel="stylesheet" href="input-components.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
+
+  <style>
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+    }
+
+    .demo-page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--spacing-600) var(--spacing-400);
+    }
+
+    .demo-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+      flex-wrap: wrap;
+      margin-bottom: var(--spacing-600);
+      padding: var(--spacing-200) var(--spacing-300);
+      background-color: var(--bg-surface);
+      border-radius: var(--border-radius-100);
+    }
+
+    .demo-controls label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .demo-controls select {
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--neutral-300);
+      background: var(--bg-sheet);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .demo-section {
+      margin-bottom: var(--spacing-600);
+    }
+
+    .demo-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin: 0 0 var(--spacing-300) 0;
+      padding-bottom: var(--spacing-100);
+      border-bottom: 1px solid var(--neutral-200);
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-400);
+    }
+
+    .demo-col-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing-200);
+    }
+
+    .demo-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-300);
+    }
+
+    hr.demo-divider {
+      border: none;
+      border-top: 1px solid var(--neutral-200);
+      margin: var(--spacing-600) 0;
+    }
+
+    @media (max-width: 600px) {
+      .demo-grid { grid-template-columns: 1fr; }
+      .demo-page { padding: var(--spacing-400) var(--spacing-200); }
+    }
+  </style>
+</head>
+<body>
+<div class="demo-page">
+
+  <!-- Header -->
+  <div style="margin-bottom: var(--spacing-600);">
+    <p class="labelRegular20 text-secondary" style="margin: 0 0 var(--spacing-50) 0;">Diet AirDS · Components</p>
+    <h1 class="display400" style="margin: 0 0 var(--spacing-100) 0;">Input — Text Fields & Select</h1>
+    <p class="bodyRegular30 text-secondary" style="margin: 0;">Single-line text input and select dropdown with full state and variant support.</p>
+  </div>
+
+  <!-- Theme / Mode switcher -->
+  <div class="demo-controls">
+    <label>Theme</label>
+    <select onchange="document.documentElement.setAttribute('data-theme', this.value)">
+      <option value="wolves">Wolves</option>
+      <option value="lynx">Lynx</option>
+      <option value="courage">Courage</option>
+      <option value="summit">Summit FC</option>
+      <option value="bucknell">Bucknell</option>
+      <option value="sounders">Sounders</option>
+      <option value="reign">Reign</option>
+      <option value="ncfc">NCFC</option>
+      <option value="jump">Jump</option>
+      <option value="athletics">Athletics</option>
+    </select>
+    <label>Mode</label>
+    <select onchange="document.documentElement.setAttribute('data-mode', this.value)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       TEXT INPUT
+  ══════════════════════════════════════ -->
+
+  <div class="demo-section">
+    <p class="demo-section-title">Text Input — No Label / With Label</p>
+    <div class="demo-grid">
+      <div>
+        <p class="demo-col-label">No Label</p>
+        <div class="input-field">
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" placeholder="Placeholder">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="demo-col-label">With Label</p>
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="t-label">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="t-label" placeholder="Placeholder">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <div class="demo-section">
+    <p class="demo-section-title">Text Input — States</p>
+    <div class="demo-grid">
+
+      <div>
+        <p class="demo-col-label">Default — Empty</p>
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="s-empty">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="s-empty" placeholder="Placeholder">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Default — Filled</p>
+        <div class="input-field has-value">
+          <div class="input-label-row">
+            <label class="input-label" for="s-filled">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="s-filled" value="Entry">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Typing (click to focus)</p>
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="s-typing">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="s-typing" placeholder="Placeholder">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Error — with message</p>
+        <div class="input-field is-error has-value">
+          <div class="input-label-row">
+            <label class="input-label" for="s-error">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="s-error" value="bad input">
+            </div>
+            <p class="input-message">Something went wrong.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Disabled</p>
+        <div class="input-field is-disabled">
+          <div class="input-label-row">
+            <label class="input-label" for="s-disabled">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="s-disabled" placeholder="Placeholder" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <div class="demo-section">
+    <p class="demo-section-title">Text Input — Variants</p>
+    <div class="demo-grid">
+
+      <div>
+        <p class="demo-col-label">Leading Icon</p>
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="v-icon">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">search</span>
+              <input type="text" id="v-icon" placeholder="Search...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Trailing Clear (type something)</p>
+        <div class="input-field" id="clear-field">
+          <div class="input-label-row">
+            <label class="input-label" for="v-clear">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="v-clear" placeholder="Type to show clear button"
+                oninput="syncHasValue('clear-field', this)">
+              <button class="input-clear material-symbols-rounded" type="button"
+                aria-label="Clear" onclick="clearInput('clear-field', 'v-clear')">close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Icon + Clear</p>
+        <div class="input-field" id="icon-clear-field">
+          <div class="input-label-row">
+            <label class="input-label" for="v-icon-clear">Label</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">person</span>
+              <input type="text" id="v-icon-clear" placeholder="Type to show clear button"
+                oninput="syncHasValue('icon-clear-field', this)">
+              <button class="input-clear material-symbols-rounded" type="button"
+                aria-label="Clear" onclick="clearInput('icon-clear-field', 'v-icon-clear')">close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Label with Link</p>
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="v-link">Password</label>
+            <a class="input-link" href="#">Forgot password?</a>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="password" id="v-link" placeholder="Enter password">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Helper Message</p>
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="v-msg">Username</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <input type="text" id="v-msg" placeholder="@handle">
+            </div>
+            <p class="input-message">Must be unique. Letters and numbers only.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Icon + Error</p>
+        <div class="input-field is-error has-value">
+          <div class="input-label-row">
+            <label class="input-label" for="v-icon-err">Email</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">mail</span>
+              <input type="email" id="v-icon-err" value="not-an-email">
+            </div>
+            <p class="input-message">Please enter a valid email address.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- ══════════════════════════════════════
+       SELECT / DROPDOWN
+  ══════════════════════════════════════ -->
+
+  <div class="demo-section">
+    <p class="demo-section-title">Select — States & Variants</p>
+    <p class="bodyRegular30 text-secondary mb-300">
+      Looks like the text input at rest. Click to open the native OS dropdown.
+      The chevron rotates while open.
+    </p>
+
+    <div class="demo-grid">
+
+      <div>
+        <p class="demo-col-label">Default — No selection</p>
+        <div class="input-field input-select" id="sel-default">
+          <div class="input-label-row">
+            <label class="input-label" for="sel-1">Sport</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display is-placeholder" id="sel-1-display">Choose a sport</span>
+              <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+              <select id="sel-1"
+                onchange="syncSelect('sel-default', 'sel-1-display', this)"
+                onfocus="openSelect('sel-default')"
+                onblur="closeSelect('sel-default')">
+                <option value="" disabled selected>Choose a sport</option>
+                <option value="basketball">Basketball</option>
+                <option value="soccer">Soccer</option>
+                <option value="baseball">Baseball</option>
+                <option value="hockey">Hockey</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Default — Value selected</p>
+        <div class="input-field input-select" id="sel-filled">
+          <div class="input-label-row">
+            <label class="input-label" for="sel-2">Sport</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display" id="sel-2-display">Basketball</span>
+              <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+              <select id="sel-2"
+                onchange="syncSelect('sel-filled', 'sel-2-display', this)"
+                onfocus="openSelect('sel-filled')"
+                onblur="closeSelect('sel-filled')">
+                <option value="" disabled>Choose a sport</option>
+                <option value="basketball" selected>Basketball</option>
+                <option value="soccer">Soccer</option>
+                <option value="baseball">Baseball</option>
+                <option value="hockey">Hockey</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">With Leading Icon</p>
+        <div class="input-field input-select" id="sel-icon">
+          <div class="input-label-row">
+            <label class="input-label" for="sel-3">Position</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">sports_basketball</span>
+              <span class="input-select-display is-placeholder" id="sel-3-display">Choose a position</span>
+              <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+              <select id="sel-3"
+                onchange="syncSelect('sel-icon', 'sel-3-display', this)"
+                onfocus="openSelect('sel-icon')"
+                onblur="closeSelect('sel-icon')">
+                <option value="" disabled selected>Choose a position</option>
+                <option value="pg">Point Guard</option>
+                <option value="sg">Shooting Guard</option>
+                <option value="sf">Small Forward</option>
+                <option value="pf">Power Forward</option>
+                <option value="c">Center</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">With Helper Message</p>
+        <div class="input-field input-select" id="sel-msg">
+          <div class="input-label-row">
+            <label class="input-label" for="sel-4">Country</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display is-placeholder" id="sel-4-display">Select your country</span>
+              <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+              <select id="sel-4"
+                onchange="syncSelect('sel-msg', 'sel-4-display', this)"
+                onfocus="openSelect('sel-msg')"
+                onblur="closeSelect('sel-msg')">
+                <option value="" disabled selected>Select your country</option>
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+                <option value="mx">Mexico</option>
+                <option value="uk">United Kingdom</option>
+              </select>
+            </div>
+            <p class="input-message">Used for regional pricing and availability.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Error state</p>
+        <div class="input-field input-select is-error" id="sel-error">
+          <div class="input-label-row">
+            <label class="input-label" for="sel-5">Team</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display is-placeholder" id="sel-5-display">Choose a team</span>
+              <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+              <select id="sel-5"
+                onchange="syncSelect('sel-error', 'sel-5-display', this)"
+                onfocus="openSelect('sel-error')"
+                onblur="closeSelect('sel-error')">
+                <option value="" disabled selected>Choose a team</option>
+                <option value="wolves">Timberwolves</option>
+                <option value="lynx">Lynx</option>
+                <option value="athletics">Athletics</option>
+              </select>
+            </div>
+            <p class="input-message">Please select a team to continue.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="demo-col-label">Disabled</p>
+        <div class="input-field input-select is-disabled" id="sel-disabled">
+          <div class="input-label-row">
+            <label class="input-label" for="sel-6">Division</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display is-placeholder" id="sel-6-display">Not available</span>
+              <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+              <select id="sel-6" disabled>
+                <option value="" disabled selected>Not available</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- ══════════════════════════════════════
+       LIVE ERROR DEMO
+  ══════════════════════════════════════ -->
+
+  <div class="demo-section">
+    <p class="demo-section-title">Live — Error Toggle</p>
+    <p class="bodyRegular30 text-secondary mb-300">Press Validate to trigger the error state and shake animation.</p>
+    <div style="max-width: 400px;">
+      <div class="input-field" id="live-field">
+        <div class="input-label-row">
+          <label class="input-label" for="live-input">Email address</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">mail</span>
+            <input type="email" id="live-input" placeholder="you@example.com"
+              oninput="clearError(); syncHasValue('live-field', this)"
+              onkeydown="if(event.key==='Enter') validateInput()">
+            <button class="input-clear material-symbols-rounded" type="button"
+              aria-label="Clear" onclick="clearInput('live-field', 'live-input')">close</button>
+          </div>
+          <p class="input-message" id="live-msg" style="display:none;">Please enter a valid email address.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap: var(--spacing-100); margin-top: var(--spacing-200);">
+        <button class="btn btn-primary btn-300" onclick="validateInput()">Validate</button>
+        <button class="btn btn-secondary btn-300" onclick="resetLive()">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <hr class="demo-divider">
+
+  <!-- ══════════════════════════════════════
+       FULL FORM EXAMPLE
+  ══════════════════════════════════════ -->
+
+  <div class="demo-section">
+    <p class="demo-section-title">Full Form — Text Inputs + Selects together</p>
+    <div style="max-width: 400px;" class="demo-stack">
+
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="f-name">Full name</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">person</span>
+            <input type="text" id="f-name" placeholder="Jane Smith">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="f-email">Email</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">mail</span>
+            <input type="email" id="f-email" placeholder="you@example.com">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-field input-select" id="f-sport-field">
+        <div class="input-label-row">
+          <label class="input-label" for="f-sport">Favourite sport</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-select-display is-placeholder" id="f-sport-display">Choose a sport</span>
+            <span class="input-select-chevron material-symbols-rounded">expand_more</span>
+            <select id="f-sport"
+              onchange="syncSelect('f-sport-field', 'f-sport-display', this)"
+              onfocus="openSelect('f-sport-field')"
+              onblur="closeSelect('f-sport-field')">
+              <option value="" disabled selected>Choose a sport</option>
+              <option value="basketball">Basketball</option>
+              <option value="soccer">Soccer</option>
+              <option value="baseball">Baseball</option>
+              <option value="hockey">Hockey</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="f-pw">Password</label>
+          <a class="input-link" href="#">Forgot?</a>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">lock</span>
+            <input type="password" id="f-pw" placeholder="••••••••">
+          </div>
+          <p class="input-message">Minimum 8 characters.</p>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn btn-primary btn-300 btn-fill">Create account</button>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /demo-page -->
+
+<script>
+  /* ─────────────────────────────────────────
+     TEXT INPUT HELPERS
+  ───────────────────────────────────────── */
+
+  function syncHasValue(fieldId, input) {
+    const field = document.getElementById(fieldId);
+    if (input.value.trim()) {
+      field.classList.add('has-value');
+    } else {
+      field.classList.remove('has-value');
+    }
+  }
+
+  function clearInput(fieldId, inputId) {
+    const field = document.getElementById(fieldId);
+    const input = document.getElementById(inputId);
+    input.value = '';
+    field.classList.remove('has-value', 'is-error');
+    const msg = field.querySelector('.input-message');
+    if (msg) msg.style.display = 'none';
+    input.focus();
+  }
+
+  /* ─────────────────────────────────────────
+     SELECT HELPERS
+  ───────────────────────────────────────── */
+
+  function syncSelect(fieldId, displayId, selectEl) {
+    const display = document.getElementById(displayId);
+    const chosen = selectEl.options[selectEl.selectedIndex];
+    if (chosen && chosen.value) {
+      display.textContent = chosen.text;
+      display.classList.remove('is-placeholder');
+    } else {
+      display.textContent = chosen.text;
+      display.classList.add('is-placeholder');
+    }
+  }
+
+  function openSelect(fieldId) {
+    document.getElementById(fieldId).classList.add('is-open');
+  }
+
+  function closeSelect(fieldId) {
+    document.getElementById(fieldId).classList.remove('is-open');
+  }
+
+  /* ─────────────────────────────────────────
+     LIVE VALIDATION DEMO
+  ───────────────────────────────────────── */
+
+  function validateInput() {
+    const field = document.getElementById('live-field');
+    const input = document.getElementById('live-input');
+    const msg   = document.getElementById('live-msg');
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+    if (!valid) {
+      field.classList.remove('is-error');
+      void field.offsetWidth; // force reflow to re-trigger shake
+      field.classList.add('is-error');
+      msg.style.display = 'block';
+    } else {
+      field.classList.remove('is-error');
+      msg.style.display = 'none';
+    }
+  }
+
+  function clearError() {
+    document.getElementById('live-field').classList.remove('is-error');
+    document.getElementById('live-msg').style.display = 'none';
+  }
+
+  function resetLive() {
+    const input = document.getElementById('live-input');
+    input.value = '';
+    document.getElementById('live-field').classList.remove('is-error', 'has-value');
+    document.getElementById('live-msg').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>

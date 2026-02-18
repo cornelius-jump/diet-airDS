@@ -2,7 +2,9 @@
    SPACING TOKENS
    ============================================
    
-   8px-based spacing scale
+   8px-based spacing scale with sub-unit steps
+   --spacing-25: 2px   (sub-unit, use sparingly)
+   --spacing-50: 4px   (half-unit)
    Use these tokens for margins, padding, gaps
    ============================================ */
 
@@ -11,6 +13,7 @@
   --spacing-unit: 8px;
   
   /* Fixed spacing scale */
+  --spacing-25: 2px;    /* 0.25x */
   --spacing-50: 4px;    /* 0.5x */
   --spacing-100: 8px;   /* 1x */
   --spacing-150: 12px;  /* 1.5x */

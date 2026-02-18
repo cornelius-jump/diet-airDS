@@ -117,8 +117,8 @@
   --brand-core: #266092;
   --brand-light: #79BC43;
   --brand-dark: #0C233F;
-  --brand-interactive: #266092;
-  --brand-inverted: #79BC43;
+  --color-interactive: #266092;
+  --color-inverted: #79BC43;
   --brand-dark-surface: #0C233F;
   
   /* Typography */
@@ -151,8 +151,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #000000;
-  --color-interactive: #266092;
-  --color-inverted: #79BC43;
+  --brand-interactive: #266092;
+  --brand-inverted: #79BC43;
 }
 
 [data-theme="wolves"][data-mode="dark"] {
@@ -166,8 +166,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #FFFFFF;
-  --color-interactive: #79BC43;
-  --color-inverted: #266092;
+  --brand-interactive: #79BC43;
+  --brand-inverted: #266092;
 }
 
 /* ============================================
@@ -178,8 +178,8 @@
   --brand-core: #266092;
   --brand-light: #79BC43;
   --brand-dark: #0C233F;
-  --brand-interactive: #266092;
-  --brand-inverted: #79BC43;
+  --color-interactive: #266092;
+  --color-inverted: #79BC43;
   --brand-dark-surface: #0C233F;
   
   /* Typography */
@@ -212,8 +212,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #266092;
-  --color-interactive: #266092;
-  --color-inverted: #79BC43;
+  --brand-interactive: #266092;
+  --brand-inverted: #79BC43;
 }
 
 [data-theme="lynx"][data-mode="dark"] {
@@ -227,8 +227,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #79BC43;
-  --color-interactive: #79BC43;
-  --color-inverted: #266092;
+  --brand-interactive: #79BC43;
+  --brand-inverted: #266092;
 }
 
 /* ============================================
@@ -239,8 +239,8 @@
   --brand-core: #AB0033;
   --brand-light: #B4A269;
   --brand-dark: #001420;
-  --brand-interactive: #AB0033;
-  --brand-inverted: #B4A269;
+  --color-interactive: #AB0033;
+  --color-inverted: #B4A269;
   --brand-dark-surface: #142631;
   
   /* Typography */
@@ -273,8 +273,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #AB0033;
-  --color-interactive: #AB0033;
-  --color-inverted: #B4A269;
+  --brand-interactive: #AB0033;
+  --brand-inverted: #B4A269;
 }
 
 [data-theme="courage"][data-mode="dark"] {
@@ -288,8 +288,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #B4A269;
-  --color-interactive: #B4A269;
-  --color-inverted: #AB0033;
+  --brand-interactive: #B4A269;
+  --brand-inverted: #AB0033;
 }
 
 /* ============================================
@@ -300,8 +300,8 @@
   --brand-core: #20604E;
   --brand-light: #C04D38;
   --brand-dark: #262628;
-  --brand-interactive: #20604E;
-  --brand-inverted: #E6B93F;
+  --color-interactive: #20604E;
+  --color-inverted: #E6B93F;
   --brand-dark-surface: #262628;
   
   /* Typography */
@@ -334,8 +334,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #20604E;
-  --color-interactive: #20604E;
-  --color-inverted: #E6B93F;
+  --brand-interactive: #20604E;
+  --brand-inverted: #E6B93F;
 }
 
 [data-theme="summit"][data-mode="dark"] {
@@ -349,8 +349,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #C04D38;
-  --color-interactive: #E6B93F;
-  --color-inverted: #20604E;
+  --brand-interactive: #E6B93F;
+  --brand-inverted: #20604E;
 }
 
 /* ============================================
@@ -361,8 +361,8 @@
   --brand-core: #003865;
   --brand-light: #E87722;
   --brand-dark: #141414;
-  --brand-interactive: #003865;
-  --brand-inverted: #E87722;
+  --color-interactive: #003865;
+  --color-inverted: #E87722;
   --brand-dark-surface: #292929;
   
   /* Typography */
@@ -395,8 +395,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #003865;
-  --color-interactive: #003865;
-  --color-inverted: #E87722;
+  --brand-interactive: #003865;
+  --brand-inverted: #E87722;
 }
 
 [data-theme="bucknell"][data-mode="dark"] {
@@ -410,8 +410,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #E87722;
-  --color-interactive: #E87722;
-  --color-inverted: #003865;
+  --brand-interactive: #E87722;
+  --brand-inverted: #003865;
 }
 
 /* ============================================
@@ -422,8 +422,8 @@
   --brand-core: #2DC84D;
   --brand-light: #7CE0D3;
   --brand-dark: #080E1F;
-  --brand-interactive: #0033A0;
-  --brand-inverted: #7CE0D3;
+  --color-interactive: #0033A0;
+  --color-inverted: #7CE0D3;
   --brand-dark-surface: #292929;
   
   /* Typography */
@@ -456,8 +456,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #0033A0;
-  --color-interactive: #0033A0;
-  --color-inverted: #7CE0D3;
+  --brand-interactive: #0033A0;
+  --brand-inverted: #7CE0D3;
 }
 
 [data-theme="sounders"][data-mode="dark"] {
@@ -471,8 +471,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #7CE0D3;
-  --color-interactive: #7CE0D3;
-  --color-inverted: #0033A0;
+  --brand-interactive: #7CE0D3;
+  --brand-inverted: #0033A0;
 }
 
 /* ============================================
@@ -483,8 +483,8 @@
   --brand-core: #232F79;
   --brand-light: #C79D58;
   --brand-dark: #130E1E;
-  --brand-interactive: #232F79;
-  --brand-inverted: #E0BE85;
+  --color-interactive: #232F79;
+  --color-inverted: #E0BE85;
   --brand-dark-surface: #292929;
   
   /* Typography */
@@ -517,8 +517,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #232F79;
-  --color-interactive: #232F79;
-  --color-inverted: #E0BE85;
+  --brand-interactive: #232F79;
+  --brand-inverted: #E0BE85;
 }
 
 [data-theme="reign"][data-mode="dark"] {
@@ -532,8 +532,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #C79D58;
-  --color-interactive: #E0BE85;
-  --color-inverted: #232F79;
+  --brand-interactive: #E0BE85;
+  --brand-inverted: #232F79;
 }
 
 /* ============================================
@@ -544,8 +544,8 @@
   --brand-core: #00416B;
   --brand-light: #B4A269;
   --brand-dark: #201400;
-  --brand-interactive: #00416B;
-  --brand-inverted: #B4A269;
+  --color-interactive: #00416B;
+  --color-inverted: #B4A269;
   --brand-dark-surface: #282319;
   
   /* Typography */
@@ -578,8 +578,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #00416B;
-  --color-interactive: #00416B;
-  --color-inverted: #B4A269;
+  --brand-interactive: #00416B;
+  --brand-inverted: #B4A269;
 }
 
 [data-theme="ncfc"][data-mode="dark"] {
@@ -593,8 +593,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #B4A269;
-  --color-interactive: #B4A269;
-  --color-inverted: #00416B;
+  --brand-interactive: #B4A269;
+  --brand-inverted: #00416B;
 }
 
 /* ============================================
@@ -605,8 +605,8 @@
   --brand-core: #657DFF;
   --brand-light: #CCFF00;
   --brand-dark: #131939;
-  --brand-interactive: #4C65F0;
-  --brand-inverted: #CCFF00;
+  --color-interactive: #4C65F0;
+  --color-inverted: #CCFF00;
   --brand-dark-surface: #292929;
   
   /* Typography */
@@ -639,8 +639,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #4C65F0;
-  --color-interactive: #4C65F0;
-  --color-inverted: #CCFF00;
+  --brand-interactive: #4C65F0;
+  --brand-inverted: #CCFF00;
 }
 
 [data-theme="jump"][data-mode="dark"] {
@@ -654,8 +654,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #CCFF00;
-  --color-interactive: #CCFF00;
-  --color-inverted: #4C65F0;
+  --brand-interactive: #CCFF00;
+  --brand-inverted: #4C65F0;
 }
 
 /* ============================================
@@ -666,8 +666,8 @@
   --brand-core: #006141;
   --brand-light: #FFB819;
   --brand-dark: #051715;
-  --brand-interactive: #006141;
-  --brand-inverted: #FFB819;
+  --color-interactive: #006141;
+  --color-inverted: #FFB819;
   --brand-dark-surface: #292929;
   
   /* Typography */
@@ -700,8 +700,8 @@
   --org-primary-button-text: #FFFFFF;
   --org-secondary-button-text: #000000;
   --org-tertiary-button-text: #006141;
-  --color-interactive: #006141;
-  --color-inverted: #FFB819;
+  --brand-interactive: #006141;
+  --brand-inverted: #FFB819;
 }
 
 [data-theme="athletics"][data-mode="dark"] {
@@ -715,8 +715,8 @@
   --org-primary-button-text: #000000;
   --org-secondary-button-text: #FFFFFF;
   --org-tertiary-button-text: #FFB819;
-  --color-interactive: #FFB819;
-  --color-inverted: #006141;
+  --brand-interactive: #FFB819;
+  --brand-inverted: #006141;
 }
 
 /* ============================================
@@ -749,11 +749,11 @@
   --interactive-transactional: var(--org-transactional-button);
   --interactive-transactional-text: var(--org-transactional-button-text);
   
-  /* Brand color tokens — mode-sympathetic
-     In light mode: color-interactive = brand-interactive (dark brand color on light bg)
-                    color-inverted    = brand-inverted    (accent color, lighter)
-     In dark mode:  color-interactive = brand-inverted    (accent color pops on dark bg)
-                    color-inverted    = brand-interactive (recedes, used for contrast)
-     Always use these instead of --brand-interactive or --brand-inverted directly. */
-  /* --color-interactive and --color-inverted are defined per theme per mode above */
+  /* Brand color tokens â€” mode-sympathetic
+     --color-interactive / --color-inverted are RAW per-theme values (static, in [data-theme] blocks).
+     --brand-interactive / --brand-inverted are SEMANTIC mode-aware tokens (in [data-theme][data-mode] blocks).
+     Light mode: brand-interactive = color-interactive | brand-inverted = color-inverted
+     Dark mode:  brand-interactive = color-inverted    | brand-inverted = color-interactive
+     Always use --brand-interactive / --brand-inverted in components. Never use --color-* directly. */
+  /* --brand-interactive and --brand-inverted are defined per theme+mode above */
 }

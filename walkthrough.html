@@ -701,12 +701,12 @@
         <span class="labelRegular10 text-secondary">dark</span>
       </div>
       <div class="swatch">
-        <div class="swatch-color" style="background: var(--color-interactive);"></div>
-        <span class="labelRegular10 text-secondary">color-interactive</span>
+        <div class="swatch-color" style="background: var(--brand-interactive);"></div>
+        <span class="labelRegular10 text-secondary">brand-interactive</span>
       </div>
       <div class="swatch">
-        <div class="swatch-color" style="background: var(--color-inverted);"></div>
-        <span class="labelRegular10 text-secondary">color-inverted</span>
+        <div class="swatch-color" style="background: var(--brand-inverted);"></div>
+        <span class="labelRegular10 text-secondary">brand-inverted</span>
       </div>
     </div>
   </div>
@@ -718,19 +718,19 @@
         <tr><td><code>--brand-core</code></td><td>Primary brand color (static)</td><td colspan="2">#266092 (blue) — never changes</td></tr>
         <tr><td><code>--brand-light</code></td><td>Secondary/accent (static)</td><td colspan="2">#79BC43 (green) — never changes</td></tr>
         <tr><td><code>--brand-dark</code></td><td>Dark brand variant (static)</td><td colspan="2">#0C233F (navy) — never changes</td></tr>
-        <tr><td><code>--color-interactive</code></td><td>Mode-aware interactive color ✦</td><td>#266092 (brand-interactive)</td><td>#79BC43 (brand-inverted)</td></tr>
-        <tr><td><code>--color-inverted</code></td><td>Mode-aware inverted color ✦</td><td>#79BC43 (brand-inverted)</td><td>#266092 (brand-interactive)</td></tr>
+        <tr><td><code>--brand-interactive</code></td><td>Mode-aware interactive color ✦</td><td>#266092 (color-interactive)</td><td>#79BC43 (color-inverted)</td></tr>
+        <tr><td><code>--brand-inverted</code></td><td>Mode-aware inverted color ✦</td><td>#79BC43 (color-inverted)</td><td>#266092 (color-interactive)</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="doc-note mt-200">
-    <p class="bodyRegular30"><strong>✦ Always use <code>--color-interactive</code> and <code>--color-inverted</code> instead of <code>--brand-interactive</code> / <code>--brand-inverted</code>.</strong></p>
-    <p class="bodyRegular30 mt-100">The <code>--brand-*</code> tokens are static — they never change between light and dark mode, which causes poor contrast on dark backgrounds. The <code>--color-*</code> tokens are mode-aware: in light mode, <code>--color-interactive</code> is the primary brand color; in dark mode it flips to the accent. Switch the mode above to see the swatches change.</p>
+    <p class="bodyRegular30"><strong>✦ Always use <code>--brand-interactive</code> and <code>--brand-inverted</code> instead of <code>--color-interactive</code> / <code>--color-inverted</code>.</strong></p>
+    <p class="bodyRegular30 mt-100">The <code>--color-*</code> tokens are static raw values — they never change between light and dark mode. The <code>--brand-*</code> tokens are mode-aware: in light mode, <code>--brand-interactive</code> is the primary brand color; in dark mode it flips to the accent. Switch the mode above to see the swatches change.</p>
   </div>
 
   <h3 class="title50 mt-400 mb-100">Interactive Tokens (Buttons)</h3>
-  <p class="bodyRegular30 text-primary doc-prose mb-100">These control button colors and flip between light and dark mode automatically. In light mode, primary buttons use the brand color with white text. In dark mode they invert to the accent color — this swap is powered by <code>--color-interactive</code> and <code>--color-inverted</code>.</p>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">These control button colors and flip between light and dark mode automatically. In light mode, primary buttons use the brand color with white text. In dark mode they invert to the accent color — this swap is powered by <code>--brand-interactive</code> and <code>--brand-inverted</code>.</p>
   <div class="doc-table-wrap">
     <table class="doc-table">
       <thead><tr><th>Token</th><th>Role</th></tr></thead>
@@ -1305,7 +1305,7 @@
         <tr><td><code>.text-placeholder</code></td><td>--neutral-500</td><td>Placeholder text</td></tr>
         <tr><td><code>.text-brand-core</code></td><td>--brand-core</td><td>Primary brand color</td></tr>
         <tr><td><code>.text-brand-light</code></td><td>--brand-light</td><td>Secondary brand color</td></tr>
-        <tr><td><code>.text-brand-interactive</code></td><td>--interactive-transactional</td><td>Interactive/link color</td></tr>
+        <tr><td><code>.text-brand-interactive</code></td><td>--brand-interactive</td><td>Mode-aware interactive brand color</td></tr>
         <tr><td><code>.text-inverted</code></td><td>--inverted-1000</td><td>Inverted color (white on dark, black on light)</td></tr>
         <tr><td><code>.text-success</code></td><td>--status-success</td><td>Success green</td></tr>
         <tr><td><code>.text-warning</code></td><td>--status-warning</td><td>Warning amber</td></tr>
@@ -2608,8 +2608,8 @@
     </div>
 
     <div class="doc-decision-card">
-      <p class="title50">--color-interactive or --brand-interactive?</p>
-      <p class="bodyRegular20">Always use <code>--color-interactive</code> and <code>--color-inverted</code>. They flip automatically between light and dark mode. The <code>--brand-*</code> equivalents are static and will cause contrast issues in dark mode.</p>
+      <p class="title50">--brand-interactive or --color-interactive?</p>
+      <p class="bodyRegular20">Always use <code>--brand-interactive</code> and <code>--brand-inverted</code>. They flip automatically between light and dark mode. The <code>--color-*</code> equivalents are raw static theme values and will cause contrast issues in dark mode.</p>
     </div>
 
     <div class="doc-decision-card">

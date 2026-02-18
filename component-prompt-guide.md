@@ -130,9 +130,9 @@
    - Use `.list-row-text-pair` (NOT `.card-text-pair`) for label+sublabel inside list rows
    - Use built-in subcomponents: `.tag`, `.info-block`, `.status-dot`, `.switch`, `.stepper`
 
-9. **NEVER use `--brand-interactive` or `--brand-inverted` directly — use the mode-aware tokens**
-   - Use `--color-interactive` for links, active states, focus rings, icon accents, and brand-colored text
-   - Use `--color-inverted` for the complementary brand color
+9. **NEVER use `--color-interactive` or `--color-inverted` directly — use the mode-aware semantic tokens**
+   - Use `--brand-interactive` for links, active states, focus rings, icon accents, and brand-colored text
+   - Use `--brand-inverted` for the complementary brand color
    - These tokens swap correctly between light and dark mode; the `--brand-*` originals do not
 
 ---
@@ -713,24 +713,24 @@ List rows don't include their own padding or dividers. Wrap them in a container 
 </div>
 ```
 
-### Wrong: Using `--brand-interactive` or `--brand-inverted` Directly
+### Wrong: Using `--color-interactive` or `--color-inverted` Directly
 ```html
-<!-- ❌ WRONG — these tokens are static and don't switch with light/dark mode.
-     In dark mode, --brand-interactive stays as the light-mode brand color,
+<!-- ❌ WRONG — these are raw static theme values and don't switch with light/dark mode.
+     In dark mode, --color-interactive stays as the light-mode brand color,
      causing poor contrast against dark backgrounds. -->
-<a style="color: var(--brand-interactive);">Learn More</a>
-<span class="icon" style="color: var(--brand-inverted);">star</span>
+<a style="color: var(--color-interactive);">Learn More</a>
+<span class="icon" style="color: var(--color-inverted);">star</span>
 ```
 
-### Right: Use `--color-interactive` and `--color-inverted`
+### Right: Use `--brand-interactive` and `--brand-inverted`
 ```html
 <!-- ✅ CORRECT — these tokens swap automatically:
-     Light mode: --color-interactive = brand-interactive, --color-inverted = brand-inverted
-     Dark mode:  --color-interactive = brand-inverted,   --color-inverted = brand-interactive -->
-<a style="color: var(--color-interactive);">Learn More</a>
-<span class="icon" style="color: var(--color-interactive);">star</span>
+     Light mode: --brand-interactive = color-interactive, --brand-inverted = color-inverted
+     Dark mode:  --brand-interactive = color-inverted,   --brand-inverted = color-interactive -->
+<a style="color: var(--brand-interactive);">Learn More</a>
+<span class="icon" style="color: var(--brand-interactive);">star</span>
 
-<!-- Or use the utility class (already updated to use the right token): -->
+<!-- Or use the utility class: -->
 <a class="text-brand-interactive">Learn More</a>
 ```
 
@@ -749,7 +749,7 @@ CRITICAL REQUIREMENTS (NON-NEGOTIABLE):
 5. ✅ Component must work with data-theme="wolves" AND data-theme="athletics" (test both)
 6. ✅ ALWAYS use button component classes (.btn + type + size) - NEVER custom buttons
 7. ✅ ALWAYS use list row component classes for list items - NEVER custom list rows
-8. ✅ ALWAYS use --color-interactive and --color-inverted for brand-colored elements - NEVER --brand-interactive or --brand-inverted
+8. ✅ ALWAYS use --brand-interactive and --brand-inverted for brand-colored elements - NEVER --color-interactive or --color-inverted
 
 TEXT PAIRS - USE FOR ALL TITLE+SUBTITLE COMBINATIONS:
 - Hero sections: Text Pair 9000 or 8000
@@ -812,7 +812,7 @@ VALIDATION CHECKLIST - Verify before delivering:
 - [ ] List row leading slots have correct gap modifier for content type
 - [ ] List row trailing slots have correct gap modifier for content type
 - [ ] Tags inside list rows use .tag (with optional .tag-team-color, .tag-icon-leading/trailing)
-- [ ] Brand-colored elements use --color-interactive / --color-inverted (NOT --brand-interactive / --brand-inverted)
+- [ ] Brand-colored elements use --brand-interactive / --brand-inverted (NOT --color-interactive / --color-inverted)
 
 OUTPUT:
 Provide complete HTML showing the component working with both themes.
@@ -913,11 +913,11 @@ Choose the right container for your content:
 - `--brand-light` - Secondary brand color
 - `--brand-dark` - Dark brand variant
 
-**Brand Color (Mode-Sympathetic) — ALWAYS use these instead of `--brand-interactive` / `--brand-inverted` directly:**
-- `--color-interactive` - In light mode: the brand's interactive color. In dark mode: the inverted accent. Use for links, active states, focus rings, icon accents, and anything that should "pop" as the primary brand color for the current mode.
-- `--color-inverted` - The opposite of `--color-interactive`. Use when you need the secondary brand color that complements interactive in the current mode.
+**Brand Color (Mode-Sympathetic) — ALWAYS use these instead of `--color-interactive` / `--color-inverted` directly:**
+- `--brand-interactive` - In light mode: the brand's interactive color. In dark mode: the inverted accent. Use for links, active states, focus rings, icon accents, and anything that should "pop" as the primary brand color for the current mode.
+- `--brand-inverted` - The opposite of `--brand-interactive`. Use when you need the secondary brand color that complements interactive in the current mode.
 
-> ⚠️ **Never use `--brand-interactive` or `--brand-inverted` directly in components.** They are static and don't switch with light/dark mode. `--color-interactive` and `--color-inverted` are their mode-aware replacements.
+> ⚠️ **Never use `--color-interactive` or `--color-inverted` directly in components.** They are raw static theme values and don't switch with light/dark mode. `--brand-interactive` and `--brand-inverted` are their mode-aware replacements.
 
 **Interactive:**
 - `--interactive-primary` - Primary buttons

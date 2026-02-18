@@ -398,11 +398,11 @@
 }
 
 .text-brand-interactive {
-  color: var(--color-interactive) !important;
+  color: var(--brand-interactive) !important;
 }
 
 .text-brand-inverted {
-  color: var(--color-inverted) !important;
+  color: var(--brand-inverted) !important;
 }
 
 .text-inverted {

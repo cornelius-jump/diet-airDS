@@ -8,35 +8,35 @@
    Load after interactive-tokens.css, before boilerplate.css
    
    Button Types:
-   - Transactional (.btn-transactional)  â€” High-priority actions (Buy, Purchase)
-   - Primary (.btn-primary)              â€” Main actions (Submit, Save)
-   - Neutral (.btn-neutral)              â€” Standard actions (Cancel, Back)
-   - Secondary (.btn-secondary)          â€” Outlined alternative actions
-   - Tertiary (.btn-tertiary)            â€” Low-emphasis text actions
-   - Destructive (.btn-destructive)      â€” Dangerous actions (Delete, Remove)
-   - White (.btn-white)                  â€” CTA on dark/brand surfaces
-   - White Tertiary (.btn-white-tertiary)â€” Low-emphasis on dark surfaces
+   - Transactional (.btn-transactional)  — High-priority actions (Buy, Purchase)
+   - Primary (.btn-primary)              — Main actions (Submit, Save)
+   - Neutral (.btn-neutral)              — Standard actions (Cancel, Back)
+   - Secondary (.btn-secondary)          — Outlined alternative actions
+   - Tertiary (.btn-tertiary)            — Low-emphasis text actions
+   - Destructive (.btn-destructive)      — Dangerous actions (Delete, Remove)
+   - White (.btn-white)                  — CTA on dark/brand surfaces
+   - White Tertiary (.btn-white-tertiary)— Low-emphasis on dark surfaces
    
    Button Sizes:
-   - Large   (.btn-700)  â€” 56px height, labelBold40 (18px)
-   - Small   (.btn-300)  â€” 40px height, labelBold30 (16px)
-   - X-Small (.btn-100)  â€” 32px height, labelBold20 (14px)
+   - Large   (.btn-700)  — 56px height, labelBold40 (18px)
+   - Small   (.btn-300)  — 40px height, labelBold30 (16px)
+   - X-Small (.btn-100)  — 32px height, labelBold20 (14px)
    
    Icon Placement:
-   - .btn-icon-leading   â€” Icon before label
-   - .btn-icon-trailing  â€” Icon after label
-   - .btn-icon-only      â€” Icon only (no label)
+   - .btn-icon-leading   — Icon before label
+   - .btn-icon-trailing  — Icon after label
+   - .btn-icon-only      — Icon only (no label)
    
    Width Modes:
    - Default: width based on children (hug)
    - .btn-fill: fills parent container width
    
    Interactive Scale:
-   - Buttons use scale-500 (1 â†’ 1.025 â†’ 0.975)
+   - Buttons use scale-500 (1 → 1.025 → 0.975)
    
    Circle Icon Buttons:
    - .btn-circle (.btn-circle-700, .btn-circle-300)
-   - Uses scale-300 (1 â†’ 1.035 â†’ 0.965)
+   - Uses scale-300 (1 → 1.035 → 0.965)
    
    ============================================ */
 
@@ -473,11 +473,11 @@
    ============================================
    
    Circular buttons for icon-only actions.
-   Uses scale-300 (1 â†’ 1.035 â†’ 0.965)
+   Uses scale-300 (1 → 1.035 → 0.965)
    
    Sizes:
-   - 700 (Large): 56Ã—56, 32px icon
-   - 300 (Small): 40Ã—40, 24px icon
+   - 700 (Large): 56×56, 32px icon
+   - 300 (Small): 40×40, 24px icon
    
    Types mirror the button types above
    but letter/number variants use neutral-1000 fill.
@@ -507,6 +507,11 @@
 }
 .btn-circle * {
   color: inherit;
+}
+/* Ensure text/letter content centers correctly regardless of font metrics */
+.btn-circle span:not(.icon) {
+  line-height: 1;
+  display: block;
 }
 
 /* Circle Sizes */
@@ -693,14 +698,14 @@
    ============================================
    
    BUTTON TYPE HIERARCHY:
-   1. Transactional    â€” Revenue/conversion actions only
-   2. Primary          â€” Main page action (1 per view)
-   3. Neutral          â€” High-contrast, non-branded CTA
-   4. Secondary        â€” Supporting action beside primary
-   5. Tertiary         â€” Low-emphasis, inline actions
-   6. Destructive      â€” Irreversible/dangerous actions
-   7. White            â€” CTA on dark/brand surfaces (fillWhite)
-   8. White Tertiary   â€” Low-emphasis on dark surfaces (ghost, white text)
+   1. Transactional    — Revenue/conversion actions only
+   2. Primary          — Main page action (1 per view)
+   3. Neutral          — High-contrast, non-branded CTA
+   4. Secondary        — Supporting action beside primary
+   5. Tertiary         — Low-emphasis, inline actions
+   6. Destructive      — Irreversible/dangerous actions
+   7. White            — CTA on dark/brand surfaces (fillWhite)
+   8. White Tertiary   — Low-emphasis on dark surfaces (ghost, white text)
    
    SIZING GUIDELINES:
    - 700 (Large):  Hero CTAs, full-width mobile buttons
@@ -708,8 +713,8 @@
    - 100 (X-Small): Compact UI, table actions, dense layouts
    
    ICON USAGE:
-   - Leading icon:  Adds context (â˜… Label, â† Back)
-   - Trailing icon: Indicates direction (Next â†’, Open â†—)
+   - Leading icon:  Adds context (★ Label, ← Back)
+   - Trailing icon: Indicates direction (Next →, Open ←)
    - Icon only:     Use circle buttons instead
    
    COMPOSITION:

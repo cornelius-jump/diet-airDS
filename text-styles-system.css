@@ -105,55 +105,50 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 36px;
   font-weight: 700;
-  letter-spacing: -3%;
-  line-height: 1.2; /* Default (43.2px) */
+  letter-spacing: -0.03em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .title80 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 32px;
   font-weight: 700;
-  letter-spacing: -3%;
-  line-height: 1.2; /* Default (38.4px) */
+  letter-spacing: -0.03em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .title70 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 28px;
   font-weight: 700;
-  letter-spacing: -3%;
-  line-height: 1.2; /* Default (33.6px) */
+  letter-spacing: -0.03em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .title60 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 24px;
   font-weight: 700;
-  letter-spacing: -3%;
-  line-height: 1.2; /* Default (28.8px) */
+  letter-spacing: -0.03em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .title50 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: -3%;
-  line-height: 1.2; /* Default (24px) */
+  letter-spacing: -0.03em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 /* ============================================
@@ -163,57 +158,52 @@
 
 .labelBold50 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (24px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelBold40 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 16px;
+  font-size: 1.125rem; /* 18px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (19.2px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelBold30 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 14px;
+  font-size: 1rem; /* 16px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (16.8px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelBold20 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem; /* 14px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (14.4px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelBold10 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 10px;
+  font-size: 0.75rem; /* 12px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (12px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 /* ============================================
@@ -223,57 +213,52 @@
 
 .labelRegular50 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem; /* 20px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (24px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelRegular40 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 16px;
+  font-size: 1.125rem; /* 18px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (19.2px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelRegular30 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 14px;
+  font-size: 1rem; /* 16px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (16.8px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelRegular20 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 12px;
+  font-size: 0.875rem; /* 14px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (14.4px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 .labelRegular10 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 10px;
+  font-size: 0.75rem; /* 12px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.2; /* Default (12px) */
+  letter-spacing: -0.02em;
+  line-height: 1.21;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 0px;
 }
 
 /* ============================================
@@ -283,35 +268,32 @@
 
 .bodyBold40 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 16px;
+  font-size: 1.125rem; /* 18px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (24px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 3.5px;
 }
 
 .bodyBold30 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 14px;
+  font-size: 1rem; /* 16px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (21px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 3.5px;
 }
 
 .bodyBold20 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem; /* 14px */
   font-weight: 600;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (19.5px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 2.5px;
 }
 
 /* ============================================
@@ -321,35 +303,32 @@
 
 .bodyRegular40 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 16px;
+  font-size: 1.125rem; /* 18px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (24px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 3.5px;
 }
 
 .bodyRegular30 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 14px;
+  font-size: 1rem; /* 16px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (21px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 3.5px;
 }
 
 .bodyRegular20 {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 13px;
+  font-size: 0.875rem; /* 14px */
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (19.5px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 2.5px;
 }
 
 /* ============================================
@@ -361,11 +340,10 @@
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   font-size: 12px;
   font-weight: 400;
-  letter-spacing: -2%;
-  line-height: 1.5; /* Default (18px) */
+  letter-spacing: -0.02em;
+  line-height: 1.6;
   color: var(--text-primary);
   text-transform: none;
-  top-bottom-padding: 3px;
 }
 
 /* ============================================
@@ -398,11 +376,11 @@
 }
 
 .text-brand-interactive {
-  color: var(--brand-interactive) !important;
+  color: var(--color-interactive) !important;
 }
 
 .text-brand-inverted {
-  color: var(--brand-inverted) !important;
+  color: var(--color-inverted) !important;
 }
 
 .text-inverted {

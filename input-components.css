@@ -84,7 +84,7 @@
 
 /* Label turns brand color while field is focused */
 .input-field:focus-within .input-label {
-  color: var(--color-interactive);
+  color: var(--button-primary);
 }
 
 /* Error — label stays primary */
@@ -167,7 +167,7 @@
 /* Focus / Typing — 2px brand border */
 .input-control:focus-within {
   border-width: var(--border-weight-200); /* 2px */
-  border-color: var(--color-interactive);
+  border-color: var(--button-primary);
   background-color: transparent;
 }
 
@@ -265,7 +265,7 @@
 
 /* Icon picks up brand color on focus */
 .input-control:focus-within .input-icon {
-  color: var(--color-interactive);
+  color: var(--button-primary);
 }
 
 /* Error — icon stays secondary even when focused */
@@ -432,7 +432,7 @@
 
 /* Chevron picks up brand color when the select is focused */
 .input-select .input-control:focus-within .input-select-chevron {
-  color: var(--color-interactive);
+  color: var(--button-primary);
 }
 
 /* Error — chevron stays secondary even when focused */

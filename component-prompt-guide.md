@@ -136,7 +136,13 @@
    - State classes: `.is-error`, `.is-disabled`, `.has-value` on `.input-field`
    - Select dropdowns use `arrow_drop_down` icon, not `expand_more`
 
-10. **NEVER use `--color-interactive` or `--color-inverted` directly — use the mode-aware semantic tokens**
+10. **ALWAYS use tag and chip component classes for labels and filters — NEVER build custom badges**
+   - Tags are static: `.tag` (default) or `.tag .tag-team-color`
+   - Chips are interactive: `.chip` + surface token + `.scale-300`
+   - Icon positions: `.tag-icon-leading`, `.tag-icon-trailing`, `.chip-icon-leading`, `.chip-icon-trailing`
+   - Chips require composition with interactive tokens from `interactive-tokens.css`
+
+11. **NEVER use `--color-interactive` or `--color-inverted` directly — use the mode-aware semantic tokens**
    - Use `--brand-interactive` for links, active states, focus rings, icon accents, and brand-colored text
    - Use `--brand-inverted` for the complementary brand color
    - These tokens swap correctly between light and dark mode; the `--brand-*` originals do not
@@ -923,6 +929,132 @@ Make sure to load `input-components.css` after the base system files:
 
 ---
 
+## Tags & Chips
+
+The tag and chip system provides static labels and interactive filters. Both are 32px height with 4px border radius using labelBold20 typography (Inter Semi Bold 14px).
+
+### Tag Component
+
+Tags are static, non-interactive label badges used for metadata, categories, and status information.
+
+**Variants:**
+- **Default**: Neutral tinted background (`var(--neutral-100)`), primary text
+- **Team Color**: Brand-tinted frosted background, brand interactive text
+
+**Icon Positions:**
+- **No icon**: 12px padding left and right
+- **Leading**: `.tag-icon-leading` - 8px left, 12px right
+- **Trailing**: `.tag-icon-trailing` - 12px left, 8px right
+
+```html
+<!-- Default tag -->
+<div class="tag">
+  <span class="labelBold20">Label</span>
+</div>
+
+<!-- Team color tag -->
+<div class="tag tag-team-color">
+  <span class="labelBold20">Featured</span>
+</div>
+
+<!-- Tag with leading icon -->
+<div class="tag tag-team-color tag-icon-leading">
+  <span class="material-symbols-rounded">star</span>
+  <span class="labelBold20">Premium</span>
+</div>
+
+<!-- Tag with trailing icon -->
+<div class="tag tag-icon-trailing">
+  <span class="labelBold20">New</span>
+  <span class="material-symbols-rounded">arrow_forward</span>
+</div>
+```
+
+### Chip Component
+
+Chips are interactive filter/toggle controls for filter bars and selection UIs. **Chips must be composed with interactive surface and scale tokens.**
+
+**Composition Pattern:**
+```
+.chip + surface token + scale token [+ color modifier] [+ icon position]
+```
+
+**Surface Tokens:**
+- `.surface-borderNeutral` - Neutral border with hover/active states
+- `.surface-ghost` - Transparent with hover tint
+
+**Always use `.scale-300`** for chips (subtle interaction scale).
+
+**Color Modifier:**
+- `.chip-team-color` - Overrides text to brand interactive color
+
+**States:**
+- `.is-disabled` - 25% opacity, no pointer events
+
+**Icon Positions:**
+- `.chip-icon-leading` - 8px left, 12px right
+- `.chip-icon-trailing` - 12px left, 8px right
+
+```html
+<!-- Bordered chip -->
+<button class="chip surface-borderNeutral scale-300">
+  <span class="labelBold20">Filter</span>
+</button>
+
+<!-- Ghost chip with team color -->
+<button class="chip surface-ghost scale-300 chip-team-color">
+  <span class="labelBold20">Active</span>
+</button>
+
+<!-- Chip with leading icon -->
+<button class="chip surface-borderNeutral scale-300 chip-icon-leading">
+  <span class="material-symbols-rounded">filter_list</span>
+  <span class="labelBold20">Filters</span>
+</button>
+
+<!-- Chip with trailing close icon -->
+<button class="chip surface-ghost scale-300 chip-team-color chip-icon-trailing">
+  <span class="labelBold20">Basketball</span>
+  <span class="material-symbols-rounded">close</span>
+</button>
+
+<!-- Disabled chip -->
+<button class="chip surface-borderNeutral scale-300 is-disabled">
+  <span class="labelBold20">Unavailable</span>
+</button>
+```
+
+### Design Specifications
+
+| Property | Value |
+|----------|-------|
+| Height | 32px |
+| Border radius | 4px |
+| Typography | labelBold20 (Inter Semi Bold 14px / -2% letter-spacing) |
+| Icon size | 16×16px (Material Symbols) |
+| Gap | 4px between icon and label |
+| Tag default bg | `var(--neutral-100)` |
+| Tag team color bg | `color-mix(in srgb, var(--brand-core) 8%, white 92%)` |
+| Tag team color text | `var(--brand-interactive)` |
+| Chip padding (no icon) | 12px left and right |
+| Chip padding (icon leading) | 8px left, 12px right |
+| Chip padding (icon trailing) | 12px left, 8px right |
+
+### CSS Load Order
+
+Include `tag-chip-components.css` after base system files:
+
+```html
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+```
+
+---
+
 ## ❌ Common Mistakes (Don't Do This)
 
 ### Wrong: No Text Pair Wrapper
@@ -1174,6 +1306,70 @@ Make sure to load `input-components.css` after the base system files:
 </div>
 ```
 
+### Wrong: Building Custom Tags or Badges
+```html
+<!-- ❌ WRONG — hand-rolling a tag/badge -->
+<div style="display: inline-flex; padding: 4px 12px; border-radius: 4px; background: #f0f0f0; font-size: 14px; font-weight: 600;">
+  Label
+</div>
+```
+
+### Right: Use Tag Component Classes
+```html
+<!-- ✅ CORRECT — use the tag system -->
+<div class="tag">
+  <span class="labelBold20">Label</span>
+</div>
+
+<!-- ✅ CORRECT — team color with icon -->
+<div class="tag tag-team-color tag-icon-leading">
+  <span class="material-symbols-rounded">star</span>
+  <span class="labelBold20">Featured</span>
+</div>
+```
+
+### Wrong: Using Chip Without Interactive Tokens
+```html
+<!-- ❌ WRONG — chip without surface and scale tokens -->
+<button class="chip">Filter</button>
+
+<!-- ❌ WRONG — chip with only surface, missing scale -->
+<button class="chip surface-borderNeutral">Filter</button>
+```
+
+### Right: Compose Chip with Surface and Scale Tokens
+```html
+<!-- ✅ CORRECT — chip with surface + scale-300 -->
+<button class="chip surface-borderNeutral scale-300">
+  <span class="labelBold20">Filter</span>
+</button>
+
+<!-- ✅ CORRECT — ghost chip with team color -->
+<button class="chip surface-ghost scale-300 chip-team-color">
+  <span class="labelBold20">Active</span>
+</button>
+```
+
+### Wrong: Using Wrong Typography Classes in Tags/Chips
+```html
+<!-- ❌ WRONG — using wrong text style class -->
+<div class="tag">
+  <span class="bodyRegular30">Label</span>
+</div>
+```
+
+### Right: Use labelBold20 Typography
+```html
+<!-- ✅ CORRECT — use labelBold20 for tags and chips -->
+<div class="tag">
+  <span class="labelBold20">Label</span>
+</div>
+
+<button class="chip surface-borderNeutral scale-300">
+  <span class="labelBold20">Filter</span>
+</button>
+```
+
 ---
 
 ## Master Prompt Template
@@ -1190,7 +1386,8 @@ CRITICAL REQUIREMENTS (NON-NEGOTIABLE):
 6. ✅ ALWAYS use button component classes (.btn + type + size) - NEVER custom buttons
 7. ✅ ALWAYS use list row component classes for list items - NEVER custom list rows
 8. ✅ ALWAYS use input field component classes for form inputs - NEVER custom text inputs or selects
-9. ✅ ALWAYS use --brand-interactive and --brand-inverted for brand-colored elements - NEVER --color-interactive or --color-inverted
+9. ✅ ALWAYS use tag and chip component classes for labels and filters - NEVER custom badges
+10. ✅ ALWAYS use --brand-interactive and --brand-inverted for brand-colored elements - NEVER --color-interactive or --color-inverted
 
 TEXT PAIRS - USE FOR ALL TITLE+SUBTITLE COMBINATIONS:
 - Hero sections: Text Pair 9000 or 8000
@@ -1226,6 +1423,13 @@ INPUTS:
 - Focus border color: var(--org-primary-button)
 - Placeholder color (select): var(--text-secondary)
 
+TAGS & CHIPS:
+- Tags (static labels): .tag [+ .tag-team-color] [+ .tag-icon-leading | .tag-icon-trailing]
+- Chips (interactive): .chip + surface token + .scale-300 [+ .chip-team-color] [+ .chip-icon-leading | .chip-icon-trailing]
+- Both: 32px height, 4px radius, labelBold20 (14px Semi Bold), 16px icons, 4px gap
+- Chip surfaces: .surface-borderNeutral or .surface-ghost
+- Chip disabled: .is-disabled (25% opacity, no pointer)
+
 COMPONENT SPECIFICATIONS:
 [Your specific requirements here]
 
@@ -1243,6 +1447,7 @@ REQUIRED CSS LOAD ORDER:
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
 VALIDATION CHECKLIST - Verify before delivering:
@@ -1305,6 +1510,7 @@ Provide complete HTML showing the component working with both themes.
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>
 <body>

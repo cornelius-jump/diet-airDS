@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
   <style>
@@ -620,10 +621,11 @@
     <a href="#cards"><span>11</span>Cards</a>
     <a href="#listrows"><span>12</span>List Rows</a>
     <a href="#inputs"><span>13</span>Inputs</a>
-    <a href="#layout"><span>14</span>Layout</a>
-    <a href="#teams"><span>15</span>Teams</a>
-    <a href="#breakpoints"><span>16</span>Breakpoints</a>
-    <a href="#decisions"><span>17</span>Quick Decisions</a>
+    <a href="#tags-chips"><span>14</span>Tags & Chips</a>
+    <a href="#layout"><span>15</span>Layout</a>
+    <a href="#teams"><span>16</span>Teams</a>
+    <a href="#breakpoints"><span>17</span>Breakpoints</a>
+    <a href="#decisions"><span>18</span>Quick Decisions</a>
   </nav>
 </aside>
 
@@ -656,6 +658,7 @@
     <a href="#cards">Cards</a>
     <a href="#listrows">List Rows</a>
     <a href="#inputs">Inputs</a>
+    <a href="#tags-chips">Tags & Chips</a>
     <a href="#layout">Layout</a>
     <a href="#teams">Teams</a>
     <a href="#breakpoints">Breakpoints</a>
@@ -708,7 +711,8 @@
         <tr><td>10</td><td><code>button-components.css</code></td><td>Button system: 8 types, 3 sizes, icon variants, circle buttons, groups</td></tr>
         <tr><td>11</td><td><code>list-row-components.css</code></td><td>List row system: 3-slot architecture, subcomponents (tags, switches, steppers)</td></tr>
         <tr><td>12</td><td><code>input-components.css</code></td><td>Input field system: text inputs, select dropdowns, states (error, disabled, has-value)</td></tr>
-        <tr><td>13</td><td><code>boilerplate.css</code></td><td>CSS reset, layout helpers, all spacing utility classes, grid utilities, responsive show/hide</td></tr>
+        <tr><td>13</td><td><code>tag-chip-components.css</code></td><td>Tag & chip system: static tags for labels, interactive chips for filters/toggles</td></tr>
+        <tr><td>14</td><td><code>boilerplate.css</code></td><td>CSS reset, layout helpers, all spacing utility classes, grid utilities, responsive show/hide</td></tr>
       </tbody>
     </table>
   </div>
@@ -2899,10 +2903,178 @@ function closeSelect(fieldId) {
 
 
 <!-- ==========================================
-     14. LAYOUT
+     14. TAG & CHIP COMPONENTS
+     ========================================== -->
+<div class="container-wide py-large border-top" id="tags-chips">
+  <p class="labelRegular30 text-secondary mb-50">Section 14</p>
+  <h2 class="title80">Tag & Chip Components</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100"><strong>Tags</strong> are static label badges for metadata, categories, and status. <strong>Chips</strong> are interactive filter/toggle controls for filter bars and selection UIs. Both are 32px height with 4px border radius.</p>
+
+  <h3 class="title50 mt-400 mb-100">Tag Component</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Static, non-interactive label badge for displaying metadata, categories, or status information.</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Variant</th><th>Class</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Default</td><td><code>.tag</code></td><td>Neutral tinted background, primary text</td></tr>
+        <tr><td>Team Color</td><td><code>.tag .tag-team-color</code></td><td>Brand-tinted frosted background, brand interactive text</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>Icon Position</th><th>Class</th><th>Padding</th></tr></thead>
+      <tbody>
+        <tr><td>No icon</td><td>—</td><td>12px left and right</td></tr>
+        <tr><td>Leading</td><td><code>.tag-icon-leading</code></td><td>8px left, 12px right</td></tr>
+        <tr><td>Trailing</td><td><code>.tag-icon-trailing</code></td><td>12px left, 8px right</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Tags — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-100); align-items: center;">
+
+      <!-- Default tags -->
+      <div class="tag">
+        <span class="labelBold20">Default</span>
+      </div>
+
+      <div class="tag tag-icon-leading">
+        <span class="material-symbols-rounded">star</span>
+        <span class="labelBold20">Leading Icon</span>
+      </div>
+
+      <div class="tag tag-icon-trailing">
+        <span class="labelBold20">Trailing Icon</span>
+        <span class="material-symbols-rounded">arrow_forward</span>
+      </div>
+
+      <!-- Team color tags -->
+      <div class="tag tag-team-color">
+        <span class="labelBold20">Team Color</span>
+      </div>
+
+      <div class="tag tag-team-color tag-icon-leading">
+        <span class="material-symbols-rounded">flag</span>
+        <span class="labelBold20">Team + Icon</span>
+      </div>
+
+      <div class="tag tag-team-color tag-icon-trailing">
+        <span class="labelBold20">Team + Icon</span>
+        <span class="material-symbols-rounded">check</span>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Chip Component</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Interactive filter/toggle control. Chips must be composed with interactive surface and scale tokens from <code>interactive-tokens.css</code>.</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Composition</th><th>Classes</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Bordered</td><td><code>.chip .surface-borderNeutral .scale-300</code></td><td>Neutral border, hover/active states</td></tr>
+        <tr><td>Ghost</td><td><code>.chip .surface-ghost .scale-300</code></td><td>Transparent, hover tint, active states</td></tr>
+        <tr><td>Team Color</td><td>Add <code>.chip-team-color</code></td><td>Overrides text to brand interactive color</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>State</th><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Disabled</td><td><code>.is-disabled</code></td><td>25% opacity, no pointer events</td></tr>
+        <tr><td>Icon Leading</td><td><code>.chip-icon-leading</code></td><td>8px left, 12px right padding</td></tr>
+        <tr><td>Icon Trailing</td><td><code>.chip-icon-trailing</code></td><td>12px left, 8px right padding</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Chips — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — hover & click</span>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-100); align-items: center;">
+
+      <!-- Bordered chips -->
+      <button class="chip surface-borderNeutral scale-300">
+        <span class="labelBold20">Bordered</span>
+      </button>
+
+      <button class="chip surface-borderNeutral scale-300 chip-icon-leading">
+        <span class="material-symbols-rounded">filter_list</span>
+        <span class="labelBold20">With Icon</span>
+      </button>
+
+      <button class="chip surface-borderNeutral scale-300 chip-icon-trailing">
+        <span class="labelBold20">Trailing</span>
+        <span class="material-symbols-rounded">close</span>
+      </button>
+
+      <!-- Ghost chips -->
+      <button class="chip surface-ghost scale-300">
+        <span class="labelBold20">Ghost</span>
+      </button>
+
+      <button class="chip surface-ghost scale-300 chip-team-color">
+        <span class="labelBold20">Team Color</span>
+      </button>
+
+      <button class="chip surface-ghost scale-300 chip-team-color chip-icon-leading">
+        <span class="material-symbols-rounded">star</span>
+        <span class="labelBold20">Team + Icon</span>
+      </button>
+
+      <!-- Disabled -->
+      <button class="chip surface-borderNeutral scale-300 is-disabled">
+        <span class="labelBold20">Disabled</span>
+      </button>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Code Examples</h3>
+  <div class="doc-code-block">
+    <code>&lt;!-- Tag: Static label --&gt;
+&lt;div class="tag"&gt;
+  &lt;span class="labelBold20"&gt;Label&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Tag: Team color with icon --&gt;
+&lt;div class="tag tag-team-color tag-icon-leading"&gt;
+  &lt;span class="material-symbols-rounded"&gt;star&lt;/span&gt;
+  &lt;span class="labelBold20"&gt;Featured&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Chip: Interactive bordered --&gt;
+&lt;button class="chip surface-borderNeutral scale-300"&gt;
+  &lt;span class="labelBold20"&gt;Filter&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Chip: Ghost with team color and icon --&gt;
+&lt;button class="chip surface-ghost scale-300 chip-team-color chip-icon-trailing"&gt;
+  &lt;span class="labelBold20"&gt;Active Filter&lt;/span&gt;
+  &lt;span class="material-symbols-rounded"&gt;close&lt;/span&gt;
+&lt;/button&gt;</code>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Design specs:</strong> Height: 32px · Border radius: 4px · Typography: labelBold20 (Inter Semi Bold 14px) · Icons: 16×16px Material Symbols · Gap: 4px between icon and label</p>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     15. LAYOUT
      ========================================== -->
 <div class="container-wide py-large border-top" id="layout">
-  <p class="labelRegular30 text-secondary mb-50">Section 14</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 15</p>
   <h2 class="title80">Layout Utilities</h2>
 
   <h3 class="title50 mt-400 mb-100">Flexbox Helpers</h3>
@@ -3012,10 +3184,10 @@ function closeSelect(fieldId) {
 </div>
 
 <!-- ==========================================
-     15. TEAM REFERENCE
+     16. TEAM REFERENCE
      ========================================== -->
 <div class="container-wide py-large border-top" id="teams">
-  <p class="labelRegular30 text-secondary mb-50">Section 15</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 16</p>
   <h2 class="title80">Team Reference</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Set the active team by changing <code>data-theme</code> on the root element. Each team defines its display font, brand colors, and button border radius.</p>
 
@@ -3120,10 +3292,10 @@ function closeSelect(fieldId) {
 
 
 <!-- ==========================================
-     16. BREAKPOINTS
+     17. BREAKPOINTS
      ========================================== -->
 <div class="container-wide py-large border-top" id="breakpoints">
-  <p class="labelRegular30 text-secondary mb-50">Section 16</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 17</p>
   <h2 class="title80">Breakpoints</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">The system uses three breakpoints consistently across containers, spacing, grid utilities, and show/hide classes.</p>
 
@@ -3154,10 +3326,10 @@ function closeSelect(fieldId) {
 
 
 <!-- ==========================================
-     17. QUICK DECISION GUIDE
+     18. QUICK DECISION GUIDE
      ========================================== -->
 <div class="container-wide py-large border-top" id="decisions">
-  <p class="labelRegular30 text-secondary mb-50">Section 17</p>
+  <p class="labelRegular30 text-secondary mb-50">Section 18</p>
   <h2 class="title80">Quick Decision Guide</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">Common questions answered quickly.</p>
 

@@ -130,7 +130,13 @@
    - Use `.list-row-text-pair` (NOT `.card-text-pair`) for label+sublabel inside list rows
    - Use built-in subcomponents: `.tag`, `.info-block`, `.status-dot`, `.switch`, `.stepper`
 
-9. **NEVER use `--color-interactive` or `--color-inverted` directly — use the mode-aware semantic tokens**
+9. **ALWAYS use the input field component classes for text inputs and selects — NEVER build custom form inputs**
+   - Use `.input-field` wrapper with `.input-label-row`, `.input-and-message`, and `.input-control`
+   - Use `.input-select` modifier for dropdowns with `.input-select-display` and `.input-select-chevron`
+   - State classes: `.is-error`, `.is-disabled`, `.has-value` on `.input-field`
+   - Select dropdowns use `arrow_drop_down` icon, not `expand_more`
+
+10. **NEVER use `--color-interactive` or `--color-inverted` directly — use the mode-aware semantic tokens**
    - Use `--brand-interactive` for links, active states, focus rings, icon accents, and brand-colored text
    - Use `--brand-inverted` for the complementary brand color
    - These tokens swap correctly between light and dark mode; the `--brand-*` originals do not
@@ -574,6 +580,349 @@ List rows don't include their own padding or dividers. Wrap them in a container 
 
 ---
 
+## Input Fields
+
+The input field system provides text inputs and select dropdowns with full state, variant, and modifier support. All inputs handle focus states, error validation, disabled states, and theme compatibility automatically.
+
+### Input Field Structure
+
+Every input field uses a consistent structure with optional elements:
+
+```html
+<div class="input-field">
+  <!-- Label row (optional) -->
+  <div class="input-label-row">
+    <label class="input-label" for="input-id">Label</label>
+    <a class="input-link" href="#">Optional link</a>
+  </div>
+
+  <!-- Input and message wrapper -->
+  <div class="input-and-message">
+    <!-- Input control shell -->
+    <div class="input-control">
+      <span class="input-icon material-symbols-rounded">icon_name</span>
+      <input type="text" id="input-id" placeholder="Placeholder">
+      <button class="input-clear material-symbols-rounded" type="button">close</button>
+    </div>
+
+    <!-- Helper/error message (optional) -->
+    <p class="input-message">Helper text or error message</p>
+  </div>
+</div>
+```
+
+### Text Input Variants
+
+**Basic input (no label):**
+```html
+<div class="input-field">
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" placeholder="Placeholder">
+    </div>
+  </div>
+</div>
+```
+
+**With label:**
+```html
+<div class="input-field">
+  <div class="input-label-row">
+    <label class="input-label" for="input-1">Label</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" id="input-1" placeholder="Placeholder">
+    </div>
+  </div>
+</div>
+```
+
+**With leading icon:**
+```html
+<div class="input-field">
+  <div class="input-label-row">
+    <label class="input-label" for="input-2">Email</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-icon material-symbols-rounded">mail</span>
+      <input type="email" id="input-2" placeholder="you@example.com">
+    </div>
+  </div>
+</div>
+```
+
+**With trailing clear button:**
+```html
+<div class="input-field" id="field-1">
+  <div class="input-label-row">
+    <label class="input-label" for="input-3">Search</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" id="input-3" placeholder="Type to search"
+        oninput="syncHasValue('field-1', this)">
+      <button class="input-clear material-symbols-rounded" type="button"
+        onclick="clearInput('field-1', 'input-3')">close</button>
+    </div>
+  </div>
+</div>
+```
+
+**With icon and clear button:**
+```html
+<div class="input-field" id="field-2">
+  <div class="input-label-row">
+    <label class="input-label" for="input-4">Username</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-icon material-symbols-rounded">person</span>
+      <input type="text" id="input-4" placeholder="@username"
+        oninput="syncHasValue('field-2', this)">
+      <button class="input-clear material-symbols-rounded" type="button"
+        onclick="clearInput('field-2', 'input-4')">close</button>
+    </div>
+  </div>
+</div>
+```
+
+**With label link (e.g. "Forgot password?"):**
+```html
+<div class="input-field">
+  <div class="input-label-row">
+    <label class="input-label" for="input-5">Password</label>
+    <a class="input-link" href="#">Forgot password?</a>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="password" id="input-5" placeholder="Enter password">
+    </div>
+  </div>
+</div>
+```
+
+**With helper message:**
+```html
+<div class="input-field">
+  <div class="input-label-row">
+    <label class="input-label" for="input-6">Username</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" id="input-6" placeholder="@username">
+    </div>
+    <p class="input-message">Must be unique. Letters and numbers only.</p>
+  </div>
+</div>
+```
+
+### Select Dropdown
+
+Select dropdowns use the same structure with additional elements for the display text and chevron icon. The native `<select>` element sits as an invisible overlay.
+
+**Basic select:**
+```html
+<div class="input-field input-select" id="select-1">
+  <div class="input-label-row">
+    <label class="input-label" for="sel-1">Sport</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-select-display is-placeholder" id="sel-1-display">Choose a sport</span>
+      <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+      <select id="sel-1"
+        onchange="syncSelect('select-1', 'sel-1-display', this)"
+        onfocus="openSelect('select-1')"
+        onblur="closeSelect('select-1')">
+        <option value="" disabled selected>Choose a sport</option>
+        <option value="basketball">Basketball</option>
+        <option value="soccer">Soccer</option>
+        <option value="baseball">Baseball</option>
+      </select>
+    </div>
+  </div>
+</div>
+```
+
+**Select with leading icon:**
+```html
+<div class="input-field input-select" id="select-2">
+  <div class="input-label-row">
+    <label class="input-label" for="sel-2">Position</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-icon material-symbols-rounded">sports_basketball</span>
+      <span class="input-select-display is-placeholder" id="sel-2-display">Choose a position</span>
+      <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+      <select id="sel-2"
+        onchange="syncSelect('select-2', 'sel-2-display', this)"
+        onfocus="openSelect('select-2')"
+        onblur="closeSelect('select-2')">
+        <option value="" disabled selected>Choose a position</option>
+        <option value="pg">Point Guard</option>
+        <option value="sg">Shooting Guard</option>
+      </select>
+    </div>
+  </div>
+</div>
+```
+
+### Input States
+
+Add state classes to the `.input-field` wrapper:
+
+**Error state:**
+```html
+<div class="input-field is-error has-value">
+  <div class="input-label-row">
+    <label class="input-label" for="input-error">Email</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-icon material-symbols-rounded">mail</span>
+      <input type="email" id="input-error" value="not-an-email">
+    </div>
+    <p class="input-message">Please enter a valid email address.</p>
+  </div>
+</div>
+```
+
+**Disabled state:**
+```html
+<div class="input-field is-disabled">
+  <div class="input-label-row">
+    <label class="input-label" for="input-disabled">Label</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" id="input-disabled" placeholder="Placeholder" disabled>
+    </div>
+  </div>
+</div>
+```
+
+**Has value (shows clear button):**
+```html
+<div class="input-field has-value" id="field-3">
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" id="input-7" value="Entry"
+        oninput="syncHasValue('field-3', this)">
+      <button class="input-clear material-symbols-rounded" type="button"
+        onclick="clearInput('field-3', 'input-7')">close</button>
+    </div>
+  </div>
+</div>
+```
+
+### Required JavaScript Helpers
+
+Input fields with clear buttons or select dropdowns need these JavaScript helpers:
+
+```javascript
+// Text input with clear button
+function syncHasValue(fieldId, input) {
+  const field = document.getElementById(fieldId);
+  if (input.value.trim()) {
+    field.classList.add('has-value');
+  } else {
+    field.classList.remove('has-value');
+  }
+}
+
+function clearInput(fieldId, inputId) {
+  const field = document.getElementById(fieldId);
+  const input = document.getElementById(inputId);
+  input.value = '';
+  field.classList.remove('has-value', 'is-error');
+  const msg = field.querySelector('.input-message');
+  if (msg) msg.style.display = 'none';
+  input.focus();
+}
+
+// Select dropdown
+function syncSelect(fieldId, displayId, selectEl) {
+  const display = document.getElementById(displayId);
+  const chosen = selectEl.options[selectEl.selectedIndex];
+  if (chosen && chosen.value) {
+    display.textContent = chosen.text;
+    display.classList.remove('is-placeholder');
+  } else {
+    display.textContent = chosen.text;
+    display.classList.add('is-placeholder');
+  }
+}
+
+function openSelect(fieldId) {
+  document.getElementById(fieldId).classList.add('is-open');
+}
+
+function closeSelect(fieldId) {
+  document.getElementById(fieldId).classList.remove('is-open');
+}
+```
+
+### Input Design Specifications
+
+**Dimensions:**
+- Height: 56px
+- Padding: 16px left, 8px right
+- Border radius: 8px (--border-radius-100)
+- Border: 1px solid var(--neutral-300)
+- Focus border: 2px solid var(--org-primary-button)
+
+**Colors:**
+- Default border: var(--neutral-300)
+- Hover border: var(--neutral-200)
+- Hover background: var(--neutral-100)
+- Focus border: var(--org-primary-button)
+- Error border: var(--status-error)
+- Label (focused): var(--org-primary-button)
+- Icon (focused): var(--org-primary-button)
+- Placeholder text: var(--text-secondary)
+- Helper text: var(--text-secondary)
+- Error message: var(--status-error)
+
+**Typography:**
+- Label: Inter 16px / 600 / -2% letter-spacing
+- Input text: Inter 16px / 400 / -2% letter-spacing
+- Helper/error text: Inter 14px / 400 / -2% letter-spacing / 1.3 line-height
+
+**Icons:**
+- Size: 24px
+- Leading icon: 24px with auto spacing via flex gap
+- Chevron (select): 24px, rotates 180° when open
+- Clear button: 40×40px hit target, 24px icon
+
+**Spacing:**
+- Label row to input: 2px (--spacing-25)
+- Input to message: 8px (--spacing-100)
+- Internal gap (icon/input/clear): 12px (--spacing-150)
+
+**States:**
+- Focus: 2px brand border, label and icons turn brand color
+- Error: Red border, shake animation, error message shown
+- Disabled: 25% opacity, no pointer events
+- Has value: Shows clear button (text inputs only)
+
+### Input Component CSS Load Order
+
+Make sure to load `input-components.css` after the base system files:
+
+```html
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+<link rel="stylesheet" href="input-components.css">
+```
+
+---
+
 ## ❌ Common Mistakes (Don't Do This)
 
 ### Wrong: No Text Pair Wrapper
@@ -734,6 +1083,97 @@ List rows don't include their own padding or dividers. Wrap them in a container 
 <a class="text-brand-interactive">Learn More</a>
 ```
 
+### Wrong: Building Custom Text Inputs
+```html
+<!-- ❌ WRONG — hand-rolling an input -->
+<div style="padding: 16px; border: 1px solid var(--neutral-300); border-radius: 8px;">
+  <input type="text" style="border: none; outline: none;" placeholder="Enter text">
+</div>
+```
+
+### Right: Use Input Field Component Classes
+```html
+<!-- ✅ CORRECT — use the input field system -->
+<div class="input-field">
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" placeholder="Enter text">
+    </div>
+  </div>
+</div>
+```
+
+### Wrong: Building Custom Select Dropdowns
+```html
+<!-- ❌ WRONG — custom dropdown markup -->
+<div class="custom-select">
+  <div class="select-display">Choose an option</div>
+  <span>▼</span>
+  <select>
+    <option>Option 1</option>
+    <option>Option 2</option>
+  </select>
+</div>
+```
+
+### Right: Use Input Select Component Classes
+```html
+<!-- ✅ CORRECT — use the input select system with arrow_drop_down icon -->
+<div class="input-field input-select" id="select-1">
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-select-display is-placeholder" id="sel-1-display">Choose an option</span>
+      <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+      <select id="sel-1"
+        onchange="syncSelect('select-1', 'sel-1-display', this)"
+        onfocus="openSelect('select-1')"
+        onblur="closeSelect('select-1')">
+        <option value="" disabled selected>Choose an option</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+      </select>
+    </div>
+  </div>
+</div>
+```
+
+### Wrong: Using expand_more Icon for Select Chevron
+```html
+<!-- ❌ WRONG — old icon name -->
+<span class="input-select-chevron material-symbols-rounded">expand_more</span>
+```
+
+### Right: Use arrow_drop_down Icon
+```html
+<!-- ✅ CORRECT — current icon specification -->
+<span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+```
+
+### Wrong: Missing State Classes on Input Field
+```html
+<!-- ❌ WRONG — state classes on wrong element -->
+<div class="input-field">
+  <div class="input-and-message">
+    <div class="input-control is-error">
+      <input type="text" value="bad input">
+    </div>
+  </div>
+</div>
+```
+
+### Right: State Classes on .input-field Wrapper
+```html
+<!-- ✅ CORRECT — state classes go on .input-field -->
+<div class="input-field is-error">
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" value="bad input">
+    </div>
+    <p class="input-message">Please fix this error.</p>
+  </div>
+</div>
+```
+
 ---
 
 ## Master Prompt Template
@@ -749,7 +1189,8 @@ CRITICAL REQUIREMENTS (NON-NEGOTIABLE):
 5. ✅ Component must work with data-theme="wolves" AND data-theme="athletics" (test both)
 6. ✅ ALWAYS use button component classes (.btn + type + size) - NEVER custom buttons
 7. ✅ ALWAYS use list row component classes for list items - NEVER custom list rows
-8. ✅ ALWAYS use --brand-interactive and --brand-inverted for brand-colored elements - NEVER --color-interactive or --color-inverted
+8. ✅ ALWAYS use input field component classes for form inputs - NEVER custom text inputs or selects
+9. ✅ ALWAYS use --brand-interactive and --brand-inverted for brand-colored elements - NEVER --color-interactive or --color-inverted
 
 TEXT PAIRS - USE FOR ALL TITLE+SUBTITLE COMBINATIONS:
 - Hero sections: Text Pair 9000 or 8000
@@ -775,6 +1216,16 @@ LIST ROWS:
 - Trailing gaps: .trailing-gap-xs (2px) | -sm (4px) | -md (8px) | -lg (12px)
 - Subcomponents: .tag, .tag-group, .info-block, .info-item, .status-dot, .switch, .stepper
 
+INPUTS:
+- Structure: .input-field > .input-label-row + .input-and-message > .input-control
+- Text inputs: <input> with optional .input-icon (leading) and .input-clear (trailing)
+- Select dropdowns: .input-select modifier with .input-select-display + .input-select-chevron (arrow_drop_down icon) + native <select>
+- States: .is-error, .is-disabled, .has-value on .input-field
+- Label with optional link: .input-label-row > .input-label + .input-link
+- Helper/error message: .input-message after .input-control
+- Focus border color: var(--org-primary-button)
+- Placeholder color (select): var(--text-secondary)
+
 COMPONENT SPECIFICATIONS:
 [Your specific requirements here]
 
@@ -791,6 +1242,7 @@ REQUIRED CSS LOAD ORDER:
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 
 VALIDATION CHECKLIST - Verify before delivering:
@@ -813,6 +1265,11 @@ VALIDATION CHECKLIST - Verify before delivering:
 - [ ] List row trailing slots have correct gap modifier for content type
 - [ ] Tags inside list rows use .tag (with optional .tag-team-color, .tag-icon-leading/trailing)
 - [ ] Brand-colored elements use --brand-interactive / --brand-inverted (NOT --color-interactive / --color-inverted)
+- [ ] Input fields use .input-field wrapper with proper structure (.input-label-row, .input-and-message, .input-control)
+- [ ] Select dropdowns use .input-select with .input-select-display, .input-select-chevron (arrow_drop_down), and native <select>
+- [ ] Input state classes (.is-error, .is-disabled, .has-value) applied to .input-field wrapper
+- [ ] Input fields include required JavaScript helpers for clear buttons and select sync
+- [ ] Select placeholder uses var(--text-secondary) color
 
 OUTPUT:
 Provide complete HTML showing the component working with both themes.
@@ -847,6 +1304,7 @@ Provide complete HTML showing the component working with both themes.
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>
 <body>

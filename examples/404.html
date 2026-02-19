@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Minnesota Timberwolves</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <style>
+    /* ─── Page Shell ─── */
+    body {
+      min-height: 100vh;
+      background: var(--bg-base);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Top Bar ─── */
+    /*
+      NOTE: Figma specifies px-64 for horizontal padding.
+      --margin-large resolves to 64px at desktop, matching exactly.
+      No fixed --spacing- token hits 64px (max is --spacing-600 = 48px).
+      Using var(--margin-large) as the correct token equivalent.
+    */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-100) var(--margin-large);
+      background: var(--bg-nav, var(--bg-surface));
+      border-bottom: var(--border-weight-50) solid var(--neutral-200);
+      backdrop-filter: blur(var(--org-blur, 25px));
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar-team {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+    }
+
+    .top-bar-logo {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+
+    /* ─── 404 Center Content ─── */
+    .error-page {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .error-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-300); /* 24px — matches Figma gap-24 */
+      width: 409px;
+      text-align: center;
+    }
+
+    /* Icon + text pair block */
+    .error-headline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-200); /* 16px — matches Figma gap-16 */
+      width: 100%;
+    }
+
+    /*
+      NOTE: Icon circle is 64px diameter with full pill rounding.
+      No --border-radius- token reaches 100px (max is --border-radius-200 = 16px).
+      Using border-radius: 100px as a custom value since no system token applies.
+    */
+    .error-icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 100px;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .error-icon-circle .material-symbols-rounded {
+      font-size: 24px;
+      color: var(--neutral-1000);
+    }
+
+    /* Button row — gap-12 = --spacing-150 */
+    .error-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ─── Top Bar ─── -->
+  <header class="top-bar">
+    <div class="top-bar-team">
+      <!-- Team logo: 64x64 -->
+      <img
+        class="top-bar-logo"
+        src="https://www.figma.com/api/mcp/asset/99c31714-1c40-4067-a3b3-c5fec4ab556a"
+        alt="Minnesota Timberwolves logo"
+      >
+      <!-- display100 = Futura Wolves Autocaps, Extra Bold Oblique, 22px, lh 20px -->
+      <span class="display100">Minnesota Timberwolves</span>
+    </div>
+
+    <div>
+      <!-- Log In: neutral button, btn-100 size (32px h, px-16) per Figma -->
+      <button class="btn btn-neutral btn-100">Log In</button>
+    </div>
+  </header>
+
+  <!-- ─── 404 Error Page ─── -->
+  <main class="error-page">
+    <div class="error-content">
+
+      <!-- Icon circle + text pair -->
+      <div class="error-headline">
+        <div class="error-icon-circle">
+          <span class="material-symbols-rounded">flag</span>
+        </div>
+
+        <!-- Text Pair 6000: title60 (24px bold) + labelRegular20 (14px regular) — center aligned -->
+        <div class="card-text-pair" style="align-items: center; width: 100%;">
+          <span class="title60 text-center">That page isn't in the lineup.</span>
+          <span class="labelRegular20 text-secondary text-center">Let's get you back where the action is.</span>
+        </div>
+      </div>
+
+      <!-- Button row -->
+      <div class="error-actions">
+        <!-- Get Tickets: transactional, btn-300 (40px h, px-24) -->
+        <button class="btn btn-transactional btn-300">Get Tickets</button>
+
+        <!-- Team Store: secondary, btn-300 -->
+        <button class="btn btn-secondary btn-300">Team Store</button>
+
+        <!-- Back to Home: secondary, btn-300 -->
+        <button class="btn btn-secondary btn-300">Back to Home</button>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

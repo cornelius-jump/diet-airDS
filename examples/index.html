@@ -102,8 +102,8 @@
       flex-shrink: 0;
       container-type: inline-size;
       border: var(--border-weight-50) solid var(--neutral-200);
-      border-top-left-radius: 13px;
-      border-top-right-radius: 13px;
+      border-top-left-radius: var(--border-radius-200);
+      border-top-right-radius: var(--border-radius-200);
       overflow: hidden;
     }
 
@@ -142,6 +142,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-bottom-left-radius: var(--border-radius-200);
+      border-bottom-right-radius: var(--border-radius-200);
     }
 
     /* ---- Responsive ---- */
@@ -226,7 +228,7 @@
       <div class="examples-grid">
 
         <!-- ---- Checkout ---- -->
-        <a class="example-card surface-card scale-700 rounded-200" href="https://diet-air-ds.vercel.app/examples/checkout.html" target="_blank">
+        <a class="example-card surface-card scale-700" href="https://diet-air-ds.vercel.app/examples/checkout.html" target="_blank">
           <div class="card-thumbnail">
             <iframe src="https://diet-air-ds.vercel.app/examples/checkout.html"
                     loading="lazy"
@@ -254,7 +256,7 @@
         </a>
 
         <!-- ---- Chat Agent ---- -->
-        <a class="example-card surface-card scale-700 rounded-200" href="https://diet-air-ds.vercel.app/examples/chat-agent.html" target="_blank">
+        <a class="example-card surface-card scale-700" href="https://diet-air-ds.vercel.app/examples/chat-agent.html" target="_blank">
           <div class="card-thumbnail">
             <iframe src="https://diet-air-ds.vercel.app/examples/chat-agent.html"
                     loading="lazy"
@@ -282,7 +284,7 @@
         </a>
 
         <!-- ---- Documentation ---- -->
-        <a class="example-card surface-card scale-700 rounded-200" href="https://diet-air-ds.vercel.app/walkthrough.html" target="_blank">
+        <a class="example-card surface-card scale-700" href="https://diet-air-ds.vercel.app/walkthrough.html" target="_blank">
           <div class="card-thumbnail">
             <iframe src="https://diet-air-ds.vercel.app/walkthrough.html"
                     loading="lazy"
@@ -310,7 +312,7 @@
         </a>
 
         <!-- TEMPLATE — duplicate this block to add more examples:
-        <a class="example-card surface-card scale-700 rounded-200" href="URL" target="_blank">
+        <a class="example-card surface-card scale-700" href="URL" target="_blank">
           <div class="card-thumbnail">
             <iframe src="URL" loading="lazy" title="Preview" tabindex="-1" aria-hidden="true"></iframe>
           </div>

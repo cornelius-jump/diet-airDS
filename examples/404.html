@@ -35,10 +35,8 @@
 
     /* ─── Top Bar ─── */
     /*
-      NOTE: Figma specifies px-64 for horizontal padding.
-      --margin-large resolves to 64px at desktop, matching exactly.
+      px-64 → var(--margin-large) resolves to 64px at desktop.
       No fixed --spacing- token hits 64px (max is --spacing-600 = 48px).
-      Using var(--margin-large) as the correct token equivalent.
     */
     .top-bar {
       display: flex;
@@ -46,8 +44,7 @@
       justify-content: space-between;
       padding: var(--spacing-100) var(--margin-large);
       background: var(--bg-nav, var(--bg-surface));
-      border-bottom: var(--border-weight-50) solid var(--neutral-200);
-      backdrop-filter: blur(var(--org-blur, 25px));
+      border-bottom: var(--border-weight-100) solid var(--neutral-200);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -59,7 +56,7 @@
       gap: var(--spacing-150);
     }
 
-    /* Logo wrapper: 48px — confirmed via Figma Team Logo instance (9562:74150) */
+    /* 48×48 confirmed via Figma instance 9562:74150 */
     .top-bar-logo {
       position: relative;
       width: 48px;
@@ -76,36 +73,37 @@
       object-fit: contain;
     }
 
-    /* ─── 404 Center Content ─── */
+    /* ─── 404 Error Content ─── */
     .error-page {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: var(--spacing-300);
     }
 
     .error-content {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: var(--spacing-300); /* 24px — matches Figma gap-24 */
+      gap: var(--spacing-300);
       width: 409px;
+      max-width: 100%;
       text-align: center;
     }
 
-    /* Icon + text pair block */
+    /* Icon + text pair — gap-16 = --spacing-200 */
     .error-headline {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: var(--spacing-200); /* 16px — matches Figma gap-16 */
+      gap: var(--spacing-200);
       width: 100%;
     }
 
     /*
-      NOTE: Icon circle is 64px diameter with full pill rounding.
-      No --border-radius- token reaches 100px (max is --border-radius-200 = 16px).
-      Using border-radius: 100px as a custom value since no system token applies.
+      64px pill circle. No --border-radius- token above 16px
+      (--border-radius-200). Using 100px as custom value.
     */
     .error-icon-circle {
       width: 64px;
@@ -118,10 +116,10 @@
       flex-shrink: 0;
     }
 
-    /* Flag icon: 40px — confirmed via Figma (flag instance is 40x40 at x:12,y:12 inside 64px circle) */
+    /* 40px icon — confirmed via Figma desktop flag instance (40×40 at x:12,y:12) */
     .error-icon-circle .material-symbols-rounded {
       font-size: 40px;
-      color: var(--neutral-1000);
+      color: var(--text-primary);
     }
 
     /* Button row — gap-12 = --spacing-150 */
@@ -131,6 +129,26 @@
       gap: var(--spacing-150);
       width: 100%;
     }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: var(--spacing-100) var(--margin-small);
+      }
+
+      /* Buttons stack full-width, btn-700 height (56px) */
+      .error-actions {
+        flex-direction: column;
+        gap: var(--spacing-150);
+      }
+
+      .error-actions .btn {
+        width: 100%;
+        height: 56px;
+        padding-left: var(--spacing-400);
+        padding-right: var(--spacing-400);
+      }
+    }
   </style>
 </head>
 
@@ -139,19 +157,16 @@
   <!-- ─── Top Bar ─── -->
   <header class="top-bar">
     <div class="top-bar-team">
-      <!-- Team logo: 48x48 — confirmed via Figma metadata -->
-      <div class="top-bar-logo">
+      <div class="top-bar-logo" role="img" aria-label="Minnesota Timberwolves logo">
         <img
           src="https://www.figma.com/api/mcp/asset/0e9174b2-5e36-4fd1-85c4-e2b49f0372ea"
-          alt="Minnesota Timberwolves logo"
+          alt=""
         >
       </div>
-      <!-- display100 = Futura Wolves Autocaps, Extra Bold Oblique, 22px, lh 20px -->
       <span class="display100">Minnesota Timberwolves</span>
     </div>
-
     <div>
-      <!-- Log In: neutral button, btn-100 size (32px h, px-16) per Figma -->
+      <!-- Log In: neutral, btn-100 (32px h, px-16) -->
       <button class="btn btn-neutral btn-100">Log In</button>
     </div>
   </header>
@@ -166,22 +181,17 @@
           <span class="material-symbols-rounded">flag</span>
         </div>
 
-        <!-- Text Pair 6000: title60 (24px bold) + labelRegular20 (14px regular) — center aligned -->
+        <!-- Text Pair 6000: title60 + labelRegular20, centered -->
         <div class="card-text-pair" style="align-items: center; width: 100%;">
           <span class="title60 text-center">That page isn't in the lineup.</span>
           <span class="labelRegular20 text-secondary text-center">Let's get you back where the action is.</span>
         </div>
       </div>
 
-      <!-- Button row -->
+      <!-- Buttons: row on desktop, stacked on mobile -->
       <div class="error-actions">
-        <!-- Get Tickets: transactional, btn-300 (40px h, px-24) -->
         <button class="btn btn-transactional btn-300">Get Tickets</button>
-
-        <!-- Team Store: secondary, btn-300 -->
         <button class="btn btn-secondary btn-300">Team Store</button>
-
-        <!-- Back to Home: secondary, btn-300 -->
         <button class="btn btn-secondary btn-300">Back to Home</button>
       </div>
 

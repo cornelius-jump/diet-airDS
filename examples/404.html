@@ -59,10 +59,22 @@
       gap: var(--spacing-150);
     }
 
+    /* Logo wrapper: 64px matches Figma size-[64px] on the Team Logo container.
+       The top bar is 64px tall with py-8, so the logo fills the full bar height. */
     .top-bar-logo {
+      position: relative;
       width: 64px;
       height: 64px;
       flex-shrink: 0;
+      overflow: clip;
+    }
+
+    .top-bar-logo img {
+      position: absolute;
+      inset: 4%;
+      width: 92%;
+      height: 92%;
+      object-fit: contain;
     }
 
     /* ─── 404 Center Content ─── */
@@ -128,11 +140,12 @@
   <header class="top-bar">
     <div class="top-bar-team">
       <!-- Team logo: 64x64 -->
-      <img
-        class="top-bar-logo"
-        src="https://www.figma.com/api/mcp/asset/99c31714-1c40-4067-a3b3-c5fec4ab556a"
-        alt="Minnesota Timberwolves logo"
-      >
+      <div class="top-bar-logo">
+        <img
+          src="https://www.figma.com/api/mcp/asset/0e9174b2-5e36-4fd1-85c4-e2b49f0372ea"
+          alt="Minnesota Timberwolves logo"
+        >
+      </div>
       <!-- display100 = Futura Wolves Autocaps, Extra Bold Oblique, 22px, lh 20px -->
       <span class="display100">Minnesota Timberwolves</span>
     </div>

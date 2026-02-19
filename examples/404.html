@@ -59,12 +59,11 @@
       gap: var(--spacing-150);
     }
 
-    /* Logo wrapper: 64px matches Figma size-[64px] on the Team Logo container.
-       The top bar is 64px tall with py-8, so the logo fills the full bar height. */
+    /* Logo wrapper: 48px — confirmed via Figma Team Logo instance (9562:74150) */
     .top-bar-logo {
       position: relative;
-      width: 64px;
-      height: 64px;
+      width: 48px;
+      height: 48px;
       flex-shrink: 0;
       overflow: clip;
     }
@@ -119,8 +118,9 @@
       flex-shrink: 0;
     }
 
+    /* Flag icon: 40px — confirmed via Figma (flag instance is 40x40 at x:12,y:12 inside 64px circle) */
     .error-icon-circle .material-symbols-rounded {
-      font-size: 24px;
+      font-size: 40px;
       color: var(--neutral-1000);
     }
 
@@ -139,7 +139,7 @@
   <!-- ─── Top Bar ─── -->
   <header class="top-bar">
     <div class="top-bar-team">
-      <!-- Team logo: 64x64 -->
+      <!-- Team logo: 48x48 — confirmed via Figma metadata -->
       <div class="top-bar-logo">
         <img
           src="https://www.figma.com/api/mcp/asset/0e9174b2-5e36-4fd1-85c4-e2b49f0372ea"

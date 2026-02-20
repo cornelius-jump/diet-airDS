@@ -1,0 +1,24 @@
+{
+  "name": "diet-airds",
+  "version": "1.0.0",
+  "description": "Diet AirDS Design System",
+  "type": "module",
+  "scripts": {
+    "teams": "node scripts/sync-teams.js",
+    "import-teams": "node scripts/import-teams.js",
+    "upload-logos": "node scripts/upload-logos.js",
+    "build": "npm run teams && echo 'Build complete'"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.0.0",
+    "@sanity/image-url": "^1.0.0",
+    "dotenv": "^17.3.1"
+  },
+  "keywords": [
+    "design-system",
+    "css",
+    "tokens"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fan Stats — Timberwolves Passport</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Diet AirDS CSS (correct load order) -->
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+
+  <style>
+    /* ── Avatar badge: no DS equivalent for absolute-positioned badge ── */
+    .avatar-wrapper {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+    .avatar-img {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--border-radius-200);
+      background: var(--neutral-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .avatar-badge {
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      width: 22px;
+      height: 22px;
+      background: var(--color-interactive);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--bg-surface);
+    }
+    .avatar-badge .material-symbols-rounded {
+      font-size: 12px;
+      color: var(--bg-surface);
+      font-variation-settings: "FILL" 1, "wght" 700, "GRAD" 0, "opsz" 20;
+    }
+
+    /* ── Stat grid: 4-col layout, no DS grid covers this mobile pattern ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-grid > * {
+      align-items: center;
+    }
+
+    /* ── Attendance tile grid: 2-col, overrides card-open-content flex ── */
+    .attendance-tile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-150);
+    }
+
+    /* ── Accordion: native <details> has no DS component ── */
+    details.accordion {
+      border-radius: var(--border-radius-200);
+      overflow: hidden;
+    }
+    details.accordion summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-250) var(--spacing-300);
+      background: var(--bg-surface);
+      cursor: pointer;
+      list-style: none;
+      border-radius: var(--border-radius-200);
+    }
+    details.accordion summary::-webkit-details-marker { display: none; }
+    details.accordion[open] summary {
+      border-radius: var(--border-radius-200) var(--border-radius-200) 0 0;
+    }
+    .accordion-chevron {
+      transition: transform 200ms ease;
+    }
+    details.accordion[open] .accordion-chevron {
+      transform: rotate(180deg);
+    }
+    .accordion-body {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-default);
+    }
+  </style>
+</head>
+<body class="pb-600">
+
+<div class="container-compact py-300">
+
+  <!-- ── Top bar ── -->
+  <div class="flex-row gap-sm mb-200" style="align-items: center;">
+    <button class="btn btn-tertiary btn-100 btn-icon-only" aria-label="Go back">
+      <span class="material-symbols-rounded icon-300">arrow_back</span>
+    </button>
+    <h1 class="display300 text-uppercase">FAN STATS</h1>
+  </div>
+
+  <!-- ── Passport card ── -->
+  <div class="card-closed mb-200">
+
+    <div class="card-closed-body">
+      <!-- Avatar + name row -->
+      <div class="list-row">
+        <div class="leading leading-gap-lg">
+          <div class="avatar-wrapper">
+            <div class="avatar-img">
+              <span class="material-symbols-rounded icon-500 text-secondary">person</span>
+            </div>
+            <div class="avatar-badge">
+              <span class="material-symbols-rounded">star</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row-content">
+          <div class="list-row-text-pair">
+            <h2 class="title50">Toby Craig</h2>
+            <p class="labelRegular20 text-secondary">Fan since March 2019</p>
+          </div>
+        </div>
+        <div class="trailing trailing-gap-lg">
+          <button class="btn btn-tertiary btn-100">
+            <span class="material-symbols-rounded icon-200">open_in_new</span>
+            Share
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-closed-footer">
+      <!-- 4-stat grid -->
+      <div class="stat-grid">
+        <div class="flex-column gap-50" style="align-items: center;">
+          <div class="flex-row gap-50" style="align-items: center;">
+            <span class="material-symbols-rounded icon-200 text-secondary">calendar_month</span>
+            <span class="title50">51</span>
+          </div>
+          <span class="labelRegular10 text-secondary">Games</span>
+        </div>
+        <div class="flex-column gap-50" style="align-items: center;">
+          <div class="flex-row gap-50" style="align-items: center;">
+            <span class="material-symbols-rounded icon-200 text-secondary">emoji_events</span>
+            <span class="title50">63%</span>
+          </div>
+          <span class="labelRegular10 text-secondary">Win Rate</span>
+        </div>
+        <div class="flex-column gap-50" style="align-items: center;">
+          <div class="flex-row gap-50" style="align-items: center;">
+            <span class="material-symbols-rounded icon-200 text-secondary" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">local_fire_department</span>
+            <span class="title50">3W</span>
+          </div>
+          <span class="labelRegular10 text-secondary">Streak</span>
+        </div>
+        <div class="flex-column gap-50" style="align-items: center;">
+          <div class="flex-row gap-50" style="align-items: center;">
+            <span class="material-symbols-rounded icon-200 text-secondary">manage_search</span>
+            <span class="title50">47</span>
+          </div>
+          <span class="labelRegular10 text-secondary">All-Stars</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Attendance Record ── -->
+  <div class="card-open mb-200">
+
+    <div class="card-open-header">
+      <div class="list-row">
+        <div class="list-row-content">
+          <div class="list-row-text-pair">
+            <h2 class="display100">Your Attendance Record</h2>
+          </div>
+        </div>
+        <div class="trailing trailing-gap-lg">
+          <button class="btn btn-tertiary btn-100">
+            <span class="material-symbols-rounded icon-200">open_in_new</span>
+            Share
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-open-content">
+      <div class="attendance-tile-grid">
+
+        <!-- This Season W/L -->
+        <div class="card-open-section flex-column gap-100">
+          <p class="labelRegular10 text-secondary">This Season</p>
+          <div class="flex-row gap-100" style="align-items: flex-end;">
+            <div class="flex-column gap-50">
+              <span class="labelRegular10 text-secondary">W</span>
+              <span class="display400">5</span>
+            </div>
+            <span class="title50 text-secondary" style="padding-bottom: 4px;">–</span>
+            <div class="flex-column gap-50">
+              <span class="labelRegular10 text-secondary">L</span>
+              <span class="display400">2</span>
+            </div>
+          </div>
+          <p class="labelRegular20 text-secondary">7 games</p>
+        </div>
+
+        <!-- All-Time W/L -->
+        <div class="card-open-section flex-column gap-100">
+          <p class="labelRegular10 text-secondary">All-Time</p>
+          <div class="flex-row gap-100" style="align-items: flex-end;">
+            <div class="flex-column gap-50">
+              <span class="labelRegular10 text-secondary">W</span>
+              <span class="display400">32</span>
+            </div>
+            <span class="title50 text-secondary" style="padding-bottom: 4px;">–</span>
+            <div class="flex-column gap-50">
+              <span class="labelRegular10 text-secondary">L</span>
+              <span class="display400">19</span>
+            </div>
+          </div>
+          <p class="labelRegular20 text-secondary">51 games</p>
+        </div>
+
+        <!-- Season Win % -->
+        <div class="card-open-section flex-column gap-100">
+          <p class="labelRegular10 text-secondary">Season Win %</p>
+          <span class="display400 text-brand-interactive">71%</span>
+        </div>
+
+        <!-- All-Time Win % -->
+        <div class="card-open-section flex-column gap-100">
+          <p class="labelRegular10 text-secondary">All-Time Win %</p>
+          <span class="display400 text-brand-interactive">63%</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Badge -->
+    <div class="flex-row py-200 px-300" style="justify-content: center;">
+      <span class="tag tag-team-color tag-icon-leading">
+        <span class="material-symbols-rounded" style="font-size: 14px; font-variation-settings:'FILL' 1,'wght' 600,'GRAD' 0,'opsz' 20;">emoji_events</span>
+        Top 1% Fan Attendance
+      </span>
+    </div>
+
+  </div>
+
+  <!-- ── Streaks accordion ── -->
+  <details class="accordion">
+    <summary>
+      <div class="flex-row gap-md" style="align-items: center;">
+        <div class="btn btn-circle btn-circle-team btn-circle-300" aria-hidden="true" style="pointer-events: none;">
+          <span class="material-symbols-rounded icon-200" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">local_fire_department</span>
+        </div>
+        <h2 class="labelBold30 text-uppercase">Streaks</h2>
+      </div>
+      <span class="material-symbols-rounded icon-300 text-secondary accordion-chevron">expand_more</span>
+    </summary>
+
+    <div class="accordion-body">
+      <div class="list-row leading-gap-md py-150 px-300">
+        <div class="list-row-content">
+          <div class="list-row-text-pair">
+            <span class="labelBold30">Current Win Streak</span>
+            <span class="labelRegular10 text-secondary">Won last 3 games attended</span>
+          </div>
+        </div>
+        <div class="trailing trailing-gap-xs">
+          <span class="title50 text-brand-interactive">3W</span>
+        </div>
+      </div>
+      <div style="height: 1px; background: var(--border-default); margin: 0 var(--spacing-300);"></div>
+      <div class="list-row leading-gap-md py-150 px-300">
+        <div class="list-row-content">
+          <div class="list-row-text-pair">
+            <span class="labelBold30">Longest Win Streak</span>
+            <span class="labelRegular10 text-secondary">Personal best</span>
+          </div>
+        </div>
+        <div class="trailing trailing-gap-xs">
+          <span class="title50 text-brand-interactive">7W</span>
+        </div>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+</body>
+</html>

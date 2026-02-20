@@ -207,19 +207,8 @@ export function TeamTokensTable(props: DocumentInputProps) {
           filename: file.name,
         })
 
-        // Update the document with the new image reference
-        const parts = path.split('.')
-        const updates: any = JSON.parse(JSON.stringify(value || {}))
-
-        let current = updates
-        for (let i = 0; i < parts.length - 1; i++) {
-          if (!current[parts[i]]) {
-            current[parts[i]] = {}
-          }
-          current = current[parts[i]]
-        }
-
-        current[parts[parts.length - 1]] = {
+        // Create the image reference
+        const imageRef = {
           _type: 'image',
           asset: {
             _type: 'reference',
@@ -227,7 +216,15 @@ export function TeamTokensTable(props: DocumentInputProps) {
           }
         }
 
-        onChange(set(updates))
+        // Update the document with the new image reference
+        const parts = path.split('.')
+        if (parts.length === 1) {
+          onChange(set(imageRef, [parts[0]]))
+        } else if (parts.length === 2) {
+          onChange(set(imageRef, [parts[0], parts[1]]))
+        } else if (parts.length === 3) {
+          onChange(set(imageRef, [parts[0], parts[1], parts[2]]))
+        }
       } catch (error) {
         console.error('Error uploading image:', error)
         alert('Error uploading image. Please try again.')
@@ -235,7 +232,7 @@ export function TeamTokensTable(props: DocumentInputProps) {
         setUploadingImages(prev => ({...prev, [path]: false}))
       }
     },
-    [client, onChange, value]
+    [client, onChange]
   )
 
   useEffect(() => {
@@ -279,28 +276,23 @@ export function TeamTokensTable(props: DocumentInputProps) {
     return val || ''
   }
 
-  const setValue = (path: string, newValue: string) => {
-    const parts = path.split('.')
-    const updates: any = JSON.parse(JSON.stringify(value || {}))
-
-    let current = updates
-    for (let i = 0; i < parts.length - 1; i++) {
-      if (!current[parts[i]]) {
-        current[parts[i]] = {}
-      }
-      current = current[parts[i]]
-    }
-    current[parts[parts.length - 1]] = newValue
-
-    return updates
-  }
-
   const handleChange = useCallback(
     (path: string, newValue: string) => {
-      const updates = setValue(path, newValue)
-      onChange(set(updates))
+      const parts = path.split('.')
+
+      // Build the nested object structure for the specific field
+      if (parts.length === 1) {
+        // Simple field like 'sport'
+        onChange(set(newValue, [parts[0]]))
+      } else if (parts.length === 2) {
+        // Nested field like 'venue.name' or 'brandColors.core'
+        onChange(set(newValue, [parts[0], parts[1]]))
+      } else if (parts.length === 3) {
+        // Deeply nested like 'vfsFar.price1'
+        onChange(set(newValue, [parts[0], parts[1], parts[2]]))
+      }
     },
-    [onChange, value]
+    [onChange]
   )
 
   return (

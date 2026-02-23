@@ -629,7 +629,7 @@
   /* Typography */
   --display-font: 'MARTIN Caps Custom', sans-serif;
   --display-weight: 400;
-  --display-letter-spacing: -0.04em;
+  --display-letter-spacing: -0.005em;
   --display-size-900: 90px;
   --display-size-800: 80px;
   --display-size-700: 71px;

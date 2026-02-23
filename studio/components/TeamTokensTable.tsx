@@ -19,6 +19,18 @@ const Th = styled.th`
   border: 1px solid var(--card-hairline-soft-color);
 `
 
+const SectionHeader = styled.td`
+  padding: 10px 12px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--card-muted-fg-color);
+  background: var(--card-bg-color);
+  border: 1px solid var(--card-hairline-soft-color);
+  border-top: 3px solid var(--card-border-color);
+`
+
 const Td = styled.td`
   padding: 4px 12px;
   border: 1px solid var(--card-hairline-soft-color);
@@ -108,34 +120,35 @@ const HiddenFileInput = styled.input`
 `
 
 const fields = [
-  // Identity
+  // ── Identity ──────────────────────────────────────────────
+  {type: 'section', label: 'Identity'},
   {path: 'name', label: 'name', type: 'text'},
   {path: 'teamId.current', label: 'teamId', type: 'text'},
   {path: 'shortName', label: 'shortName', type: 'text'},
+  {path: 'sport', label: 'sport', type: 'select', options: ['NBA', 'WNBA', 'NWSL', 'MLS', 'NCAA', 'MLB']},
+  {path: 'venue.name', label: 'venue.name', type: 'text'},
+  {path: 'venue.city', label: 'venue.city', type: 'text'},
 
-  // Logos
+  // ── Logos ─────────────────────────────────────────────────
+  {type: 'section', label: 'Logos'},
   {path: 'logoPrimary', label: 'logoPrimary', type: 'image'},
+  {path: 'logoInverted', label: 'logoInverted', type: 'image'},
+  {path: 'logomark', label: 'logomark', type: 'image'},
 
-  // Core tokens
+  // ── Brand Colors ──────────────────────────────────────────
+  {type: 'section', label: 'Brand Colors'},
   {path: 'brandColors.core', label: 'core', type: 'color'},
   {path: 'brandColors.light', label: 'light', type: 'color'},
   {path: 'brandColors.dark', label: 'dark', type: 'color'},
   {path: 'brandColors.interactive', label: 'interactive', type: 'color'},
   {path: 'brandColors.inverted', label: 'inverted', type: 'color'},
 
-  // Light mode tokens
+  // ── Light Mode ────────────────────────────────────────────
+  {type: 'section', label: 'Light Mode'},
   {path: 'brandColors.lightBase', label: 'lightBase', type: 'color'},
   {path: 'brandColors.lightSurface', label: 'lightSurface', type: 'color'},
   {path: 'brandColors.lightSheet', label: 'lightSheet', type: 'color'},
   {path: 'brandColors.lightNav', label: 'lightNav', type: 'color'},
-
-  // Dark mode tokens
-  {path: 'brandColors.darkBase', label: 'darkBase', type: 'color'},
-  {path: 'brandColors.darkSurface', label: 'darkSurface', type: 'color'},
-  {path: 'brandColors.darkSheet', label: 'darkSheet', type: 'color'},
-  {path: 'brandColors.darkNav', label: 'darkNav', type: 'color'},
-
-  // Light interactive tokens
   {path: 'brandColors.lightInteractivePrimary', label: 'lightInteractivePrimary', type: 'color'},
   {path: 'brandColors.lightInteractivePrimaryText', label: 'lightInteractivePrimaryText', type: 'color'},
   {path: 'brandColors.lightInteractiveSecondaryText', label: 'lightInteractiveSecondaryText', type: 'color'},
@@ -143,7 +156,12 @@ const fields = [
   {path: 'brandColors.lightInteractiveTransactional', label: 'lightInteractiveTransactional', type: 'color'},
   {path: 'brandColors.lightInteractiveTransactionalText', label: 'lightInteractiveTransactionalText', type: 'color'},
 
-  // Dark interactive tokens
+  // ── Dark Mode ─────────────────────────────────────────────
+  {type: 'section', label: 'Dark Mode'},
+  {path: 'brandColors.darkBase', label: 'darkBase', type: 'color'},
+  {path: 'brandColors.darkSurface', label: 'darkSurface', type: 'color'},
+  {path: 'brandColors.darkSheet', label: 'darkSheet', type: 'color'},
+  {path: 'brandColors.darkNav', label: 'darkNav', type: 'color'},
   {path: 'brandColors.darkInteractivePrimary', label: 'darkInteractivePrimary', type: 'color'},
   {path: 'brandColors.darkInteractivePrimaryText', label: 'darkInteractivePrimaryText', type: 'color'},
   {path: 'brandColors.darkInteractiveSecondaryText', label: 'darkInteractiveSecondaryText', type: 'color'},
@@ -151,8 +169,8 @@ const fields = [
   {path: 'brandColors.darkInteractiveTransactional', label: 'darkInteractiveTransactional', type: 'color'},
   {path: 'brandColors.darkInteractiveTransactionalText', label: 'darkInteractiveTransactionalText', type: 'color'},
 
-  // Other brand tokens
-  {path: 'buttonRadius', label: 'buttonRadius', type: 'select', options: ['8px', '12px', '100px']},
+  // ── Typography ────────────────────────────────────────────
+  {type: 'section', label: 'Typography'},
   {path: 'displayFont', label: 'displayFont', type: 'text'},
   {path: 'brandColors.displayWeight', label: 'displayWeight', type: 'select', options: ['400', '700', '800', '900']},
   {path: 'brandColors.displayLetterSpacing', label: 'displayLetterSpacing', type: 'text'},
@@ -166,34 +184,31 @@ const fields = [
   {path: 'brandColors.displaySize200', label: 'displaySize200', type: 'text'},
   {path: 'brandColors.displaySize100', label: 'displaySize100', type: 'text'},
 
-  // VFS Far
-  {path: 'vfsFar.image1', label: 'vfsFar.image1', type: 'image'},
-  {path: 'vfsFar.image2', label: 'vfsFar.image2', type: 'image'},
-  {path: 'vfsFar.image3', label: 'vfsFar.image3', type: 'image'},
-  {path: 'vfsFar.fallback', label: 'vfsFar.fallback', type: 'image'},
-  {path: 'vfsFar.price1', label: 'vfsFar.price1', type: 'text'},
-  {path: 'vfsFar.price2', label: 'vfsFar.price2', type: 'text'},
-  {path: 'vfsFar.price3', label: 'vfsFar.price3', type: 'text'},
-  {path: 'vfsFar.priceLabel', label: 'vfsFar.priceLabel', type: 'text'},
+  // ── UI ────────────────────────────────────────────────────
+  {type: 'section', label: 'UI'},
+  {path: 'buttonRadius', label: 'buttonRadius', type: 'select', options: ['8px', '12px', '100px']},
 
-  // VFS Close
-  {path: 'vfsClose.image1', label: 'vfsClose.image1', type: 'image'},
-  {path: 'vfsClose.image2', label: 'vfsClose.image2', type: 'image'},
-  {path: 'vfsClose.image3', label: 'vfsClose.image3', type: 'image'},
-  {path: 'vfsClose.fallback', label: 'vfsClose.fallback', type: 'image'},
-  {path: 'vfsClose.price1', label: 'vfsClose.price1', type: 'text'},
-  {path: 'vfsClose.price2', label: 'vfsClose.price2', type: 'text'},
-  {path: 'vfsClose.price3', label: 'vfsClose.price3', type: 'text'},
-  {path: 'vfsClose.priceLabel', label: 'vfsClose.priceLabel', type: 'text'},
+  // ── VFS Far ───────────────────────────────────────────────
+  {type: 'section', label: 'VFS — Far'},
+  {path: 'vfsFar.image1', label: 'image1', type: 'image'},
+  {path: 'vfsFar.image2', label: 'image2', type: 'image'},
+  {path: 'vfsFar.image3', label: 'image3', type: 'image'},
+  {path: 'vfsFar.fallback', label: 'fallback', type: 'image'},
+  {path: 'vfsFar.price1', label: 'price1', type: 'text'},
+  {path: 'vfsFar.price2', label: 'price2', type: 'text'},
+  {path: 'vfsFar.price3', label: 'price3', type: 'text'},
+  {path: 'vfsFar.priceLabel', label: 'priceLabel', type: 'text'},
 
-  // Sport & Venue (at the bottom)
-  {path: 'sport', label: 'sport', type: 'select', options: ['NBA', 'WNBA', 'NWSL', 'MLS', 'NCAA', 'MLB']},
-  {path: 'venue.name', label: 'venue.name', type: 'text'},
-  {path: 'venue.city', label: 'venue.city', type: 'text'},
-
-  // Additional logos
-  {path: 'logoInverted', label: 'logoInverted', type: 'image'},
-  {path: 'logomark', label: 'logomark', type: 'image'},
+  // ── VFS Close ─────────────────────────────────────────────
+  {type: 'section', label: 'VFS — Close'},
+  {path: 'vfsClose.image1', label: 'image1', type: 'image'},
+  {path: 'vfsClose.image2', label: 'image2', type: 'image'},
+  {path: 'vfsClose.image3', label: 'image3', type: 'image'},
+  {path: 'vfsClose.fallback', label: 'fallback', type: 'image'},
+  {path: 'vfsClose.price1', label: 'price1', type: 'text'},
+  {path: 'vfsClose.price2', label: 'price2', type: 'text'},
+  {path: 'vfsClose.price3', label: 'price3', type: 'text'},
+  {path: 'vfsClose.priceLabel', label: 'priceLabel', type: 'text'},
 ]
 
 export function TeamTokensTable(props: DocumentInputProps) {
@@ -315,7 +330,15 @@ export function TeamTokensTable(props: DocumentInputProps) {
             <col />
           </colgroup>
           <tbody>
-            {fields.map((field) => {
+            {fields.map((field, index) => {
+              if (field.type === 'section') {
+                return (
+                  <tr key={`section-${index}`}>
+                    <SectionHeader colSpan={2}>{field.label}</SectionHeader>
+                  </tr>
+                )
+              }
+
               const val = getValue(field.path)
               const isValidHex = field.type === 'color' && /^#[0-9A-F]{6}$/i.test(val)
               const isValidRgba = field.type === 'color' && /^rgba?\(/.test(val)

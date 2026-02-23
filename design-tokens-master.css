@@ -125,7 +125,7 @@
   /* Typography */
   --display-font: 'Proxima Caps', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -188,7 +188,7 @@
   /* Typography */
   --display-font: 'Teko Caps', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -251,7 +251,7 @@
   /* Typography */
   --display-font: 'Public Caps Pro', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -314,7 +314,7 @@
   /* Typography */
   --display-font: 'Inter', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -377,7 +377,7 @@
   /* Typography */
   --display-font: 'Futura Caps', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -440,7 +440,7 @@
   /* Typography */
   --display-font: 'Public Caps Pro', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -503,7 +503,7 @@
   /* Typography */
   --display-font: 'Manner Pro', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -566,7 +566,7 @@
   /* Typography */
   --display-font: 'Futura Caps', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -629,7 +629,7 @@
   /* Typography */
   --display-font: 'MARTIN Caps Custom', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -692,7 +692,7 @@
   /* Typography */
   --display-font: 'Futura Wolves Autocaps', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;

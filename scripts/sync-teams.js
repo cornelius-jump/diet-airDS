@@ -195,7 +195,7 @@ function generateCssBlock(teamId, teamName, colors, buttonRadius, displayFont) {
   /* Typography */
   --display-font: '${displayFont}', sans-serif;
   --display-weight: 700; /* Bold */
-  --display-letter-spacing: -2%;
+  --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;

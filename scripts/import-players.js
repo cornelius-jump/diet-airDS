@@ -11,16 +11,24 @@ const client = createClient({
   token: process.env.SANITY_WRITE_TOKEN,
 })
 
-// Example player data structure:
-// Replace this with your actual player database
+// Minnesota Timberwolves roster
 const playersData = [
-  // {
-  //   name: 'Player Name',
-  //   teamId: 'wolves', // Must match the _id of an existing team document
-  //   sport: 'WNBA',
-  //   number: '23',
-  //   position: 'Guard',
-  // },
+  {name: 'Joan Beringer', teamId: 'wolves', sport: 'NBA', number: '19', position: 'F'},
+  {name: 'Jaylen Clark', teamId: 'wolves', sport: 'NBA', number: '22', position: 'G'},
+  {name: 'Mike Conley', teamId: 'wolves', sport: 'NBA', number: '10', position: 'G'},
+  {name: 'Donte DiVincenzo', teamId: 'wolves', sport: 'NBA', number: '0', position: 'G'},
+  {name: 'Ayo Dosunmu', teamId: 'wolves', sport: 'NBA', number: '13', position: 'G'},
+  {name: 'Anthony Edwards', teamId: 'wolves', sport: 'NBA', number: '5', position: 'G'},
+  {name: 'Enrique Freeman', teamId: 'wolves', sport: 'NBA', number: '25', position: 'F'},
+  {name: 'Rudy Gobert', teamId: 'wolves', sport: 'NBA', number: '27', position: 'C'},
+  {name: 'Bones Hyland', teamId: 'wolves', sport: 'NBA', number: '8', position: 'G'},
+  {name: 'Joe Ingles', teamId: 'wolves', sport: 'NBA', number: '7', position: 'F-G'},
+  {name: 'Jaden McDaniels', teamId: 'wolves', sport: 'NBA', number: '3', position: 'F'},
+  {name: 'Julian Phillips', teamId: 'wolves', sport: 'NBA', number: '4', position: 'F'},
+  {name: 'Julius Randle', teamId: 'wolves', sport: 'NBA', number: '30', position: 'F-C'},
+  {name: 'Naz Reid', teamId: 'wolves', sport: 'NBA', number: '11', position: 'C-F'},
+  {name: 'Terrence Shannon Jr.', teamId: 'wolves', sport: 'NBA', number: '1', position: 'G-F'},
+  {name: 'Rocco Zikarsky', teamId: 'wolves', sport: 'NBA', number: '44', position: 'C'},
 ]
 
 async function importPlayers() {
@@ -67,5 +75,4 @@ async function importPlayers() {
   }
 }
 
-// Uncomment to run:
-// importPlayers()
+importPlayers()

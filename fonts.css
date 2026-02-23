@@ -1,14 +1,12 @@
 /* ============================================
    DISPLAY FONTS - @FONT-FACE DECLARATIONS
-   ============================================
-   Using absolute URLs for Safari iOS compatibility
    ============================================ */
 
 /* Futura Wolves Autocaps - Minnesota Timberwolves */
 @font-face {
   font-family: 'Futura Wolves Autocaps';
-  src: url('https://diet-air-ds.vercel.app/fonts/futura_wolves_autocaps-extra_bold.woff2') format('woff2'),
-       url('https://diet-air-ds.vercel.app/fonts/futura_wolves-autocaps-extra_bold.woff') format('woff');
+  src: url('https://diet-air-ds.vercel.app/fonts/futura_wolves_autocaps-extra_bold_oblique-webfont.woff2') format('woff2'),
+       url('https://diet-air-ds.vercel.app/fonts/futura-wolves-autocaps-extrabold-woff.woff') format('woff');
   font-weight: 800;
   font-style: normal;
   font-display: swap;

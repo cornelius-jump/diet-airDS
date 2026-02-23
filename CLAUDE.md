@@ -1,0 +1,561 @@
+# CLAUDE.md — Diet AirDS
+
+This file is read automatically by Claude Code at session startup. It contains everything needed to work effectively on this project without prior context.
+
+---
+
+## What This Project Is
+
+**Diet AirDS** is a multi-team design system supporting 10 sports organizations. It lives at `https://diet-air-ds.vercel.app` and provides a token-based CSS foundation for building UI components across different team brands with both light and dark mode theming.
+
+The system is intentionally lean: pure CSS tokens + utility classes, no framework dependencies. Components are built by composing existing tokens and classes — never by writing custom CSS from scratch.
+
+The ultimate goal: a perfected CSS system → React/TypeScript component library → Figma Make design system.
+
+---
+
+## The 10 Supported Teams
+
+| `data-theme` value | Team | Button Radius | Notes |
+|---|---|---|---|
+| `wolves` | Minnesota Timberwolves | 8px | Blue/green |
+| `lynx` | Minnesota Lynx | 12px | Blue/green |
+| `courage` | NC Courage | 100px (pill) | Red/gold |
+| `summit` | Denver Summit FC | 8px | Green/red/yellow |
+| `bucknell` | Bucknell Bison | 100px (pill) | Navy/orange |
+| `sounders` | Seattle Sounders FC | 100px (pill) | Green/blue/teal |
+| `reign` | Seattle Reign FC | 100px (pill) | Purple/gold |
+| `ncfc` | NC Football Club | 100px (pill) | Blue/gold |
+| `jump` | Jump Default | 100px (pill) | Purple/lime |
+| `athletics` | Las Vegas Athletics | 100px (pill) | Green/yellow |
+
+Every component must work across all 10 themes in both light and dark mode. Always test at minimum wolves/light and athletics/dark as the two most visually distinct combinations.
+
+---
+
+## How Theming Works
+
+Two HTML attributes on `<html>` control everything:
+
+```html
+<html data-theme="wolves" data-mode="dark">
+```
+
+Changing either attribute updates the entire UI automatically via CSS custom properties. Never hardcode colors, fonts, or spacing values.
+
+---
+
+## CSS File Architecture
+
+### Source of Truth
+Always fetch the latest files from **`https://diet-air-ds.vercel.app/`** before editing. The live Vercel deployment is the canonical version. Local project files may be out of date.
+
+### Load Order (Critical — later files depend on earlier ones)
+
+```html
+<!-- Google Fonts — always include both -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+<!-- Design System — exact order matters -->
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+```
+
+### What Each File Does
+
+| # | File | Purpose |
+|---|---|---|
+| 1 | `design-tokens-master.css` | Core colors, brand colors per team, semantic tokens |
+| 2 | `spacing-tokens.css` | 8px grid spacing scale (`--spacing-25` through `--spacing-900`) |
+| 3 | `container-tokens.css` | Max-width container classes (640px–1600px) |
+| 4 | `border-effects-tokens.css` | Border radius, border weight, shadow tokens |
+| 5 | `fonts.css` | `@font-face` for all team display fonts (hosted on Vercel) |
+| 6 | `text-styles-system.css` | Typography classes (display, title, label, body) |
+| 7 | `icons.css` | Material Symbols Rounded icon tokens and utilities |
+| 8 | `card-components.css` | Card layout patterns and grid classes |
+| 9 | `interactive-tokens.css` | Surface styles (12 types) + scale transforms (3 levels) |
+| 10 | `button-components.css` | Button system: 8 types, 3 sizes, icon/circle variants |
+| 11 | `list-row-components.css` | List row system: 3-slot architecture + subcomponents |
+| 12 | `input-components.css` | Text inputs, select dropdowns, all states |
+| 13 | `boilerplate.css` | CSS reset, layout helpers, spacing utilities, grid |
+
+---
+
+## Design Token Quick Reference
+
+### Color Tokens — Semantic (Always Use These)
+
+**Backgrounds:**
+- `--bg-base` — Main page background
+- `--bg-surface` — Cards, elevated surfaces
+- `--bg-sheet` — Modals, highest elevation
+- `--bg-nav` — Navigation bars (with blur)
+
+**Text:**
+- `--text-primary` — Body text (high contrast)
+- `--text-secondary` — Supporting text (medium contrast)
+- `--text-disabled` — Disabled state
+- `--text-placeholder` — Input placeholders
+
+**Brand:**
+- `--brand-core` — Primary team color
+- `--brand-light` — Secondary team color
+- `--brand-dark` — Dark team variant
+- `--brand-interactive` — ⚠️ Use this for links, active states, focus rings (see critical gotcha below)
+- `--brand-inverted` — Complementary accent color
+
+**Interactive:**
+- `--interactive-primary` / `--interactive-primary-text` — Primary buttons
+- `--interactive-transactional` / `--interactive-transactional-text` — Transactional buttons
+- `--interactive-secondary-text` — Secondary/outlined button text
+- `--interactive-tertiary-text` — Tertiary/ghost button text
+
+**Borders:**
+- `--border-default` — Standard borders
+- `--border-hover` — Hover state borders
+- `--border-active` — Active/focused borders
+- `--border-disabled` — Disabled borders
+
+### Spacing Scale (8px grid)
+
+| Token | Value |
+|---|---|
+| `--spacing-25` | 2px |
+| `--spacing-50` | 4px |
+| `--spacing-100` | 8px |
+| `--spacing-150` | 12px |
+| `--spacing-200` | 16px |
+| `--spacing-250` | 20px |
+| `--spacing-300` | 24px |
+| `--spacing-400` | 32px |
+| `--spacing-500` | 40px |
+| `--spacing-600` | 48px |
+| `--spacing-700` | 56px |
+| `--spacing-800` | 64px |
+| `--spacing-900` | 80px |
+
+**Responsive spacing utilities:**
+- `.py-large` — Page vertical padding (16px mobile → 64px desktop)
+- `.py-landing` — Landing page vertical padding (24px → 80px)
+- `.gap-card` — Card grid gap (16px → 24px)
+
+### Containers
+
+| Class | Max Width | Use For |
+|---|---|---|
+| `.container-maximum` | 1600px | Full-width landing layouts |
+| `.container-extra-wide` | 1440px | Dashboards |
+| `.container-wide` | 1280px | Standard pages with sidebars |
+| `.container` | 1200px | Default |
+| `.container-medium` | 1024px | Article pages, forms |
+| `.container-narrow` | 768px | Reading content, centered forms |
+| `.container-compact` | 640px | Single column content |
+
+### Border Tokens
+
+- `--border-radius-50` — 4px
+- `--border-radius-100` — 8px
+- `--border-radius-200` — 16px
+- `--button-border-radius` — Per-team (8px, 12px, or 100px)
+- `--border-weight-50` — 1px (subtle)
+- `--border-weight-100` — 1px (standard)
+- `--border-weight-200` — 2px (heavy/active)
+- `--shadow-sheet-a/b` — Mobile card/sheet shadows
+- `--shadow-modal-a/b` — Desktop modal shadows
+
+---
+
+## Typography System
+
+### Text Classes
+
+**Display** (team display font, varies per team):
+`.display900` `.display800` `.display700` `.display600` `.display500` `.display400` `.display300` `.display200` `.display100`
+
+**Title** (Inter Bold 700):
+`.title90` (36px) `.title80` (32px) `.title70` (28px) `.title60` (24px) `.title50` (20px)
+
+**Label Bold** (Inter 600):
+`.labelBold50` (20px) `.labelBold40` (18px) `.labelBold30` (16px) `.labelBold20` (14px) `.labelBold10` (12px)
+
+**Label Regular** (Inter 400):
+`.labelRegular50` `.labelRegular40` `.labelRegular30` `.labelRegular20` `.labelRegular10`
+
+**Body Regular** (Inter 400, larger line-height):
+`.bodyRegular50` `.bodyRegular40` `.bodyRegular30` `.bodyRegular20` `.bodyRegular10`
+
+### Text Color Utilities
+`.text-primary` `.text-secondary` `.text-disabled` `.text-placeholder`
+`.text-brand-core` `.text-brand-light` `.text-brand-interactive` `.text-brand-inverted`
+`.text-inverted` `.text-success` `.text-warning` `.text-error` `.text-info`
+
+### Text Pairs
+
+Text pairs combine label + sublabel at the correct scale. Use `.card-text-pair` as wrapper (flex column, 2px gap).
+
+| Scale | Label Class | Sublabel Class | Use For |
+|---|---|---|---|
+| 9000 | `display600` | `labelRegular50` | Hero sections |
+| 8000 | `display400` | `labelRegular40` | Large cards |
+| 7000 | `title70` | `labelRegular30` | Section headers |
+| 6000 | `title60` | `labelRegular20` | Card headers |
+| 5000 | `title50` | `labelRegular20` | Medium cards |
+| 4000 | `labelBold40` | `labelRegular20` | Standard cards |
+| 3000 | `labelBold30` | `labelRegular10` | Compact list items |
+| 2000 | `labelBold20` | `labelRegular10` | Dense lists |
+| 1000 | `labelBold10` | `labelRegular10` | Smallest metadata |
+
+**⚠️ In list rows: use `.list-row-text-pair` not `.card-text-pair`** — different spacing/scale.
+
+---
+
+## Component Systems
+
+### Icons — Material Symbols Rounded
+
+```html
+<span class="icon">home</span>                    <!-- 24px outlined (default) -->
+<span class="icon icon-400">star</span>           <!-- 32px outlined -->
+<span class="icon icon-filled">favorite</span>    <!-- 24px filled -->
+<span class="icon icon-300 icon-filled">check</span>  <!-- 24px filled -->
+```
+
+Icon sizes: `.icon-100` (16px) `.icon-200` (20px) `.icon-300` (24px) `.icon-400` (32px) `.icon-500` (40px) `.icon-600` (48px)
+
+### Buttons
+
+```html
+<!-- Structure: btn + type + size -->
+<button class="btn btn-primary btn-300">Label</button>
+<button class="btn btn-transactional btn-300">Buy Now</button>
+<button class="btn btn-secondary btn-200">Cancel</button>
+<button class="btn btn-tertiary btn-200">Learn More</button>
+
+<!-- With leading icon -->
+<button class="btn btn-primary btn-300">
+  <span class="icon">add</span> Add Item
+</button>
+
+<!-- Icon-only circle button -->
+<button class="btn btn-primary btn-circle-300">
+  <span class="icon">close</span>
+</button>
+```
+
+**Button types:** `btn-primary` `btn-transactional` `btn-secondary` `btn-tertiary` `btn-destructive` `btn-white` `btn-black` `btn-glass`
+
+**Button sizes:** `btn-100` (small) `btn-200` (medium) `btn-300` (large)
+
+**Never hand-roll buttons.** The `.btn` system handles all hover/press states, color inheritance, scale transforms, and theme compatibility automatically.
+
+### Interactive Surfaces
+
+Surface classes set background, border, and text color together:
+
+```html
+<!-- Fill surfaces (set bg + text color) -->
+<div class="surface-fillNeutral scale-500">...</div>
+<div class="surface-fillColor scale-500">...</div>    <!-- brand color fill -->
+<div class="surface-fillInverted scale-500">...</div>
+<div class="surface-fillBlack scale-500">...</div>
+<div class="surface-fillWhite scale-500">...</div>
+
+<!-- Border surfaces -->
+<div class="surface-borderNeutral scale-700">...</div>
+<div class="surface-borderInverted scale-500">...</div>
+
+<!-- Subtle surfaces -->
+<div class="surface-washNeutral scale-700">...</div>
+<div class="surface-ghost scale-500">...</div>
+<div class="surface-card scale-700">...</div>
+```
+
+**Scale classes** (attach to any interactive element):
+- `.scale-700` — Cards, large components (hover 1.01, press 0.99)
+- `.scale-500` — Buttons, medium (hover 1.025, press 0.975)
+- `.scale-300` — Icon buttons, small (hover 1.035, press 0.965)
+
+### List Rows — 3-Slot Architecture
+
+```html
+<div class="list-row">
+  <!-- Slot 1: Leading -->
+  <div class="leading leading-gap-lg">
+    <img class="leading-image-small" src="..." alt="...">
+    <!-- OR: icon, avatar, etc. -->
+  </div>
+
+  <!-- Slot 2: Main Content -->
+  <div class="list-row-content">
+    <div class="list-row-text-pair">
+      <span class="labelBold30">Primary Label</span>
+      <span class="labelRegular10 text-secondary">Sublabel</span>
+    </div>
+  </div>
+
+  <!-- Slot 3: Trailing -->
+  <div class="trailing trailing-gap-sm">
+    <div class="trailing-text-pair">
+      <span class="labelBold30">$120</span>
+      <span class="labelRegular10 text-secondary">each</span>
+    </div>
+    <!-- OR: button, chevron, switch, etc. -->
+  </div>
+</div>
+```
+
+**Leading gap modifiers:** `.leading-gap-sm` `.leading-gap-md` `.leading-gap-lg` `.leading-gap-xl`
+
+**Leading image classes:** `.leading-image-small` (desktop) `.leading-image-large` (mobile)
+
+**Subcomponents available inside list rows:**
+- `.tag` / `.tag-group` — Label badges
+- `.info-block` — Stat-style info
+- `.status-dot` — Colored status indicator
+- `.switch` — iOS-style toggle (use native checkbox inside)
+- `.stepper` — Quantity increment/decrement
+
+**Never use `.card-text-pair` inside list rows — always use `.list-row-text-pair`.**
+
+### Input Fields
+
+```html
+<!-- Text input -->
+<div class="input-field">
+  <div class="input-label-row">
+    <label class="labelBold20">Field Label</label>
+  </div>
+  <div class="input-and-message">
+    <div class="input-control">
+      <input type="text" placeholder="Placeholder text">
+    </div>
+    <span class="labelRegular10 text-secondary">Helper message</span>
+  </div>
+</div>
+
+<!-- Select dropdown -->
+<div class="input-field input-select" id="select-1">
+  <div class="input-and-message">
+    <div class="input-control">
+      <span class="input-select-display is-placeholder" id="sel-1-display">Choose an option</span>
+      <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+      <select id="sel-1"
+        onchange="syncSelect('select-1', 'sel-1-display', this)"
+        onfocus="openSelect('select-1')"
+        onblur="closeSelect('select-1')">
+        <option value="" disabled selected>Choose an option</option>
+        <option value="1">Option 1</option>
+      </select>
+    </div>
+  </div>
+</div>
+```
+
+**State modifier classes** on `.input-field`: `.is-error` `.is-disabled` `.has-value`
+
+**Select dropdowns use `arrow_drop_down` icon, NOT `expand_more`.**
+
+### Cards
+
+```html
+<!-- Closed card (fixed height, no overflow) -->
+<div class="card card-closed">...</div>
+
+<!-- Open card (height fits content) -->
+<div class="card card-open">...</div>
+
+<!-- Interactive card (has hover/press states) -->
+<div class="card card-interactive scale-700">...</div>
+```
+
+**Card grid:**
+```html
+<div class="card-grid">
+  <div class="card card-open">...</div>
+  <div class="card card-open">...</div>
+</div>
+```
+
+---
+
+## Critical Gotchas — Read Before Writing Any CSS
+
+### 1. Surface Tokens vs. Text Style Classes (Most Common Bug)
+
+**The problem:** Surface fill classes (`.surface-fillNeutral`, `.surface-fillColor`, etc.) set their own `color` for correct contrast. Text style classes (`.labelBold30`, `.bodyRegular20`, etc.) also set `color: var(--text-primary)` explicitly. CSS specificity means the child class wins, overriding the surface's color — resulting in invisible text (white-on-white or black-on-black).
+
+**The fix:** Add `color: inherit` on children inside any surface-colored container.
+
+```html
+<!-- ❌ WRONG — text becomes invisible on surface-fillNeutral in dark mode -->
+<div class="surface-fillNeutral scale-500">
+  <span class="labelBold30">Buy Tickets</span>
+</div>
+
+<!-- ✅ CORRECT -->
+<style>
+  .surface-fillNeutral *, .surface-fillColor *,
+  .surface-fillInverted *, .surface-fillBlack *, .surface-fillWhite * {
+    color: inherit;
+  }
+</style>
+<div class="surface-fillNeutral scale-500">
+  <span class="labelBold30">Buy Tickets</span>
+</div>
+```
+
+Note: `.btn` classes already handle this internally — `btn *` sets `color: inherit`. Only surfaces you compose manually need this fix.
+
+### 2. Never Use `--color-interactive` or `--color-inverted` Directly
+
+These are raw per-team static values. In dark mode, `--color-interactive` stays as the light-mode brand color, causing contrast failures.
+
+```html
+<!-- ❌ WRONG -->
+<a style="color: var(--color-interactive);">Learn More</a>
+
+<!-- ✅ CORRECT — these swap automatically between light and dark -->
+<a class="text-brand-interactive">Learn More</a>
+<a style="color: var(--brand-interactive);">Learn More</a>
+```
+
+`--brand-interactive` and `--brand-inverted` are the mode-aware versions. Always use those.
+
+### 3. card-text-pair vs. list-row-text-pair
+
+These are different components with different spacing and scale. Using the wrong one inside a list row breaks the visual hierarchy.
+
+```html
+<!-- ❌ WRONG inside a list row -->
+<div class="card-text-pair">...</div>
+
+<!-- ✅ CORRECT inside a list row -->
+<div class="list-row-text-pair">...</div>
+```
+
+### 4. Never Build Custom Buttons, List Rows, or Inputs
+
+Always use the component classes. Hand-rolling these breaks hover states, dark mode, and cross-team compatibility.
+
+### 5. Safari iOS Font Loading
+
+Safari iOS requires absolute URLs in cross-origin stylesheets. When referencing fonts from a hosted stylesheet, always use the full `https://diet-air-ds.vercel.app/fonts/...` path, not relative paths. Also avoid `font-style: oblique` declarations — Safari interprets these differently than other browsers.
+
+### 6. Spacing Tokens vs. Custom Values
+
+Always extend the token system instead of using custom values. For example, a 2px gap uses `--spacing-25: 2px`, not an inline `gap: 2px`. When a Figma spec doesn't align with the existing scale, add a new token rather than hardcoding.
+
+### 7. `.sublabel` always needs `.text-secondary`
+
+```html
+<!-- ❌ WRONG -->
+<span class="labelRegular10">Row F</span>
+
+<!-- ✅ CORRECT -->
+<span class="labelRegular10 text-secondary">Row F</span>
+```
+
+---
+
+## Working with Figma
+
+### File Key
+The primary Figma file key is `qtyb4i4QNogTd8TJ4F6IMX`.
+
+### Workflow When Analyzing Figma Specs
+
+1. **`get_metadata`** — Ground truth dimensions and node IDs for a frame
+2. **`get_design_context`** — Understand structure, tokens, and component relationships
+3. **`get_screenshot`** — Visual verification of what was built
+
+### Spacing Priority
+
+When reading Figma specs:
+- Prioritize Figma spacing measurements over assumptions
+- Map Figma measurements to the nearest token (e.g., 16px → `--spacing-200`)
+- If a Figma value doesn't map cleanly to an existing token, say so and ask before extending the system
+- Never silently use a hardcoded value when a token doesn't exist — flag the discrepancy
+
+### Name Discrepancies
+
+If a Figma component name doesn't match the CSS class name, always flag it and ask which is correct rather than assuming.
+
+---
+
+## Backend / CMS
+
+The project uses **Sanity CMS** as a headless backend for team-specific configuration. Webhooks are active and working.
+
+**What Sanity manages:**
+- Team logos
+- Brand colors (source of truth → syncs to CSS tokens)
+- VFS (venue/fan seat view) images
+- Venue information
+- Team-specific URLs
+
+**Architecture intent:** Sanity is the single source of truth for brand configuration. Changes in Sanity propagate via webhooks to both JSON files and CSS token generation. This avoids manual file editing for team-specific customization.
+
+A custom frontend for Sanity (diet-air-ds-branded admin UI) is under consideration as a future project.
+
+---
+
+## Coding Principles for This Project
+
+1. **Design tokens are the source of truth.** Never hardcode a color, size, or spacing value.
+2. **Composability over rigidity.** Build by combining existing tokens and component classes, not creating new CSS from scratch.
+3. **Tokens first, custom CSS last.** If something can be done with an existing class, use it. Only write custom CSS when no token or utility exists.
+4. **Every component must work across all 10 teams in both modes.** Test wolves/light and athletics/dark as the two extreme cases.
+5. **Always fetch the latest CSS from Vercel** before reading local project files — the live deployment is canonical.
+6. **When Figma and token scales conflict, flag it** — don't silently resolve it.
+7. **Parent-to-child analysis.** When building new components, examine the full parent template first to understand hierarchy and relationships before building individual pieces.
+
+---
+
+## Key Files in This Repo
+
+| File | Purpose |
+|---|---|
+| `component-prompt-guide.md` | Full prompt guide for generating components — read before building anything |
+| `text-pairs-guide.md` | Detailed text pair scale reference |
+| `inventory-list-row.md` | Spec for the inventory/ticket list row component |
+| `confluence-format-example.md` | Required format for any Confluence documentation output |
+| `walkthrough.html` | Live interactive token/component reference (also at `https://diet-air-ds.vercel.app/walkthrough.html`) |
+| `design-tokens-master.css` | All color tokens — read this to understand the full token shape |
+
+---
+
+## Documentation Formatting
+
+When outputting documentation intended for Confluence, follow the syntax and formatting conventions in `confluence-format-example.md` exactly. This is required for proper copy-paste compatibility.
+
+---
+
+## Quick Decision Guide
+
+| What you need | What to use |
+|---|---|
+| Any button | `.btn .btn-[type] .btn-[size]` |
+| List item with slots | `.list-row` + 3-slot architecture |
+| Text input or select | `.input-field` system |
+| Clickable card | `.card .card-interactive .scale-700` |
+| Clickable non-button surface | `.surface-[type] .scale-[size]` + `color: inherit` on children |
+| Brand color (mode-safe) | `--brand-interactive` / `--brand-inverted` |
+| Brand color (static) | `--brand-core` / `--brand-light` / `--brand-dark` |
+| Icon | `<span class="icon">icon_name</span>` |
+| Icon filled | add `.icon-filled` class |
+| Page vertical spacing | `.py-large` or `.py-landing` |
+| Card grid gap | `.gap-card` |
+| Fixed gap | `--spacing-[scale]` token |

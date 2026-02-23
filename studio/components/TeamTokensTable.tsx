@@ -152,8 +152,19 @@ const fields = [
   {path: 'brandColors.darkInteractiveTransactionalText', label: 'darkInteractiveTransactionalText', type: 'color'},
 
   // Other brand tokens
-  {path: 'brandColors.buttonRadius', label: 'buttonRadius', type: 'select', options: ['8px', '12px', '100px']},
-  {path: 'brandColors.displayFont', label: 'displayFont', type: 'text'},
+  {path: 'buttonRadius', label: 'buttonRadius', type: 'select', options: ['8px', '12px', '100px']},
+  {path: 'displayFont', label: 'displayFont', type: 'text'},
+  {path: 'brandColors.displayWeight', label: 'displayWeight', type: 'select', options: ['400', '700', '800', '900']},
+  {path: 'brandColors.displayLetterSpacing', label: 'displayLetterSpacing', type: 'text'},
+  {path: 'brandColors.displaySize900', label: 'displaySize900', type: 'text'},
+  {path: 'brandColors.displaySize800', label: 'displaySize800', type: 'text'},
+  {path: 'brandColors.displaySize700', label: 'displaySize700', type: 'text'},
+  {path: 'brandColors.displaySize600', label: 'displaySize600', type: 'text'},
+  {path: 'brandColors.displaySize500', label: 'displaySize500', type: 'text'},
+  {path: 'brandColors.displaySize400', label: 'displaySize400', type: 'text'},
+  {path: 'brandColors.displaySize300', label: 'displaySize300', type: 'text'},
+  {path: 'brandColors.displaySize200', label: 'displaySize200', type: 'text'},
+  {path: 'brandColors.displaySize100', label: 'displaySize100', type: 'text'},
 
   // VFS Far
   {path: 'vfsFar.image1', label: 'vfsFar.image1', type: 'image'},

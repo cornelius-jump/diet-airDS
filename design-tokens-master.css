@@ -112,7 +112,7 @@
 /* SYNC:START - Team themes managed by Sanity CMS - DO NOT EDIT MANUALLY */
 
 /* ============================================
-   TEAM THEMES - OAKLAND ATHLETICS
+   TEAM THEMES - LAS VEGAS ATHLETICS
    ============================================ */
 [data-theme="athletics"] {
   /* Brand Colors */
@@ -124,17 +124,17 @@
 
   /* Typography */
   --display-font: 'Proxima Caps', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
+  --display-weight: 900;
+  --display-letter-spacing: 0em;
+  --display-size-900: 74px;
+  --display-size-800: 67px;
+  --display-size-700: 59px;
   --display-size-600: 52px;
   --display-size-500: 44px;
   --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-size-300: 29px;
+  --display-size-200: 26px;
+  --display-size-100: 22px;
 
   /* UI Values */
   --button-border-radius: 100px;
@@ -187,17 +187,17 @@
 
   /* Typography */
   --display-font: 'Teko Caps', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: 700;
+  --display-letter-spacing: -0.01em;
+  --display-size-900: 84px;
+  --display-size-800: 76px;
+  --display-size-700: 68px;
+  --display-size-600: 60px;
+  --display-size-500: 52px;
+  --display-size-400: 44px;
+  --display-size-300: 32px;
+  --display-size-200: 28px;
+  --display-size-100: 24px;
 
   /* UI Values */
   --button-border-radius: 100px;
@@ -250,17 +250,17 @@
 
   /* Typography */
   --display-font: 'Public Caps Pro', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: 800;
+  --display-letter-spacing: -0.05em;
+  --display-size-900: 68px;
+  --display-size-800: 61px;
+  --display-size-700: 54px;
+  --display-size-600: 46px;
+  --display-size-500: 39px;
+  --display-size-400: 32px;
+  --display-size-300: 25px;
+  --display-size-200: 22px;
+  --display-size-100: 18px;
 
   /* UI Values */
   --button-border-radius: 100px;
@@ -301,7 +301,7 @@
 }
 
 /* ============================================
-   TEAM THEMES - JUMP
+   TEAM THEMES - DENVER BIG HORNS
    ============================================ */
 [data-theme="jump"] {
   /* Brand Colors */
@@ -313,17 +313,17 @@
 
   /* Typography */
   --display-font: 'Inter', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: 900;
+  --display-letter-spacing: -0.04em;
+  --display-size-900: 68px;
+  --display-size-800: 61px;
+  --display-size-700: 54px;
+  --display-size-600: 46px;
+  --display-size-500: 39px;
+  --display-size-400: 32px;
+  --display-size-300: 25px;
+  --display-size-200: 22px;
+  --display-size-100: 18px;
 
   /* UI Values */
   --button-border-radius: 100px;
@@ -376,8 +376,8 @@
 
   /* Typography */
   --display-font: 'Futura Caps', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
+  --display-weight: 700;
+  --display-letter-spacing: -0.03em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -439,17 +439,17 @@
 
   /* Typography */
   --display-font: 'Public Caps Pro', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: 900;
+  --display-letter-spacing: -0.05em;
+  --display-size-900: 68px;
+  --display-size-800: 61px;
+  --display-size-700: 54px;
+  --display-size-600: 46px;
+  --display-size-500: 39px;
+  --display-size-400: 32px;
+  --display-size-300: 25px;
+  --display-size-200: 22px;
+  --display-size-100: 18px;
 
   /* UI Values */
   --button-border-radius: 100px;
@@ -502,7 +502,7 @@
 
   /* Typography */
   --display-font: 'Manner Pro', sans-serif;
-  --display-weight: 700; /* Bold */
+  --display-weight: 700;
   --display-letter-spacing: -0.02em;
   --display-size-900: 76px;
   --display-size-800: 68px;
@@ -565,8 +565,8 @@
 
   /* Typography */
   --display-font: 'Futura Caps', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
+  --display-weight: 700;
+  --display-letter-spacing: -0.03em;
   --display-size-900: 76px;
   --display-size-800: 68px;
   --display-size-700: 60px;
@@ -628,17 +628,17 @@
 
   /* Typography */
   --display-font: 'MARTIN Caps Custom', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: 400;
+  --display-letter-spacing: -0.04em;
+  --display-size-900: 90px;
+  --display-size-800: 80px;
+  --display-size-700: 71px;
+  --display-size-600: 62px;
+  --display-size-500: 52px;
+  --display-size-400: 42px;
+  --display-size-300: 33px;
+  --display-size-200: 28px;
+  --display-size-100: 24px;
 
   /* UI Values */
   --button-border-radius: 8px;
@@ -691,17 +691,17 @@
 
   /* Typography */
   --display-font: 'Futura Wolves Autocaps', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: 800;
+  --display-letter-spacing: -0.005em;
+  --display-size-900: 82px;
+  --display-size-800: 73px;
+  --display-size-700: 65px;
+  --display-size-600: 56px;
+  --display-size-500: 47px;
+  --display-size-400: 39px;
+  --display-size-300: 30px;
+  --display-size-200: 26px;
+  --display-size-100: 22px;
 
   /* UI Values */
   --button-border-radius: 8px;

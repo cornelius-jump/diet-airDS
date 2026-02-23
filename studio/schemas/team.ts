@@ -142,6 +142,31 @@ export default defineType({
         // Other brand tokens
         {name: 'buttonRadius', type: 'string', title: 'Button Radius', initialValue: '8px'},
         {name: 'displayFont', type: 'string', title: 'Display Font', initialValue: 'Inter'},
+        {
+          name: 'displayWeight',
+          type: 'string',
+          title: 'Display Font Weight',
+          description: 'CSS font-weight for display text. Must match a weight declared in fonts.css (e.g. 400, 700, 800, 900).',
+          initialValue: '700',
+        },
+        {
+          name: 'displayLetterSpacing',
+          type: 'string',
+          title: 'Display Letter Spacing',
+          description: 'CSS letter-spacing for display text. Use em units (e.g. -0.02em, -0.01em, 0em).',
+          initialValue: '-0.02em',
+        },
+
+        // Display font sizes
+        {name: 'displaySize900', type: 'string', title: 'Display Size 900', initialValue: '76px'},
+        {name: 'displaySize800', type: 'string', title: 'Display Size 800', initialValue: '68px'},
+        {name: 'displaySize700', type: 'string', title: 'Display Size 700', initialValue: '60px'},
+        {name: 'displaySize600', type: 'string', title: 'Display Size 600', initialValue: '52px'},
+        {name: 'displaySize500', type: 'string', title: 'Display Size 500', initialValue: '44px'},
+        {name: 'displaySize400', type: 'string', title: 'Display Size 400', initialValue: '36px'},
+        {name: 'displaySize300', type: 'string', title: 'Display Size 300', initialValue: '28px'},
+        {name: 'displaySize200', type: 'string', title: 'Display Size 200', initialValue: '24px'},
+        {name: 'displaySize100', type: 'string', title: 'Display Size 100', initialValue: '20px'},
       ],
     }),
 

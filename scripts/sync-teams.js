@@ -179,6 +179,19 @@ function generateCssBlock(teamId, teamName, colors, buttonRadius, displayFont) {
     darkInteractiveTertiaryText = light,
     darkInteractiveTransactional = light,
     darkInteractiveTransactionalText = '#000000',
+
+    // Typography tokens
+    displayWeight = '700',
+    displayLetterSpacing = '-0.02em',
+    displaySize900 = '76px',
+    displaySize800 = '68px',
+    displaySize700 = '60px',
+    displaySize600 = '52px',
+    displaySize500 = '44px',
+    displaySize400 = '36px',
+    displaySize300 = '28px',
+    displaySize200 = '24px',
+    displaySize100 = '20px',
   } = colors
 
   return `/* ============================================
@@ -194,17 +207,17 @@ function generateCssBlock(teamId, teamName, colors, buttonRadius, displayFont) {
 
   /* Typography */
   --display-font: '${displayFont}', sans-serif;
-  --display-weight: 700; /* Bold */
-  --display-letter-spacing: -0.02em;
-  --display-size-900: 76px;
-  --display-size-800: 68px;
-  --display-size-700: 60px;
-  --display-size-600: 52px;
-  --display-size-500: 44px;
-  --display-size-400: 36px;
-  --display-size-300: 28px;
-  --display-size-200: 24px;
-  --display-size-100: 20px;
+  --display-weight: ${displayWeight};
+  --display-letter-spacing: ${displayLetterSpacing};
+  --display-size-900: ${displaySize900};
+  --display-size-800: ${displaySize800};
+  --display-size-700: ${displaySize700};
+  --display-size-600: ${displaySize600};
+  --display-size-500: ${displaySize500};
+  --display-size-400: ${displaySize400};
+  --display-size-300: ${displaySize300};
+  --display-size-200: ${displaySize200};
+  --display-size-100: ${displaySize100};
 
   /* UI Values */
   --button-border-radius: ${buttonRadius};

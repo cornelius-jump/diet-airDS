@@ -49,7 +49,7 @@ A lightweight experimental version of AirDS created for prompting Claude Code an
 
 ### Minnesota Timberwolves
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="wolves" and data-mode="dark"
 
@@ -57,7 +57,7 @@ Use data-theme="wolves" and data-mode="dark"
 
 ### Minnesota Lynx
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="lynx" and data-mode="light"
 
@@ -65,7 +65,7 @@ Use data-theme="lynx" and data-mode="light"
 
 ### North Carolina Courage
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="courage" and data-mode="light"
 
@@ -73,7 +73,7 @@ Use data-theme="courage" and data-mode="light"
 
 ### Denver Summit FC
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="summit" and data-mode="light"
 
@@ -81,7 +81,7 @@ Use data-theme="summit" and data-mode="light"
 
 ### Bucknell Bison
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="bucknell" and data-mode="light"
 
@@ -89,7 +89,7 @@ Use data-theme="bucknell" and data-mode="light"
 
 ### Seattle Sounders FC
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="sounders" and data-mode="light"
 
@@ -97,7 +97,7 @@ Use data-theme="sounders" and data-mode="light"
 
 ### Seattle Reign FC
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="reign" and data-mode="light"
 
@@ -105,7 +105,7 @@ Use data-theme="reign" and data-mode="light"
 
 ### North Carolina Football Club
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="ncfc" and data-mode="light"
 
@@ -113,7 +113,7 @@ Use data-theme="ncfc" and data-mode="light"
 
 ### Jump Default
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="jump" and data-mode="light"
 
@@ -121,7 +121,7 @@ Use data-theme="jump" and data-mode="light"
 
 ### Las Vegas Athletics
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="athletics" and data-mode="light"
 
@@ -131,7 +131,7 @@ Use data-theme="athletics" and data-mode="light"
 Simply change data-mode="light" to data-mode="dark" in any prompt above.
 Example:
 Build this using the JUMP design system:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="wolves" and data-mode="dark"
 

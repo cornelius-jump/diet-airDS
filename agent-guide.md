@@ -1,4 +1,4 @@
-# Diet AirDS — Component Prompt Guide
+# Diet AirDS — Agent Guide
 
 > This guide is written for AI agents. Read all sections before generating any code.
 
@@ -72,7 +72,7 @@ Load all files from `https://diet-air-ds.vercel.app/` in this exact order. Use a
 
 **File summary:**
 - `design-tokens-master.css` — colors, brand tokens, all 10 team themes
-- `spacing-tokens.css` — `--spacing-50` through `--spacing-900` (8px scale)
+- `spacing-tokens.css` — `--spacing-25` through `--spacing-1000` (8px scale)
 - `container-tokens.css` — max-width container classes
 - `border-effects-tokens.css` — border radius, shadow tokens
 - `fonts.css` — team display font `@font-face` declarations
@@ -588,18 +588,30 @@ Never use `--color-interactive` or `--color-inverted` directly — they are stat
 
 ## SPACING TOKENS
 
-8px-based scale. Use `var(--spacing-N)` in CSS or utility classes (`.mb-N`, `.p-N`, `.py-N`, `.px-N`) in HTML.
+8px-based scale. Use `var(--spacing-N)` in CSS or utility classes (`.mb-N`, `.mt-N`, `.p-N`, `.py-N`, `.px-N`) in HTML.
 
 | Token | Value | Token | Value |
 |-------|-------|-------|-------|
-| `--spacing-50` | 4px | `--spacing-400` | 32px |
-| `--spacing-100` | 8px | `--spacing-500` | 40px |
-| `--spacing-150` | 12px | `--spacing-600` | 48px |
-| `--spacing-200` | 16px | `--spacing-700` | 56px |
-| `--spacing-250` | 20px | `--spacing-800` | 64px |
-| `--spacing-300` | 24px | `--spacing-900` | 72px |
+| `--spacing-25` | 2px | `--spacing-400` | 32px |
+| `--spacing-50` | 4px | `--spacing-500` | 40px |
+| `--spacing-100` | 8px | `--spacing-600` | 48px |
+| `--spacing-150` | 12px | `--spacing-700` | 56px |
+| `--spacing-200` | 16px | `--spacing-800` | 64px |
+| `--spacing-250` | 20px | `--spacing-900` | 72px |
+| `--spacing-300` | 24px | `--spacing-1000` | 80px |
 
-Responsive utilities: `.py-large` (16px→64px) · `.py-landing` (24px→80px) · `.gap-card` (16px→24px)
+**Responsive semantic tokens** — prefer these for layout:
+
+| Token | Mobile | Tablet | Desktop | Use For |
+|-------|--------|--------|---------|---------|
+| `--spacing-row` | 8px | 12px | 16px | Gap between rows/stacked items |
+| `--spacing-card` | 16px | 20px | 24px | Gap between cards |
+| `--spacing-content` | 32px | 40px | 48px | Gap between major sections |
+| `--margin-small` | 16px | 32px | 48px | Page margin (dense UI) |
+| `--margin-large` | 16px | 40px | 64px | Page margin (standard) |
+| `--margin-landing` | 24px | 48px | 80px | Page margin (open/landing layouts) |
+
+Responsive utility classes: `.py-large` (16px→64px) · `.py-landing` (24px→80px) · `.gap-card` (16px→24px)
 
 ---
 
@@ -610,11 +622,15 @@ Responsive utilities: `.py-large` (16px→64px) · `.py-landing` (24px→80px) �
 --border-radius-100: 8px    /* cards, inputs, images */
 --border-radius-200: 16px   /* large cards */
 --button-border-radius       /* team-specific: 8px, 12px, or 100px */
+
+--border-weight-50: 1px     /* subtle */
+--border-weight-100: 1px    /* standard */
+--border-weight-200: 2px    /* heavy/active */
 ```
 
 Utility classes: `.rounded-100` (8px) · `.rounded-button` (team-specific)
 
-Do not use shadows — reserved for sheets and modals only.
+Do not use shadows — `--shadow-sheet-a/b` and `--shadow-modal-a/b` are reserved for sheets and modals only.
 
 ---
 
@@ -905,7 +921,7 @@ Set `data-theme` and `data-mode` on `<html>`. Always test both light and dark.
 
 ```
 Build this using Diet AirDS:
-https://diet-air-ds.vercel.app/component-prompt-guide.md
+https://diet-air-ds.vercel.app/agent-guide.md
 
 Use data-theme="[TEAM]" and data-mode="[light|dark]"
 

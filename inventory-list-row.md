@@ -178,12 +178,11 @@ Suggested page-level wrapper CSS (not part of the design system):
 }
 
 .inventory-list .list-row {
-  padding: var(--spacing-200) 0;
+  padding: var(--spacing-200);
   border-bottom: 1px solid var(--border-default);
 }
 
-.inventory-list .list-row:first-child { padding-top: 0; }
-.inventory-list .list-row:last-child  { border-bottom: none; padding-bottom: 0; }
+.inventory-list .list-row:last-child { border-bottom: none; }
 ```
 
 ---

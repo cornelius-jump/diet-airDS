@@ -149,7 +149,7 @@
   padding-right: var(--spacing-200);  /* 8px */
   border-radius: var(--border-radius-100); /* 8px */
   border: var(--border-weight-50) solid var(--neutral-300);
-  background-color: transparent;
+  background-color: var(--bg-input);
   box-sizing: border-box;
   transition:
     background-color 120ms ease,
@@ -168,7 +168,7 @@
 .input-control:focus-within {
   border-width: var(--border-weight-200); /* 2px */
   border-color: var(--org-primary-button);
-  background-color: transparent;
+  background-color: var(--bg-input);
 }
 
 /* Hover while focused */

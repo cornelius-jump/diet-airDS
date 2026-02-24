@@ -519,7 +519,7 @@
       flex-direction: column;
     }
     .inventory-list .list-row {
-      padding: var(--spacing-200) var(--spacing-300);
+      padding: var(--spacing-200);
       border-bottom: 1px solid var(--border-default);
     }
     .inventory-list .list-row:last-child { border-bottom: none; }
@@ -2456,10 +2456,6 @@
   <p class="labelRegular30 text-secondary mb-50">Usage Pattern</p>
   <h2 class="title80">Inventory List Row</h2>
   <p class="bodyRegular30 text-primary doc-prose mt-100">A usage pattern for ticket inventory — combines a VFS (View From Seat) image, section/row label, and price. Images and prices load from the active team's JSON at runtime. Switch themes above to see different team data.</p>
-
-  <div class="doc-note mt-200">
-    <p class="bodyRegular30"><strong>Card has no border.</strong> The card surface (<code>--bg-surface</code>) against the page background (<code>--bg-base</code>) defines the boundary. Row dividers bleed edge-to-edge because horizontal padding is on the rows, not the card.</p>
-  </div>
 
   <h3 class="title50 mt-400 mb-200">Far Seats</h3>
   <div class="inventory-demo-split">

@@ -74,6 +74,9 @@
   --status-success: var(--status-success-light);
   --status-error: var(--status-error-light);
   --status-info: var(--status-info-light);
+
+  /* Input background — white in light mode so inputs read as enabled on gray surfaces */
+  --bg-input: #FFFFFF;
 }
 
 /* ============================================
@@ -107,6 +110,9 @@
   --status-success: var(--status-success-dark);
   --status-error: var(--status-error-dark);
   --status-info: var(--status-info-dark);
+
+  /* Input background — transparent in dark mode; white would be jarring on dark surfaces */
+  --bg-input: transparent;
 }
 
 /* SYNC:START - Team themes managed by Sanity CMS - DO NOT EDIT MANUALLY */
@@ -758,7 +764,6 @@
   --bg-surface: var(--org-surface);
   --bg-sheet: var(--org-sheet);
   --bg-nav: var(--org-nav);
-  --bg-input: #FFFFFF; /* Always white in light mode — inputs on gray surfaces look enabled */
   
   /* Borders */
   --border-default: var(--neutral-200);
@@ -781,8 +786,4 @@
                     color-inverted    = brand-interactive (recedes, used for contrast)
      Always use these instead of --brand-interactive or --brand-inverted directly. */
   /* --color-interactive and --color-inverted are defined per theme per mode above */
-}
-
-[data-mode=”dark”] {
-  --bg-input: transparent; /* Inherits dark surface; white would be jarring in dark mode */
 }

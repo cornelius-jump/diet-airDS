@@ -173,6 +173,7 @@ When the existing scale doesn't cover a needed value:
 - `--bg-surface` — Cards, elevated surfaces
 - `--bg-sheet` — Modals, highest elevation
 - `--bg-nav` — Navigation bars (with blur)
+- `--bg-input` — Input field background (#FFFFFF light, transparent dark)
 
 **Text:**
 - `--text-primary` — Body text (high contrast)

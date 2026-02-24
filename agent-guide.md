@@ -659,6 +659,10 @@ Never use `--color-interactive` or `--color-inverted` directly — they are stat
 
 **Status:** `--status-success` · `--status-warning` · `--status-error` · `--status-info`
 
+**Note — known Figma vs CSS deltas (do not "fix"):**
+- `--border-default` (10%/15% opacity) is intentionally lighter than the Figma variable (20%/25%). Figma is calibrated for iOS; web value is correct.
+- `--text-secondary` dark mode is 75% opacity in CSS vs 70% in Figma. Delta is imperceptible — do not change.
+
 **Utility classes:** `.text-secondary` · `.text-brand-interactive` · `.text-brand-core`
 
 ---

@@ -933,6 +933,17 @@ When reading Figma specs:
 
 If a Figma component name doesn't match the CSS class name, always flag it and ask which is correct rather than assuming.
 
+### Known Token Discrepancies (CSS vs Figma) — Do Not "Fix" These
+
+These differences between `design-tokens-master.css` and the Figma "Colors & Modes" variable collection are **intentional or too minor to change**. Do not sync them.
+
+| Token | CSS value | Figma value | Reason — leave as-is |
+|---|---|---|---|
+| `--border-default` (via `--neutral-200`) | rgba(0,0,0,**0.10**) light / rgba(255,255,255,**0.15**) dark | rgba(0,0,0,**0.20**) light / rgba(255,255,255,**0.25**) dark | **Intentional platform split.** Figma value is calibrated for iOS native borders, which render thinner. Web CSS value (10%/15%) is correct for web. |
+| `--text-secondary` (via `--neutral-700`) dark mode | rgba(255,255,255,**0.75**) | Figma `Text/text700` dark = rgba(255,255,255,**0.70**) | Minor 5% opacity delta. Not perceptible in practice. Monitor but do not change. |
+
+All other neutral scale tokens (`--neutral-000` through `--neutral-1000`), inverted scale, and org/brand tokens are in full parity with Figma.
+
 ---
 
 ## Backend / CMS

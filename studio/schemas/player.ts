@@ -1,9 +1,13 @@
 import {defineField, defineType} from 'sanity'
+import {PlayerTable} from '../components/PlayerTable'
 
 export default defineType({
   name: 'player',
   title: 'Player',
   type: 'document',
+  components: {
+    input: PlayerTable,
+  },
   fields: [
     defineField({
       name: 'name',

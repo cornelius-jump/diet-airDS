@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="lynx" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buy Tickets — Minnesota Lynx</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <script src="../ds-loader.js"></script>
+
+  <style>
+    body { background: var(--bg-base); color: var(--text-primary); }
+
+    /* App shell — compact container, centered */
+    .app-shell {
+      max-width: 640px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Step visibility */
+    .step { display: none; flex-direction: column; flex: 1; }
+    .step.active { display: flex; }
+
+    /* Nav bar — responsive horizontal padding */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-150);
+      padding: var(--spacing-200) var(--spacing-200);
+      border-bottom: 1px solid var(--border-default);
+    }
+    @media (min-width: 500px) {
+      .top-nav { padding: var(--spacing-200) var(--spacing-300); }
+    }
+    @media (min-width: 1100px) {
+      .top-nav { padding: var(--spacing-250) var(--spacing-400); }
+    }
+
+    /* Game summary wrapper (step 2) — matches scroll-content horizontal padding */
+    .game-summary-wrap {
+      padding: var(--spacing-200) var(--spacing-200) 0;
+    }
+    @media (min-width: 500px) {
+      .game-summary-wrap { padding: var(--spacing-200) var(--spacing-300) 0; }
+    }
+    @media (min-width: 1100px) {
+      .game-summary-wrap { padding: var(--spacing-300) var(--spacing-400) 0; }
+    }
+
+    /* Scrollable content region — padding and gap scale with breakpoints */
+    .scroll-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-200);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-content); /* 32px → 40px → 48px */
+    }
+    @media (min-width: 500px) {
+      .scroll-content { padding: var(--spacing-200) var(--spacing-300); }
+    }
+    @media (min-width: 1100px) {
+      .scroll-content { padding: var(--spacing-300) var(--spacing-400); }
+    }
+
+    /* Sticky bottom action bar */
+    .action-bar {
+      position: sticky;
+      bottom: 0;
+      background: var(--bg-base);
+      border-top: 1px solid var(--border-default);
+      padding: var(--spacing-200) var(--spacing-200) var(--spacing-300);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-100);
+    }
+    @media (min-width: 500px) {
+      .action-bar { padding: var(--spacing-200) var(--spacing-300) var(--spacing-300); }
+    }
+    @media (min-width: 1100px) {
+      .action-bar { padding: var(--spacing-200) var(--spacing-400) var(--spacing-300); }
+    }
+
+    /* Step 2 action bar: total + button stack on mobile, row on tablet+ */
+    .action-bar-seats {
+      flex-direction: column;
+      gap: var(--spacing-150);
+    }
+    @media (min-width: 500px) {
+      .action-bar-seats {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacing-300);
+      }
+      .action-bar-seats .btn-fill {
+        width: auto;
+        flex-shrink: 0;
+      }
+    }
+
+    /* Checkout: Contact + Payment stack on mobile, 2-col on tablet+ */
+    .checkout-cols {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-content);
+    }
+    @media (min-width: 500px) {
+      .checkout-cols {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: var(--spacing-300);
+      }
+      .checkout-cols > div { flex: 1; }
+    }
+
+    /* Confirmation: padding scales */
+    .confirm-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-content) var(--spacing-200);
+      text-align: center;
+      gap: var(--spacing-300);
+    }
+    @media (min-width: 500px) {
+      .confirm-content { padding: var(--spacing-content) var(--spacing-400); }
+    }
+
+    /* Fallback logo circle */
+    .logo-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      background: var(--neutral-300);
+      flex-shrink: 0;
+    }
+
+    /* Summary logo (step 2 game card) */
+    .summary-logo { width: 48px; height: 48px; object-fit: contain; flex-shrink: 0; }
+    .summary-logo-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      background: var(--neutral-300);
+      flex-shrink: 0;
+    }
+
+    /* Row divider */
+    .row-divider { border-bottom: 1px solid var(--border-default); }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+<!-- ================================================
+     STEP 1 — CHOOSE A GAME
+     ================================================ -->
+<div class="step active" id="step-game">
+
+  <div class="top-nav">
+    <img id="nav-logo" src="" alt="" style="height:32px;display:none;">
+    <span class="display400" id="nav-name">Minnesota Lynx</span>
+  </div>
+
+  <div class="scroll-content">
+    <div>
+      <p class="labelBold20 text-secondary mb-200">Upcoming Home Games</p>
+      <!-- Populated by loadSchedule() — static fallback shown until CMS loads -->
+      <div class="event-row-list" id="game-list">
+        <div style="padding:var(--spacing-400);text-align:center;">
+          <span class="labelRegular20 text-secondary">Loading schedule…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /step-game -->
+
+
+<!-- ================================================
+     STEP 2 — CHOOSE TICKETS
+     ================================================ -->
+<div class="step" id="step-seats">
+
+  <div class="top-nav">
+    <button class="btn-circle btn-circle-300 btn-circle-neutral-tertiary" onclick="goTo('step-game')">
+      <span class="btn-icon material-symbols-rounded">arrow_back</span>
+    </button>
+    <span class="title50">Choose Tickets</span>
+  </div>
+
+  <!-- Game summary -->
+  <div class="game-summary-wrap">
+    <div style="background:var(--bg-surface);border-radius:var(--border-radius-100);padding:var(--spacing-150) var(--spacing-200);">
+      <div class="list-row">
+        <div class="leading leading-gap-sm" id="summary-logo-wrap">
+          <!-- Populated when a game is selected -->
+        </div>
+        <div class="list-row-content">
+          <div class="list-row-text-pair">
+            <span class="labelBold30" id="summary-team">—</span>
+            <span class="labelRegular10 text-secondary" id="summary-date">—</span>
+          </div>
+        </div>
+        <div class="trailing trailing-gap-sm">
+          <div class="list-row-text-pair" style="text-align:right;">
+            <span class="labelBold10 text-secondary">Target Center</span>
+            <span class="labelBold10 text-secondary">Minneapolis, MN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-content">
+
+    <!-- Section selectors -->
+    <div>
+      <p class="labelBold20 text-secondary mb-200">Select a Section</p>
+      <div style="display:flex;flex-direction:column;gap:var(--spacing-100);" id="section-list">
+
+        <div class="selector surface-washNeutral scale-700" onclick="selectSection(this,'Courtside',285)">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Courtside</span>
+                <span class="labelRegular10 text-secondary">Rows A–C · Section 100</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="list-row-text-pair" style="text-align:right;">
+                <span class="labelBold30">$285</span>
+                <span class="labelRegular10 text-secondary">per seat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector surface-washNeutral scale-700" onclick="selectSection(this,'Lower Bowl',95)">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Lower Bowl</span>
+                <span class="labelRegular10 text-secondary">Rows D–N · Sections 101–120</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="list-row-text-pair" style="text-align:right;">
+                <span class="labelBold30">$95</span>
+                <span class="labelRegular10 text-secondary">per seat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector surface-washNeutral scale-700" onclick="selectSection(this,'Club Level',65)">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Club Level</span>
+                <span class="labelRegular10 text-secondary">Sections 201–215</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="list-row-text-pair" style="text-align:right;">
+                <span class="labelBold30">$65</span>
+                <span class="labelRegular10 text-secondary">per seat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector surface-washNeutral scale-700" onclick="selectSection(this,'Upper Bowl',38)">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Upper Bowl</span>
+                <span class="labelRegular10 text-secondary">Sections 301–320</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="list-row-text-pair" style="text-align:right;">
+                <span class="labelBold30">$38</span>
+                <span class="labelRegular10 text-secondary">per seat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="selector surface-washNeutral is-disabled">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Student Rush</span>
+                <span class="labelRegular10 text-secondary">Valid student ID required · Sold Out</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="list-row-text-pair" style="text-align:right;">
+                <span class="labelBold30">$20</span>
+                <span class="labelRegular10 text-secondary">per seat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Quantity picker -->
+    <div style="background:var(--bg-surface);border-radius:var(--border-radius-100);padding:var(--spacing-150) var(--spacing-200);">
+      <div class="list-row">
+        <div class="list-row-content">
+          <div class="list-row-text-pair">
+            <span class="labelBold30">Quantity</span>
+            <span class="labelRegular10 text-secondary">Max 8 per order</span>
+          </div>
+        </div>
+        <div class="trailing trailing-gap-md">
+          <div class="stepper">
+            <button class="stepper-btn disabled" id="qty-minus" onclick="changeQty(-1)">
+              <span class="material-symbols-rounded">remove</span>
+            </button>
+            <span class="stepper-value" id="qty-value">1</span>
+            <button class="stepper-btn" id="qty-plus" onclick="changeQty(1)">
+              <span class="material-symbols-rounded">add</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:var(--spacing-800);"></div>
+
+  </div><!-- /scroll-content -->
+
+  <div class="action-bar action-bar-seats">
+    <div style="display:flex;flex-direction:column;gap:var(--spacing-25);">
+      <span class="labelBold20 text-secondary">Total</span>
+      <span class="title50" id="total-price">Select a section</span>
+    </div>
+    <button class="btn btn-transactional btn-700 btn-fill" id="cta-seats" onclick="goToCheckout()" disabled style="opacity:0.4;cursor:not-allowed;">
+      Continue to Checkout
+    </button>
+  </div>
+
+</div><!-- /step-seats -->
+
+
+<!-- ================================================
+     STEP 3 — CHECKOUT
+     ================================================ -->
+<div class="step" id="step-checkout">
+
+  <div class="top-nav">
+    <button class="btn-circle btn-circle-300 btn-circle-neutral-tertiary" onclick="goTo('step-seats')">
+      <span class="btn-icon material-symbols-rounded">arrow_back</span>
+    </button>
+    <span class="title50">Checkout</span>
+  </div>
+
+  <div class="scroll-content">
+
+    <!-- Order summary -->
+    <div>
+      <p class="labelBold20 text-secondary mb-200">Order Summary</p>
+      <div style="background:var(--bg-surface);border-radius:var(--border-radius-100);overflow:hidden;">
+        <div class="row-divider" style="padding:var(--spacing-150) var(--spacing-200);">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30" id="co-section">—</span>
+                <span class="labelRegular10 text-secondary" id="co-game">—</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <span class="labelBold30" id="co-subtotal">—</span>
+            </div>
+          </div>
+        </div>
+        <div class="row-divider" style="padding:var(--spacing-150) var(--spacing-200);">
+          <div class="list-row">
+            <div class="list-row-content">
+              <span class="labelRegular20 text-secondary">Service fee (10%)</span>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <span class="labelBold20" id="co-fee">—</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:var(--spacing-150) var(--spacing-200);">
+          <div class="list-row">
+            <div class="list-row-content">
+              <span class="labelBold30">Total</span>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <span class="title50" id="co-total">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-cols">
+
+      <!-- Contact -->
+      <div>
+        <p class="labelBold20 text-secondary mb-200">Contact</p>
+        <div style="display:flex;flex-direction:column;gap:var(--spacing-150);">
+          <div class="input-field" id="field-name">
+            <div class="input-label-row">
+              <label class="labelBold20" for="inp-name">Full name</label>
+            </div>
+            <div class="input-and-message">
+              <div class="input-control">
+                <input type="text" id="inp-name" placeholder="Jane Smith" oninput="syncHasValue('field-name', this)">
+              </div>
+            </div>
+          </div>
+          <div class="input-field" id="field-email">
+            <div class="input-label-row">
+              <label class="labelBold20" for="inp-email">Email</label>
+            </div>
+            <div class="input-and-message">
+              <div class="input-control">
+                <input type="email" id="inp-email" placeholder="jane@example.com" oninput="syncHasValue('field-email', this)">
+              </div>
+              <span class="labelRegular10 text-secondary">Tickets delivered here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div>
+        <p class="labelBold20 text-secondary mb-200">Payment</p>
+        <div style="display:flex;flex-direction:column;gap:var(--spacing-150);">
+          <div class="input-field" id="field-card">
+            <div class="input-label-row">
+              <label class="labelBold20" for="inp-card">Card number</label>
+            </div>
+            <div class="input-and-message">
+              <div class="input-control">
+                <input type="text" id="inp-card" placeholder="1234 5678 9012 3456" maxlength="19" oninput="syncHasValue('field-card', this); formatCard(this)">
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:var(--spacing-150);">
+            <div class="input-field" id="field-expiry" style="flex:1;">
+              <div class="input-label-row">
+                <label class="labelBold20" for="inp-expiry">Expiry</label>
+              </div>
+              <div class="input-and-message">
+                <div class="input-control">
+                  <input type="text" id="inp-expiry" placeholder="MM / YY" maxlength="7" oninput="syncHasValue('field-expiry', this); formatExpiry(this)">
+                </div>
+              </div>
+            </div>
+            <div class="input-field" id="field-cvv" style="flex:1;">
+              <div class="input-label-row">
+                <label class="labelBold20" for="inp-cvv">CVV</label>
+              </div>
+              <div class="input-and-message">
+                <div class="input-control">
+                  <input type="text" id="inp-cvv" placeholder="123" maxlength="4" oninput="syncHasValue('field-cvv', this)">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /checkout-cols -->
+
+    <div style="height:var(--spacing-800);"></div>
+
+  </div><!-- /scroll-content -->
+
+  <div class="action-bar">
+    <button class="btn btn-transactional btn-700 btn-fill" onclick="goToConfirmation()">
+      Complete Purchase
+    </button>
+    <p class="labelRegular10 text-secondary" style="text-align:center;">
+      <span class="icon icon-100" style="vertical-align:middle;">lock</span>
+      Secured with 256-bit SSL encryption
+    </p>
+  </div>
+
+</div><!-- /step-checkout -->
+
+
+<!-- ================================================
+     STEP 4 — CONFIRMATION
+     ================================================ -->
+<div class="step" id="step-confirm">
+  <div class="confirm-content">
+
+    <span class="icon icon-600 icon-filled text-brand-core">check_circle</span>
+
+    <div style="display:flex;flex-direction:column;gap:var(--spacing-100);">
+      <span class="title70">You're going!</span>
+      <span class="bodyRegular30 text-secondary">Your tickets have been sent to your email. See you at Target Center!</span>
+    </div>
+
+    <div style="background:var(--bg-surface);border-radius:var(--border-radius-200);padding:var(--spacing-300);width:100%;box-sizing:border-box;">
+      <div style="display:flex;flex-direction:column;gap:var(--spacing-50);">
+        <span class="labelBold10 text-secondary">YOUR ORDER</span>
+        <span class="title50 mt-100" id="conf-section">—</span>
+        <span class="labelRegular20 text-secondary" id="conf-game">—</span>
+        <span class="title60 text-brand-core mt-100" id="conf-total">—</span>
+      </div>
+    </div>
+
+    <button class="btn btn-secondary btn-300" onclick="restart()">Back to Schedule</button>
+
+  </div>
+</div><!-- /step-confirm -->
+
+</div><!-- /app-shell -->
+
+<script>
+  // ── State ──────────────────────────────────────────────────────────────────
+  let teams = []   // populated from Sanity
+  let state = { teamIdx: 0, section: '', pricePerSeat: 0, quantity: 1 }
+
+  // Schedule config — dates and offer states are editorial, not in CMS
+  // Teams and logos come from Sanity; assigned round-robin to these slots
+  const SCHEDULE = [
+    { date: 'Thu, Jun 12 · 7:00 PM', type: 'featured-others', price: '$28+', additionalOffers: 4 },
+    { date: 'Sat, Jun 21 · 6:00 PM', type: 'featured-only',   price: '$45+' },
+    { date: 'Fri, Jul 4 · 7:30 PM',  type: 'no-featured',     offersAvailable: 2 },
+    { date: 'Sun, Jul 13 · 3:00 PM', type: 'sold-out' },
+    { date: 'Sat, Aug 2 · 7:00 PM',  type: 'coming-soon' },
+  ]
+
+  // ── Sanity fetch ───────────────────────────────────────────────────────────
+  async function loadSchedule() {
+    try {
+      const q = encodeURIComponent(`*[_type == "opposingTeam" && defined(logo.asset)][0...5]{name, shortName, "logoUrl": logo.asset->url}`)
+      const res = await fetch(`https://tqbbtja5.apicdn.sanity.io/v2024-01-01/data/query/production?query=${q}`)
+      const { result = [] } = await res.json()
+      if (result.length > 0) {
+        teams = result
+        renderGameList()
+        return
+      }
+    } catch (_) {}
+    // Fallback: render with placeholder names if CMS unavailable
+    teams = SCHEDULE.map((_, i) => ({ name: `Opponent ${i + 1}`, shortName: `OPP`, logoUrl: null }))
+    renderGameList()
+  }
+
+  // ── Build logo HTML ────────────────────────────────────────────────────────
+  function buildLogo(team) {
+    if (team.logoUrl) {
+      return `<img class="event-row-logo" src="${team.logoUrl}" alt="${team.name}">`
+    }
+    const ini = (team.shortName || team.name).substring(0, 3).toUpperCase()
+    return `<div class="logo-placeholder">${ini}</div>`
+  }
+
+  // ── Build a single event-row ───────────────────────────────────────────────
+  function buildGameRow(teamIdx) {
+    const team = teams[teamIdx % teams.length]
+    const sched = SCHEDULE[teamIdx]
+    const { date, type, price, additionalOffers, offersAvailable } = sched
+
+    const topTappable = type === 'featured-only' || type === 'featured-others'
+    const topSurface  = topTappable ? 'surface-section' : ''
+    const rowClass    = topTappable ? 'list-row' : 'list-row not-tappable'
+    const topClick    = topTappable ? `onclick="selectGame(${teamIdx})"` : ''
+
+    let trailing = ''
+    if (type === 'featured-only' || type === 'featured-others') {
+      trailing = `<div class="trailing trailing-gap-lg"><button class="btn btn-primary btn-100">${price}</button></div>`
+    } else if (type === 'sold-out') {
+      trailing = `<div class="trailing trailing-gap-sm"><span class="labelBold30 text-secondary">Sold Out</span></div>`
+    } else if (type === 'coming-soon') {
+      trailing = `<div class="trailing trailing-gap-sm"><span class="labelBold20 text-interactive-tertiary event-row-coming-soon">On sale Jun 1</span></div>`
+    }
+
+    let bottom = ''
+    if (type === 'featured-others') {
+      bottom = `
+        <div class="event-row-bottom surface-section" onclick="selectGame(${teamIdx})">
+          <div class="list-row">
+            <div class="list-row-content"><div class="list-row-text-pair">
+              <span class="labelBold30 text-interactive-tertiary">${additionalOffers} Additional Offers</span>
+            </div></div>
+            <div class="trailing trailing-gap-xs">
+              <span class="icon text-interactive-tertiary">arrow_drop_down</span>
+            </div>
+          </div>
+        </div>`
+    } else if (type === 'no-featured') {
+      bottom = `
+        <div class="event-row-bottom surface-section" onclick="selectGame(${teamIdx})">
+          <div class="list-row">
+            <div class="list-row-content"><div class="list-row-text-pair">
+              <span class="labelBold30 text-interactive-tertiary">${offersAvailable} Offers Available</span>
+            </div></div>
+            <div class="trailing trailing-gap-xs">
+              <span class="icon text-interactive-tertiary">arrow_drop_down</span>
+            </div>
+          </div>
+        </div>`
+    }
+
+    return `
+      <div class="event-row">
+        <div class="event-row-top ${topSurface}" ${topClick}>
+          <div class="${rowClass}">
+            <div class="leading leading-gap-sm">${buildLogo(team)}</div>
+            <div class="list-row-content"><div class="list-row-text-pair">
+              <span class="event-row-label">${team.name}</span>
+              <span class="event-row-sublabel text-secondary">${date}</span>
+            </div></div>
+            ${trailing}
+          </div>
+        </div>
+        ${bottom}
+      </div>`
+  }
+
+  function renderGameList() {
+    const list = document.getElementById('game-list')
+    list.innerHTML = SCHEDULE.map((_, i) => buildGameRow(i)).join('')
+  }
+
+  // ── Navigation ─────────────────────────────────────────────────────────────
+  function goTo(stepId) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'))
+    document.getElementById(stepId).classList.add('active')
+    window.scrollTo(0, 0)
+  }
+
+  // ── Step 1 → 2: Select a game ──────────────────────────────────────────────
+  function selectGame(teamIdx) {
+    const team  = teams[teamIdx % teams.length]
+    const sched = SCHEDULE[teamIdx]
+    state.teamIdx = teamIdx
+
+    // Update summary card logo
+    const wrap = document.getElementById('summary-logo-wrap')
+    if (team.logoUrl) {
+      wrap.innerHTML = `<img class="summary-logo" src="${team.logoUrl}" alt="${team.name}">`
+    } else {
+      const ini = (team.shortName || team.name).substring(0, 3).toUpperCase()
+      wrap.innerHTML = `<div class="summary-logo-placeholder">${ini}</div>`
+    }
+    document.getElementById('summary-team').textContent = team.name
+    document.getElementById('summary-date').textContent = sched.date
+
+    // Reset section + qty
+    state.section = ''
+    state.pricePerSeat = 0
+    state.quantity = 1
+    document.getElementById('qty-value').textContent = '1'
+    document.getElementById('qty-minus').classList.add('disabled')
+    document.getElementById('qty-plus').classList.remove('disabled')
+    document.getElementById('total-price').textContent = 'Select a section'
+    const cta = document.getElementById('cta-seats')
+    cta.disabled = true; cta.style.opacity = '0.4'; cta.style.cursor = 'not-allowed'
+    document.querySelectorAll('#section-list .selector').forEach(s => s.classList.remove('is-selected'))
+
+    goTo('step-seats')
+  }
+
+  // ── Step 2: Section + qty ──────────────────────────────────────────────────
+  function selectSection(el, name, price) {
+    document.querySelectorAll('#section-list .selector:not(.is-disabled)').forEach(s => s.classList.remove('is-selected'))
+    el.classList.add('is-selected')
+    state.section = name
+    state.pricePerSeat = price
+    updateTotal()
+    const cta = document.getElementById('cta-seats')
+    cta.disabled = false; cta.style.opacity = '1'; cta.style.cursor = 'pointer'
+  }
+
+  function changeQty(delta) {
+    state.quantity = Math.max(1, Math.min(8, state.quantity + delta))
+    document.getElementById('qty-value').textContent = state.quantity
+    document.getElementById('qty-minus').classList.toggle('disabled', state.quantity <= 1)
+    document.getElementById('qty-plus').classList.toggle('disabled', state.quantity >= 8)
+    updateTotal()
+  }
+
+  function updateTotal() {
+    if (!state.pricePerSeat) return
+    const sub = state.pricePerSeat * state.quantity
+    document.getElementById('total-price').textContent = '$' + sub + (state.quantity > 1 ? ' (' + state.quantity + ' seats)' : '')
+  }
+
+  // ── Step 2 → 3 ─────────────────────────────────────────────────────────────
+  function goToCheckout() {
+    const team   = teams[state.teamIdx % teams.length]
+    const sched  = SCHEDULE[state.teamIdx]
+    const sub    = state.pricePerSeat * state.quantity
+    const fee    = Math.round(sub * 0.1 * 100) / 100
+    const total  = (sub + fee).toFixed(2)
+    const day    = sched.date.split('·')[0].trim()
+
+    document.getElementById('co-section').textContent  = state.section + ' × ' + state.quantity
+    document.getElementById('co-game').textContent     = team.name + ' · ' + day
+    document.getElementById('co-subtotal').textContent = '$' + sub
+    document.getElementById('co-fee').textContent      = '$' + fee.toFixed(2)
+    document.getElementById('co-total').textContent    = '$' + total
+    goTo('step-checkout')
+  }
+
+  // ── Step 3 → 4 ─────────────────────────────────────────────────────────────
+  function goToConfirmation() {
+    const team   = teams[state.teamIdx % teams.length]
+    const sched  = SCHEDULE[state.teamIdx]
+    const sub    = state.pricePerSeat * state.quantity
+    const fee    = Math.round(sub * 0.1 * 100) / 100
+    const total  = (sub + fee).toFixed(2)
+    const day    = sched.date.split('·')[0].trim()
+
+    document.getElementById('conf-section').textContent = state.section + ' × ' + state.quantity + (state.quantity > 1 ? ' seats' : ' seat')
+    document.getElementById('conf-game').textContent    = team.name + ' · ' + day
+    document.getElementById('conf-total').textContent   = '$' + total
+    goTo('step-confirm')
+  }
+
+  // ── Restart ────────────────────────────────────────────────────────────────
+  function restart() { goTo('step-game') }
+
+  // ── Input helpers ──────────────────────────────────────────────────────────
+  function syncHasValue(fieldId, input) {
+    document.getElementById(fieldId).classList.toggle('has-value', input.value.trim() !== '')
+  }
+  function formatCard(input) {
+    let v = input.value.replace(/\D/g, '').substring(0, 16)
+    input.value = v.replace(/(.{4})/g, '$1 ').trim()
+  }
+  function formatExpiry(input) {
+    let v = input.value.replace(/\D/g, '').substring(0, 4)
+    if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2)
+    input.value = v
+  }
+
+  // ── Boot ───────────────────────────────────────────────────────────────────
+  async function loadTeamData() {
+    try {
+      const res = await fetch('../teams/lynx.json')
+      const team = await res.json()
+      const logo = document.getElementById('nav-logo')
+      const name = document.getElementById('nav-name')
+      if (team.logos?.primary) {
+        logo.src = team.logos.primary
+        logo.alt = team.name
+        logo.style.display = 'block'
+      }
+      if (team.name) name.textContent = team.name
+    } catch (_) {}
+  }
+
+  loadTeamData()
+  loadSchedule()
+</script>
+
+</body>
+</html>

@@ -730,9 +730,14 @@
   color: var(--inverted-1000);
 }
 
-/* All children inherit the inverted color (overrides .text-secondary, .labelBold30, etc.) */
+/* All children inherit the inverted color (overrides .labelBold30, etc.) */
 .selector.is-selected * {
   color: inherit;
+}
+
+/* .text-secondary uses !important in text-styles-system.css — must match to override */
+.selector.is-selected .text-secondary {
+  color: var(--inverted-700) !important;
 }
 
 /* Cancel the text opacity dim that surface:active applies (both washNeutral and card set opacity: 0.6) */

@@ -944,6 +944,24 @@ These differences between `design-tokens-master.css` and the Figma "Colors & Mod
 
 All other neutral scale tokens (`--neutral-000` through `--neutral-1000`), inverted scale, and org/brand tokens are in full parity with Figma.
 
+### Component Map — Always Keep Updated
+
+`figma-component-map.md` maps every CSS component class pattern to its Figma COMPONENT_SET counterpart. It is the canonical reference for `figma_instantiate_component` calls — use it to get the correct `nodeId`, variant prop names, and text override keys.
+
+**Keep it updated. Update the map whenever:**
+- A new CSS component is built that has a Figma counterpart not yet in the map
+- A Figma component's variant prop names or values change
+- A component on the "Not yet fully mapped" list gets fully documented
+- A "Known Gap" is resolved (CSS class added for a Figma-only component)
+- A nodeId changes (rare — only after a Figma file restructure)
+
+**What a complete map entry contains:**
+1. Component name, `nodeId`, and type (`COMPONENT_SET`)
+2. Table mapping each Figma variant prop → CSS class equivalent
+3. Default `figma_instantiate_component` call with correct prop names and values
+
+**File key:** `qtyb4i4QNogTd8TJ4F6IMX` · Components page nodeId: `63:7729`
+
 ---
 
 ## Backend / CMS
@@ -985,6 +1003,7 @@ A custom frontend for Sanity (diet-air-ds-branded admin UI) is under considerati
 | `confluence-format-example.md` | Required format for any Confluence documentation output |
 | `walkthrough.html` | Live interactive token/component reference (also at `https://diet-air-ds.vercel.app/walkthrough.html`) |
 | `design-tokens-master.css` | All color tokens — read this to understand the full token shape |
+| `figma-component-map.md` | Maps every CSS component to its Figma COMPONENT_SET nodeId, variant props, and `figma_instantiate_component` call syntax — **keep this updated whenever components change** |
 
 ---
 

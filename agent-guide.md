@@ -40,6 +40,27 @@ Any tappable or clickable element that isn't a button, list row, or input needs 
 
 **Output format:** Always produce a complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
 
+**Responsive layout rule — non-negotiable:** Every page must work at all three breakpoints before it is considered complete. Define layout behavior at mobile, tablet, and desktop from the start — not as an afterthought.
+
+- Breakpoints: **mobile** `< 500px` · **tablet** `500px–1099px` · **desktop** `≥ 1100px`
+- Use `--spacing-content` (32→40→48px) for gaps between major page sections
+- Use `--margin-small` or `--margin-large` for horizontal page padding — never a hardcoded `padding` value
+- Use `--spacing-card` for gaps between cards and list items
+- Never hardcode a `max-width` that prevents the layout from scaling beyond a phone viewport — use a system container class (`container-compact`, `container-narrow`, etc.) instead
+- On tablet+, multi-column layouts (2-col checkout, side-by-side action bars) are almost always correct
+- ❌ `max-width: 430px` — hardcoded phone cap, breaks tablet/desktop
+- ❌ `padding: var(--spacing-200)` for page-level padding — fixed, doesn't scale
+- ✅ `max-width: 640px; margin: 0 auto` or `.container-compact` — correct container approach
+- ✅ `padding: var(--spacing-card)` with breakpoint overrides, or `--margin-small` for page margins
+
+**CMS data rule — non-negotiable:** Whenever a prototype includes team logos, team names, opponent logos/names, VFS seat images, or any other brand-specific content — always load it dynamically. Never hardcode team names, logo URLs, or opponent data as static strings.
+- ❌ `<img src="wolves-logo.svg">` — hardcoded, breaks on theme change
+- ❌ `<span>Timberwolves</span>` — hardcoded team name
+- ✅ `<img data-team-logo src="" alt="">` + team JSON loader
+- ✅ `<span data-team-short-name></span>` + team JSON loader
+
+See **CMS DATA IN PROTOTYPES** for the complete patterns.
+
 ---
 
 ## CSS LOAD ORDER
@@ -809,6 +830,150 @@ Set `data-theme` and `data-mode` on `<html>`. Always test both light and dark.
 
 ---
 
+## CMS DATA IN PROTOTYPES
+
+Two data sources are available for bringing real content into prototypes: the per-team JSON files served from the same CDN as the CSS, and the Sanity CMS for opponent and event data.
+
+### Source 1 — Team JSON (`/teams/{teamId}.json`)
+
+The active team's configuration is available at `/teams/{teamId}.json`. Always load it dynamically so the prototype responds correctly when `data-theme` changes.
+
+**Full field reference:**
+
+| Field | Type | Example | Use in prototype |
+|---|---|---|---|
+| `teamId` | string | `"wolves"` | Matches `data-theme` on `<html>` |
+| `name` | string | `"Minnesota Timberwolves"` | Full team name in headings |
+| `shortName` | string | `"Timberwolves"` | Short name in list rows, labels |
+| `city` | string | `"Minneapolis"` | City-level references |
+| `sport` | string | `"NBA"` | League badge, schedule context |
+| `logos.primary` | URL (SVG) | `https://cdn.sanity.io/images/...` | Team logo in nav, hero, event rows |
+| `logos.logoIcon` | URL or `""` | — | Icon-only logo variant (may be empty) |
+| `brandColors.core` | hex | `"#266092"` | Informational only — CSS tokens handle color |
+| `brandColors.inverted` | hex | `"#79BC43"` | Informational only |
+| `buttonRadius` | string | `"8px"` | Informational only — CSS tokens handle radius |
+| `displayFont` | string | `"Futura Wolves Autocaps"` | Informational only — `fonts.css` loads it |
+| `vfsFar.images` | string[] | `["https://...jpg", ...]` | VFS seat-view images (upper bowl) — up to 3 |
+| `vfsFar.prices` | string[] | `["$23.97", ...]` | Price per VFS row — parallel index with images |
+| `vfsFar.priceLabel` | string | `"Avg. Price"` | Label for price column |
+| `vfsFar.fallback` | string or `""` | — | Fallback image if `images` is empty |
+| `vfsClose` | same shape | — | Courtside/pitch-side perspective |
+| `urls` | object | `{}` | Team-specific deep links (may be empty) |
+
+**⚠️ Never use `brandColors` to set CSS values.** The CSS token system (`data-theme` on `<html>`) handles all color automatically. `brandColors` in the JSON is useful only when you need a color value outside the token system (e.g., a `matchup-panel` background that isn't a token).
+
+**Standard load pattern** — call on page load and on every `data-theme` change:
+
+```javascript
+async function loadTeamData(teamId) {
+  try {
+    const res = await fetch(`/teams/${teamId}.json`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+// Watch for theme changes
+new MutationObserver(mutations => {
+  for (const m of mutations) {
+    if (m.attributeName === 'data-theme') {
+      const teamId = document.documentElement.getAttribute('data-theme');
+      loadTeamData(teamId).then(data => {
+        if (data) applyTeamData(data);
+      });
+    }
+  }
+}).observe(document.documentElement, { attributes: true });
+
+// Initial load
+const teamId = document.documentElement.getAttribute('data-theme');
+loadTeamData(teamId).then(data => { if (data) applyTeamData(data); });
+
+function applyTeamData(data) {
+  // Team logo
+  document.querySelectorAll('[data-team-logo]').forEach(el => {
+    el.src = data.logos.primary;
+    el.alt = data.name;
+  });
+
+  // Short name
+  document.querySelectorAll('[data-team-short-name]').forEach(el => {
+    el.textContent = data.shortName;
+  });
+
+  // VFS — see "Inventory list row" example for full VFS pattern
+}
+```
+
+**Logo pattern** — use `data-team-logo` attribute as the hook:
+
+```html
+<img data-team-logo src="" alt=""
+     style="width: 40px; height: 40px; object-fit: contain;">
+```
+
+### Source 2 — Opposing Team Data (Sanity)
+
+Opponent logos and names come from the `opposingTeam` collection in Sanity. See the **OPPOSING TEAMS** section above for the full field reference and GROQ queries.
+
+**For quick prototypes** — hardcode a Sanity CDN URL directly rather than writing a full GROQ fetch:
+
+```html
+<!-- Use any resolved Sanity image URL directly — they're stable CDN links -->
+<img src="https://cdn.sanity.io/images/tqbbtja5/production/[hash]-[w]x[h].svg"
+     alt="Chicago Bulls"
+     style="width: 48px; height: 48px; object-fit: contain;">
+```
+
+**For data-driven prototypes** — fetch from Sanity:
+
+```javascript
+const PROJECT_ID = 'tqbbtja5';
+const DATASET = 'production';
+const API_VERSION = '2024-01-01';
+
+async function fetchOpponents(league) {
+  const query = encodeURIComponent(
+    `*[_type == "opposingTeam" && league == "${league}"] | order(name asc) {
+      _id, name, shortName, "logoUrl": logo.asset->url, primaryColor
+    }`
+  );
+  const url = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${query}`;
+  const res = await fetch(url);
+  const { result } = await res.json();
+  return result;
+}
+```
+
+### When to Use Which Source
+
+| Data needed | Use |
+|---|---|
+| Active team logo, name, short name | `/teams/{teamId}.json` → `logos.primary`, `name`, `shortName` |
+| VFS seat-view images + prices | `/teams/{teamId}.json` → `vfsFar` / `vfsClose` + VFS JS loader |
+| Opponent logo + name (static prototype) | Hardcode Sanity CDN URL + name string |
+| Opponent list (dynamic, e.g. schedule) | Sanity GROQ (see OPPOSING TEAMS section) |
+| Team colors in CSS | Never needed — set `data-theme` on `<html>`, tokens handle it |
+| `matchup-panel` background (non-token) | `opposingTeam.primaryColor` — but guard for null |
+
+### Placeholder Strategy
+
+When real data isn't available, match the same structure so swapping in real data requires no HTML changes:
+
+```html
+<!-- Logo placeholder — same dimensions as real logo -->
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='4' fill='%23e0e0e0'/%3E%3C/svg%3E"
+     data-team-logo alt="Team logo"
+     style="width: 48px; height: 48px; object-fit: contain;">
+
+<!-- Name placeholder — use data attribute so JS can target it -->
+<span data-team-short-name>Team</span>
+```
+
+---
+
 ## COMPLETE COMPONENT EXAMPLES
 
 ### Tile grid (3-up, no button — tap target variant)
@@ -1497,6 +1662,59 @@ A `.selector` is a clickable container that wraps a `.list-row` to make it selec
 
 ---
 
+## FIGMA MCP WORKFLOW
+
+When given a Figma URL or asked to use Figma MCP tools, follow these rules before doing anything else.
+
+### Component Map is the Bridge
+
+`figma-component-map.md` maps every CSS class pattern to its Figma COMPONENT_SET nodeId and variant props. **Always check it first** before:
+- Instantiating any component in Figma
+- Translating a Figma design to CSS
+- Identifying which CSS classes correspond to components seen in a Figma file
+
+Figma file key: `qtyb4i4QNogTd8TJ4F6IMX` · Components page nodeId: `63:7729`
+
+### When Instantiating Components in Figma
+
+Always use `figma_instantiate_component` with nodeIds from the map. **Never draw raw shapes to represent a component that exists in the library.**
+
+```js
+// ✅ CORRECT — use the map's nodeId and variant props
+figma_instantiate_component({
+  nodeId: "15102:32701",   // Button COMPONENT_SET from figma-component-map.md
+  variant: { Type: "Primary", Size: "300 (Small)", "Fixed Width": "False", "Icon Position": "None", State: "Default" },
+  overrides: { "Label#216:33": "Save" },
+  parentId: "...",
+  position: { x: 0, y: 0 }
+})
+
+// ❌ WRONG — raw rectangle + text to stand in for a Button
+```
+
+**State props:** Always pass `State: "Default"` unless specifically documenting a non-default state. CSS handles live states; the Figma component reflects static design intent.
+
+**nodeId vs componentKey:** For all components in this file, `nodeId` alone is sufficient. `componentKey` is only needed for published library components from external files.
+
+### When Analyzing a Figma Design (CSS output)
+
+1. `figma_get_metadata` — ground truth dimensions and node IDs for the frame
+2. `figma_get_design_context` — read structure, tokens, and component relationships
+3. Cross-reference every component seen with `figma-component-map.md` to find the CSS equivalent
+4. Map Figma spacing measurements to the nearest token (16px → `--spacing-200`)
+5. `figma_capture_screenshot` — verify the built output matches the design
+
+### When the Map is Missing a Component
+
+If a Figma component has no entry in `figma-component-map.md`:
+1. Use `figma_get_component` with the component's nodeId to read its variant props
+2. Identify the CSS equivalent (or note there is none — add it to Known Gaps)
+3. Add a complete entry to `figma-component-map.md` before continuing
+
+A complete entry includes: nodeId, variant prop → CSS class table, and a default `figma_instantiate_component` call.
+
+---
+
 ## MASTER PROMPT TEMPLATE
 
 ```
@@ -1521,6 +1739,7 @@ RULES:
 10. Brand-colored elements use --brand-interactive / --brand-inverted — never --color-interactive / --color-inverted.
 11. Interactive surfaces use .surface-* + .scale-* — never custom :hover CSS.
 12. Children inside .surface-fill* containers have color: inherit.
+13. Team logos use `data-team-logo` + team JSON loader. Team names use `data-team-short-name` + team JSON loader. VFS images use `data-vfs` + JS loader. Opponent logos/names use Sanity CDN or GROQ. Never hardcode brand-specific content.
 
 VALIDATION CHECKLIST:
 - [ ] All CSS files loaded from absolute URLs in correct order
@@ -1541,6 +1760,11 @@ VALIDATION CHECKLIST:
 - [ ] JS helpers included for clear buttons and selects
 - [ ] No custom :hover or :active CSS — interactive states use .surface-* + .scale-*
 - [ ] Children of .surface-fill* have color: inherit
+- [ ] Team logo uses `data-team-logo` + loaded from `/teams/{teamId}.json` (if UI shows team logo)
+- [ ] Team name/short name uses `data-team-short-name` + loaded from JSON (if UI shows team name)
+- [ ] VFS images use `data-vfs` pattern + JS loader (if UI includes seat-view rows)
+- [ ] Opponent logos + names come from Sanity CDN or GROQ (if UI shows opponent data)
+- [ ] No hardcoded team names, logo URLs, or opponent data strings
 
 OUTPUT: Complete standalone HTML file.
 ```

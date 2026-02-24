@@ -84,14 +84,8 @@ export default defineType({
       group: 'logos',
     }),
     defineField({
-      name: 'logoInverted',
-      title: 'Inverted Logo',
-      type: 'image',
-      group: 'logos',
-    }),
-    defineField({
-      name: 'logomark',
-      title: 'Logomark',
+      name: 'logoIcon',
+      title: 'Logo Icon',
       type: 'image',
       group: 'logos',
     }),

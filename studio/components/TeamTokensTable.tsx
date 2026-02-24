@@ -26,9 +26,9 @@ const SectionHeader = styled.td`
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--card-muted-fg-color);
-  background: var(--card-bg-color);
+  background: var(--card-border-color);
   border: 1px solid var(--card-hairline-soft-color);
-  border-top: 3px solid var(--card-border-color);
+  border-top: 3px solid var(--card-shadow-outline-color);
 `
 
 const Td = styled.td`
@@ -132,8 +132,7 @@ const fields = [
   // ── Logos ─────────────────────────────────────────────────
   {type: 'section', label: 'Logos'},
   {path: 'logoPrimary', label: 'logoPrimary', type: 'image'},
-  {path: 'logoInverted', label: 'logoInverted', type: 'image'},
-  {path: 'logomark', label: 'logomark', type: 'image'},
+  {path: 'logoIcon', label: 'logoIcon', type: 'image'},
 
   // ── Brand Colors ──────────────────────────────────────────
   {type: 'section', label: 'Brand Colors'},
@@ -149,12 +148,12 @@ const fields = [
   {path: 'brandColors.lightSurface', label: 'lightSurface', type: 'color'},
   {path: 'brandColors.lightSheet', label: 'lightSheet', type: 'color'},
   {path: 'brandColors.lightNav', label: 'lightNav', type: 'color'},
+  {path: 'brandColors.lightInteractiveTransactional', label: 'lightInteractiveTransactional', type: 'color'},
+  {path: 'brandColors.lightInteractiveTransactionalText', label: 'lightInteractiveTransactionalText', type: 'color'},
   {path: 'brandColors.lightInteractivePrimary', label: 'lightInteractivePrimary', type: 'color'},
   {path: 'brandColors.lightInteractivePrimaryText', label: 'lightInteractivePrimaryText', type: 'color'},
   {path: 'brandColors.lightInteractiveSecondaryText', label: 'lightInteractiveSecondaryText', type: 'color'},
   {path: 'brandColors.lightInteractiveTertiaryText', label: 'lightInteractiveTertiaryText', type: 'color'},
-  {path: 'brandColors.lightInteractiveTransactional', label: 'lightInteractiveTransactional', type: 'color'},
-  {path: 'brandColors.lightInteractiveTransactionalText', label: 'lightInteractiveTransactionalText', type: 'color'},
 
   // ── Dark Mode ─────────────────────────────────────────────
   {type: 'section', label: 'Dark Mode'},
@@ -162,17 +161,17 @@ const fields = [
   {path: 'brandColors.darkSurface', label: 'darkSurface', type: 'color'},
   {path: 'brandColors.darkSheet', label: 'darkSheet', type: 'color'},
   {path: 'brandColors.darkNav', label: 'darkNav', type: 'color'},
+  {path: 'brandColors.darkInteractiveTransactional', label: 'darkInteractiveTransactional', type: 'color'},
+  {path: 'brandColors.darkInteractiveTransactionalText', label: 'darkInteractiveTransactionalText', type: 'color'},
   {path: 'brandColors.darkInteractivePrimary', label: 'darkInteractivePrimary', type: 'color'},
   {path: 'brandColors.darkInteractivePrimaryText', label: 'darkInteractivePrimaryText', type: 'color'},
   {path: 'brandColors.darkInteractiveSecondaryText', label: 'darkInteractiveSecondaryText', type: 'color'},
   {path: 'brandColors.darkInteractiveTertiaryText', label: 'darkInteractiveTertiaryText', type: 'color'},
-  {path: 'brandColors.darkInteractiveTransactional', label: 'darkInteractiveTransactional', type: 'color'},
-  {path: 'brandColors.darkInteractiveTransactionalText', label: 'darkInteractiveTransactionalText', type: 'color'},
 
   // ── Typography ────────────────────────────────────────────
   {type: 'section', label: 'Typography'},
   {path: 'displayFont', label: 'displayFont', type: 'text'},
-  {path: 'brandColors.displayWeight', label: 'displayWeight', type: 'select', options: ['400', '700', '800', '900']},
+  {path: 'brandColors.displayWeight', label: 'displayWeight', type: 'text'},
   {path: 'brandColors.displayLetterSpacing', label: 'displayLetterSpacing', type: 'text'},
   {path: 'brandColors.displaySize900', label: 'displaySize900', type: 'text'},
   {path: 'brandColors.displaySize800', label: 'displaySize800', type: 'text'},
@@ -321,93 +320,102 @@ export function TeamTokensTable(props: DocumentInputProps) {
     [onChange]
   )
 
+  // Group fields into sections
+  const sections: {label: string | undefined; fields: typeof fields}[] = []
+  let currentSection: {label: string | undefined; fields: typeof fields} = {label: undefined, fields: []}
+  for (const field of fields) {
+    if (field.type === 'section') {
+      if (currentSection.fields.length > 0 || currentSection.label) {
+        sections.push(currentSection)
+      }
+      currentSection = {label: field.label, fields: []}
+    } else {
+      currentSection.fields.push(field)
+    }
+  }
+  if (currentSection.fields.length > 0) sections.push(currentSection)
+
+  const renderField = (field: (typeof fields)[number]) => {
+    const val = getValue(field.path)
+    const isValidHex = field.type === 'color' && /^#[0-9A-F]{6}$/i.test(val)
+    const isValidRgba = field.type === 'color' && /^rgba?\(/.test(val)
+    const hasColorValue = isValidHex || isValidRgba
+    const hasImage = field.type === 'image' && val?.asset?._ref
+    const imageUrl = hasImage ? getImageUrl(val) : null
+    const isUploading = uploadingImages[field.path]
+
+    return (
+      <tr key={field.path}>
+        <Td>
+          <TokenName>{field.label || field.path}</TokenName>
+        </Td>
+        <Td>
+          {field.type === 'color' && hasColorValue && (
+            <ColorPreview $color={val} />
+          )}
+          {field.type === 'image' ? (
+            <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+              {imageUrl && <ImagePreview src={imageUrl} alt={field.label} />}
+              <div>
+                <ImageUploadButton htmlFor={`upload-${field.path}`}>
+                  {isUploading ? 'Uploading...' : hasImage ? 'Replace image' : 'Upload image'}
+                </ImageUploadButton>
+                <HiddenFileInput
+                  id={`upload-${field.path}`}
+                  type="file"
+                  accept="image/*"
+                  disabled={isUploading}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file) handleImageUpload(field.path, file)
+                  }}
+                />
+              </div>
+            </div>
+          ) : field.type === 'select' ? (
+            <Select value={val} onChange={(e) => handleChange(field.path, e.target.value)}>
+              <option value="">Select...</option>
+              {field.options?.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </Select>
+          ) : (
+            <Input
+              type="text"
+              value={val}
+              onChange={(e) => handleChange(field.path, e.target.value)}
+              placeholder={field.type === 'color' ? '#000000' : ''}
+              style={{
+                display: 'inline-block',
+                width: field.type === 'color' && hasColorValue ? 'calc(100% - 36px)' : '100%',
+              }}
+            />
+          )}
+        </Td>
+      </tr>
+    )
+  }
+
   return (
     <Stack space={3} paddingTop={4}>
-      <Card padding={0} border radius={2}>
-        <Table>
-          <colgroup>
-            <col style={{width: 'auto'}} />
-            <col />
-          </colgroup>
-          <tbody>
-            {fields.map((field, index) => {
-              if (field.type === 'section') {
-                return (
-                  <tr key={`section-${index}`}>
-                    <SectionHeader colSpan={2}>{field.label}</SectionHeader>
-                  </tr>
-                )
-              }
-
-              const val = getValue(field.path)
-              const isValidHex = field.type === 'color' && /^#[0-9A-F]{6}$/i.test(val)
-              const isValidRgba = field.type === 'color' && /^rgba?\(/.test(val)
-              const hasColorValue = isValidHex || isValidRgba
-              const hasImage = field.type === 'image' && val?.asset?._ref
-              const imageUrl = hasImage ? getImageUrl(val) : null
-              const isUploading = uploadingImages[field.path]
-
-              return (
-                <tr key={field.path}>
-                  <Td>
-                    <TokenName>{field.label || field.path}</TokenName>
-                  </Td>
-                  <Td>
-                    {field.type === 'color' && hasColorValue && (
-                      <ColorPreview $color={val} />
-                    )}
-                    {field.type === 'image' ? (
-                      <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-                        {imageUrl && (
-                          <ImagePreview src={imageUrl} alt={field.label} />
-                        )}
-                        <div>
-                          <ImageUploadButton htmlFor={`upload-${field.path}`}>
-                            {isUploading ? 'Uploading...' : hasImage ? 'Replace image' : 'Upload image'}
-                          </ImageUploadButton>
-                          <HiddenFileInput
-                            id={`upload-${field.path}`}
-                            type="file"
-                            accept="image/*"
-                            disabled={isUploading}
-                            onChange={(e) => {
-                              const file = e.target.files?.[0]
-                              if (file) {
-                                handleImageUpload(field.path, file)
-                              }
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ) : field.type === 'select' ? (
-                      <Select
-                        value={val}
-                        onChange={(e) => handleChange(field.path, e.target.value)}
-                      >
-                        <option value="">Select...</option>
-                        {field.options?.map((opt) => (
-                          <option key={opt} value={opt}>{opt}</option>
-                        ))}
-                      </Select>
-                    ) : (
-                      <Input
-                        type="text"
-                        value={val}
-                        onChange={(e) => handleChange(field.path, e.target.value)}
-                        placeholder={field.type === 'color' ? '#000000' : ''}
-                        style={{
-                          display: 'inline-block',
-                          width: field.type === 'color' && hasColorValue ? 'calc(100% - 36px)' : '100%'
-                        }}
-                      />
-                    )}
-                  </Td>
+      {sections.map((section, i) => (
+        <Card key={i} padding={0} border radius={2}>
+          <Table>
+            <colgroup>
+              <col style={{width: 'auto'}} />
+              <col />
+            </colgroup>
+            <tbody>
+              {section.label && (
+                <tr>
+                  <SectionHeader colSpan={2}>{section.label}</SectionHeader>
                 </tr>
-              )
-            })}
-          </tbody>
-        </Table>
-      </Card>
+              )}
+              {section.fields.map(renderField)}
+            </tbody>
+          </Table>
+        </Card>
+      ))}
     </Stack>
   )
 }

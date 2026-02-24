@@ -7,8 +7,7 @@
   "venue": null,
   "logos": {
     "primary": "https://cdn.sanity.io/images/tqbbtja5/production/b48bac044cb4bc839f7a12814cbfa545a6bfcc69-64x64.svg",
-    "inverted": "",
-    "logomark": ""
+    "logoIcon": ""
   },
   "brandColors": {
     "core": "#AB0033",
@@ -50,7 +49,33 @@
   },
   "buttonRadius": "100px",
   "displayFont": "Public Caps Pro",
-  "vfsFar": null,
-  "vfsClose": null,
+  "vfsFar": {
+    "images": [
+      "https://cdn.sanity.io/images/tqbbtja5/production/c96f599aa0efc1d86fcaaf84e7a6346ee870ea5f-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/eeda2c8ea52cf6d437e1c08c1eb6fb9292425063-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/20bf41275eeeceb50f201ce4ee722fa834074181-1024x683.webp"
+    ],
+    "fallback": "",
+    "prices": [
+      "$26.81",
+      "$37.54",
+      "$26.81"
+    ],
+    "priceLabel": "Avg. Price"
+  },
+  "vfsClose": {
+    "images": [
+      "https://cdn.sanity.io/images/tqbbtja5/production/cd04e0649259c5f2c234cabea0dc321f0de4e5f0-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/9f2f579e6a577bcfd388d8c1a3eedd32b5a67e3d-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/89a814f2efd2ea7ff077ac1568049f4af72e18f9-1024x683.webp"
+    ],
+    "fallback": "",
+    "prices": [
+      "$155.51",
+      "$101.89",
+      "$80.44"
+    ],
+    "priceLabel": "Avg. Price"
+  },
   "urls": {}
 }

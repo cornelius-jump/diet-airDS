@@ -7,8 +7,7 @@
   "venue": null,
   "logos": {
     "primary": "https://cdn.sanity.io/images/tqbbtja5/production/6c769b259e15e2cc19206dd44876e0c4ceab9750-64x64.svg",
-    "inverted": "",
-    "logomark": ""
+    "logoIcon": ""
   },
   "brandColors": {
     "core": "#00416B",

@@ -7,8 +7,7 @@
   "venue": null,
   "logos": {
     "primary": "https://cdn.sanity.io/images/tqbbtja5/production/5f6bdaedd3429ec2bf6a95c29e7982de45bd3b30-64x64.svg",
-    "inverted": "",
-    "logomark": ""
+    "logoIcon": ""
   },
   "brandColors": {
     "core": "#20604E",
@@ -50,7 +49,25 @@
   },
   "buttonRadius": "8px",
   "displayFont": "MARTIN Caps Custom",
-  "vfsFar": null,
-  "vfsClose": null,
+  "vfsFar": {
+    "images": [],
+    "fallback": "https://cdn.sanity.io/images/tqbbtja5/production/0fbf5e9dde4e690be23ae83bfc0f952eb557417f-800x600.png",
+    "prices": [
+      "$25",
+      "$26",
+      "$27"
+    ],
+    "priceLabel": "Avg. Price"
+  },
+  "vfsClose": {
+    "images": [],
+    "fallback": "https://cdn.sanity.io/images/tqbbtja5/production/0fbf5e9dde4e690be23ae83bfc0f952eb557417f-800x600.png",
+    "prices": [
+      "$325",
+      "$312",
+      "$300"
+    ],
+    "priceLabel": "Avg. Price"
+  },
   "urls": {}
 }

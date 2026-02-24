@@ -7,8 +7,7 @@
   "venue": null,
   "logos": {
     "primary": "https://cdn.sanity.io/images/tqbbtja5/production/bff39303eb738f1f7391f86fe88e9567e5e96030-64x64.svg",
-    "inverted": "",
-    "logomark": ""
+    "logoIcon": ""
   },
   "brandColors": {
     "core": "#266092",
@@ -50,7 +49,17 @@
   },
   "buttonRadius": "12px",
   "displayFont": "Futura Caps",
-  "vfsFar": null,
-  "vfsClose": null,
+  "vfsFar": {
+    "images": [],
+    "fallback": "https://cdn.sanity.io/images/tqbbtja5/production/8367faa2aff3a14540df99cafb2f7d599f8aab98-800x600.png",
+    "prices": [],
+    "priceLabel": "Avg. Price"
+  },
+  "vfsClose": {
+    "images": [],
+    "fallback": "https://cdn.sanity.io/images/tqbbtja5/production/8367faa2aff3a14540df99cafb2f7d599f8aab98-800x600.png",
+    "prices": [],
+    "priceLabel": "Avg. Price"
+  },
   "urls": {}
 }

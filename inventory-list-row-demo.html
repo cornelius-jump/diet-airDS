@@ -84,28 +84,35 @@
        INVENTORY LIST — usage pattern wrapper
        Stacks rows with a bottom divider each
        ============================================ */
+    /* Card shell — no horizontal padding; rows handle that so borders bleed full width */
+    .inventory-card {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-100);
+      overflow: hidden;
+    }
+
     .inventory-list {
       display: flex;
       flex-direction: column;
     }
 
     .inventory-list .list-row {
-      padding: var(--spacing-200) 0;
+      padding: var(--spacing-200) var(--spacing-300);
       border-bottom: 1px solid var(--border-default);
-    }
-
-    .inventory-list .list-row:first-child {
-      padding-top: 0;
     }
 
     .inventory-list .list-row:last-child {
       border-bottom: none;
-      padding-bottom: 0;
     }
 
-    /* VFS placeholder — replace src with real VFS service URL at runtime */
-    .vfs-img-placeholder {
-      background: var(--neutral-200);
+    /* VFS image — object-fit so it fills the slot correctly */
+    .vfs-img {
+      object-fit: cover;
+    }
+
+    /* Placeholder shown when no VFS data is available for this team */
+    .vfs-placeholder {
+      background: var(--bg-surface);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -114,6 +121,8 @@
       font-family: inherit;
       text-align: center;
       line-height: 1.4;
+      border: 1px dashed var(--border-default);
+      border-radius: var(--border-radius-50);
     }
 
     @media (max-width: 1000px) {
@@ -133,7 +142,7 @@
   <!-- Theme / Mode switcher -->
   <div class="demo-controls">
     <span class="labelBold20 text-secondary">Theme:</span>
-    <select onchange="document.documentElement.setAttribute('data-theme', this.value)">
+    <select id="theme-select" onchange="switchTheme(this.value)">
       <option value="wolves">Wolves</option>
       <option value="lynx">Lynx</option>
       <option value="jump">Jump</option>
@@ -165,15 +174,15 @@
 
     <div class="demo-split">
 
-      <!-- DESKTOP — leading-image-small (136×80px), leading-gap-lg (16px) -->
+      <!-- MOBILE — leading-image-small (136×80px), leading-gap-lg (16px) -->
       <div>
         <p class="labelRegular10 text-secondary demo-column-label">Mobile · 329px</p>
-        <div class="inventory-list">
+        <div class="inventory-card"><div class="inventory-list">
 
-          <div class="list-row">
+          <div class="list-row" data-vfs="far" data-vfs-index="0">
             <div class="leading leading-gap-lg">
-              <!-- Replace src with VFS service URL. e.g. src="https://vfs.example.com/wolves/section-313/far" -->
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Far</div>
+              <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+              <div class="leading-image-small vfs-placeholder">VFS<br>Far</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -183,15 +192,16 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$21/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
+          <div class="list-row" data-vfs="far" data-vfs-index="1">
             <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Far</div>
+              <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+              <div class="leading-image-small vfs-placeholder">VFS<br>Far</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -201,15 +211,16 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$37/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
+          <div class="list-row" data-vfs="far" data-vfs-index="2">
             <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Far</div>
+              <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+              <div class="leading-image-small vfs-placeholder">VFS<br>Far</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -219,41 +230,24 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$24/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
-            <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Far</div>
-            </div>
-            <div class="list-row-content">
-              <div class="list-row-text-pair">
-                <span class="labelBold30">Section 202</span>
-                <span class="labelRegular10 text-secondary">Row D (Seats 1–2)</span>
-              </div>
-            </div>
-            <div class="trailing trailing-gap-sm">
-              <div class="trailing-text-pair">
-                <span class="labelBold20">$25/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        </div></div>
       </div>
 
-      <!-- MOBILE — leading-image-large (244×124px), leading-gap-xl (24px) -->
+      <!-- DESKTOP — leading-image-large (244×124px), leading-gap-xl (24px) -->
       <div>
         <p class="labelRegular10 text-secondary demo-column-label">Desktop · 592px</p>
-        <div class="inventory-list">
+        <div class="inventory-card"><div class="inventory-list">
 
-          <div class="list-row">
+          <div class="list-row" data-vfs="far" data-vfs-index="0">
             <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Far</div>
+              <img class="leading-image-large vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+              <div class="leading-image-large vfs-placeholder">VFS<br>Far</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -263,15 +257,16 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$21/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
+          <div class="list-row" data-vfs="far" data-vfs-index="1">
             <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Far</div>
+              <img class="leading-image-large vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+              <div class="leading-image-large vfs-placeholder">VFS<br>Far</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -281,15 +276,16 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$37/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
+          <div class="list-row" data-vfs="far" data-vfs-index="2">
             <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Far</div>
+              <img class="leading-image-large vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+              <div class="leading-image-large vfs-placeholder">VFS<br>Far</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -299,31 +295,13 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$24/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
-            <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Far</div>
-            </div>
-            <div class="list-row-content">
-              <div class="list-row-text-pair">
-                <span class="labelBold30">Section 202</span>
-                <span class="labelRegular10 text-secondary">Row D (Seats 1–2)</span>
-              </div>
-            </div>
-            <div class="trailing trailing-gap-sm">
-              <div class="trailing-text-pair">
-                <span class="labelBold20">$25/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        </div></div>
       </div>
 
     </div>
@@ -342,94 +320,15 @@
 
     <div class="demo-split">
 
-      <!-- DESKTOP -->
-      <div>
-        <p class="labelRegular10 text-secondary demo-column-label">Mobile · 329px</p>
-        <div class="inventory-list">
-
-          <div class="list-row">
-            <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Close</div>
-            </div>
-            <div class="list-row-content">
-              <div class="list-row-text-pair">
-                <span class="labelBold30">Section 111</span>
-                <span class="labelRegular10 text-secondary">Row B (Seats 3–11)</span>
-              </div>
-            </div>
-            <div class="trailing trailing-gap-sm">
-              <div class="trailing-text-pair">
-                <span class="labelBold20">$496/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="list-row">
-            <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Close</div>
-            </div>
-            <div class="list-row-content">
-              <div class="list-row-text-pair">
-                <span class="labelBold30">Section 125</span>
-                <span class="labelRegular10 text-secondary">Row J (Seats 1–6)</span>
-              </div>
-            </div>
-            <div class="trailing trailing-gap-sm">
-              <div class="trailing-text-pair">
-                <span class="labelBold20">$356/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="list-row">
-            <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Close</div>
-            </div>
-            <div class="list-row-content">
-              <div class="list-row-text-pair">
-                <span class="labelBold30">Section 103</span>
-                <span class="labelRegular10 text-secondary">Row C (Seats 4–9)</span>
-              </div>
-            </div>
-            <div class="trailing trailing-gap-sm">
-              <div class="trailing-text-pair">
-                <span class="labelBold20">$600/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="list-row">
-            <div class="leading leading-gap-lg">
-              <div class="leading-image-small vfs-img-placeholder">VFS<br>Close</div>
-            </div>
-            <div class="list-row-content">
-              <div class="list-row-text-pair">
-                <span class="labelBold30">Floor 2</span>
-                <span class="labelRegular10 text-secondary">Row 1 (Seats 1–4)</span>
-              </div>
-            </div>
-            <div class="trailing trailing-gap-sm">
-              <div class="trailing-text-pair">
-                <span class="labelBold20">$1,200/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
       <!-- MOBILE -->
       <div>
-        <p class="labelRegular10 text-secondary demo-column-label">Desktop · 592px</p>
-        <div class="inventory-list">
+        <p class="labelRegular10 text-secondary demo-column-label">Mobile · 329px</p>
+        <div class="inventory-card"><div class="inventory-list">
 
-          <div class="list-row">
-            <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Close</div>
+          <div class="list-row" data-vfs="close" data-vfs-index="0">
+            <div class="leading leading-gap-lg">
+              <img class="leading-image-small vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+              <div class="leading-image-small vfs-placeholder">VFS<br>Close</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -439,15 +338,16 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$496/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
-            <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Close</div>
+          <div class="list-row" data-vfs="close" data-vfs-index="1">
+            <div class="leading leading-gap-lg">
+              <img class="leading-image-small vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+              <div class="leading-image-small vfs-placeholder">VFS<br>Close</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -457,15 +357,16 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$356/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
-            <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Close</div>
+          <div class="list-row" data-vfs="close" data-vfs-index="2">
+            <div class="leading leading-gap-lg">
+              <img class="leading-image-small vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+              <div class="leading-image-small vfs-placeholder">VFS<br>Close</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
@@ -475,35 +376,131 @@
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$600/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-          <div class="list-row">
+        </div></div>
+      </div>
+
+      <!-- DESKTOP -->
+      <div>
+        <p class="labelRegular10 text-secondary demo-column-label">Desktop · 592px</p>
+        <div class="inventory-card"><div class="inventory-list">
+
+          <div class="list-row" data-vfs="close" data-vfs-index="0">
             <div class="leading leading-gap-xl">
-              <div class="leading-image-large vfs-img-placeholder">VFS<br>Close</div>
+              <img class="leading-image-large vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+              <div class="leading-image-large vfs-placeholder">VFS<br>Close</div>
             </div>
             <div class="list-row-content">
               <div class="list-row-text-pair">
-                <span class="labelBold30">Floor 2</span>
-                <span class="labelRegular10 text-secondary">Row 1 (Seats 1–4)</span>
+                <span class="labelBold30">Section 111</span>
+                <span class="labelRegular10 text-secondary">Row B (Seats 3–11)</span>
               </div>
             </div>
             <div class="trailing trailing-gap-sm">
               <div class="trailing-text-pair">
-                <span class="labelBold20">$1,200/ea</span>
-                <span class="labelRegular10 text-secondary">Avg. Price</span>
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
               </div>
             </div>
           </div>
 
-        </div>
+          <div class="list-row" data-vfs="close" data-vfs-index="1">
+            <div class="leading leading-gap-xl">
+              <img class="leading-image-large vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+              <div class="leading-image-large vfs-placeholder">VFS<br>Close</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 125</span>
+                <span class="labelRegular10 text-secondary">Row J (Seats 1–6)</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-row" data-vfs="close" data-vfs-index="2">
+            <div class="leading leading-gap-xl">
+              <img class="leading-image-large vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+              <div class="leading-image-large vfs-placeholder">VFS<br>Close</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 103</span>
+                <span class="labelRegular10 text-secondary">Row C (Seats 4–9)</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold20 vfs-price"></span>
+                <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+              </div>
+            </div>
+          </div>
+
+        </div></div>
       </div>
 
     </div>
   </div>
+
+  <script>
+    function switchTheme(teamId) {
+      document.documentElement.setAttribute('data-theme', teamId)
+      loadTeamData(teamId)
+    }
+
+    async function loadTeamData(teamId) {
+      try {
+        const res = await fetch(`/teams/${teamId}.json`)
+        if (!res.ok) return
+        const data = await res.json()
+        updateVfs('far', data.vfsFar)
+        updateVfs('close', data.vfsClose)
+      } catch (e) {
+        console.warn('Could not load team data for', teamId, e)
+      }
+    }
+
+    function updateVfs(type, vfs) {
+      const rows = document.querySelectorAll(`[data-vfs="${type}"]`)
+      rows.forEach(row => {
+        const index = parseInt(row.dataset.vfsIndex, 10)
+        const img = row.querySelector('.vfs-img')
+        const placeholder = row.querySelector('.vfs-placeholder')
+        const priceEl = row.querySelector('.vfs-price')
+        const labelEl = row.querySelector('.vfs-price-label')
+
+        const hasData = vfs && (vfs.images?.length > 0 || vfs.fallback)
+        const imageUrl = hasData ? (vfs.images?.[index] || vfs.fallback || '') : ''
+        const price = hasData ? (vfs.prices[index] || '') : ''
+        const priceLabel = hasData ? (vfs.priceLabel || 'Avg. Price') : 'Avg. Price'
+
+        if (imageUrl) {
+          if (img) { img.src = imageUrl; img.style.display = '' }
+          if (placeholder) placeholder.style.display = 'none'
+        } else {
+          if (img) { img.src = ''; img.style.display = 'none' }
+          if (placeholder) placeholder.style.display = ''
+        }
+
+        if (priceEl) priceEl.textContent = price
+        if (labelEl) labelEl.textContent = priceLabel
+      })
+    }
+
+    // Load initial team on page load
+    loadTeamData(document.documentElement.getAttribute('data-theme'))
+  </script>
 
 </body>
 </html>

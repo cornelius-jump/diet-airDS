@@ -7,8 +7,7 @@
   "venue": null,
   "logos": {
     "primary": "https://cdn.sanity.io/images/tqbbtja5/production/05e3fd930dd0a385f57b93be55f4db7627cbcc36-64x64.svg",
-    "inverted": "",
-    "logomark": ""
+    "logoIcon": ""
   },
   "brandColors": {
     "core": "#266092",
@@ -50,7 +49,33 @@
   },
   "buttonRadius": "8px",
   "displayFont": "Futura Wolves Autocaps",
-  "vfsFar": null,
-  "vfsClose": null,
+  "vfsFar": {
+    "images": [
+      "https://cdn.sanity.io/images/tqbbtja5/production/cf58d24315b709e359f8fe4c4388f1b107325bb0-2048x1024.jpg",
+      "https://cdn.sanity.io/images/tqbbtja5/production/da3664be5364e8c210e390f3125d57cab2f68747-2048x1024.jpg",
+      "https://cdn.sanity.io/images/tqbbtja5/production/b0e3aac2664d10adb119acba0f250c0a6bbff621-2048x1024.jpg"
+    ],
+    "fallback": "",
+    "prices": [
+      "$23.97",
+      "$21.29",
+      "$25.97"
+    ],
+    "priceLabel": "Avg. Price"
+  },
+  "vfsClose": {
+    "images": [
+      "https://cdn.sanity.io/images/tqbbtja5/production/9d755d76de2df565f13a8f577e452722ede77d58-2048x1024.jpg",
+      "https://cdn.sanity.io/images/tqbbtja5/production/fe3a89dc04b55c7fcc5c7ec93a5dc0b1b1afa1e3-2048x1024.jpg",
+      "https://cdn.sanity.io/images/tqbbtja5/production/b9e61526134df7a526a776b964f1fb476f922ab3-2048x1024.jpg"
+    ],
+    "fallback": "",
+    "prices": [
+      "$3360.49",
+      "$1028.97",
+      "$1439.47"
+    ],
+    "priceLabel": "Avg. Price"
+  },
   "urls": {}
 }

@@ -760,7 +760,7 @@
   --bg-nav: var(--org-nav);
   
   /* Borders */
-  --border-default: var(--neutral-300);
+  --border-default: var(--neutral-200);
   --border-hover: var(--neutral-500);
   --border-active: var(--neutral-1000);
   --border-disabled: var(--neutral-200);

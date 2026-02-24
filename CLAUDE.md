@@ -91,8 +91,11 @@ The live URL (`https://diet-air-ds.vercel.app/`) reflects what has been deployed
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+<link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
 <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 ```
+
+**In-repo HTML files** use `<script src="ds-loader.js"></script>` (or `../ds-loader.js` from subdirectories) instead of the individual `<link>` tags above. The loader automatically uses local files on localhost/file:// and the Vercel CDN when deployed.
 
 ### What Each File Does
 
@@ -110,7 +113,8 @@ The live URL (`https://diet-air-ds.vercel.app/`) reflects what has been deployed
 | 10 | `button-components.css` | Button system: 8 types, 3 sizes, icon/circle variants |
 | 11 | `list-row-components.css` | List row system: 3-slot architecture + subcomponents |
 | 12 | `input-components.css` | Text inputs, select dropdowns, all states |
-| 13 | `boilerplate.css` | CSS reset, layout helpers, spacing utilities, grid |
+| 13 | `tag-chip-components.css` | Tag and chip component styles |
+| 14 | `boilerplate.css` | CSS reset, layout helpers, spacing utilities, grid |
 
 ---
 
@@ -136,6 +140,10 @@ diet-airDS/
 ## Local Development & Deployment
 
 **No dev server needed.** This is a static system — open any `.html` file directly in a browser to preview.
+
+### Commit & Deploy Policy
+
+Never suggest `git add`, `git commit`, or `git push`. The user manages all commits and Vercel deployments manually. Edit files and flag what changed — stop there.
 
 ### Deploy workflow
 Edit local files → `git push origin main` → Vercel auto-deploys. Changes to CSS files are live within seconds of deployment.
@@ -504,6 +512,76 @@ A clickable tile wrapper for list rows — used when a list item needs to be sel
 - The list row sits directly inside `.selector` with no extra div.
 - All child text (including `.text-secondary`) automatically inherits the inverted color in selected state.
 
+### Event Row — Buy Flow
+
+Buy-flow card for a single game event. Opposing team logo + event info + offer state. Uses `--bg-surface` background with 16px radius. Text and padding scale up responsively at ≥500px.
+
+**Offer states:**
+
+| State | Top trailing | Bottom section |
+|---|---|---|
+| Featured Only | `btn btn-primary btn-100` price | — |
+| Featured + Others | price button | "X Additional Offers" + `arrow_drop_down` |
+| No Featured Offers | — | "X Offers Available" + `arrow_drop_down` |
+| Sold Out | `labelBold30 text-secondary` "Sold Out" | — |
+| Coming Soon | `labelBold20 text-interactive-tertiary event-row-coming-soon` | — |
+
+**Surface tokens:**
+- `.event-row` background (`--org-surface`) is built into the component CSS — no wrapper surface token needed
+- `surface-section` on any section with interactive content → transparent hover/press overlay over the card background
+- Non-interactive sections: no surface class. No `scale-*`.
+
+| State | `surface-section` on |
+|---|---|
+| Featured Only | `.event-row-top` |
+| Featured + Others | `.event-row-top` + `.event-row-bottom` |
+| No Featured Offers | `.event-row-bottom` only |
+| Sold Out / Coming Soon | neither |
+
+```html
+<!-- Featured and Others (most complete variant) -->
+<div class="event-row">
+  <div class="event-row-top surface-section">
+    <div class="list-row">
+      <div class="leading leading-gap-sm">
+        <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+      </div>
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="event-row-label">Portland Marmots</span>
+          <span class="event-row-sublabel text-secondary">Tuesday, Oct 8 · 7 PM</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-lg">
+        <button class="btn btn-primary btn-100">$19+</button>
+      </div>
+    </div>
+  </div>
+  <div class="event-row-bottom surface-section">
+    <div class="list-row">
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="labelBold30 text-interactive-tertiary">3 Additional Offers</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-xs">
+        <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- List container -->
+<div class="event-row-list">
+  <div class="event-row">...</div>
+</div>
+```
+
+**Logo:** 48×48, `object-fit: contain`. Source: `opposingTeam.logo.asset->url` from Sanity.
+**Not-tappable states:** add `.not-tappable` to `.list-row` for Sold Out, Coming Soon, and No Featured Offers top sections.
+
+Demo: `examples/event-row-demo.html`
+
 ### Input Fields
 
 ```html
@@ -542,6 +620,68 @@ A clickable tile wrapper for list rows — used when a list item needs to be sel
 
 **Select dropdowns use `arrow_drop_down` icon, NOT `expand_more`.**
 
+### Tile — Universal Small Card
+
+The recommended pattern for any small card displayed alongside others. Use for event listings, product grids, schedules, and content feeds. Use `card-closed` / `card-open` for full-width or single-column cards.
+
+**Placement contexts:**
+- **Grid** (desktop/tablet): `card-grid` with column modifiers
+- **Carousel** (mobile-first): horizontal scroll row — tiles in a carousel must all share the same interaction pattern (all tap targets or all with buttons — never mixed)
+- **Inside `card-open`**: tiles as content within a larger open-layout card
+
+**⚠️ Interactivity rule — pick one, never both, never mixed in a grid/carousel:**
+- No button → tile is the tap target: add `surface-card scale-700` to `.tile`
+- Has button → button is the CTA: `.tile` has no surface/scale classes
+
+```html
+<!-- No button — tile is the tap target -->
+<div class="tile surface-card scale-700">
+  <div style="height: 120px;">
+    <div class="matchup">
+      <div class="matchup-panel" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};">
+        <img src="${away.logoUrl}" alt="${away.name}">
+      </div>
+      <div class="matchup-panel">
+        <img src="home-logo.svg" alt="Home Team">
+      </div>
+    </div>
+  </div>
+  <div class="tile-info">
+    <div class="card-text-pair">
+      <span class="labelBold30">vs. Away Team</span>
+      <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+    </div>
+    <span class="labelBold20 text-success">From $45</span>
+  </div>
+</div>
+
+<!-- Has button — button is the CTA -->
+<div class="tile">
+  <div style="height: 120px;">...</div>
+  <div class="tile-info">
+    <div class="card-text-pair">...</div>
+    <span class="labelBold20 text-success">From $45</span>
+    <button class="btn btn-primary btn-100">Buy Tickets</button>
+  </div>
+</div>
+
+<!-- Grid -->
+<div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+  <div class="tile surface-card scale-700">...</div>
+  <div class="tile surface-card scale-700">...</div>
+</div>
+
+<!-- Carousel -->
+<div style="display: flex; gap: var(--spacing-card); overflow-x: auto;">
+  <div class="tile surface-card scale-700" style="min-width: 200px; flex-shrink: 0;">...</div>
+</div>
+```
+
+**Optional elements inside `.tile-info`:**
+- `<span class="labelBold20 text-success">From $45</span>` — price
+- `<button class="btn btn-primary btn-100">...</button>` — CTA (determines interactivity)
+- `.tile-tag` — frosted glass label absolutely positioned top-left over the visual header
+
 ### Cards
 
 ```html
@@ -575,18 +715,20 @@ Before writing any custom CSS, check this list in order:
 1. Button → `.btn` + type + size. **Stop.**
 2. List row → `.list-row` 3-slot structure. **Stop.**
 3. Selectable list row → `.selector.surface-washNeutral.scale-700` wrapping `.list-row`. **Stop.**
-4. Text input → `.input-field` structure. **Stop.**
-5. Select dropdown → `.input-field.input-select` structure. **Stop.**
-6. Tag/chip → `.tag` + modifiers. **Stop.**
-7. Switch → `.switch > input + label`. **Stop.**
-8. Card → `.card-closed` / `.card-open` / `.card-interactive`. **Stop.**
-9. Typography → text style class (`.labelBold30`, `.title50`, etc.). **Stop.**
-10. Spacing → spacing token (`var(--spacing-200)`) or utility (`.mb-200`). **Stop.**
-11. Interactive surface → `.surface-*` + `.scale-*`. **Stop.**
-12. None of the above → minimal custom CSS using tokens only.
+4. Buy-flow event card → `.event-row` + `.event-row-top` + optional `.event-row-bottom`. **Stop.**
+5. Small card in a grid, carousel, or open card → `.tile` + interactivity rule. **Stop.**
+6. Text input → `.input-field` structure. **Stop.**
+7. Select dropdown → `.input-field.input-select` structure. **Stop.**
+8. Tag/chip → `.tag` + modifiers. **Stop.**
+9. Switch → `.switch > input + label`. **Stop.**
+10. Card → `.card-closed` / `.card-open` / `.card-interactive`. **Stop.**
+11. Typography → text style class (`.labelBold30`, `.title50`, etc.). **Stop.**
+12. Spacing → spacing token (`var(--spacing-200)`) or utility (`.mb-200`). **Stop.**
+13. Interactive surface → `.surface-*` + `.scale-*`. **Stop.**
+14. None of the above → minimal custom CSS using tokens only.
 
 **Never:**
-- Write custom CSS for any component in steps 1–11
+- Write custom CSS for any component in steps 1–12
 - Hardcode any color (`#`, `rgb()`, `hsl()`)
 - Hardcode spacing in `px`, `em`, or `rem`
 - Set `font-size`, `font-weight`, or `line-height` manually
@@ -598,6 +740,36 @@ Before writing any custom CSS, check this list in order:
 ---
 
 ## Critical Gotchas — Read Before Writing Any CSS
+
+### 0. Multi-Section Cards: Use `surface-section` for Interactive Sections
+
+When a card has sections (e.g. `.event-row-top` / `.event-row-bottom`), the card background is built into the component CSS — no surface token on the wrapper. Interactive sections get `surface-section`, which provides a transparent hover/press overlay. Its `:active` state is scoped to `> *` (direct child only), so pressing one section never bleeds into adjacent sections.
+
+- **`.event-row`** — no surface class needed; `background: var(--org-surface)` is intrinsic to the CSS
+- **`surface-section`** on each interactive section → transparent at rest, `--white-100` hover, `--black-300` press + 60% child opacity
+- Non-interactive sections → no surface class
+- **No `scale-*`** — scale on only part of a card unit creates inconsistent motion
+
+```html
+<!-- ❌ WRONG — surface-card on sections changes background color on hover,
+     and scale on one section of a card unit looks wrong -->
+<div class="event-row">
+  <div class="event-row-top surface-card scale-700">...</div>
+  <div class="event-row-bottom surface-card scale-700">...</div>
+</div>
+
+<!-- ✅ CORRECT — background intrinsic to .event-row CSS; surface-section on interactive sections -->
+<div class="event-row">
+  <div class="event-row-top surface-section">...</div>    <!-- interactive -->
+  <div class="event-row-bottom surface-section">...</div> <!-- interactive -->
+</div>
+
+<!-- ✅ CORRECT — non-interactive sections get no surface class -->
+<div class="event-row">
+  <div class="event-row-top">...</div>                    <!-- not interactive -->
+  <div class="event-row-bottom surface-section">...</div> <!-- interactive -->
+</div>
+```
 
 ### 1. Surface Tokens vs. Text Style Classes (Most Common Bug)
 
@@ -819,6 +991,8 @@ When outputting documentation intended for Confluence, follow the syntax and for
 | List item with slots | `.list-row` + 3-slot architecture |
 | Selectable list item (on `--bg-surface`) | `.selector.surface-washNeutral.scale-700` wrapping `.list-row` |
 | Selectable list item (on `--bg-base`) | `.selector.surface-card.scale-700` wrapping `.list-row` |
+| Buy-flow event card (single game) | `.event-row` + `.event-row-top` + optional `.event-row-bottom` |
+| Small card in grid / carousel / open card | `.tile` — no button → `surface-card scale-700`; has button → no surface/scale |
 | Text input or select | `.input-field` system |
 | Clickable card | `.card .card-interactive .scale-700` |
 | Clickable non-button surface | `.surface-[type] .scale-[size]` + `color: inherit` on children |

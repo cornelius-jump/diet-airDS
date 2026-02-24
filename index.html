@@ -10,21 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 
-  <!-- Design System CSS Files (correct load order) -->
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/design-tokens-master.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/spacing-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/container-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/border-effects-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/fonts.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/text-styles-system.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/icons.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/card-components.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/interactive-tokens.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
-  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
+  <!-- Design System CSS — local on localhost/file://, CDN when deployed -->
+  <script src="ds-loader.js"></script>
 
   <style>
     /* ---- Universal Top Nav ---- */
@@ -215,7 +202,7 @@
   </a>
   <nav class="org-nav-links">
     <a href="/index.html" class="chip surface-borderNeutral scale-300 chip-team-color">Getting Started</a>
-    <a href="/walkthrough.html" class="chip surface-ghost scale-300">Tokens & Styles</a>
+    <a href="/documentation.html" class="chip surface-ghost scale-300">Documentation</a>
     <a href="/examples/index.html" class="chip surface-ghost scale-300">Examples</a>
   </nav>
   <div class="org-nav-controls">
@@ -292,7 +279,7 @@
       <p class="labelRegular40 text-secondary">Prompt Library — Build with AI using real design tokens</p>
     </div>
     <p class="bodyRegular30 text-primary doc-prose">
-      A pure CSS design system built for fast AI-assisted prototyping. Pick a team, copy the prompt, and paste it into Claude, ChatGPT, or any AI code generator. <a href="/walkthrough.html">See all tokens and components →</a>
+      A pure CSS design system built for fast AI-assisted prototyping. Pick a team, copy the prompt, and paste it into Claude, ChatGPT, or any AI code generator. <a href="/documentation.html">See all tokens and components →</a>
     </p>
   </div>
 

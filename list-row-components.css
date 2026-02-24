@@ -746,3 +746,224 @@
   pointer-events: none;
   cursor: default;
 }
+
+
+/* ============================================
+   EVENT ROW LOGO
+   ============================================
+   48×48 opposing team logo for buy-flow event rows.
+   Logos are SVGs from Sanity (opposingTeam.logo.asset->url)
+   with internal padding — always use object-fit: contain.
+
+   Usage:
+     <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+   ============================================ */
+
+.event-row-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+/* ============================================
+   EVENT ROW
+   ============================================
+   Buy-flow card for a single game event.
+   Opposing team logo + event info + offer state.
+
+   Structure:
+     .event-row                     → structural wrapper only (16px radius, no background)
+     .event-row-top                 → always present; logo, text, trailing action
+     .event-row-bottom (optional)   → offer summary link; include when offers exist
+
+   Interactive surface:
+     .event-row has background built in (--org-surface). No surface class needed on wrapper.
+     Add surface-section to any section that is interactive. Non-interactive sections get none.
+     No scale — only one section of the card unit is interactive at a time.
+
+     Featured Only:       .event-row-top surface-section   ← tappable (buy)
+     Featured + Others:   .event-row-top surface-section   ← tappable (buy)
+                          .event-row-bottom surface-section ← tappable (more offers)
+     No Featured Offers:  .event-row-top                   ← NOT interactive
+                          .event-row-bottom surface-section ← tappable (offers)
+     Sold Out / Coming Soon: no surface-section anywhere
+
+   Offer states (trailing content varies):
+     Featured Only       → .btn.btn-primary.btn-100 trailing (one offer price)
+     Featured + Others   → button top + .event-row-bottom with offer count
+     No Featured Offers  → no trailing top + .event-row-bottom with offer count
+     Sold Out            → "Sold Out" text trailing (.text-secondary)
+     Coming Soon         → "Coming Soon" text trailing (.event-row-coming-soon)
+
+   Label/sublabel scale up at ≥500px:
+     Mobile:   event-row-label = labelBold30 (16px/600)
+     Tablet+:  event-row-label = title50 (20px/700)
+
+   Padding:
+     Mobile:   top p-16px, bottom px-16px py-12px
+     Tablet+:  both px-24px py-16px
+
+   Data binding (Sanity):
+     logo  → opposingTeam.logo.asset->url
+     label → opposingTeam.name (or shortName)
+     date  → event.date formatted as "Day, Mon D · H PM"
+
+   Usage:
+     <!-- Featured Only — surface-card on wrapper, surface-ghost on interactive section -->
+     <div class="event-row surface-card">
+       <div class="event-row-top surface-ghost">
+         <div class="list-row">
+           <div class="leading leading-gap-sm">
+             <img class="event-row-logo" src="{logoUrl}" alt="{name}">
+           </div>
+           <div class="list-row-content">
+             <div class="list-row-text-pair">
+               <span class="event-row-label">Portland Marmots</span>
+               <span class="event-row-sublabel text-secondary">Tuesday, Oct 8 · 7 PM</span>
+             </div>
+           </div>
+           <div class="trailing trailing-gap-lg">
+             <button class="btn btn-primary btn-100">$19+</button>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <!-- Featured and Others — ghost on each interactive section -->
+     <div class="event-row surface-card">
+       <div class="event-row-top surface-ghost">
+         <div class="list-row">...logo + text + button...</div>
+       </div>
+       <div class="event-row-bottom surface-ghost">
+         <div class="list-row">
+           <div class="list-row-content">
+             <div class="list-row-text-pair">
+               <span class="labelBold30 text-interactive-tertiary">3 Additional Offers</span>
+             </div>
+           </div>
+           <div class="trailing trailing-gap-xs">
+             <span class="icon material-symbols-rounded">arrow_drop_down</span>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <!-- No Featured Offers — top NOT interactive (no ghost), bottom has ghost -->
+     <div class="event-row surface-card">
+       <div class="event-row-top">
+         <div class="list-row not-tappable">...logo + text...</div>
+       </div>
+       <div class="event-row-bottom surface-ghost">
+         <div class="list-row">...<span>3 Offers Available</span>...</div>
+       </div>
+     </div>
+
+     <!-- Sold Out / Coming Soon — no interactive sections, no ghost -->
+     <!-- Trailing: <span class="labelBold30 text-secondary">Sold Out</span> -->
+     <!-- Trailing: <span class="labelBold20 text-interactive-tertiary event-row-coming-soon">Coming Soon</span> -->
+     <div class="event-row surface-card">
+       <div class="event-row-top">
+         <div class="list-row not-tappable">...</div>
+       </div>
+     </div>
+   ============================================ */
+
+.event-row {
+  background: var(--org-surface); /* card background — intrinsic, not a modifier */
+  border-radius: var(--border-radius-200); /* 16px */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.event-row-top {
+  padding: var(--spacing-200); /* 16px */
+}
+
+.event-row-bottom {
+  padding: var(--spacing-150) var(--spacing-200); /* 12px 16px */
+  border-top: 0.33px solid var(--border-default);
+}
+
+@media (min-width: 500px) {
+  .event-row-top,
+  .event-row-bottom {
+    padding: var(--spacing-200) var(--spacing-300); /* 16px 24px */
+  }
+}
+
+/* Responsive label: labelBold30 (mobile) → title50 (tablet/desktop) */
+.event-row-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.21;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+@media (min-width: 500px) {
+  .event-row-label {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+}
+
+/* Responsive sublabel: labelRegular10 (mobile) → labelRegular20 (tablet/desktop) */
+.event-row-sublabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.21;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 500px) {
+  .event-row-sublabel {
+    font-size: 14px;
+  }
+}
+
+/* Coming Soon — right-aligned, wraps to two lines on narrow screens */
+.event-row-coming-soon {
+  text-align: right;
+  white-space: normal;
+  max-width: var(--spacing-800); /* 64px */
+}
+
+
+/* ============================================
+   EVENT ROW LIST
+   ============================================
+   Container that stacks event rows with 8px gap
+   and responsive max-width constraints.
+
+   Phone (<500px):  max-width 499px, 16px padding
+   Tablet/Desktop:  max-width 672px, 16px padding
+
+   Usage:
+     <div class="event-row-list">
+       <div class="event-row">...</div>
+       <div class="event-row">...</div>
+     </div>
+   ============================================ */
+
+.event-row-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100); /* 8px */
+  padding: var(--spacing-200); /* 16px */
+  width: 100%;
+  max-width: 499px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 500px) {
+  .event-row-list {
+    max-width: 672px;
+  }
+}

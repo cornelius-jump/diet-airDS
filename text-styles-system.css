@@ -383,6 +383,10 @@
   color: var(--color-inverted) !important;
 }
 
+.text-interactive-tertiary {
+  color: var(--interactive-tertiary-text) !important;
+}
+
 .text-inverted {
   color: var(--inverted-1000) !important;
 }

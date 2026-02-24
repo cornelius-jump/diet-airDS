@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="jump" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Row — Buy Flow Demo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <script src="../ds-loader.js"></script>
+
+  <style>
+    body {
+      min-height: 100vh;
+      background: var(--bg-base);
+      color: var(--text-primary);
+    }
+
+    /* Page layout */
+    .page-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--spacing-400) var(--spacing-300);
+    }
+
+    /* Controls bar */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-100);
+      margin-bottom: var(--spacing-400);
+      align-items: center;
+    }
+
+    .controls label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: var(--spacing-50);
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-50);
+    }
+
+    /* Section headers */
+    .section-title {
+      margin: var(--spacing-500) 0 var(--spacing-200);
+    }
+    .section-title:first-of-type {
+      margin-top: 0;
+    }
+
+    /* Callout box */
+    .callout {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-100);
+      padding: var(--spacing-200) var(--spacing-300);
+      margin-bottom: var(--spacing-300);
+    }
+    .callout p {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .callout p + p { margin-top: var(--spacing-100); }
+    .callout code {
+      font-family: monospace;
+      font-size: 12px;
+      background: var(--neutral-100);
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: var(--text-primary);
+    }
+
+    /* State label above each row */
+    .state-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--spacing-100);
+    }
+    .state-group {
+      margin-bottom: var(--spacing-300);
+    }
+
+    /* Placeholder logos — colored circles with initials */
+    .logo-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-content">
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-group">
+      <label>Theme</label>
+      <button class="btn btn-secondary btn-100" onclick="setTheme('wolves')">Wolves</button>
+      <button class="btn btn-secondary btn-100" onclick="setTheme('jump')">Jump</button>
+      <button class="btn btn-secondary btn-100" onclick="setTheme('courage')">Courage</button>
+      <button class="btn btn-secondary btn-100" onclick="setTheme('athletics')">Athletics</button>
+      <button class="btn btn-secondary btn-100" onclick="setTheme('bucknell')">Bucknell</button>
+    </div>
+    <div class="control-group">
+      <label>Mode</label>
+      <button class="btn btn-secondary btn-100" onclick="setMode('light')">Light</button>
+      <button class="btn btn-secondary btn-100" onclick="setMode('dark')">Dark</button>
+    </div>
+  </div>
+
+  <!-- Context callout -->
+  <div class="callout">
+    <p>
+      <strong>Event Row</strong> — Buy-flow card for a single game. Opposing team logo, event date/time, and the active offer state.
+      Logos come from <code>opposingTeam.logo.asset->url</code> in Sanity.
+      Text scales up at ≥500px: <code>labelBold30 → title50</code>, <code>labelRegular10 → labelRegular20</code>.
+    </p>
+    <p>
+      Resize the window to see the responsive text and padding change at 500px.
+    </p>
+  </div>
+
+
+  <!-- ─── All Five Offer States ─── -->
+  <h2 class="title50 section-title">All Offer States</h2>
+
+  <div id="event-rows-all-states" class="event-row-list" style="max-width: 100%; padding: 0;">
+
+    <!-- 1. Featured Only — one price available -->
+    <div class="state-group">
+      <p class="state-label">Featured Only</p>
+      <div class="event-row">
+        <div class="event-row-top surface-section">
+          <div class="list-row">
+            <div class="leading leading-gap-sm">
+              <div class="logo-placeholder" style="background: #c8102e;" aria-hidden="true">PM</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="event-row-label">Portland Marmots</span>
+                <span class="event-row-sublabel text-secondary">Tuesday, Oct 8 · 7 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-lg">
+              <button class="btn btn-primary btn-100">$19+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Featured and Others — featured price + more offers below -->
+    <div class="state-group">
+      <p class="state-label">Featured and Others</p>
+      <div class="event-row">
+        <div class="event-row-top surface-section">
+          <div class="list-row">
+            <div class="leading leading-gap-sm">
+              <div class="logo-placeholder" style="background: #00843d;" aria-hidden="true">CB</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="event-row-label">Charlotte Bullfrogs</span>
+                <span class="event-row-sublabel text-secondary">Thursday, Oct 10 · 7 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-lg">
+              <button class="btn btn-primary btn-100">$21+</button>
+            </div>
+          </div>
+        </div>
+        <div class="event-row-bottom surface-section">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30 text-interactive-tertiary">3 Additional Offers</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-xs">
+              <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. No Featured Offers — only generic offers, no highlighted price -->
+    <div class="state-group">
+      <p class="state-label">No Featured Offers</p>
+      <div class="event-row">
+        <div class="event-row-top">
+          <div class="list-row not-tappable">
+            <div class="leading leading-gap-sm">
+              <div class="logo-placeholder" style="background: #512888;" aria-hidden="true">MG</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="event-row-label">Miami Geckos</span>
+                <span class="event-row-sublabel text-secondary">Wednesday, Oct 16 · 7 PM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="event-row-bottom surface-section">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30 text-interactive-tertiary">3 Offers Available</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-xs">
+              <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Sold Out -->
+    <div class="state-group">
+      <p class="state-label">Sold Out</p>
+      <div class="event-row">
+        <div class="event-row-top">
+          <div class="list-row not-tappable">
+            <div class="leading leading-gap-sm">
+              <div class="logo-placeholder" style="background: #e87722;" aria-hidden="true">OO</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="event-row-label">Omaha Otters</span>
+                <span class="event-row-sublabel text-secondary">Tuesday, Oct 22 · 7 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <span class="labelBold30 text-secondary">Sold Out</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Coming Soon -->
+    <div class="state-group">
+      <p class="state-label">Coming Soon</p>
+      <div class="event-row">
+        <div class="event-row-top">
+          <div class="list-row not-tappable">
+            <div class="leading leading-gap-sm">
+              <div class="logo-placeholder" style="background: #c8102e;" aria-hidden="true">PM</div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="event-row-label">Portland Marmots</span>
+                <span class="event-row-sublabel text-secondary">Saturday, Oct 26 · 7 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <span class="labelBold20 text-interactive-tertiary event-row-coming-soon">Coming Soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ─── In-Context List (matches Figma Buy List - Single Game) ─── -->
+  <h2 class="title50 section-title">In Context — Buy List, Single Game</h2>
+
+  <p class="labelRegular20 text-secondary mb-300">
+    A full list as it appears in the buy flow. Max-width 499px (phone) or 672px (tablet+). Gap 8px between rows.
+  </p>
+
+  <div id="event-rows-context" class="event-row-list">
+
+    <!-- Featured + Others -->
+    <div class="event-row">
+      <div class="event-row-top surface-section">
+        <div class="list-row">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #c8102e;" aria-hidden="true">PM</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Portland Marmots</span>
+              <span class="event-row-sublabel text-secondary">Tuesday, Oct 8 · 7 PM</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-lg">
+            <button class="btn btn-primary btn-100">$19+</button>
+          </div>
+        </div>
+      </div>
+      <div class="event-row-bottom surface-section">
+        <div class="list-row">
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30 text-interactive-tertiary">3 Additional Offers</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-xs">
+            <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Only -->
+    <div class="event-row">
+      <div class="event-row-top surface-section">
+        <div class="list-row">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #00843d;" aria-hidden="true">CB</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Charlotte Bullfrogs</span>
+              <span class="event-row-sublabel text-secondary">Thursday, Oct 10 · 7 PM</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-lg">
+            <button class="btn btn-primary btn-100">$21+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured Only -->
+    <div class="event-row">
+      <div class="event-row-top surface-section">
+        <div class="list-row">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #512888;" aria-hidden="true">MG</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Miami Geckos</span>
+              <span class="event-row-sublabel text-secondary">Wednesday, Oct 16 · 7 PM</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-lg">
+            <button class="btn btn-primary btn-100">$18+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sold Out -->
+    <div class="event-row">
+      <div class="event-row-top">
+        <div class="list-row not-tappable">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #e87722;" aria-hidden="true">OO</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Omaha Otters</span>
+              <span class="event-row-sublabel text-secondary">Tuesday, Oct 22 · 7 PM</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <span class="labelBold30 text-secondary">Sold Out</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Featured Offers — has bottom offers link -->
+    <div class="event-row">
+      <div class="event-row-top">
+        <div class="list-row not-tappable">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #c8102e;" aria-hidden="true">PM</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Portland Marmots</span>
+              <span class="event-row-sublabel text-secondary">Saturday, Oct 26 · 7 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="event-row-bottom surface-section">
+        <div class="list-row">
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30 text-interactive-tertiary">3 Offers Available</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-xs">
+            <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Featured + Others -->
+    <div class="event-row">
+      <div class="event-row-top surface-section">
+        <div class="list-row">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #512888;" aria-hidden="true">MG</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Miami Geckos</span>
+              <span class="event-row-sublabel text-secondary">Wednesday, Oct 30 · 7 PM</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-lg">
+            <button class="btn btn-primary btn-100">$24+</button>
+          </div>
+        </div>
+      </div>
+      <div class="event-row-bottom surface-section">
+        <div class="list-row">
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30 text-interactive-tertiary">3 Additional Offers</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-xs">
+            <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coming Soon -->
+    <div class="event-row">
+      <div class="event-row-top">
+        <div class="list-row not-tappable">
+          <div class="leading leading-gap-sm">
+            <div class="logo-placeholder" style="background: #e87722;" aria-hidden="true">OO</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="event-row-label">Omaha Otters</span>
+              <span class="event-row-sublabel text-secondary">Monday, Nov 4 · 7 PM</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <span class="labelBold20 text-interactive-tertiary event-row-coming-soon">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ─── CMS Data Notes ─── -->
+  <h2 class="title50 section-title">CMS Data Binding</h2>
+
+  <div class="callout">
+    <p><strong>Logo:</strong> <code>opposingTeam.logo.asset->url</code> — always SVG, always use <code>object-fit: contain</code>. The SVG includes internal padding; the visual mark fills ~70–80% of the 48×48 container.</p>
+    <p><strong>Label:</strong> <code>opposingTeam.name</code> (full name, e.g. "Portland Marmots") or <code>opposingTeam.shortName</code> for compact contexts.</p>
+    <p><strong>Date/time sublabel:</strong> Format as <code>Day, Mon D · H PM</code>. The interpunct (·) is U+00B7.</p>
+    <p><strong>Button price:</strong> Featured offer starting price formatted as <code>$N+</code>. Hide button and show offer state text for Sold Out / Coming Soon.</p>
+    <p><strong>Offer count:</strong> Number of offers in the ticket inventory for this event. "X Additional Offers" when a featured price is shown; "X Offers Available" when no featured price.</p>
+  </div>
+
+</div>
+
+<script>
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  function setMode(mode) {
+    document.documentElement.setAttribute('data-mode', mode);
+  }
+
+  // ── Sanity opposing teams fetch ──────────────────────────────────────────
+
+  const ALL_STATES = [
+    { label: 'Featured Only',      type: 'featured-only',   date: 'Tue, Oct 8 · 7 PM',  price: '$19+' },
+    { label: 'Featured and Others',type: 'featured-others', date: 'Thu, Oct 10 · 7 PM', price: '$21+', additionalOffers: 3 },
+    { label: 'No Featured Offers', type: 'no-featured',     date: 'Wed, Oct 16 · 7 PM', offersAvailable: 3 },
+    { label: 'Sold Out',           type: 'sold-out',        date: 'Tue, Oct 22 · 7 PM' },
+    { label: 'Coming Soon',        type: 'coming-soon',     date: 'Sat, Oct 26 · 7 PM' },
+  ]
+
+  const CONTEXT_STATES = [
+    { type: 'featured-others', date: 'Tue, Oct 8 · 7 PM',  price: '$19+', additionalOffers: 3 },
+    { type: 'featured-only',   date: 'Thu, Oct 10 · 7 PM', price: '$21+' },
+    { type: 'featured-only',   date: 'Wed, Oct 16 · 7 PM', price: '$18+' },
+    { type: 'sold-out',        date: 'Tue, Oct 22 · 7 PM' },
+    { type: 'no-featured',     date: 'Sat, Oct 26 · 7 PM', offersAvailable: 3 },
+    { type: 'featured-others', date: 'Wed, Oct 30 · 7 PM', price: '$24+', additionalOffers: 3 },
+    { type: 'coming-soon',     date: 'Mon, Nov 4 · 7 PM' },
+  ]
+
+  function buildLogo(team) {
+    if (team.logoUrl) return `<img class="event-row-logo" src="${team.logoUrl}" alt="${team.name}">`
+    const ini = team.name.split(' ').slice(0, 2).map(w => w[0]).join('')
+    return `<div class="logo-placeholder" style="background:#888;">${ini}</div>`
+  }
+
+  function buildRow(team, state) {
+    const topInteractive = state.type === 'featured-only' || state.type === 'featured-others'
+    const topSurface = topInteractive ? 'surface-section' : ''
+    const rowCls = topInteractive ? 'list-row' : 'list-row not-tappable'
+    const trailing = state.type === 'featured-only' || state.type === 'featured-others'
+      ? `<div class="trailing trailing-gap-lg"><button class="btn btn-primary btn-100">${state.price}</button></div>`
+      : state.type === 'sold-out'
+      ? `<div class="trailing trailing-gap-sm"><span class="labelBold30 text-secondary">Sold Out</span></div>`
+      : state.type === 'coming-soon'
+      ? `<div class="trailing trailing-gap-sm"><span class="labelBold20 text-interactive-tertiary event-row-coming-soon">Coming Soon</span></div>`
+      : ''
+    const bottom = state.type === 'featured-others'
+      ? `<div class="event-row-bottom surface-section"><div class="list-row"><div class="list-row-content"><div class="list-row-text-pair"><span class="labelBold30 text-interactive-tertiary">${state.additionalOffers} Additional Offers</span></div></div><div class="trailing trailing-gap-xs"><span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span></div></div></div>`
+      : state.type === 'no-featured'
+      ? `<div class="event-row-bottom surface-section"><div class="list-row"><div class="list-row-content"><div class="list-row-text-pair"><span class="labelBold30 text-interactive-tertiary">${state.offersAvailable} Offers Available</span></div></div><div class="trailing trailing-gap-xs"><span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span></div></div></div>`
+      : ''
+    return `<div class="event-row">
+      <div class="event-row-top ${topSurface}">
+        <div class="${rowCls}">
+          <div class="leading leading-gap-sm">${buildLogo(team)}</div>
+          <div class="list-row-content"><div class="list-row-text-pair">
+            <span class="event-row-label">${team.name}</span>
+            <span class="event-row-sublabel text-secondary">${state.date}</span>
+          </div></div>
+          ${trailing}
+        </div>
+      </div>
+      ${bottom}
+    </div>`
+  }
+
+  async function loadFromSanity() {
+    try {
+      const q = encodeURIComponent(`*[_type == "opposingTeam" && defined(logo.asset)][0...8]{name, shortName, "logoUrl": logo.asset->url}`)
+      const res = await fetch(`https://tqbbtja5.apicdn.sanity.io/v2024-01-01/data/query/production?query=${q}`)
+      const { result = [] } = await res.json()
+      if (result.length < 5) return
+
+      const allStatesEl = document.getElementById('event-rows-all-states')
+      if (allStatesEl) {
+        allStatesEl.innerHTML = ALL_STATES.map((state, i) => {
+          const label = state.label ? `<div class="state-group"><p class="state-label">${state.label}</p>${buildRow(result[i], state)}</div>` : buildRow(result[i], state)
+          return label
+        }).join('')
+      }
+
+      const contextEl = document.getElementById('event-rows-context')
+      if (contextEl && result.length >= 7) {
+        contextEl.innerHTML = CONTEXT_STATES.map((state, i) => buildRow(result[i % result.length], state)).join('')
+      }
+    } catch (_) {}
+  }
+
+  loadFromSanity()
+</script>
+
+</body>
+</html>

@@ -57,7 +57,7 @@
     linear-gradient(var(--black-500), var(--black-500)),
     linear-gradient(var(--neutral-1000), var(--neutral-1000));
 }
-.surface-fillNeutral:active * { opacity: 0.6; }
+.surface-fillNeutral:active > * { opacity: 0.6; }
 
 
 /* --- Fill - Color ---
@@ -82,7 +82,7 @@
     linear-gradient(var(--black-300), var(--black-300)),
     linear-gradient(var(--brand-core), var(--brand-core));
 }
-.surface-fillColor:active * { opacity: 0.6; }
+.surface-fillColor:active > * { opacity: 0.6; }
 
 
 /* --- Fill - Inverted ---
@@ -107,7 +107,7 @@
     linear-gradient(var(--black-500), var(--black-500)),
     linear-gradient(var(--inverted-1000), var(--inverted-1000));
 }
-.surface-fillInverted:active * { opacity: 0.6; }
+.surface-fillInverted:active > * { opacity: 0.6; }
 
 
 /* --- Fill - Black ---
@@ -130,7 +130,7 @@
 .surface-fillBlack:active {
   background: var(--black-1000);
 }
-.surface-fillBlack:active * { opacity: 0.6; }
+.surface-fillBlack:active > * { opacity: 0.6; }
 
 
 /* --- Fill - White ---
@@ -155,7 +155,7 @@
     linear-gradient(var(--black-500), var(--black-500)),
     linear-gradient(var(--white-1000), var(--white-1000));
 }
-.surface-fillWhite:active * { opacity: 0.6; }
+.surface-fillWhite:active > * { opacity: 0.6; }
 
 
 /* --- Border - Neutral ---
@@ -182,7 +182,7 @@
     linear-gradient(var(--neutral-000), var(--neutral-000));
   border-color: var(--neutral-200);
 }
-.surface-borderNeutral:active * { opacity: 0.6; }
+.surface-borderNeutral:active > * { opacity: 0.6; }
 
 
 /* --- Border - Inverted ---
@@ -209,7 +209,7 @@
     linear-gradient(var(--neutral-000), var(--neutral-000));
   border-color: var(--inverted-200);
 }
-.surface-borderInverted:active * { opacity: 0.6; }
+.surface-borderInverted:active > * { opacity: 0.6; }
 
 
 /* --- Border - Black ---
@@ -236,7 +236,7 @@
     linear-gradient(var(--neutral-000), var(--neutral-000));
   border-color: var(--black-200);
 }
-.surface-borderBlack:active * { opacity: 0.6; }
+.surface-borderBlack:active > * { opacity: 0.6; }
 
 
 /* --- Border - White ---
@@ -263,7 +263,7 @@
     linear-gradient(var(--neutral-000), var(--neutral-000));
   border-color: var(--white-200);
 }
-.surface-borderWhite:active * { opacity: 0.6; }
+.surface-borderWhite:active > * { opacity: 0.6; }
 
 
 /* --- Wash - Neutral ---
@@ -288,7 +288,7 @@
     linear-gradient(var(--black-300), var(--black-300)),
     linear-gradient(var(--neutral-100), var(--neutral-100));
 }
-.surface-washNeutral:active * { opacity: 0.6; }
+.surface-washNeutral:active > * { opacity: 0.6; }
 
 
 /* --- Ghost ---
@@ -313,7 +313,7 @@
     linear-gradient(var(--black-300), var(--black-300)),
     linear-gradient(var(--neutral-000), var(--neutral-000));
 }
-.surface-ghost:active * { opacity: 0.6; }
+.surface-ghost:active > * { opacity: 0.6; }
 
 
 /* --- Card ---
@@ -338,7 +338,31 @@
     linear-gradient(var(--black-300), var(--black-300)),
     linear-gradient(var(--org-surface), var(--org-surface));
 }
-.surface-card:active * { opacity: 0.6; }
+.surface-card:active > * { opacity: 0.6; }
+
+
+/* --- Section (interactive section inside a multi-section card) ---
+   Default:  transparent — inherits the parent card's background
+   Hover:    white-100 overlay — same intensity as surface-card hover
+   Pressed:  black-300 overlay, 60% direct-child opacity
+   No scale — only one section of the card unit is interactive at a time.
+   Apply to .event-row-top / .event-row-bottom (and similar) when interactive.
+   Non-interactive sections get no surface class.
+   -------------------------------------------- */
+.surface-section {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  transition: background 120ms ease;
+  cursor: pointer;
+}
+.surface-section:hover {
+  background: linear-gradient(var(--white-100), var(--white-100));
+}
+.surface-section:active {
+  background: linear-gradient(var(--black-300), var(--black-300));
+}
+.surface-section:active > * { opacity: 0.6; }
 
 
 /* ============================================

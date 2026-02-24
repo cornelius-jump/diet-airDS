@@ -251,8 +251,8 @@ function generateCssBlock(teamId, teamName, colors, buttonRadius, displayFont) {
   --org-primary-button-text: ${darkInteractivePrimaryText};
   --org-secondary-button-text: ${darkInteractiveSecondaryText};
   --org-tertiary-button-text: ${darkInteractiveTertiaryText};
-  --color-interactive: ${interactive};
-  --color-inverted: ${inverted};
+  --color-interactive: ${inverted};
+  --color-inverted: ${interactive};
 }
 `
 }

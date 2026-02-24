@@ -14,7 +14,7 @@ This is a **usage pattern**, not a new component. It is composed entirely from:
 
 | Diet AirDS piece | Role |
 |---|---|
-| `.list-row` | Base row shell |
+| `.list-row.surface-section` | Base row shell + interactive hover/press states |
 | `.leading` + `.leading-gap-lg` / `.leading-gap-xl` | Leading slot with image gap |
 | `.leading-image-small` / `.leading-image-large` | VFS image — size switches by breakpoint |
 | `.list-row-content` + `.list-row-text-pair` | Section label + row/seat sublabel |
@@ -71,7 +71,7 @@ https://vfs.example.com/{team}/{section}?perspective=close
 ## HTML — Mobile (Far, 329px)
 
 ```html
-<div class="list-row">
+<div class="list-row surface-section">
   <div class="leading leading-gap-lg">
     <!-- VFS image — src populated at runtime from VFS service -->
     <img
@@ -100,7 +100,7 @@ https://vfs.example.com/{team}/{section}?perspective=close
 ## HTML — Desktop (Far, 592px)
 
 ```html
-<div class="list-row">
+<div class="list-row surface-section">
   <div class="leading leading-gap-xl">
     <!-- Larger VFS image on mobile -->
     <img
@@ -132,7 +132,7 @@ Only the `src`, `alt`, and image class change. Structure is identical.
 
 ```html
 <!-- Mobile, close perspective -->
-<div class="list-row">
+<div class="list-row surface-section">
   <div class="leading leading-gap-lg">
     <img
       class="leading-image-small"
@@ -163,11 +163,13 @@ Wrap multiple rows in a container. Use a border-bottom divider between rows.
 
 ```html
 <div class="inventory-list">
-  <div class="list-row"> ... </div>
-  <div class="list-row"> ... </div>
-  <div class="list-row"> ... </div>
+  <div class="list-row surface-section"> ... </div>
+  <div class="list-row surface-section"> ... </div>
+  <div class="list-row surface-section"> ... </div>
 </div>
 ```
+
+`surface-section` provides hover/press states — transparent at rest (inherits the card background), `--white-100` hover overlay, `--black-300` press overlay. No `scale-*` needed.
 
 Suggested page-level wrapper CSS (not part of the design system):
 

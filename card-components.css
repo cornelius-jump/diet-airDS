@@ -183,6 +183,196 @@
 }
 
 /* ============================================
+   LOGO BLOCK
+   ============================================
+   Team-colored tile with a centered logo. The container
+   is fluid — it fills whatever parent it's placed in.
+   The size modifier (-sm/-md/-lg) controls the logo
+   image size only, not the container.
+
+   Always wrap in a parent element that sets dimensions:
+   <div style="width: 80px; height: 80px;">
+     <div class="logo-block logo-block-sm">
+       <img src="logo.svg" alt="Team Name">
+     </div>
+   </div>
+
+   Logo sizes: logo-block-sm (64px) · logo-block-md (80px) · logo-block-lg (104px)
+
+   Opposing teams — set --badge-bg inline from Sanity primaryColor:
+   <div class="logo-block logo-block-sm" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};">
+   ============================================ */
+
+.logo-block {
+  position: relative;
+  overflow: hidden;
+  background: var(--badge-bg, var(--brand-core));
+  border-radius: var(--border-radius-100); /* 8px */
+  width: 100%;
+  height: 100%;
+}
+
+.logo-block img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Logo size variants — controls the image, NOT the container */
+.logo-block-sm img { width: 64px;  height: 64px;  }
+.logo-block-md img { width: 80px;  height: 80px;  }
+.logo-block-lg img { width: 104px; height: 104px; }
+
+/* ============================================
+   MATCHUP
+   ============================================
+   Two-panel split rectangle — one panel per team.
+   Away team on the left, home team on the right.
+   Each panel fills 50% width, full height.
+   Always uses the smallest (64px) logo.
+
+   The matchup is fluid — height comes from the parent.
+   Wrap in a parent element that sets the height:
+   <div style="height: 120px;">
+     <div class="matchup">...</div>
+   </div>
+
+   Home panel: no --badge-bg needed — inherits --brand-core
+   Away panel: set --badge-bg inline from Sanity primaryColor
+
+   Structure:
+   <div style="height: 120px;">
+     <div class="matchup">
+       <div class="matchup-panel" style="--badge-bg: {away.primaryColor ?? 'var(--neutral-200)'};">
+         <img src="{away.logoUrl}" alt="{away.name}">
+       </div>
+       <div class="matchup-panel">
+         <img src="{home.logoUrl}" alt="{home.name}">
+       </div>
+     </div>
+   </div>
+   ============================================ */
+
+.matchup {
+  display: flex;
+  width: 100%;
+  height: 100%; /* fills parent — parent is responsible for height */
+  overflow: hidden;
+}
+
+.matchup-panel {
+  flex: 1 0 0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--badge-bg, var(--brand-core));
+}
+
+.matchup-panel img {
+  position: absolute;
+  width: 64px; /* smallest logo — panel height is parent-controlled */
+  height: 64px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ============================================
+   TILE
+   ============================================
+   The recommended pattern for any small card
+   displayed alongside others: event listings,
+   product grids, schedules, content feeds.
+
+   Use card-closed or card-open for full-width or
+   single-column cards. Use tile whenever items
+   are presented as multiple-per-row.
+
+   Placement contexts:
+   - Grid (desktop/tablet): card-grid with column modifiers
+   - Carousel (mobile-first): horizontal scroll row
+   - Inside card-open: tiles as content within a larger
+     open-layout card (card-open-content as flex row)
+
+   Structure: a fixed-height visual header block
+   (matchup, image, logo-block, or colored block)
+   followed by .tile-info for text and actions.
+   .tile-tag is an optional frosted label overlaid
+   top-left of the visual header.
+
+   ⚠️ Interactivity rule — pick one, never both:
+   - No button → tile is the tap target:
+     add surface-card scale-700 to .tile
+   - Has button → button is the CTA:
+     .tile has no surface/scale classes
+
+   Grid:
+   <div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+     <div class="tile surface-card scale-700">...</div>
+   </div>
+
+   Carousel:
+   <div style="display: flex; gap: var(--spacing-card); overflow-x: auto;">
+     <div class="tile surface-card scale-700" style="min-width: 200px; flex-shrink: 0;">...</div>
+   </div>
+
+   Inside open card:
+   <div class="card-open">
+     <div class="card-open-header">...</div>
+     <div class="card-open-content" style="flex-direction: row;">
+       <div class="tile surface-card scale-700" style="flex: 1 1 200px;">...</div>
+     </div>
+   </div>
+
+   Structure:
+   <div class="tile surface-card scale-700">        no button — tile is tap target
+   <div class="tile">                               has button — button is CTA
+     <div style="height: 120px;">                  visual header (any fixed-height block)
+       <div class="matchup">...</div>
+     </div>
+     <div class="tile-tag">Home</div>              optional — frosted label top-left
+     <div class="tile-info">
+       <div class="card-text-pair">...</div>
+       <span class="labelBold20 text-success">From $45</span>  optional
+       <button class="btn btn-primary btn-100">...</button>    optional (determines interactivity)
+     </div>
+   </div>
+   ============================================ */
+
+.tile {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-100); /* 8px */
+  overflow: hidden;
+  position: relative;
+}
+
+.tile-info {
+  padding: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100); /* 8px — text pair → price */
+}
+
+.tile-info .btn {
+  margin-top: var(--spacing-100); /* +8px = 16px total — price → button */
+}
+
+/* Frosted glass label — absolutely positioned over the matchup image */
+.tile-tag {
+  position: absolute;
+  top: var(--spacing-100);   /* 8px */
+  left: var(--spacing-100);  /* 8px */
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: var(--spacing-50) var(--spacing-150); /* 4px 12px */
+  border-radius: var(--border-radius-50);        /* 4px */
+  backdrop-filter: blur(25px);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================
    USAGE EXAMPLES
    ============================================ */
 
@@ -232,6 +422,48 @@ CARD GRIDS:
   <div class="card-closed-interactive">...</div>
   <div class="card-closed-interactive">...</div>
   <div class="card-closed-interactive">...</div>
+</div>
+
+TILE GRID (recommended for small side-by-side cards):
+
+<div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+
+  <!-- No button — tile is the tap target -->
+  <div class="tile surface-card scale-700">
+    <div style="height: 120px;">
+      <div class="matchup">
+        <div class="matchup-panel" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};">
+          <img src="${away.logoUrl}" alt="${away.name}">
+        </div>
+        <div class="matchup-panel">
+          <img src="home-logo.svg" alt="Home Team">
+        </div>
+      </div>
+    </div>
+    <div class="tile-info">
+      <div class="card-text-pair">
+        <span class="labelBold30">vs. Away Team</span>
+        <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+      </div>
+      <span class="labelBold20 text-success">From $45</span>
+    </div>
+  </div>
+
+  <!-- Has button — button is the CTA, no surface/scale on wrapper -->
+  <div class="tile">
+    <div style="height: 120px;">
+      <div class="matchup">...</div>
+    </div>
+    <div class="tile-info">
+      <div class="card-text-pair">
+        <span class="labelBold30">vs. Away Team</span>
+        <span class="labelRegular10 text-secondary">Tue, Mar 18 · 7:30 PM</span>
+      </div>
+      <span class="labelBold20 text-success">From $89</span>
+      <button class="btn btn-primary btn-100">Buy Tickets</button>
+    </div>
+  </div>
+
 </div>
 
 */

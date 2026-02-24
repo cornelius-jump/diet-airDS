@@ -8,12 +8,14 @@
     "import-teams": "node scripts/import-teams.js",
     "upload-logos": "node scripts/upload-logos.js",
     "seed-opposing-teams": "node scripts/seed-opposing-teams.js",
-    "build": "npm run teams && echo 'Build complete'"
+    "build": "npm run teams && echo 'Build complete'",
+    "dev": "http-server -p 8080 -c-1"
   },
   "dependencies": {
     "@sanity/client": "^6.0.0",
     "@sanity/image-url": "^1.0.0",
-    "dotenv": "^17.3.1"
+    "dotenv": "^17.3.1",
+    "http-server": "^14.1.1"
   },
   "keywords": [
     "design-system",

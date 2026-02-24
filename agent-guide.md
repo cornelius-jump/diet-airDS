@@ -17,15 +17,16 @@ Any tappable or clickable element that isn't a button, list row, or input needs 
 1. Button → `.btn` + type + size. Stop.
 2. List row → `.list-row` 3-slot structure. Stop.
 3. Selectable list row → `.selector.surface-washNeutral.scale-700` wrapping `.list-row`. Stop.
-4. Text input → `.input-field` structure. Stop.
-5. Select dropdown → `.input-field.input-select` structure. Stop.
-6. Tag/chip → `.tag` + modifiers. Stop.
-7. Switch → `.switch > input + label`. Stop.
-8. Card → `.card-closed` or surface token. Stop.
-9. Typography → text style class. Stop.
-10. Spacing → spacing token or utility. Stop.
-11. Interactive surface → `.surface-*` + `.scale-*`. Stop.
-12. None of the above → minimal custom CSS using tokens only.
+4. Small card in a grid, carousel, or open card → `.tile` + interactivity rule. Stop.
+5. Text input → `.input-field` structure. Stop.
+6. Select dropdown → `.input-field.input-select` structure. Stop.
+7. Tag/chip → `.tag` + modifiers. Stop.
+8. Switch → `.switch > input + label`. Stop.
+9. Card → `.card-closed` or surface token. Stop.
+10. Typography → text style class. Stop.
+11. Spacing → spacing token or utility. Stop.
+12. Interactive surface → `.surface-*` + `.scale-*`. Stop.
+13. None of the above → minimal custom CSS using tokens only.
 
 **Never:**
 - Write custom CSS for any component in the list above
@@ -35,8 +36,7 @@ Any tappable or clickable element that isn't a button, list row, or input needs 
 - Use `--color-interactive` or `--color-inverted` directly
 - Write `:hover` or `:active` CSS for interactive components — use `.surface-*` + `.scale-*` instead
 - Wrap a label+sublabel pair without `.card-text-pair` (or `.list-row-text-pair` in list rows)
-- Add a border to a card. Cards never have borders. `--bg-surface` vs `--bg-base` defines the boundary.
-- **Add a border to a card. Cards never have borders.** Card surfaces are defined by `--bg-surface` against `--bg-base` — the background color contrast is the boundary. Never add `border: 1px solid` or any border to a card element.
+- **Add a border to a card.** Cards never have borders. `--bg-surface` against `--bg-base` is the boundary — never add `border: 1px solid` or any border to a card element.
 
 **Output format:** Always produce a complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
 
@@ -68,6 +68,7 @@ Load all files from `https://diet-air-ds.vercel.app/` in this exact order. Use a
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/button-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/list-row-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/input-components.css">
+  <link rel="stylesheet" href="https://diet-air-ds.vercel.app/tag-chip-components.css">
   <link rel="stylesheet" href="https://diet-air-ds.vercel.app/boilerplate.css">
 </head>
 <body>
@@ -89,6 +90,7 @@ Load all files from `https://diet-air-ds.vercel.app/` in this exact order. Use a
 - `button-components.css` — `.btn`, `.btn-primary`, `.btn-circle`, etc.
 - `list-row-components.css` — `.list-row`, `.leading`, `.trailing`, `.tag`, etc.
 - `input-components.css` — `.input-field`, `.input-control`, `.input-select`, etc.
+- `tag-chip-components.css` — tag and chip component styles
 - `boilerplate.css` — reset, body styles, layout utilities
 
 ---
@@ -574,6 +576,73 @@ Note: `.btn *` and `.tag.tag-team-color *` already include this — no fix neede
 
 ---
 
+## TILE
+
+The recommended pattern for any small card displayed alongside others. Use for event listings, product grids, schedules, content feeds. Use `card-closed` / `card-open` for full-width or single-column cards.
+
+**Placement contexts:**
+- **Grid**: `card-grid` with column modifier classes
+- **Carousel**: horizontal scroll row (`overflow-x: auto; display: flex`) — all tiles in a carousel must share the same interaction pattern (all tap targets or all with buttons, never mixed)
+- **Inside `card-open`**: tiles as subsections within a larger open-layout card
+
+**⚠️ Interactivity rule — pick one per set, never mixed:**
+- No button → tile is the tap target: `surface-card scale-700` on `.tile`
+- Has button → button is the CTA: no surface/scale on `.tile`
+
+**Structure:**
+```html
+<!-- No button — tile is the tap target -->
+<div class="tile surface-card scale-700">
+  <div style="height: 120px;">                <!-- visual header — any fixed-height block -->
+    <div class="matchup">
+      <div class="matchup-panel" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};">
+        <img src="${away.logoUrl}" alt="${away.name}">
+      </div>
+      <div class="matchup-panel">
+        <img src="home-logo.svg" alt="Home Team">
+      </div>
+    </div>
+  </div>
+  <div class="tile-tag">Home</div>            <!-- optional — frosted label top-left -->
+  <div class="tile-info">
+    <div class="card-text-pair">
+      <span class="labelBold30">vs. Away Team</span>
+      <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+    </div>
+    <span class="labelBold20 text-success">From $45</span>   <!-- optional -->
+  </div>
+</div>
+
+<!-- Has button — button is the CTA, no surface/scale on wrapper -->
+<div class="tile">
+  <div style="height: 120px;">...</div>
+  <div class="tile-info">
+    <div class="card-text-pair">...</div>
+    <span class="labelBold20 text-success">From $45</span>
+    <button class="btn btn-primary btn-100">Buy Tickets</button>
+  </div>
+</div>
+
+<!-- Grid -->
+<div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+  <div class="tile surface-card scale-700">...</div>
+  <div class="tile surface-card scale-700">...</div>
+  <div class="tile surface-card scale-700">...</div>
+</div>
+
+<!-- Carousel (mobile-first) -->
+<div style="display: flex; gap: var(--spacing-card); overflow-x: auto;">
+  <div class="tile surface-card scale-700" style="min-width: 200px; flex-shrink: 0;">...</div>
+  <div class="tile surface-card scale-700" style="min-width: 200px; flex-shrink: 0;">...</div>
+</div>
+```
+
+**Tile spacing internals** (do not override):
+- `.tile-info` — 16px padding, 8px column gap (text pair → price)
+- `.tile-info .btn` — extra 8px top margin (price → button = 16px total)
+
+---
+
 ## COLOR TOKENS
 
 **Backgrounds:** `--bg-base` · `--bg-surface` · `--bg-sheet` · `--bg-nav`
@@ -737,6 +806,74 @@ Set `data-theme` and `data-mode` on `<html>`. Always test both light and dark.
 ---
 
 ## COMPLETE COMPONENT EXAMPLES
+
+### Tile grid (3-up, no button — tap target variant)
+
+```html
+<div class="card-grid grid-cols-3-desktop grid-cols-2-tablet grid-cols-1-mobile">
+
+  <div class="tile surface-card scale-700">
+    <div style="height: 120px;">
+      <div class="matchup">
+        <div class="matchup-panel" style="--badge-bg: #a00d33;">
+          <img src="images/NBA/Bulls.svg" alt="Chicago Bulls">
+        </div>
+        <div class="matchup-panel">
+          <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+        </div>
+      </div>
+    </div>
+    <div class="tile-info">
+      <div class="card-text-pair">
+        <span class="labelBold30">vs. Chicago Bulls</span>
+        <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+      </div>
+      <span class="labelBold20 text-success">From $19</span>
+    </div>
+  </div>
+
+  <div class="tile surface-card scale-700">
+    <div style="height: 120px;">
+      <div class="matchup">
+        <div class="matchup-panel" style="--badge-bg: #006BB6;">
+          <img src="images/NBA/Knicks.svg" alt="New York Knicks">
+        </div>
+        <div class="matchup-panel">
+          <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+        </div>
+      </div>
+    </div>
+    <div class="tile-info">
+      <div class="card-text-pair">
+        <span class="labelBold30">vs. New York Knicks</span>
+        <span class="labelRegular10 text-secondary">Tue, Mar 18 · 7:30 PM</span>
+      </div>
+      <span class="labelBold20 text-success">From $45</span>
+    </div>
+  </div>
+
+  <div class="tile surface-card scale-700">
+    <div style="height: 120px;">
+      <div class="matchup">
+        <div class="matchup-panel" style="--badge-bg: #552583;">
+          <img src="images/NBA/Lakers.svg" alt="Los Angeles Lakers">
+        </div>
+        <div class="matchup-panel">
+          <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+        </div>
+      </div>
+    </div>
+    <div class="tile-info">
+      <div class="card-text-pair">
+        <span class="labelBold30">vs. L.A. Lakers</span>
+        <span class="labelRegular10 text-secondary">Fri, Mar 21 · 9:00 PM</span>
+      </div>
+      <span class="labelBold20 text-success">From $89</span>
+    </div>
+  </div>
+
+</div>
+```
 
 ### Settings list (icon + switch/chevron)
 
@@ -961,6 +1098,180 @@ Used in game schedules, matchup lists, and upcoming event cards. The opponent lo
 - Away game → swap tag label to `"Away"`
 - No logo available → omit `.leading` slot entirely; `.list-row-content` becomes the first child
 - Use `leading-gap-sm` (8px) for small logos, `leading-gap-md` (12px) for logos with more visual weight
+
+### Event row (buy flow, single game)
+
+Buy-flow card for a single game. Opposing team logo + event info + offer state. Background is `--bg-surface`, 16px radius, responsive padding and text scale.
+
+**Offer states** — trailing content varies per state:
+
+| State | Top section trailing | Bottom section |
+|---|---|---|
+| Featured Only | `btn btn-primary btn-100` with `$N+` | — |
+| Featured and Others | `btn btn-primary btn-100` with `$N+` | "X Additional Offers" + `arrow_drop_down` icon |
+| No Featured Offers | — (no trailing) | "X Offers Available" + `arrow_drop_down` icon |
+| Sold Out | `labelBold30 text-secondary` "Sold Out" | — |
+| Coming Soon | `labelBold20 text-interactive-tertiary event-row-coming-soon` "Coming Soon" | — |
+
+**Text scale:**
+- Mobile (<500px): `event-row-label` = 16px/600, `event-row-sublabel` = 12px/400
+- Tablet/Desktop (≥500px): `event-row-label` = 20px/700, `event-row-sublabel` = 14px/400
+
+**Data binding (Sanity):**
+- Logo → `opposingTeam.logo.asset->url` (SVG, `object-fit: contain`)
+- Label → `opposingTeam.name`
+- Date → format as `"Day, Mon D · H PM"` (interpunct U+00B7)
+
+**Surface tokens:**
+- `.event-row` background (`--org-surface`) is built into the component CSS — no wrapper surface token needed
+- `surface-section` goes on any section that contains interactive content → transparent hover/press overlay over the card background
+- Non-interactive sections: no surface class
+- No `scale-*` — scale on one section of a multi-section card looks wrong
+
+| State | `surface-section` on |
+|---|---|
+| Featured Only | `.event-row-top` |
+| Featured and Others | `.event-row-top` + `.event-row-bottom` |
+| No Featured Offers | `.event-row-bottom` only (top is not interactive) |
+| Sold Out | neither (nothing interactive) |
+| Coming Soon | neither (nothing interactive) |
+
+```html
+<!-- .event-row background (--org-surface) is built into the CSS — no wrapper surface token.
+     Interactive sections get surface-section. Non-interactive sections get no class. No scale. -->
+
+<!-- Featured Only — top is interactive -->
+<div class="event-row">
+  <div class="event-row-top surface-section">
+    <div class="list-row">
+      <div class="leading leading-gap-sm">
+        <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+      </div>
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="event-row-label">Portland Marmots</span>
+          <span class="event-row-sublabel text-secondary">Tuesday, Oct 8 · 7 PM</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-lg">
+        <button class="btn btn-primary btn-100">$19+</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Featured and Others — both sections interactive -->
+<div class="event-row">
+  <div class="event-row-top surface-section">
+    <div class="list-row">
+      <div class="leading leading-gap-sm">
+        <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+      </div>
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="event-row-label">Charlotte Bullfrogs</span>
+          <span class="event-row-sublabel text-secondary">Thursday, Oct 10 · 7 PM</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-lg">
+        <button class="btn btn-primary btn-100">$21+</button>
+      </div>
+    </div>
+  </div>
+  <div class="event-row-bottom surface-section">
+    <div class="list-row">
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="labelBold30 text-interactive-tertiary">3 Additional Offers</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-xs">
+        <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- No Featured Offers — top NOT interactive, bottom interactive -->
+<div class="event-row">
+  <div class="event-row-top">
+    <div class="list-row not-tappable">
+      <div class="leading leading-gap-sm">
+        <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+      </div>
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="event-row-label">Miami Geckos</span>
+          <span class="event-row-sublabel text-secondary">Wednesday, Oct 16 · 7 PM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="event-row-bottom surface-section">
+    <div class="list-row">
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="labelBold30 text-interactive-tertiary">3 Offers Available</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-xs">
+        <span class="icon material-symbols-rounded text-interactive-tertiary">arrow_drop_down</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sold Out — no interactive sections -->
+<div class="event-row">
+  <div class="event-row-top">
+    <div class="list-row not-tappable">
+      <div class="leading leading-gap-sm">
+        <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+      </div>
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="event-row-label">Omaha Otters</span>
+          <span class="event-row-sublabel text-secondary">Tuesday, Oct 22 · 7 PM</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-sm">
+        <span class="labelBold30 text-secondary">Sold Out</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Coming Soon — no interactive sections -->
+<div class="event-row">
+  <div class="event-row-top">
+    <div class="list-row not-tappable">
+      <div class="leading leading-gap-sm">
+        <img class="event-row-logo" src="{opponent.logoUrl}" alt="{opponent.name}">
+      </div>
+      <div class="list-row-content">
+        <div class="list-row-text-pair">
+          <span class="event-row-label">Portland Marmots</span>
+          <span class="event-row-sublabel text-secondary">Saturday, Oct 26 · 7 PM</span>
+        </div>
+      </div>
+      <div class="trailing trailing-gap-sm">
+        <span class="labelBold20 text-interactive-tertiary event-row-coming-soon">Coming Soon</span>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**List container** — stacks rows with 8px gap, constrained to 499px (phone) or 672px (tablet/desktop):
+
+```html
+<div class="event-row-list">
+  <div class="event-row">...</div>
+  <div class="event-row">...</div>
+</div>
+```
+
+Demo: `examples/event-row-demo.html`
 
 ### Card with header, body, and footer
 
@@ -1219,6 +1530,7 @@ VALIDATION CHECKLIST:
 - [ ] Buttons use .btn system
 - [ ] List rows use .list-row system
 - [ ] Selectable rows use .selector + surface-washNeutral + scale-700
+- [ ] Small cards in grids/carousels use .tile — interactivity rule applied consistently across the set
 - [ ] Inputs use .input-field system
 - [ ] Select uses arrow_drop_down (not expand_more)
 - [ ] Input state classes on .input-field wrapper

@@ -670,6 +670,65 @@ Set `data-theme` and `data-mode` on `<html>`. Always test both light and dark.
 
 ---
 
+## OPPOSING TEAMS
+
+`opposingTeam` documents in Sanity hold logos and metadata for all league opponents — 118 teams across NBA, WNBA, MLS, NWSL, and USL Championship.
+
+**Document fields:**
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `name` | string | Full official name (e.g. "Los Angeles Lakers") |
+| `teamId.current` | string | Slug (e.g. "los-angeles-lakers") |
+| `shortName` | string | Nickname/abbreviation (e.g. "Lakers") |
+| `city` | string | Home city |
+| `league` | string | See values below |
+| `logo` | image ref | Sanity image asset — resolve with `logo.asset->url` |
+| `primaryColor` | string \| null | Hex. Often null — never use it for required layout. |
+
+**League values:**
+
+| Value | League |
+|-------|--------|
+| `NBA` | NBA |
+| `WNBA` | WNBA |
+| `MLS` | MLS |
+| `NWSL` | NWSL |
+| `USL` | USL Championship |
+| `International` | International clubs (e.g. Liga MX Femenil) |
+
+**GROQ — all teams, logo URL resolved:**
+
+```groq
+*[_type == "opposingTeam"] | order(league asc, name asc) {
+  _id,
+  name,
+  shortName,
+  city,
+  league,
+  "logoUrl": logo.asset->url,
+  primaryColor
+}
+```
+
+**GROQ — single league:**
+
+```groq
+*[_type == "opposingTeam" && league == "NBA"] | order(name asc) {
+  _id,
+  name,
+  shortName,
+  "logoUrl": logo.asset->url
+}
+```
+
+**Logo notes:**
+- `logo.asset->url` returns a Sanity CDN URL (`https://cdn.sanity.io/images/...`)
+- All logos are SVG — always render with `object-fit: contain` in fixed-size containers
+- `primaryColor` may be null on any record — never make it a required dependency
+
+---
+
 ## COMPLETE COMPONENT EXAMPLES
 
 ### Settings list (icon + switch/chevron)
@@ -864,6 +923,37 @@ loadVfsData(document.documentElement.getAttribute('data-theme'))
 ```
 
 **`far` vs `close`** — use `data-vfs="far"` for upper bowl/wide views, `data-vfs="close"` for courtside/pitch-side. Same HTML structure for both.
+
+### Schedule row (opposing team logo)
+
+Used in game schedules, matchup lists, and upcoming event cards. The opponent logo goes in the leading slot as a 40×40 contained image. Logo URL comes from the `opposingTeam` Sanity document (`logo.asset->url`).
+
+```html
+<div style="padding: var(--spacing-150) var(--spacing-200); border-bottom: 1px solid var(--border-default);">
+  <div class="list-row">
+    <div class="leading leading-gap-md">
+      <img src="{opponent.logoUrl}" alt="{opponent.name}"
+           style="width: 40px; height: 40px; object-fit: contain; flex-shrink: 0;">
+    </div>
+    <div class="list-row-content">
+      <div class="list-row-text-pair">
+        <span class="labelBold30">vs {opponent.shortName}</span>
+        <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+      </div>
+      <div class="tag-group">
+        <div class="tag"><span class="labelBold20">Home</span></div>
+      </div>
+    </div>
+    <div class="trailing trailing-gap-xs">
+      <span class="icon icon-200 material-symbols-rounded">chevron_right</span>
+    </div>
+  </div>
+</div>
+```
+
+- Away game → swap tag label to `"Away"`
+- No logo available → omit `.leading` slot entirely; `.list-row-content` becomes the first child
+- Use `leading-gap-sm` (8px) for small logos, `leading-gap-md` (12px) for logos with more visual weight
 
 ### Card with header, body, and footer
 

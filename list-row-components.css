@@ -673,3 +673,76 @@
   gap: 2px;
   width: 100%;
 }
+
+
+/* ============================================
+   SELECTOR
+   ============================================
+   A clickable container that wraps a list row
+   to make it a selectable item.
+
+   Structural class only — compose with a surface
+   token and scale-700 for interaction behavior.
+
+   Two variants:
+   - surface-washNeutral  →  nearly transparent at rest
+                             use inside cards / on --bg-surface
+   - surface-card         →  --bg-surface at rest (looks like a card)
+                             use on --bg-base (page background)
+
+   Usage:
+     <div class="selector surface-washNeutral scale-700">
+       <div class="list-row">...</div>
+     </div>
+
+     <div class="selector surface-card scale-700">
+       <div class="list-row">...</div>
+     </div>
+
+     <div class="selector surface-washNeutral scale-700 is-selected">
+       <div class="list-row">...</div>
+     </div>
+
+     <div class="selector surface-washNeutral is-disabled">
+       <div class="list-row">...</div>
+     </div>
+
+   Notes:
+   - .selector handles its own 16px padding — do not add
+     a padding wrapper around it.
+   - The surface class provides hover/press bg behavior.
+   - scale-700 provides the expand-hover / shrink-press transform.
+   - Sublabel .text-secondary color is automatically overridden
+     in selected state so all text stays readable.
+   ============================================ */
+
+.selector {
+  border-radius: var(--border-radius-200);   /* 16px */
+  padding: var(--spacing-200);               /* 16px all sides */
+  box-sizing: border-box;
+}
+
+/* Selected — overrides surface hover/press backgrounds (works with washNeutral and card) */
+.selector.is-selected,
+.selector.is-selected:hover,
+.selector.is-selected:active {
+  background: var(--neutral-1000);
+  color: var(--inverted-1000);
+}
+
+/* All children inherit the inverted color (overrides .text-secondary, .labelBold30, etc.) */
+.selector.is-selected * {
+  color: inherit;
+}
+
+/* Cancel the text opacity dim that surface:active applies (both washNeutral and card set opacity: 0.6) */
+.selector.is-selected:active * {
+  opacity: 1;
+}
+
+/* Disabled */
+.selector.is-disabled {
+  opacity: 0.25;
+  pointer-events: none;
+  cursor: default;
+}

@@ -2708,6 +2708,204 @@
 </div>
 
 <!-- ==========================================
+     12c. SELECTOR — USAGE PATTERN
+     ========================================== -->
+<div class="container-wide py-large border-top" id="selector">
+  <p class="labelRegular30 text-secondary mb-50">Usage Pattern</p>
+  <h2 class="title80">Selector</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">A clickable container that wraps a list row to make it a selectable item. Two variants: <strong>wash</strong> (nearly transparent at rest — use inside cards or on <code>--bg-surface</code>) and <strong>card</strong> (shows <code>--bg-surface</code> at rest — use on <code>--bg-base</code> so it looks like a card). Both variants invert to solid black/white when selected and fade to 25% opacity when disabled.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30">The <code>.selector</code> replaces the padding wrapper that list rows normally need — do not add an extra padding div. The list row sits directly inside <code>.selector</code> with no additional wrapper.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-200">Variant: Wash <code style="font-size:inherit">surface-washNeutral</code></h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-200">Nearly transparent at rest. Use inside cards, sheets, or on <code>--bg-surface</code> backgrounds where you want subtle row separation without adding visual weight.</p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — interact</span>
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-150); max-width: 400px;">
+
+      <div>
+        <p class="labelRegular10 text-secondary mb-100">Default</p>
+        <div class="selector surface-washNeutral scale-700">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 112 · Row F</span>
+                <span class="labelRegular10 text-secondary">Seats 9–14</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold30">$120</span>
+                <span class="labelRegular10 text-secondary">each</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="labelRegular10 text-secondary mb-100">Selected</p>
+        <div class="selector surface-washNeutral scale-700 is-selected">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 112 · Row F</span>
+                <span class="labelRegular10 text-secondary">Seats 9–14</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold30">$120</span>
+                <span class="labelRegular10 text-secondary">each</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="labelRegular10 text-secondary mb-100">Disabled</p>
+        <div class="selector surface-washNeutral is-disabled">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 112 · Row F</span>
+                <span class="labelRegular10 text-secondary">Seats 9–14</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold30">$120</span>
+                <span class="labelRegular10 text-secondary">each</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-500 mb-200">Variant: Card <code style="font-size:inherit">surface-card</code></h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-200">Shows <code>--bg-surface</code> as its resting background — looks like a standard card. Use on <code>--bg-base</code> (page background) so it reads as an elevated, tappable card in a list.</p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — interact</span>
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-150); max-width: 400px;">
+
+      <div>
+        <p class="labelRegular10 text-secondary mb-100">Default</p>
+        <div class="selector surface-card scale-700">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 112 · Row F</span>
+                <span class="labelRegular10 text-secondary">Seats 9–14</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold30">$120</span>
+                <span class="labelRegular10 text-secondary">each</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="labelRegular10 text-secondary mb-100">Selected</p>
+        <div class="selector surface-card scale-700 is-selected">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 112 · Row F</span>
+                <span class="labelRegular10 text-secondary">Seats 9–14</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold30">$120</span>
+                <span class="labelRegular10 text-secondary">each</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="labelRegular10 text-secondary mb-100">Disabled</p>
+        <div class="selector surface-card is-disabled">
+          <div class="list-row">
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">Section 112 · Row F</span>
+                <span class="labelRegular10 text-secondary">Seats 9–14</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <div class="trailing-text-pair">
+                <span class="labelBold30">$120</span>
+                <span class="labelRegular10 text-secondary">each</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-200">Code</h3>
+  <div class="doc-code-block">
+<code>&lt;!-- Wash variant (use inside cards / on --bg-surface) --&gt;
+&lt;div class="selector surface-washNeutral scale-700"&gt;
+  &lt;div class="list-row"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Card variant (use on --bg-base, looks like a card) --&gt;
+&lt;div class="selector surface-card scale-700"&gt;
+  &lt;div class="list-row"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Selected (works with either variant) --&gt;
+&lt;div class="selector surface-washNeutral scale-700 is-selected"&gt;
+  &lt;div class="list-row"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Disabled (omit scale-700) --&gt;
+&lt;div class="selector surface-washNeutral is-disabled"&gt;
+  &lt;div class="list-row"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <div class="doc-table-wrap mt-300">
+    <table class="doc-table">
+      <thead><tr><th>Variant</th><th>Surface class</th><th>Use when</th></tr></thead>
+      <tbody>
+        <tr><td>Wash</td><td><code>surface-washNeutral</code></td><td>Inside a card or on <code>--bg-surface</code> — nearly transparent at rest</td></tr>
+        <tr><td>Card</td><td><code>surface-card</code></td><td>On page background (<code>--bg-base</code>) — shows <code>--bg-surface</code> at rest</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>State class</th><th>Visual (both variants)</th></tr></thead>
+      <tbody>
+        <tr><td><em>(none)</em></td><td>Surface resting background (wash = near-transparent, card = <code>--bg-surface</code>)</td></tr>
+        <tr><td><em>:hover</em></td><td>Surface hover overlay (light wash)</td></tr>
+        <tr><td><em>:active</em></td><td>Surface press overlay + <code>scale-700</code> shrink (0.99)</td></tr>
+        <tr><td><code>.is-selected</code></td><td>Solid <code>--neutral-1000</code> fill, inverted text — overrides surface hover/press</td></tr>
+        <tr><td><code>.is-disabled</code></td><td>25% opacity, pointer events removed — omit <code>scale-700</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ==========================================
      13. INPUT COMPONENTS
      ========================================== -->
 <div class="container-wide py-large border-top" id="inputs">

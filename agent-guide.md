@@ -10,18 +10,22 @@
 
 Before writing any custom CSS ask: "Does Diet AirDS already have a class or token for this?" The answer is almost always yes.
 
+**⚠️ Pre-check — does this element need hover/press/active behavior?**
+Any tappable or clickable element that isn't a button, list row, or input needs `.surface-*` + `.scale-*`. Reach for that first — before the list below. If you're about to write `:hover { background: ... }` or `:active { transform: ... }` — stop. Use a surface class instead.
+
 **Decision gate — check in order before writing CSS:**
 1. Button → `.btn` + type + size. Stop.
 2. List row → `.list-row` 3-slot structure. Stop.
-3. Text input → `.input-field` structure. Stop.
-4. Select dropdown → `.input-field.input-select` structure. Stop.
-5. Tag/chip → `.tag` + modifiers. Stop.
-6. Switch → `.switch > input + label`. Stop.
-7. Card → `.card-closed` or surface token. Stop.
-8. Typography → text style class. Stop.
-9. Spacing → spacing token or utility. Stop.
-10. Interactive surface → `.surface-*` + `.scale-*`. Stop.
-11. None of the above → minimal custom CSS using tokens only.
+3. Selectable list row → `.selector.surface-washNeutral.scale-700` wrapping `.list-row`. Stop.
+4. Text input → `.input-field` structure. Stop.
+5. Select dropdown → `.input-field.input-select` structure. Stop.
+6. Tag/chip → `.tag` + modifiers. Stop.
+7. Switch → `.switch > input + label`. Stop.
+8. Card → `.card-closed` or surface token. Stop.
+9. Typography → text style class. Stop.
+10. Spacing → spacing token or utility. Stop.
+11. Interactive surface → `.surface-*` + `.scale-*`. Stop.
+12. None of the above → minimal custom CSS using tokens only.
 
 **Never:**
 - Write custom CSS for any component in the list above
@@ -29,8 +33,9 @@ Before writing any custom CSS ask: "Does Diet AirDS already have a class or toke
 - Hardcode spacing in `px`, `em`, or `rem`
 - Set `font-size`, `font-weight`, or `line-height` manually
 - Use `--color-interactive` or `--color-inverted` directly
-- Write `:hover` or `:active` CSS for interactive components
+- Write `:hover` or `:active` CSS for interactive components — use `.surface-*` + `.scale-*` instead
 - Wrap a label+sublabel pair without `.card-text-pair` (or `.list-row-text-pair` in list rows)
+- Add a border to a card. Cards never have borders. `--bg-surface` vs `--bg-base` defines the boundary.
 - **Add a border to a card. Cards never have borders.** Card surfaces are defined by `--bg-surface` against `--bg-base` — the background color contrast is the boundary. Never add `border: 1px solid` or any border to a card element.
 
 **Output format:** Always produce a complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
@@ -537,6 +542,8 @@ function closeSelect(fieldId) { document.getElementById(fieldId).classList.remov
 
 ## INTERACTIVE SURFACES
 
+**When to use:** Any clickable or tappable element that is NOT a `.btn`, `.list-row`, or `.input-field` needs a surface + scale pair. Examples: selectable cards, clickable tiles, filter chips, menu items, any container that reacts to touch/hover. If you're about to write `:hover { background: ... }` or `:active { transform: ... }` on a non-button element — stop. That's what surface classes are for.
+
 Use `.surface-*` + `.scale-*` composed on the same element. Never write custom `:hover`/`:active` CSS.
 
 **Surface classes:**
@@ -860,7 +867,7 @@ Data-driven list rows showing a seat-view image and price from the active team's
 }
 .inventory-list { display: flex; flex-direction: column; }
 .inventory-list .list-row {
-  padding: var(--spacing-200) var(--spacing-300);
+  padding: var(--spacing-200);
   border-bottom: 1px solid var(--border-default);
 }
 .inventory-list .list-row:last-child { border-bottom: none; }
@@ -1122,6 +1129,57 @@ Used in game schedules, matchup lists, and upcoming event cards. The opponent lo
 </div>
 ```
 
+### Selector (selectable list row)
+
+A `.selector` is a clickable container that wraps a `.list-row` to make it selectable. It handles 16px border-radius and padding. Interactive states come entirely from the surface class — never from custom CSS.
+
+**Two variants — pick based on the parent background:**
+
+| Variant | Surface class | Use when |
+|---------|---------------|----------|
+| Wash | `surface-washNeutral` | Inside a card or on `--bg-surface` — nearly transparent at rest |
+| Card | `surface-card` | On page background (`--bg-base`) — shows `--bg-surface` at rest, looks like a card |
+
+```html
+<!-- Wash variant (inside a card / on --bg-surface) -->
+<div class="selector surface-washNeutral scale-700">
+  <div class="list-row">
+    <div class="list-row-content">
+      <div class="list-row-text-pair">
+        <span class="labelBold30">Section 313 — Row F</span>
+        <span class="labelRegular10 text-secondary">Seats 9–14</span>
+      </div>
+    </div>
+    <div class="trailing trailing-gap-sm">
+      <div class="trailing-text-pair">
+        <span class="labelBold20">$148</span>
+        <span class="labelRegular10 text-secondary">each</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Card variant (on --bg-base, looks like a card in a list) -->
+<div class="selector surface-card scale-700">
+  <div class="list-row">...</div>
+</div>
+
+<!-- Selected — works with either variant -->
+<div class="selector surface-washNeutral scale-700 is-selected">
+  <div class="list-row">...</div>
+</div>
+
+<!-- Disabled — omit scale-700 -->
+<div class="selector surface-washNeutral is-disabled">
+  <div class="list-row">...</div>
+</div>
+```
+
+**State rules:**
+- Default: resting bg from surface class (wash = near-transparent, card = `--bg-surface`)
+- Selected: `is-selected` inverts to `--neutral-1000` bg with inverted text — overrides both surface variants
+- Disabled: `is-disabled` sets 25% opacity, no pointer events — omit `scale-700`
+
 ---
 
 ## MASTER PROMPT TEMPLATE
@@ -1160,10 +1218,13 @@ VALIDATION CHECKLIST:
 - [ ] No hardcoded colors, spacing, or font values
 - [ ] Buttons use .btn system
 - [ ] List rows use .list-row system
+- [ ] Selectable rows use .selector + surface-washNeutral + scale-700
 - [ ] Inputs use .input-field system
 - [ ] Select uses arrow_drop_down (not expand_more)
 - [ ] Input state classes on .input-field wrapper
 - [ ] JS helpers included for clear buttons and selects
+- [ ] No custom :hover or :active CSS — interactive states use .surface-* + .scale-*
+- [ ] Children of .surface-fill* have color: inherit
 
 OUTPUT: Complete standalone HTML file.
 ```
@@ -1175,6 +1236,8 @@ OUTPUT: Complete standalone HTML file.
 **Text invisible on filled surface** — Add `color: inherit` to children inside `.surface-fill*`.
 
 **Button hover/press not working** — Use `.btn` base class. Never add custom `:hover` transforms.
+
+**Custom hover/active CSS on a non-button element** — Remove it. Compose with `.surface-*` + `.scale-*` instead. Any clickable container that isn't a button or list row should use a surface class for all interactive states. Remember: `surface-washNeutral` = subtle bg wash on hover/press; `surface-fillNeutral` = solid fill that darkens.
 
 **Text pair spacing wrong** — Use `.card-text-pair`. Never put label+sublabel directly in DOM without it.
 

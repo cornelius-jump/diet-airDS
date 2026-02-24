@@ -459,6 +459,51 @@ Surface classes set background, border, and text color together:
 
 **Never use `.card-text-pair` inside list rows — always use `.list-row-text-pair`.**
 
+### Selector
+
+A clickable tile wrapper for list rows — used when a list item needs to be selectable (e.g. seat/section picker). Two variants depending on the parent background:
+
+| Variant | Surface class | Use when |
+|---|---|---|
+| Wash | `surface-washNeutral` | Inside a card / on `--bg-surface` — nearly transparent at rest |
+| Card | `surface-card` | On page background (`--bg-base`) — `--bg-surface` at rest, looks like a card |
+
+```html
+<!-- Wash variant (inside a card / on --bg-surface) -->
+<div class="selector surface-washNeutral scale-700">
+  <div class="list-row">...</div>
+</div>
+
+<!-- Card variant (on --bg-base, looks like a card in a list) -->
+<div class="selector surface-card scale-700">
+  <div class="list-row">...</div>
+</div>
+
+<!-- Selected (works with either variant) -->
+<div class="selector surface-washNeutral scale-700 is-selected">
+  <div class="list-row">...</div>
+</div>
+
+<!-- Disabled (omit scale-700) -->
+<div class="selector surface-washNeutral is-disabled">
+  <div class="list-row">...</div>
+</div>
+```
+
+| State class | Visual |
+|---|---|
+| *(none)* | Resting bg from surface class (wash = near-transparent, card = `--bg-surface`) |
+| *:hover* | Surface hover overlay |
+| *:active* | Surface press overlay + `scale-700` shrink (0.99) |
+| `.is-selected` | `--neutral-1000` solid fill, inverted text — overrides both surface variants |
+| `.is-disabled` | 25% opacity, non-interactive — omit `scale-700` |
+
+**Notes:**
+- `.selector` is structural only — provides `border-radius` and `padding`. Surface + scale classes provide all interaction behavior.
+- `.selector` handles its own 16px padding — do not add a padding wrapper around it.
+- The list row sits directly inside `.selector` with no extra div.
+- All child text (including `.text-secondary`) automatically inherits the inverted color in selected state.
+
 ### Input Fields
 
 ```html
@@ -522,28 +567,33 @@ Surface classes set background, border, and text color together:
 
 ## Decision Gate — Check Before Writing Any CSS
 
+**⚠️ Pre-check — does this element need hover, press, or active behavior?**
+Any tappable or clickable element that isn't a button, list row, or input → reach for `.surface-*` + `.scale-*` first (step 11 below). If you're about to write `:hover { background: ... }` or `:active { transform: ... }` — stop. Use a surface class instead.
+
 Before writing any custom CSS, check this list in order:
 
 1. Button → `.btn` + type + size. **Stop.**
 2. List row → `.list-row` 3-slot structure. **Stop.**
-3. Text input → `.input-field` structure. **Stop.**
-4. Select dropdown → `.input-field.input-select` structure. **Stop.**
-5. Tag/chip → `.tag` + modifiers. **Stop.**
-6. Switch → `.switch > input + label`. **Stop.**
-7. Card → `.card-closed` / `.card-open` / `.card-interactive`. **Stop.**
-8. Typography → text style class (`.labelBold30`, `.title50`, etc.). **Stop.**
-9. Spacing → spacing token (`var(--spacing-200)`) or utility (`.mb-200`). **Stop.**
-10. Interactive surface → `.surface-*` + `.scale-*`. **Stop.**
-11. None of the above → minimal custom CSS using tokens only.
+3. Selectable list row → `.selector.surface-washNeutral.scale-700` wrapping `.list-row`. **Stop.**
+4. Text input → `.input-field` structure. **Stop.**
+5. Select dropdown → `.input-field.input-select` structure. **Stop.**
+6. Tag/chip → `.tag` + modifiers. **Stop.**
+7. Switch → `.switch > input + label`. **Stop.**
+8. Card → `.card-closed` / `.card-open` / `.card-interactive`. **Stop.**
+9. Typography → text style class (`.labelBold30`, `.title50`, etc.). **Stop.**
+10. Spacing → spacing token (`var(--spacing-200)`) or utility (`.mb-200`). **Stop.**
+11. Interactive surface → `.surface-*` + `.scale-*`. **Stop.**
+12. None of the above → minimal custom CSS using tokens only.
 
 **Never:**
-- Write custom CSS for any component in steps 1–10
+- Write custom CSS for any component in steps 1–11
 - Hardcode any color (`#`, `rgb()`, `hsl()`)
 - Hardcode spacing in `px`, `em`, or `rem`
 - Set `font-size`, `font-weight`, or `line-height` manually
 - Use `--color-interactive` or `--color-inverted` directly
-- Write `:hover` or `:active` CSS for interactive components
+- Write `:hover` or `:active` CSS for interactive components — use `.surface-*` + `.scale-*` instead
 - Wrap a label+sublabel pair without `.card-text-pair` (or `.list-row-text-pair` in list rows)
+- Add a border to a card. `--bg-surface` vs `--bg-base` is the boundary — no `border` needed.
 
 ---
 
@@ -767,6 +817,8 @@ When outputting documentation intended for Confluence, follow the syntax and for
 |---|---|
 | Any button | `.btn .btn-[type] .btn-[size]` |
 | List item with slots | `.list-row` + 3-slot architecture |
+| Selectable list item (on `--bg-surface`) | `.selector.surface-washNeutral.scale-700` wrapping `.list-row` |
+| Selectable list item (on `--bg-base`) | `.selector.surface-card.scale-700` wrapping `.list-row` |
 | Text input or select | `.input-field` system |
 | Clickable card | `.card .card-interactive .scale-700` |
 | Clickable non-button surface | `.surface-[type] .scale-[size]` + `color: inherit` on children |

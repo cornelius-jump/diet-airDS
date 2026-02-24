@@ -31,6 +31,7 @@ Before writing any custom CSS ask: "Does Diet AirDS already have a class or toke
 - Use `--color-interactive` or `--color-inverted` directly
 - Write `:hover` or `:active` CSS for interactive components
 - Wrap a label+sublabel pair without `.card-text-pair` (or `.list-row-text-pair` in list rows)
+- **Add a border to a card. Cards never have borders.** Card surfaces are defined by `--bg-surface` against `--bg-base` — the background color contrast is the boundary. Never add `border: 1px solid` or any border to a card element.
 
 **Output format:** Always produce a complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
 
@@ -632,6 +633,8 @@ Utility classes: `.rounded-100` (8px) · `.rounded-button` (team-specific)
 
 Do not use shadows — `--shadow-sheet-a/b` and `--shadow-modal-a/b` are reserved for sheets and modals only.
 
+**Cards never have borders.** `--bg-surface` against `--bg-base` defines the card boundary. Never add `border` to a card.
+
 ---
 
 ## CONTAINER TOKENS
@@ -747,6 +750,120 @@ Set `data-theme` and `data-mode` on `<html>`. Always test both light and dark.
   </div>
 </div>
 ```
+
+### Inventory list row (VFS image + price)
+
+Data-driven list rows showing a seat-view image and price from the active team's JSON. Images and prices load at runtime from `/teams/{teamId}.json`. Use `data-vfs` and `data-vfs-index` attributes to target rows.
+
+**Mobile (329px) — `leading-image-small` + `leading-gap-lg`:**
+
+```html
+<div class="list-row" data-vfs="far" data-vfs-index="0">
+  <div class="leading leading-gap-lg">
+    <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+    <div class="leading-image-small vfs-placeholder">VFS Far</div>
+  </div>
+  <div class="list-row-content">
+    <div class="list-row-text-pair">
+      <span class="labelBold30">Section 313</span>
+      <span class="labelRegular10 text-secondary">Row F (Seats 9–14)</span>
+    </div>
+  </div>
+  <div class="trailing trailing-gap-sm">
+    <div class="trailing-text-pair">
+      <span class="labelBold20 vfs-price"></span>
+      <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+    </div>
+  </div>
+</div>
+```
+
+**Desktop (592px) — `leading-image-large` + `leading-gap-xl`:** same structure, swap image class and gap class.
+
+**Container** — card with no border; rows handle horizontal padding so dividers bleed full width:
+
+```html
+<div class="inventory-card">
+  <div class="inventory-list">
+    <div class="list-row" data-vfs="far" data-vfs-index="0">...</div>
+    <div class="list-row" data-vfs="far" data-vfs-index="1">...</div>
+    <div class="list-row" data-vfs="far" data-vfs-index="2">...</div>
+  </div>
+</div>
+```
+
+```css
+.inventory-card {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-100);
+  overflow: hidden;
+  /* NO border — surface color contrast defines the card boundary */
+}
+.inventory-list { display: flex; flex-direction: column; }
+.inventory-list .list-row {
+  padding: var(--spacing-200) var(--spacing-300);
+  border-bottom: 1px solid var(--border-default);
+}
+.inventory-list .list-row:last-child { border-bottom: none; }
+.vfs-img { object-fit: cover; }
+.vfs-placeholder {
+  background: var(--bg-base);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary);
+  font-size: 10px; text-align: center; line-height: 1.4;
+  border: 1px dashed var(--border-default);
+  border-radius: var(--border-radius-50);
+}
+```
+
+**JS to populate from team JSON** — call on load and when theme changes:
+
+```javascript
+async function loadVfsData(teamId) {
+  try {
+    const res = await fetch(`/teams/${teamId}.json`)
+    if (!res.ok) return
+    const data = await res.json()
+    updateVfs('far', data.vfsFar)
+    updateVfs('close', data.vfsClose)
+  } catch (e) {}
+}
+
+function updateVfs(type, vfs) {
+  document.querySelectorAll(`[data-vfs="${type}"]`).forEach(row => {
+    const index = parseInt(row.dataset.vfsIndex, 10)
+    const img = row.querySelector('.vfs-img')
+    const placeholder = row.querySelector('.vfs-placeholder')
+    const priceEl = row.querySelector('.vfs-price')
+    const labelEl = row.querySelector('.vfs-price-label')
+    const hasData = vfs && (vfs.images?.length > 0 || vfs.fallback)
+    const imageUrl = hasData ? (vfs.images?.[index] || vfs.fallback || '') : ''
+    const price = hasData ? (vfs.prices?.[index] || '') : ''
+    if (imageUrl) {
+      if (img) { img.src = imageUrl; img.style.display = '' }
+      if (placeholder) placeholder.style.display = 'none'
+    } else {
+      if (img) { img.src = ''; img.style.display = 'none' }
+      if (placeholder) placeholder.style.display = ''
+    }
+    if (priceEl) priceEl.textContent = price
+    if (labelEl) labelEl.textContent = vfs?.priceLabel || 'Avg. Price'
+  })
+}
+
+// Watch theme changes
+new MutationObserver(mutations => {
+  for (const m of mutations) {
+    if (m.attributeName === 'data-theme') {
+      loadVfsData(document.documentElement.getAttribute('data-theme'))
+    }
+  }
+}).observe(document.documentElement, { attributes: true })
+
+loadVfsData(document.documentElement.getAttribute('data-theme'))
+```
+
+**`far` vs `close`** — use `data-vfs="far"` for upper bowl/wide views, `data-vfs="close"` for courtside/pitch-side. Same HTML structure for both.
 
 ### Card with header, body, and footer
 
@@ -986,5 +1103,7 @@ OUTPUT: Complete standalone HTML file.
 **Brand color wrong in dark mode** — Replace `--color-interactive` with `--brand-interactive`.
 
 **Themes look identical** — Check `data-theme` and `data-mode` are set correctly on `<html>`.
+
+**Card has a visible border** — Remove it. Cards never have borders. Surface contrast (`--bg-surface` vs `--bg-base`) defines the boundary.
 
 **Fonts not loading** — Use absolute URL for `fonts.css`. Check Google Fonts `<link>` is present.

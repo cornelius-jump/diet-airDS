@@ -507,6 +507,45 @@
       background: var(--neutral-200);
       border-radius: var(--border-radius-50);
     }
+
+    /* ---- Inventory List Row pattern ---- */
+    .inventory-card {
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-100);
+      overflow: hidden;
+    }
+    .inventory-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .inventory-list .list-row {
+      padding: var(--spacing-200) var(--spacing-300);
+      border-bottom: 1px solid var(--border-default);
+    }
+    .inventory-list .list-row:last-child { border-bottom: none; }
+    .vfs-img { object-fit: cover; }
+    .vfs-placeholder {
+      background: var(--bg-base);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 10px;
+      font-family: inherit;
+      text-align: center;
+      line-height: 1.4;
+      border: 1px dashed var(--border-default);
+      border-radius: var(--border-radius-50);
+    }
+    .inventory-demo-split {
+      display: grid;
+      grid-template-columns: 329px 592px;
+      gap: var(--spacing-600);
+      align-items: start;
+    }
+    @media (max-width: 1000px) {
+      .inventory-demo-split { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -2411,6 +2450,263 @@
 
 
 <!-- ==========================================
+     12b. INVENTORY LIST ROW — USAGE PATTERN
+     ========================================== -->
+<div class="container-wide py-large border-top" id="inventory-list-row">
+  <p class="labelRegular30 text-secondary mb-50">Usage Pattern</p>
+  <h2 class="title80">Inventory List Row</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">A usage pattern for ticket inventory — combines a VFS (View From Seat) image, section/row label, and price. Images and prices load from the active team's JSON at runtime. Switch themes above to see different team data.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Card has no border.</strong> The card surface (<code>--bg-surface</code>) against the page background (<code>--bg-base</code>) defines the boundary. Row dividers bleed edge-to-edge because horizontal padding is on the rows, not the card.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-200">Far Seats</h3>
+  <div class="inventory-demo-split">
+    <div>
+      <p class="labelRegular10 text-secondary mb-150">Mobile · 329px</p>
+      <div class="inventory-card"><div class="inventory-list">
+        <div class="list-row" data-vfs="far" data-vfs-index="0">
+          <div class="leading leading-gap-lg">
+            <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+            <div class="leading-image-small vfs-placeholder">VFS<br>Far</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 313</span>
+              <span class="labelRegular10 text-secondary">Row F (Seats 9–14)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="far" data-vfs-index="1">
+          <div class="leading leading-gap-lg">
+            <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+            <div class="leading-image-small vfs-placeholder">VFS<br>Far</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 237</span>
+              <span class="labelRegular10 text-secondary">Row T (Seats 9–14)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="far" data-vfs-index="2">
+          <div class="leading leading-gap-lg">
+            <img class="leading-image-small vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+            <div class="leading-image-small vfs-placeholder">VFS<br>Far</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 210</span>
+              <span class="labelRegular10 text-secondary">Row A (Seats 5–8)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+    <div>
+      <p class="labelRegular10 text-secondary mb-150">Desktop · 592px</p>
+      <div class="inventory-card"><div class="inventory-list">
+        <div class="list-row" data-vfs="far" data-vfs-index="0">
+          <div class="leading leading-gap-xl">
+            <img class="leading-image-large vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+            <div class="leading-image-large vfs-placeholder">VFS<br>Far</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 313</span>
+              <span class="labelRegular10 text-secondary">Row F (Seats 9–14)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="far" data-vfs-index="1">
+          <div class="leading leading-gap-xl">
+            <img class="leading-image-large vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+            <div class="leading-image-large vfs-placeholder">VFS<br>Far</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 237</span>
+              <span class="labelRegular10 text-secondary">Row T (Seats 9–14)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="far" data-vfs-index="2">
+          <div class="leading leading-gap-xl">
+            <img class="leading-image-large vfs-img" src="" alt="View from seat — far perspective" style="display:none">
+            <div class="leading-image-large vfs-placeholder">VFS<br>Far</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 210</span>
+              <span class="labelRegular10 text-secondary">Row A (Seats 5–8)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <h3 class="title50 mt-500 mb-200">Close Seats</h3>
+  <div class="inventory-demo-split">
+    <div>
+      <p class="labelRegular10 text-secondary mb-150">Mobile · 329px</p>
+      <div class="inventory-card"><div class="inventory-list">
+        <div class="list-row" data-vfs="close" data-vfs-index="0">
+          <div class="leading leading-gap-lg">
+            <img class="leading-image-small vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+            <div class="leading-image-small vfs-placeholder">VFS<br>Close</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 111</span>
+              <span class="labelRegular10 text-secondary">Row B (Seats 3–11)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="close" data-vfs-index="1">
+          <div class="leading leading-gap-lg">
+            <img class="leading-image-small vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+            <div class="leading-image-small vfs-placeholder">VFS<br>Close</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 125</span>
+              <span class="labelRegular10 text-secondary">Row J (Seats 1–6)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="close" data-vfs-index="2">
+          <div class="leading leading-gap-lg">
+            <img class="leading-image-small vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+            <div class="leading-image-small vfs-placeholder">VFS<br>Close</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 103</span>
+              <span class="labelRegular10 text-secondary">Row C (Seats 4–9)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+    <div>
+      <p class="labelRegular10 text-secondary mb-150">Desktop · 592px</p>
+      <div class="inventory-card"><div class="inventory-list">
+        <div class="list-row" data-vfs="close" data-vfs-index="0">
+          <div class="leading leading-gap-xl">
+            <img class="leading-image-large vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+            <div class="leading-image-large vfs-placeholder">VFS<br>Close</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 111</span>
+              <span class="labelRegular10 text-secondary">Row B (Seats 3–11)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="close" data-vfs-index="1">
+          <div class="leading leading-gap-xl">
+            <img class="leading-image-large vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+            <div class="leading-image-large vfs-placeholder">VFS<br>Close</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 125</span>
+              <span class="labelRegular10 text-secondary">Row J (Seats 1–6)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+        <div class="list-row" data-vfs="close" data-vfs-index="2">
+          <div class="leading leading-gap-xl">
+            <img class="leading-image-large vfs-img" src="" alt="View from seat — close perspective" style="display:none">
+            <div class="leading-image-large vfs-placeholder">VFS<br>Close</div>
+          </div>
+          <div class="list-row-content">
+            <div class="list-row-text-pair">
+              <span class="labelBold30">Section 103</span>
+              <span class="labelRegular10 text-secondary">Row C (Seats 4–9)</span>
+            </div>
+          </div>
+          <div class="trailing trailing-gap-sm">
+            <div class="trailing-text-pair">
+              <span class="labelBold20 vfs-price"></span>
+              <span class="labelRegular10 text-secondary vfs-price-label">Avg. Price</span>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
      13. INPUT COMPONENTS
      ========================================== -->
 <div class="container-wide py-large border-top" id="inputs">
@@ -3428,6 +3724,51 @@ function closeSelect(fieldId) {
   function closeSelect(fieldId) {
     document.getElementById(fieldId).classList.remove('is-open');
   }
+
+  // Inventory List Row — VFS data loader
+  async function loadVfsData(teamId) {
+    try {
+      const res = await fetch(`/teams/${teamId}.json`)
+      if (!res.ok) return
+      const data = await res.json()
+      updateVfs('far', data.vfsFar)
+      updateVfs('close', data.vfsClose)
+    } catch (e) {}
+  }
+
+  function updateVfs(type, vfs) {
+    document.querySelectorAll(`[data-vfs="${type}"]`).forEach(row => {
+      const index = parseInt(row.dataset.vfsIndex, 10)
+      const img = row.querySelector('.vfs-img')
+      const placeholder = row.querySelector('.vfs-placeholder')
+      const priceEl = row.querySelector('.vfs-price')
+      const labelEl = row.querySelector('.vfs-price-label')
+      const hasData = vfs && (vfs.images?.length > 0 || vfs.fallback)
+      const imageUrl = hasData ? (vfs.images?.[index] || vfs.fallback || '') : ''
+      const price = hasData ? (vfs.prices?.[index] || '') : ''
+      if (imageUrl) {
+        if (img) { img.src = imageUrl; img.style.display = '' }
+        if (placeholder) placeholder.style.display = 'none'
+      } else {
+        if (img) { img.src = ''; img.style.display = 'none' }
+        if (placeholder) placeholder.style.display = ''
+      }
+      if (priceEl) priceEl.textContent = price
+      if (labelEl) labelEl.textContent = vfs?.priceLabel || 'Avg. Price'
+    })
+  }
+
+  // Watch for theme changes and reload VFS data
+  new MutationObserver(mutations => {
+    for (const m of mutations) {
+      if (m.attributeName === 'data-theme') {
+        loadVfsData(document.documentElement.getAttribute('data-theme'))
+      }
+    }
+  }).observe(document.documentElement, { attributes: true })
+
+  // Load on initial page render
+  loadVfsData(document.documentElement.getAttribute('data-theme'))
 </script>
 
 </body>

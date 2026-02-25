@@ -37,6 +37,7 @@ Any tappable or clickable element that isn't a button, list row, or input needs 
 - Write `:hover` or `:active` CSS for interactive components — use `.surface-*` + `.scale-*` instead
 - Wrap a label+sublabel pair without `.card-text-pair` (or `.list-row-text-pair` in list rows)
 - **Add a border to a card.** Cards never have borders. `--bg-surface` against `--bg-base` is the boundary — never add `border: 1px solid` or any border to a card element.
+- **Use a bare `<select>`, `<input>`, or `<button>` without its design system wrapper** — not in demos, test pages, or utility controls. There are no exemptions. Demo pages are real pages. Utility controls are real controls.
 
 **Output format:** Always produce a complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
 
@@ -1712,6 +1713,24 @@ If a Figma component has no entry in `figma-component-map.md`:
 3. Add a complete entry to `figma-component-map.md` before continuing
 
 A complete entry includes: nodeId, variant prop → CSS class table, and a default `figma_instantiate_component` call.
+
+---
+
+## PRE-OUTPUT SELF-AUDIT
+
+Before returning any HTML, scan the output for these failure modes. Fix any you find — do not ship them.
+
+| Scan for | What to check |
+|---|---|
+| Every `<select>` | Inside `.input-field.input-select` with display span, `arrow_drop_down` chevron, and `syncSelect` / `openSelect` / `closeSelect` handlers? |
+| Every `<input>` | Inside `.input-field` > `.input-and-message` > `.input-control`? |
+| Every `<button>` | Is it `.btn` + type + size, or `.btn-circle` + size + type? A bare `<button>` with custom styling is never correct. |
+| Every color value | Any `#`, `rgb()`, or `hsl()` outside the SYNC block? Replace with a token. |
+| Every spacing value | Any hardcoded `px`, `em`, or `rem` where a spacing token or utility class exists? Replace it. |
+| Every text element | Any inline `font-size`, `font-weight`, or `line-height`? Use a text style class. |
+| Every interactive element | Any `:hover` or `:active` CSS written by hand? Use `.surface-*` + `.scale-*`. |
+
+**No element is exempt because it is on a demo page, is a utility control, or "doesn't need the full component."**
 
 ---
 

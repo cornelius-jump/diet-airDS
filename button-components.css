@@ -16,6 +16,7 @@
    - Destructive (.btn-destructive)      — Dangerous actions (Delete, Remove)
    - White (.btn-white)                  — CTA on dark/brand surfaces
    - White Tertiary (.btn-white-tertiary)— Low-emphasis on dark surfaces
+   - Black (.btn-black)                  — Always-black fill; use on light surfaces
    
    Button Sizes:
    - Large   (.btn-700)  — 56px height, labelBold40 (18px)
@@ -469,6 +470,42 @@
 
 
 /* ============================================
+   BUTTON TYPE: BLACK
+   ============================================
+
+   Surface: fillBlack
+   Default:  black-1000 fill, white-1000 text
+   Hover:    white-300 overlay (lightens)
+   Pressed:  white-500 overlay (more lightening), 60% text
+   Disabled: 40% opacity, no interaction
+
+   Use for: High-contrast CTAs on light surfaces where
+   a non-branded black button is needed (always black
+   in both light and dark mode — unlike btn-neutral
+   which uses neutral-1000 which flips in dark mode)
+   ============================================ */
+
+.btn-black {
+  background: var(--black-1000);
+  color: var(--white-1000);
+}
+.btn-black:hover {
+  background:
+    linear-gradient(var(--white-300), var(--white-300)),
+    linear-gradient(var(--black-1000), var(--black-1000));
+}
+.btn-black:active {
+  background:
+    linear-gradient(var(--white-500), var(--white-500)),
+    linear-gradient(var(--black-1000), var(--black-1000));
+}
+.btn-black:disabled {
+  background: var(--black-1000);
+  opacity: 0.4;
+}
+
+
+/* ============================================
    CIRCLE ICON BUTTONS
    ============================================
    
@@ -673,6 +710,11 @@
   border: none;
   color: var(--status-error);
 }
+.btn-circle.btn-circle-white-tertiary {
+  background: var(--neutral-000);
+  border: none;
+  color: var(--white-1000);
+}
 
 /* Circle disabled */
 .btn-circle:disabled,
@@ -717,6 +759,7 @@
    6. Destructive      — Irreversible/dangerous actions
    7. White            — CTA on dark/brand surfaces (fillWhite)
    8. White Tertiary   — Low-emphasis on dark surfaces (ghost, white text)
+   9. Black            — Always-black CTA on light surfaces (never flips in dark mode)
    
    SIZING GUIDELINES:
    - 700 (Large):  Hero CTAs, full-width mobile buttons

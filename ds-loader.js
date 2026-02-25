@@ -40,6 +40,7 @@
     'list-row-components.css',
     'input-components.css',
     'tag-chip-components.css',
+    'nav-components.css',
     'boilerplate.css'
   ];
 

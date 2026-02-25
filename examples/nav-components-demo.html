@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nav Components Demo — Diet AirDS</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System -->
+  <script src="../ds-loader.js"></script>
+
+  <style>
+    /* ── Demo-only layout styles ─────────────────────────────── */
+    .demo-wrap {
+      padding: var(--spacing-500) var(--spacing-300);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (min-width: 768px) {
+      .demo-wrap { padding: var(--spacing-600) var(--spacing-500); }
+    }
+
+    /* Frame wrapping a component demo in a visual box */
+    .demo-frame {
+      border: 1px solid var(--border-default);
+      border-radius: var(--border-radius-100);
+      overflow: hidden;
+    }
+
+    /* 2-column grid for side-by-side demos */
+    .demo-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-300);
+    }
+    @media (min-width: 600px) {
+      .demo-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Padding inside demo frames that don't have built-in padding */
+    .demo-padded {
+      padding: var(--spacing-300) var(--spacing-300);
+    }
+
+    /* Divider between demo sections */
+    .demo-divider {
+      border: none;
+      border-top: 1px solid var(--border-default);
+      margin: var(--spacing-600) 0;
+    }
+
+    /* Demo section heading */
+    .demo-section-head {
+      margin-bottom: var(--spacing-100);
+    }
+    .demo-variant-label {
+      margin: var(--spacing-300) 0 var(--spacing-100);
+    }
+
+    /* Placeholder logo square (stands in for team logo image) */
+    .demo-logo {
+      width: 64px;
+      height: 64px;
+      background: var(--brand-core);
+      border-radius: var(--border-radius-100);
+      flex-shrink: 0;
+    }
+
+    /* Fake page content to show below page-header */
+    .demo-body-placeholder {
+      padding: var(--spacing-400) var(--spacing-300);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-200);
+      background: var(--bg-base);
+    }
+    .demo-body-row {
+      height: 48px;
+      background: var(--bg-surface);
+      border-radius: var(--border-radius-50);
+    }
+
+    /* Keep the team-select compact inside the top bar actions slot */
+    #team-select { width: 140px; }
+
+    /* ── Live page-header variants ───────────────────────────── */
+    .ph-variant { display: none; }
+    .ph-variant.ph-active { display: block; }
+
+    /* Control strip below the live page-header */
+    .live-ph-controls {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-default);
+      padding: var(--spacing-150) var(--spacing-200);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+    }
+    @media (min-width: 768px) {
+      .live-ph-controls { padding-inline: calc(var(--spacing-400) + var(--spacing-200)); }
+    }
+    @media (min-width: 1280px) {
+      .live-ph-controls { padding-inline: calc(var(--spacing-600) + var(--spacing-200)); }
+    }
+  </style>
+</head>
+
+<body style="background: var(--bg-base); color: var(--text-primary);">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LIVE TOP BAR (the real component — sticky, functional)
+       ═══════════════════════════════════════════════════════════ -->
+  <header class="top-bar" role="banner">
+    <div class="top-bar-inner">
+      <a class="top-bar-brand" href="/">
+        <div class="demo-logo"></div>
+        <span class="top-bar-name display100">
+          <span class="top-bar-name-short" id="short-name">Wolves</span>
+          <span class="top-bar-name-full" id="full-name">Timberwolves</span>
+        </span>
+      </a>
+      <div class="top-bar-actions">
+        <div class="input-field input-select" id="team-select">
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display" id="team-select-display">Wolves</span>
+              <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+              <select id="team-sel"
+                onchange="switchTeam(this.value); syncSelect('team-select', 'team-select-display', this)"
+                onfocus="openSelect('team-select')"
+                onblur="closeSelect('team-select')">
+                <option value="wolves">Wolves</option>
+                <option value="lynx">Lynx</option>
+                <option value="courage">Courage</option>
+                <option value="summit">Summit FC</option>
+                <option value="bucknell">Bucknell</option>
+                <option value="sounders">Sounders</option>
+                <option value="reign">Reign</option>
+                <option value="ncfc">NCFC</option>
+                <option value="jump">Jump</option>
+                <option value="athletics">Athletics</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <button class="btn-circle btn-circle-300 btn-circle-neutral-tertiary" onclick="toggleMode()" title="Toggle dark / light mode">
+          <span class="btn-icon material-symbols-rounded" id="mode-icon">dark_mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       LIVE PAGE HEADER (full-width, no demo frame — QA here)
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- Default variant -->
+  <section class="page-header ph-variant ph-active" id="ph-default">
+    <div class="page-header-content">
+      <div class="card-text-pair">
+        <span class="display500">Browse Events</span>
+        <span class="labelRegular40 text-secondary ph-team-name">Minnesota Timberwolves</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- With tabs variant -->
+  <section class="page-header has-tabs ph-variant" id="ph-tabs">
+    <div class="page-header-content">
+      <div class="card-text-pair">
+        <span class="display600">Buy Tickets</span>
+        <span class="labelRegular50 text-secondary ph-team-name">Minnesota Timberwolves</span>
+      </div>
+    </div>
+    <nav class="tabs" id="live-header-tabs" role="tablist" aria-label="Section tabs">
+      <button class="tab is-active" role="tab" aria-selected="true"  onclick="switchTab('live-header-tabs', this)">Overview</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab('live-header-tabs', this)">Schedule</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab('live-header-tabs', this)">Tickets</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab('live-header-tabs', this)">Roster</button>
+      <button class="tab" role="tab" aria-selected="false" onclick="switchTab('live-header-tabs', this)">Stats</button>
+    </nav>
+  </section>
+
+  <!-- With steps variant -->
+  <section class="page-header has-steps ph-variant" id="ph-steps">
+    <div class="steps">
+      <div class="step step-completed">
+        <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+        <span class="step-label">Select</span>
+      </div>
+      <span class="step-connector icon">chevron_right</span>
+      <div class="step step-active">
+        <div class="step-circle"><span class="step-number">2</span></div>
+        <span class="step-label">Seats</span>
+      </div>
+      <span class="step-connector icon">chevron_right</span>
+      <div class="step step-pending">
+        <div class="step-circle"><span class="step-number">3</span></div>
+        <span class="step-label">Checkout</span>
+      </div>
+      <span class="step-connector icon">chevron_right</span>
+      <div class="step step-pending">
+        <div class="step-circle"><span class="step-number">4</span></div>
+        <span class="step-label">Confirm</span>
+      </div>
+    </div>
+    <div class="page-header-content">
+      <div class="card-text-pair">
+        <span class="display500">Seat Selection</span>
+        <span class="labelRegular40 text-secondary ph-team-name">Minnesota Timberwolves</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variant switcher strip -->
+  <div class="live-ph-controls">
+    <span class="labelBold20 text-secondary">Variant:</span>
+    <div class="btn-group">
+      <button class="btn btn-primary btn-100" id="ph-btn-default" onclick="setPhVariant('default')">Default</button>
+      <button class="btn btn-secondary btn-100" id="ph-btn-tabs"    onclick="setPhVariant('tabs')">With Tabs</button>
+      <button class="btn btn-secondary btn-100" id="ph-btn-steps"   onclick="setPhVariant('steps')">With Steps</button>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       DEMO CONTENT
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="demo-wrap">
+
+    <!-- Page title -->
+    <div class="card-text-pair mb-500">
+      <span class="display500">Nav Components</span>
+      <span class="labelRegular40 text-secondary">Top Bar · Tabs · Steps · Page Header</span>
+    </div>
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         1. PAGE HEADER
+         ───────────────────────────────────────────────────────── -->
+    <div class="demo-section-head">
+      <span class="title50">Page Header</span>
+    </div>
+    <p class="labelRegular30 text-secondary mb-300">
+      Section-level header. Padding aligns with the top bar at every breakpoint (16px mobile · 48px tablet · 64px desktop).
+    </p>
+
+    <!-- Variant A: Default (no tabs/steps) -->
+    <p class="labelBold20 text-secondary demo-variant-label">Default — no tabs or steps</p>
+    <div class="demo-frame mb-400">
+      <section class="page-header">
+        <div class="page-header-content">
+          <div class="card-text-pair">
+            <span class="display500">Browse Events</span>
+            <span class="labelRegular40 text-secondary">Minnesota Timberwolves</span>
+          </div>
+        </div>
+      </section>
+      <!-- Placeholder body content to show the border-bottom in context -->
+      <div class="demo-body-placeholder">
+        <div class="demo-body-row"></div>
+        <div class="demo-body-row" style="width: 70%;"></div>
+      </div>
+    </div>
+
+    <!-- Variant B: With Tabs -->
+    <p class="labelBold20 text-secondary demo-variant-label">With tabs (.has-tabs) — tabs flush to header bottom, no tab border</p>
+    <div class="demo-frame mb-400">
+      <section class="page-header has-tabs">
+        <div class="page-header-content">
+          <div class="card-text-pair">
+            <span class="display600">Buy Tickets</span>
+            <span class="labelRegular50 text-secondary">Minnesota Timberwolves</span>
+          </div>
+        </div>
+        <nav class="tabs" id="header-tabs" role="tablist" aria-label="Checkout steps">
+          <button class="tab is-active" role="tab" aria-selected="true" onclick="switchTab('header-tabs', this)">Seats</button>
+          <button class="tab" role="tab" aria-selected="false" onclick="switchTab('header-tabs', this)">Summary</button>
+          <button class="tab" role="tab" aria-selected="false" onclick="switchTab('header-tabs', this)">Payment</button>
+          <button class="tab" role="tab" aria-selected="false" onclick="switchTab('header-tabs', this)">Confirmation</button>
+        </nav>
+      </section>
+      <div class="demo-body-placeholder">
+        <div class="demo-body-row"></div>
+        <div class="demo-body-row" style="width: 55%;"></div>
+        <div class="demo-body-row" style="width: 80%;"></div>
+      </div>
+    </div>
+
+    <!-- Variant C: With Steps -->
+    <p class="labelBold20 text-secondary demo-variant-label">With steps (.has-steps) — page-header keeps its border-bottom</p>
+    <div class="demo-frame mb-200">
+      <section class="page-header has-steps">
+        <div class="steps">
+          <div class="step step-completed">
+            <div class="step-circle">
+              <span class="icon icon-100 icon-filled">check</span>
+            </div>
+            <span class="step-label">Seats</span>
+          </div>
+          <span class="step-connector icon">chevron_right</span>
+          <div class="step step-active">
+            <div class="step-circle">
+              <span class="step-number">2</span>
+            </div>
+            <span class="step-label">Summary</span>
+          </div>
+          <span class="step-connector icon">chevron_right</span>
+          <div class="step step-pending">
+            <div class="step-circle">
+              <span class="step-number">3</span>
+            </div>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+        <div class="page-header-content">
+          <div class="card-text-pair">
+            <span class="display500">Checkout</span>
+            <span class="labelRegular40 text-secondary">Minnesota Timberwolves</span>
+          </div>
+        </div>
+      </section>
+      <div class="demo-body-placeholder">
+        <div class="demo-body-row"></div>
+        <div class="demo-body-row" style="width: 65%;"></div>
+      </div>
+    </div>
+
+    <!-- Large typography variant note -->
+    <p class="labelRegular20 text-secondary mb-500" style="padding-left: var(--spacing-200);">
+      Size 9000 (Large=True): <span class="labelBold20 text-secondary">display600 + labelRegular50</span> ·
+      Size 8000 (default): <span class="labelBold20 text-secondary">display500 + labelRegular40</span>
+    </p>
+
+
+    <hr class="demo-divider">
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         2. TABS
+         ───────────────────────────────────────────────────────── -->
+    <div class="demo-section-head">
+      <span class="title50">Tabs</span>
+    </div>
+    <p class="labelRegular30 text-secondary mb-300">
+      Scrollable on mobile. 4px brand-color active indicator uses <code>margin-bottom: -1px</code> to bleed through the 1px container hairline.
+    </p>
+
+    <!-- Brand tabs (default) -->
+    <p class="labelBold20 text-secondary demo-variant-label">Brand color — default .tabs</p>
+    <div class="demo-frame mb-400">
+      <nav class="tabs" id="brand-tabs" role="tablist" aria-label="Brand tabs demo">
+        <button class="tab is-active" role="tab" aria-selected="true" onclick="switchTab('brand-tabs', this)">Overview</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('brand-tabs', this)">Schedule</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('brand-tabs', this)">Roster</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('brand-tabs', this)">Stats</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('brand-tabs', this)">Tickets</button>
+      </nav>
+    </div>
+
+    <!-- Neutral tabs -->
+    <p class="labelBold20 text-secondary demo-variant-label">Neutral — .tabs.tabs-neutral (no brand color)</p>
+    <div class="demo-frame mb-500">
+      <nav class="tabs tabs-neutral" id="neutral-tabs" role="tablist" aria-label="Neutral tabs demo">
+        <button class="tab is-active" role="tab" aria-selected="true" onclick="switchTab('neutral-tabs', this)">All</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('neutral-tabs', this)">Home</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('neutral-tabs', this)">Away</button>
+        <button class="tab" role="tab" aria-selected="false" onclick="switchTab('neutral-tabs', this)">Playoffs</button>
+      </nav>
+    </div>
+
+
+    <hr class="demo-divider">
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         3. STEPS
+         ───────────────────────────────────────────────────────── -->
+    <div class="demo-section-head">
+      <span class="title50">Steps</span>
+    </div>
+    <p class="labelRegular30 text-secondary mb-300">
+      Step circles are 24×24. Labels hide automatically below 500px. Use <code>chevron_right</code> for connectors.
+    </p>
+
+    <div class="demo-grid-2 mb-400">
+
+      <!-- Step 1 active -->
+      <div>
+        <p class="labelBold20 text-secondary demo-variant-label">Step 1 active</p>
+        <div class="demo-frame demo-padded">
+          <div class="steps">
+            <div class="step step-active">
+              <div class="step-circle"><span class="step-number">1</span></div>
+              <span class="step-label">Seats</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-pending">
+              <div class="step-circle"><span class="step-number">2</span></div>
+              <span class="step-label">Summary</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-pending">
+              <div class="step-circle"><span class="step-number">3</span></div>
+              <span class="step-label">Payment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 active (step 1 complete) -->
+      <div>
+        <p class="labelBold20 text-secondary demo-variant-label">Step 2 active — step 1 complete</p>
+        <div class="demo-frame demo-padded">
+          <div class="steps">
+            <div class="step step-completed">
+              <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+              <span class="step-label">Seats</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-active">
+              <div class="step-circle"><span class="step-number">2</span></div>
+              <span class="step-label">Summary</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-pending">
+              <div class="step-circle"><span class="step-number">3</span></div>
+              <span class="step-label">Payment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 active (all prior complete) -->
+      <div>
+        <p class="labelBold20 text-secondary demo-variant-label">Step 3 active — all prior complete</p>
+        <div class="demo-frame demo-padded">
+          <div class="steps">
+            <div class="step step-completed">
+              <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+              <span class="step-label">Seats</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-completed">
+              <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+              <span class="step-label">Summary</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-active">
+              <div class="step-circle"><span class="step-number">3</span></div>
+              <span class="step-label">Payment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand variant (steps-brand) -->
+      <div>
+        <p class="labelBold20 text-secondary demo-variant-label">.steps-brand — completed uses brand color</p>
+        <div class="demo-frame demo-padded">
+          <div class="steps steps-brand">
+            <div class="step step-completed">
+              <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+              <span class="step-label">Seats</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-active">
+              <div class="step-circle"><span class="step-number">2</span></div>
+              <span class="step-label">Summary</span>
+            </div>
+            <span class="step-connector icon">chevron_right</span>
+            <div class="step step-pending">
+              <div class="step-circle"><span class="step-number">3</span></div>
+              <span class="step-label">Payment</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /demo-grid-2 -->
+
+    <!-- 4-step example -->
+    <p class="labelBold20 text-secondary demo-variant-label">4-step flow</p>
+    <div class="demo-frame demo-padded mb-500">
+      <div class="steps">
+        <div class="step step-completed">
+          <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+          <span class="step-label">Select</span>
+        </div>
+        <span class="step-connector icon">chevron_right</span>
+        <div class="step step-completed">
+          <div class="step-circle"><span class="icon icon-100 icon-filled">check</span></div>
+          <span class="step-label">Seats</span>
+        </div>
+        <span class="step-connector icon">chevron_right</span>
+        <div class="step step-active">
+          <div class="step-circle"><span class="step-number">3</span></div>
+          <span class="step-label">Summary</span>
+        </div>
+        <span class="step-connector icon">chevron_right</span>
+        <div class="step step-pending">
+          <div class="step-circle"><span class="step-number">4</span></div>
+          <span class="step-label">Payment</span>
+        </div>
+      </div>
+    </div>
+
+
+    <hr class="demo-divider">
+
+
+    <!-- ─────────────────────────────────────────────────────────
+         4. TOP BAR ANATOMY
+         ───────────────────────────────────────────────────────── -->
+    <div class="demo-section-head">
+      <span class="title50">Top Bar</span>
+    </div>
+    <p class="labelRegular30 text-secondary mb-300">
+      The top bar above is the live component. It has <code>position: sticky; top: 0</code>, <code>backdrop-filter: blur(var(--background-blur))</code>, and <code>background: var(--bg-nav)</code>. Use the switcher to see all team / mode combinations.
+    </p>
+
+    <!-- Anatomy notes as a simple info list -->
+    <div class="demo-frame mb-400">
+      <div style="padding: var(--spacing-300);">
+        <div class="card-text-pair mb-300">
+          <span class="labelBold30">Slots</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: var(--spacing-150);">
+          <div style="padding: var(--spacing-150) var(--spacing-200); border-bottom: 1px solid var(--border-default);">
+            <div class="list-row-text-pair">
+              <span class="labelBold20">.top-bar-brand</span>
+              <span class="labelRegular10 text-secondary">Logo + team name · tap target for home nav · flex: 1 pushes actions right</span>
+            </div>
+          </div>
+          <div style="padding: var(--spacing-150) var(--spacing-200); border-bottom: 1px solid var(--border-default);">
+            <div class="list-row-text-pair">
+              <span class="labelBold20">.top-bar-name-short</span>
+              <span class="labelRegular10 text-secondary">Visible on mobile (&lt;768px) only</span>
+            </div>
+          </div>
+          <div style="padding: var(--spacing-150) var(--spacing-200); border-bottom: 1px solid var(--border-default);">
+            <div class="list-row-text-pair">
+              <span class="labelBold20">.top-bar-name-full</span>
+              <span class="labelRegular10 text-secondary">Visible on tablet+ (≥768px)</span>
+            </div>
+          </div>
+          <div style="padding: var(--spacing-150) var(--spacing-200);">
+            <div class="list-row-text-pair">
+              <span class="labelBold20">.top-bar-actions</span>
+              <span class="labelRegular10 text-secondary">Trailing slot — auth buttons, icon buttons, mode toggle</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Padding reference -->
+    <div class="demo-grid-2 mb-500">
+      <div class="demo-frame demo-padded">
+        <div class="card-text-pair">
+          <span class="labelBold20">Mobile — px-16px</span>
+          <span class="labelRegular10 text-secondary">--spacing-200 · shortName · &lt;768px</span>
+        </div>
+      </div>
+      <div class="demo-frame demo-padded">
+        <div class="card-text-pair">
+          <span class="labelBold20">Tablet — px-48px</span>
+          <span class="labelRegular10 text-secondary">--spacing-600 · fullName · ≥768px</span>
+        </div>
+      </div>
+      <div class="demo-frame demo-padded">
+        <div class="card-text-pair">
+          <span class="labelBold20">Desktop — px-64px</span>
+          <span class="labelRegular10 text-secondary">--spacing-800 · fullName · ≥1280px</span>
+        </div>
+      </div>
+      <div class="demo-frame demo-padded">
+        <div class="card-text-pair">
+          <span class="labelBold20">All breakpoints — py-8px</span>
+          <span class="labelRegular10 text-secondary">--spacing-100 · Logo always 64×64</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /demo-wrap -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       JS — theme switching, mode toggle, tab interaction
+       ═══════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Tab switching ──────────────────────────────────────────
+    function switchTab(navId, btn) {
+      const nav = document.getElementById(navId);
+      nav.querySelectorAll('.tab').forEach(function(t) {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+    }
+
+    // ── Select helpers (required by .input-field.input-select) ──
+    function syncSelect(fieldId, displayId, selectEl) {
+      var display = document.getElementById(displayId);
+      var chosen = selectEl.options[selectEl.selectedIndex];
+      display.textContent = chosen.text;
+      display.classList.toggle('is-placeholder', !chosen.value);
+    }
+    function openSelect(fieldId)  { document.getElementById(fieldId).classList.add('is-open'); }
+    function closeSelect(fieldId) { document.getElementById(fieldId).classList.remove('is-open'); }
+
+    // ── Team switching ─────────────────────────────────────────
+    const teamNames = {
+      wolves:    { short: 'Wolves',    full: 'Timberwolves' },
+      lynx:      { short: 'Lynx',      full: 'Minnesota Lynx' },
+      courage:   { short: 'Courage',   full: 'NC Courage' },
+      summit:    { short: 'Summit',    full: 'Denver Summit FC' },
+      bucknell:  { short: 'Bucknell',  full: 'Bucknell Bison' },
+      sounders:  { short: 'Sounders',  full: 'Seattle Sounders' },
+      reign:     { short: 'Reign',     full: 'Seattle Reign' },
+      ncfc:      { short: 'NCFC',      full: 'NC Football Club' },
+      jump:      { short: 'Jump',      full: 'Jump Default' },
+      athletics: { short: 'Athletics', full: 'Las Vegas Athletics' }
+    };
+
+    function switchTeam(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      var names = teamNames[theme] || { short: theme, full: theme };
+      document.getElementById('short-name').textContent = names.short;
+      document.getElementById('full-name').textContent = names.full;
+      // Sync team name in live page-header
+      document.querySelectorAll('.ph-team-name').forEach(function(el) {
+        el.textContent = names.full;
+      });
+    }
+
+    // ── Live page-header variant switcher ──────────────────────
+    function setPhVariant(v) {
+      ['default', 'tabs', 'steps'].forEach(function(id) {
+        document.getElementById('ph-' + id).classList.toggle('ph-active', id === v);
+        var btn = document.getElementById('ph-btn-' + id);
+        btn.className = id === v ? 'btn btn-primary btn-100' : 'btn btn-secondary btn-100';
+      });
+    }
+
+    // ── Dark / light toggle ────────────────────────────────────
+    function toggleMode() {
+      var html = document.documentElement;
+      var current = html.getAttribute('data-mode') || 'light';
+      var next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-mode', next);
+      document.getElementById('mode-icon').textContent =
+        next === 'dark' ? 'light_mode' : 'dark_mode';
+    }
+  </script>
+
+</body>
+</html>

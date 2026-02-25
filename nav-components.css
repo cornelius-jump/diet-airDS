@@ -375,6 +375,9 @@
 .steps-brand .step-completed .step-circle {
   background: var(--interactive-primary);
 }
+.steps-brand .step-completed .step-circle .icon {
+  color: var(--interactive-primary-text);
+}
 
 /* Mobile: label-free compact view */
 @media (max-width: 499px) {

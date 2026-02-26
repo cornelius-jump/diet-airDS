@@ -1,7 +1,10 @@
 {
-  "buildCommand": "npm run build:storybook-cdn",
+  "buildCommand": "npm run build:site",
   "installCommand": "npm install",
-  "outputDirectory": "storybook-static",
+  "outputDirectory": "site-dist",
+  "rewrites": [
+    { "source": "/((?!.*\\..*$).*)", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/fonts/(.*)",

@@ -1,0 +1,11 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { Tag } from './Tag';
+declare const meta: Meta<typeof Tag>;
+export default meta;
+type Story = StoryObj<typeof Tag>;
+export declare const Default: Story;
+export declare const TeamColor: Story;
+export declare const WithLeadingIcon: Story;
+export declare const WithTrailingIcon: Story;
+export declare const ChipBordered: Story;
+export declare const ChipGhost: Story;

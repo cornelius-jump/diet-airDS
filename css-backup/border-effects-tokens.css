@@ -1,0 +1,280 @@
+/* ============================================
+   BORDER & SHADOW TOKENS
+   ============================================
+   
+   Border radius, border weight, and drop shadow tokens
+   Based on Figma design system specifications
+   Load after design-tokens-master.css
+   ============================================ */
+
+/* ============================================
+   BORDER RADIUS TOKENS
+   ============================================ */
+:root {
+  /* Fixed border radius scale */
+  --border-radius-50: 4px;
+  --border-radius-100: 8px;
+  --border-radius-200: 16px;
+  
+  /* Team-specific button border radius */
+  /* buttonBorderRadius is defined per team in design-tokens-master.css */
+  /* Wolves, Summit: 8px */
+  /* Lynx: 12px */
+  /* Courage, Bucknell, Sounders, Reign, NCFC, Jump, Athletics: 100px */
+}
+
+/* ============================================
+   BORDER WEIGHT TOKENS
+   ============================================ */
+:root {
+  /* Border weight scale */
+  --border-weight-50: 1px;    /* Web: Use 1px, matches neutral200 */
+  --border-weight-100: 1px;   /* Standard border weight, matches neutral500 */
+  --border-weight-200: 2px;   /* Heavy borders, matches neutral1000 or brandInteractive */
+}
+
+/* ============================================
+   DROP SHADOW TOKENS
+   ============================================ */
+
+/* Sheet Shadows - Mobile (elevated surfaces like sheets, cards) */
+:root {
+  --shadow-sheet-a: 0px -8px 64px 0px rgba(0, 0, 0, 0.12);
+  --shadow-sheet-b: 0px -4px 32px 0px rgba(0, 0, 0, 0.08);
+}
+
+[data-mode="dark"] {
+  --shadow-sheet-a: 0px -8px 64px 0px rgba(0, 0, 0, 0.12);
+  --shadow-sheet-b: 0px -4px 32px 0px rgba(0, 0, 0, 0.08);
+}
+
+/* Modal Shadows - Tablet/Desktop (highest elevation, modals and overlays) */
+:root {
+  --shadow-modal-a: 0px 8px 64px 0px rgba(0, 0, 0, 0.16);
+  --shadow-modal-b: 0px 4px 32px 0px rgba(0, 0, 0, 0.12);
+}
+
+[data-mode="dark"] {
+  --shadow-modal-a: 0px 8px 64px 0px rgba(0, 0, 0, 0.16);
+  --shadow-modal-b: 0px 4px 32px 0px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   SEMANTIC SHADOW TOKENS
+   ============================================ */
+:root {
+  /* Combined shadows for easy application */
+  --shadow-sheet: var(--shadow-sheet-a), var(--shadow-sheet-b);
+  --shadow-modal: var(--shadow-modal-a), var(--shadow-modal-b);
+}
+
+/* ============================================
+   UTILITY CLASSES - BORDER RADIUS
+   ============================================ */
+.rounded-50 { border-radius: var(--border-radius-50); }
+.rounded-100 { border-radius: var(--border-radius-100); }
+.rounded-200 { border-radius: var(--border-radius-200); }
+.rounded-button { border-radius: var(--button-border-radius); }
+
+/* Top corners */
+.rounded-t-50 { 
+  border-top-left-radius: var(--border-radius-50); 
+  border-top-right-radius: var(--border-radius-50); 
+}
+.rounded-t-100 { 
+  border-top-left-radius: var(--border-radius-100); 
+  border-top-right-radius: var(--border-radius-100); 
+}
+.rounded-t-200 { 
+  border-top-left-radius: var(--border-radius-200); 
+  border-top-right-radius: var(--border-radius-200); 
+}
+
+/* Bottom corners */
+.rounded-b-50 { 
+  border-bottom-left-radius: var(--border-radius-50); 
+  border-bottom-right-radius: var(--border-radius-50); 
+}
+.rounded-b-100 { 
+  border-bottom-left-radius: var(--border-radius-100); 
+  border-bottom-right-radius: var(--border-radius-100); 
+}
+.rounded-b-200 { 
+  border-bottom-left-radius: var(--border-radius-200); 
+  border-bottom-right-radius: var(--border-radius-200); 
+}
+
+/* Left corners */
+.rounded-l-50 { 
+  border-top-left-radius: var(--border-radius-50); 
+  border-bottom-left-radius: var(--border-radius-50); 
+}
+.rounded-l-100 { 
+  border-top-left-radius: var(--border-radius-100); 
+  border-bottom-left-radius: var(--border-radius-100); 
+}
+.rounded-l-200 { 
+  border-top-left-radius: var(--border-radius-200); 
+  border-bottom-left-radius: var(--border-radius-200); 
+}
+
+/* Right corners */
+.rounded-r-50 { 
+  border-top-right-radius: var(--border-radius-50); 
+  border-bottom-right-radius: var(--border-radius-50); 
+}
+.rounded-r-100 { 
+  border-top-right-radius: var(--border-radius-100); 
+  border-bottom-right-radius: var(--border-radius-100); 
+}
+.rounded-r-200 { 
+  border-top-right-radius: var(--border-radius-200); 
+  border-bottom-right-radius: var(--border-radius-200); 
+}
+
+/* Individual corners */
+.rounded-tl-50 { border-top-left-radius: var(--border-radius-50); }
+.rounded-tl-100 { border-top-left-radius: var(--border-radius-100); }
+.rounded-tl-200 { border-top-left-radius: var(--border-radius-200); }
+
+.rounded-tr-50 { border-top-right-radius: var(--border-radius-50); }
+.rounded-tr-100 { border-top-right-radius: var(--border-radius-100); }
+.rounded-tr-200 { border-top-right-radius: var(--border-radius-200); }
+
+.rounded-bl-50 { border-bottom-left-radius: var(--border-radius-50); }
+.rounded-bl-100 { border-bottom-left-radius: var(--border-radius-100); }
+.rounded-bl-200 { border-bottom-left-radius: var(--border-radius-200); }
+
+.rounded-br-50 { border-bottom-right-radius: var(--border-radius-50); }
+.rounded-br-100 { border-bottom-right-radius: var(--border-radius-100); }
+.rounded-br-200 { border-bottom-right-radius: var(--border-radius-200); }
+
+/* ============================================
+   UTILITY CLASSES - BORDER WEIGHT
+   ============================================ */
+.border-50 { border-width: var(--border-weight-50); }
+.border-100 { border-width: var(--border-weight-100); }
+.border-200 { border-width: var(--border-weight-200); }
+
+/* Directional borders */
+.border-t-50 { border-top-width: var(--border-weight-50); }
+.border-t-100 { border-top-width: var(--border-weight-100); }
+.border-t-200 { border-top-width: var(--border-weight-200); }
+
+.border-r-50 { border-right-width: var(--border-weight-50); }
+.border-r-100 { border-right-width: var(--border-weight-100); }
+.border-r-200 { border-right-width: var(--border-weight-200); }
+
+.border-b-50 { border-bottom-width: var(--border-weight-50); }
+.border-b-100 { border-bottom-width: var(--border-weight-100); }
+.border-b-200 { border-bottom-width: var(--border-weight-200); }
+
+.border-l-50 { border-left-width: var(--border-weight-50); }
+.border-l-100 { border-left-width: var(--border-weight-100); }
+.border-l-200 { border-left-width: var(--border-weight-200); }
+
+/* Border style */
+.border-solid { border-style: solid; }
+.border-none { border-style: none; }
+
+/* ============================================
+   UTILITY CLASSES - BORDER COLOR
+   ============================================ */
+.border-neutral-200 { border-color: var(--neutral-200); }
+.border-neutral-500 { border-color: var(--neutral-500); }
+.border-neutral-1000 { border-color: var(--neutral-1000); }
+.border-brand-interactive { border-color: var(--brand-interactive); }
+.border-default { border-color: var(--border-default); }
+.border-hover { border-color: var(--border-hover); }
+.border-active { border-color: var(--border-active); }
+
+/* ============================================
+   UTILITY CLASSES - DROP SHADOWS
+   ============================================ */
+.shadow-sheet { box-shadow: var(--shadow-sheet); }
+.shadow-modal { box-shadow: var(--shadow-modal); }
+.shadow-none { box-shadow: none; }
+
+/* Individual shadow layers (for advanced use) */
+.shadow-sheet-a { box-shadow: var(--shadow-sheet-a); }
+.shadow-sheet-b { box-shadow: var(--shadow-sheet-b); }
+.shadow-modal-a { box-shadow: var(--shadow-modal-a); }
+.shadow-modal-b { box-shadow: var(--shadow-modal-b); }
+
+/* ============================================
+   COMMON BORDER COMBINATIONS
+   ============================================ */
+
+/* Standard border with default color */
+.border {
+  border-width: var(--border-weight-100);
+  border-style: solid;
+  border-color: var(--border-default);
+}
+
+/* Thin border (Web usage) */
+.border-thin {
+  border-width: var(--border-weight-50);
+  border-style: solid;
+  border-color: var(--neutral-200);
+}
+
+/* Heavy border */
+.border-heavy {
+  border-width: var(--border-weight-200);
+  border-style: solid;
+  border-color: var(--neutral-1000);
+}
+
+/* Interactive border (for focus states) */
+.border-interactive {
+  border-width: var(--border-weight-200);
+  border-style: solid;
+  border-color: var(--brand-interactive);
+}
+
+/* Directional borders with default styling */
+.border-top {
+  border-top-width: var(--border-weight-100);
+  border-top-style: solid;
+  border-top-color: var(--border-default);
+}
+
+.border-right {
+  border-right-width: var(--border-weight-100);
+  border-right-style: solid;
+  border-right-color: var(--border-default);
+}
+
+.border-bottom {
+  border-bottom-width: var(--border-weight-100);
+  border-bottom-style: solid;
+  border-bottom-color: var(--border-default);
+}
+
+.border-left {
+  border-left-width: var(--border-weight-100);
+  border-left-style: solid;
+  border-left-color: var(--border-default);
+}
+
+/* ============================================
+   USAGE GUIDELINES
+   ============================================
+   
+   BORDER RADIUS:
+   - 50 (4px): Small elements, badges, tags
+   - 100 (8px): Cards, inputs, standard UI elements
+   - 200 (16px): Large cards, hero sections
+   - buttonBorderRadius: Team-specific (use var(--button-border-radius))
+   
+   BORDER WEIGHT:
+   - 50 (1px): Web usage, subtle borders with neutral200
+   - 100 (1px): Standard borders with neutral500
+   - 200 (2px): Heavy borders, focus states with neutral1000 or brandInteractive
+   
+   DROP SHADOWS:
+   - shadow-sheet: Mobile elevated surfaces (sheets, bottom sheets, cards)
+   - shadow-modal: Tablet/Desktop modals and overlays (highest elevation)
+   
+   ============================================ */

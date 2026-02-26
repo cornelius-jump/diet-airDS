@@ -1,0 +1,789 @@
+/* ============================================
+   DESIGN SYSTEM - MASTER TOKEN LIBRARY
+   ============================================
+   
+   Usage:
+   Add data-theme="[team-id]" and data-mode="light|dark" to <html> or container
+   Example: <html data-theme="wolves" data-mode="dark">
+   
+   Team IDs: wolves, lynx, courage, summit, bucknell, sounders, reign, ncfc, jump, athletics
+   ============================================ */
+
+/* ============================================
+   BASE TOKENS (Mode Agnostic)
+   ============================================ */
+:root {
+  /* White scale (mode agnostic) */
+  --white-100: rgba(255, 255, 255, 0.1);
+  --white-200: rgba(255, 255, 255, 0.15);
+  --white-300: rgba(255, 255, 255, 0.25);
+  --white-500: rgba(255, 255, 255, 0.55);
+  --white-700: rgba(255, 255, 255, 0.75);
+  --white-900: rgba(255, 255, 255, 0.95);
+  --white-1000: rgba(255, 255, 255, 1);
+  
+  /* Black scale (mode agnostic) */
+  --black-100: rgba(0, 0, 0, 0.04);
+  --black-200: rgba(0, 0, 0, 0.1);
+  --black-300: rgba(0, 0, 0, 0.15);
+  --black-500: rgba(0, 0, 0, 0.4);
+  --black-700: rgba(0, 0, 0, 0.65);
+  --black-900: rgba(0, 0, 0, 0.85);
+  --black-1000: rgba(0, 0, 0, 1);
+  
+  /* Status colors */
+  --status-warning-light: #D2811E;
+  --status-warning-dark: #F6AF24;
+  --status-success-light: #007A47;
+  --status-success-dark: #00A96E;
+  --status-error-light: #D42F21;
+  --status-error-dark: #E43E2F;
+  --status-info-light: #0671E5;
+  --status-info-dark: #3892F3;
+}
+
+/* ============================================
+   LIGHT MODE DEFAULTS
+   ============================================ */
+:root,
+[data-mode="light"] {
+  /* Neutral tokens */
+  --neutral-000: rgba(0, 0, 0, 0);
+  --neutral-50: rgba(0, 0, 0, 0.03);
+  --neutral-100: rgba(0, 0, 0, 0.04);
+  --neutral-200: rgba(0, 0, 0, 0.1);
+  --neutral-300: rgba(0, 0, 0, 0.15);
+  --neutral-500: rgba(0, 0, 0, 0.4);
+  --neutral-700: rgba(0, 0, 0, 0.65);
+  --neutral-900: rgba(0, 0, 0, 0.85);
+  --neutral-1000: rgba(0, 0, 0, 1);
+  
+  /* Inverted tokens */
+  --inverted-000: rgba(255, 255, 255, 0);
+  --inverted-50: rgba(255, 255, 255, 0.05);
+  --inverted-100: rgba(255, 255, 255, 0.1);
+  --inverted-200: rgba(255, 255, 255, 0.15);
+  --inverted-300: rgba(255, 255, 255, 0.25);
+  --inverted-500: rgba(255, 255, 255, 0.55);
+  --inverted-700: rgba(255, 255, 255, 0.75);
+  --inverted-900: rgba(255, 255, 255, 0.95);
+  --inverted-1000: rgba(255, 255, 255, 1);
+  
+  /* Status */
+  --status-warning: var(--status-warning-light);
+  --status-success: var(--status-success-light);
+  --status-error: var(--status-error-light);
+  --status-info: var(--status-info-light);
+
+  /* Input background — white in light mode so inputs read as enabled on gray surfaces */
+  --bg-input: #FFFFFF;
+}
+
+/* ============================================
+   DARK MODE DEFAULTS
+   ============================================ */
+[data-mode="dark"] {
+  /* Neutral tokens */
+  --neutral-000: rgba(255, 255, 255, 0);
+  --neutral-50: rgba(255, 255, 255, 0.05);
+  --neutral-100: rgba(255, 255, 255, 0.1);
+  --neutral-200: rgba(255, 255, 255, 0.15);
+  --neutral-300: rgba(255, 255, 255, 0.25);
+  --neutral-500: rgba(255, 255, 255, 0.55);
+  --neutral-700: rgba(255, 255, 255, 0.75);
+  --neutral-900: rgba(255, 255, 255, 0.95);
+  --neutral-1000: rgba(255, 255, 255, 1);
+  
+  /* Inverted tokens */
+  --inverted-000: rgba(0, 0, 0, 0);
+  --inverted-50: rgba(0, 0, 0, 0.03);
+  --inverted-100: rgba(0, 0, 0, 0.04);
+  --inverted-200: rgba(0, 0, 0, 0.1);
+  --inverted-300: rgba(0, 0, 0, 0.15);
+  --inverted-500: rgba(0, 0, 0, 0.4);
+  --inverted-700: rgba(0, 0, 0, 0.65);
+  --inverted-900: rgba(0, 0, 0, 0.85);
+  --inverted-1000: rgba(0, 0, 0, 1);
+  
+  /* Status */
+  --status-warning: var(--status-warning-dark);
+  --status-success: var(--status-success-dark);
+  --status-error: var(--status-error-dark);
+  --status-info: var(--status-info-dark);
+
+  /* Input background — transparent in dark mode; white would be jarring on dark surfaces */
+  --bg-input: transparent;
+}
+
+/* SYNC:START - Team themes managed by Sanity CMS - DO NOT EDIT MANUALLY */
+
+/* ============================================
+   TEAM THEMES - LAS VEGAS ATHLETICS
+   ============================================ */
+[data-theme="athletics"] {
+  /* Brand Colors */
+  --brand-core: #006141;
+  --brand-light: #FFB819;
+  --brand-dark: #051715;
+  --brand-interactive: #006141;
+  --brand-inverted: #FFB819;
+
+  /* Typography */
+  --display-font: 'Proxima Caps', sans-serif;
+  --display-weight: 900;
+  --display-letter-spacing: 0em;
+  --display-size-900: 74px;
+  --display-size-800: 67px;
+  --display-size-700: 59px;
+  --display-size-600: 52px;
+  --display-size-500: 44px;
+  --display-size-400: 36px;
+  --display-size-300: 29px;
+  --display-size-200: 26px;
+  --display-size-100: 22px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/athletics.svg');
+}
+
+[data-theme="athletics"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #006141;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #006141;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #006141;
+  --color-interactive: #006141;
+  --color-inverted: #FFB819;
+}
+
+[data-theme="athletics"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #FFB819;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #FFB819;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #FFB819;
+  --color-interactive: #FFB819;
+  --color-inverted: #006141;
+}
+
+/* ============================================
+   TEAM THEMES - BUCKNELL BISON
+   ============================================ */
+[data-theme="bucknell"] {
+  /* Brand Colors */
+  --brand-core: #003865;
+  --brand-light: #E87722;
+  --brand-dark: #141414;
+  --brand-interactive: #003865;
+  --brand-inverted: #E87722;
+
+  /* Typography */
+  --display-font: 'Teko Caps', sans-serif;
+  --display-weight: 700;
+  --display-letter-spacing: -0.01em;
+  --display-size-900: 84px;
+  --display-size-800: 76px;
+  --display-size-700: 68px;
+  --display-size-600: 60px;
+  --display-size-500: 52px;
+  --display-size-400: 44px;
+  --display-size-300: 32px;
+  --display-size-200: 28px;
+  --display-size-100: 24px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/bucknell.svg');
+}
+
+[data-theme="bucknell"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #003865;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #003865;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #003865;
+  --color-interactive: #003865;
+  --color-inverted: #E87722;
+}
+
+[data-theme="bucknell"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #E87722;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #E87722;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #E87722;
+  --color-interactive: #E87722;
+  --color-inverted: #003865;
+}
+
+/* ============================================
+   TEAM THEMES - NORTH CAROLINA COURAGE
+   ============================================ */
+[data-theme="courage"] {
+  /* Brand Colors */
+  --brand-core: #AB0033;
+  --brand-light: #B4A269;
+  --brand-dark: #001420;
+  --brand-interactive: #AB0033;
+  --brand-inverted: #B4A269;
+
+  /* Typography */
+  --display-font: 'Public Caps Pro', sans-serif;
+  --display-weight: 800;
+  --display-letter-spacing: -0.05em;
+  --display-size-900: 68px;
+  --display-size-800: 61px;
+  --display-size-700: 54px;
+  --display-size-600: 46px;
+  --display-size-500: 39px;
+  --display-size-400: 32px;
+  --display-size-300: 25px;
+  --display-size-200: 22px;
+  --display-size-100: 18px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/courage.svg');
+}
+
+[data-theme="courage"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #AB0033;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #AB0033;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #AB0033;
+  --color-interactive: #AB0033;
+  --color-inverted: #B4A269;
+}
+
+[data-theme="courage"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #B4A269;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #B4A269;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #B4A269;
+  --color-interactive: #B4A269;
+  --color-inverted: #AB0033;
+}
+
+/* ============================================
+   TEAM THEMES - DENVER BIG HORNS
+   ============================================ */
+[data-theme="jump"] {
+  /* Brand Colors */
+  --brand-core: #657DFF;
+  --brand-light: #CCFF00;
+  --brand-dark: #131939;
+  --brand-interactive: #4C65F0;
+  --brand-inverted: #CCFF00;
+
+  /* Typography */
+  --display-font: 'Inter', sans-serif;
+  --display-weight: 900;
+  --display-letter-spacing: -0.04em;
+  --display-size-900: 68px;
+  --display-size-800: 61px;
+  --display-size-700: 54px;
+  --display-size-600: 46px;
+  --display-size-500: 39px;
+  --display-size-400: 32px;
+  --display-size-300: 25px;
+  --display-size-200: 22px;
+  --display-size-100: 18px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/jump.svg');
+}
+
+[data-theme="jump"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #4C65F0;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #4C65F0;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #4C65F0;
+  --color-interactive: #4C65F0;
+  --color-inverted: #CCFF00;
+}
+
+[data-theme="jump"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #CCFF00;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #CCFF00;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #CCFF00;
+  --color-interactive: #CCFF00;
+  --color-inverted: #4C65F0;
+}
+
+/* ============================================
+   TEAM THEMES - MINNESOTA LYNX
+   ============================================ */
+[data-theme="lynx"] {
+  /* Brand Colors */
+  --brand-core: #266092;
+  --brand-light: #79BC43;
+  --brand-dark: #0C233F;
+  --brand-interactive: #266092;
+  --brand-inverted: #79BC43;
+
+  /* Typography */
+  --display-font: 'Futura Caps', sans-serif;
+  --display-weight: 700;
+  --display-letter-spacing: -0.03em;
+  --display-size-900: 76px;
+  --display-size-800: 68px;
+  --display-size-700: 60px;
+  --display-size-600: 52px;
+  --display-size-500: 44px;
+  --display-size-400: 36px;
+  --display-size-300: 28px;
+  --display-size-200: 24px;
+  --display-size-100: 20px;
+
+  /* UI Values */
+  --button-border-radius: 12px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/lynx.svg');
+}
+
+[data-theme="lynx"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #EEF2F6;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #266092;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #266092;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #266092;
+  --color-interactive: #266092;
+  --color-inverted: #79BC43;
+}
+
+[data-theme="lynx"][data-mode="dark"] {
+  --org-base: #081627;
+  --org-surface: #0C233F;
+  --org-sheet: #112B4A;
+  --org-nav: #0C233F;
+  --org-transactional-button: #79BC43;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #FFFFFF;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #79BC43;
+  --color-interactive: #79BC43;
+  --color-inverted: #266092;
+}
+
+/* ============================================
+   TEAM THEMES - NORTH CAROLINA FC
+   ============================================ */
+[data-theme="ncfc"] {
+  /* Brand Colors */
+  --brand-core: #00416B;
+  --brand-light: #B4A269;
+  --brand-dark: #201400;
+  --brand-interactive: #00416B;
+  --brand-inverted: #B4A269;
+
+  /* Typography */
+  --display-font: 'Public Caps Pro', sans-serif;
+  --display-weight: 900;
+  --display-letter-spacing: -0.05em;
+  --display-size-900: 68px;
+  --display-size-800: 61px;
+  --display-size-700: 54px;
+  --display-size-600: 46px;
+  --display-size-500: 39px;
+  --display-size-400: 32px;
+  --display-size-300: 25px;
+  --display-size-200: 22px;
+  --display-size-100: 18px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/ncfc.svg');
+}
+
+[data-theme="ncfc"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #00416B;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #00416B;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #00416B;
+  --color-interactive: #00416B;
+  --color-inverted: #B4A269;
+}
+
+[data-theme="ncfc"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #B4A269;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #B4A269;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #B4A269;
+  --color-interactive: #B4A269;
+  --color-inverted: #00416B;
+}
+
+/* ============================================
+   TEAM THEMES - SEATTLE REIGN FC
+   ============================================ */
+[data-theme="reign"] {
+  /* Brand Colors */
+  --brand-core: #232F79;
+  --brand-light: #C79D58;
+  --brand-dark: #130E1E;
+  --brand-interactive: #232F79;
+  --brand-inverted: #E0BE85;
+
+  /* Typography */
+  --display-font: 'Manner Pro', sans-serif;
+  --display-weight: 700;
+  --display-letter-spacing: -0.02em;
+  --display-size-900: 76px;
+  --display-size-800: 68px;
+  --display-size-700: 60px;
+  --display-size-600: 52px;
+  --display-size-500: 44px;
+  --display-size-400: 36px;
+  --display-size-300: 28px;
+  --display-size-200: 24px;
+  --display-size-100: 20px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/reign.svg');
+}
+
+[data-theme="reign"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #232F79;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #232F79;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #232F79;
+  --color-interactive: #232F79;
+  --color-inverted: #E0BE85;
+}
+
+[data-theme="reign"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #C79D58;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #C79D58;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #C79D58;
+  --color-interactive: #E0BE85;
+  --color-inverted: #232F79;
+}
+
+/* ============================================
+   TEAM THEMES - SEATTLE SOUNDERS FC
+   ============================================ */
+[data-theme="sounders"] {
+  /* Brand Colors */
+  --brand-core: #2DC84D;
+  --brand-light: #7CE0D3;
+  --brand-dark: #080E1F;
+  --brand-interactive: #0033A0;
+  --brand-inverted: #7CE0D3;
+
+  /* Typography */
+  --display-font: 'Futura Caps', sans-serif;
+  --display-weight: 700;
+  --display-letter-spacing: -0.03em;
+  --display-size-900: 76px;
+  --display-size-800: 68px;
+  --display-size-700: 60px;
+  --display-size-600: 52px;
+  --display-size-500: 44px;
+  --display-size-400: 36px;
+  --display-size-300: 28px;
+  --display-size-200: 24px;
+  --display-size-100: 20px;
+
+  /* UI Values */
+  --button-border-radius: 100px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/sounders.svg');
+}
+
+[data-theme="sounders"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #0033A0;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #0033A0;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #0033A0;
+  --color-interactive: #0033A0;
+  --color-inverted: #7CE0D3;
+}
+
+[data-theme="sounders"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #7CE0D3;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #7CE0D3;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #7CE0D3;
+  --color-interactive: #7CE0D3;
+  --color-inverted: #0033A0;
+}
+
+/* ============================================
+   TEAM THEMES - DENVER SUMMIT FC
+   ============================================ */
+[data-theme="summit"] {
+  /* Brand Colors */
+  --brand-core: #20604E;
+  --brand-light: #C04D38;
+  --brand-dark: #262628;
+  --brand-interactive: #20604E;
+  --brand-inverted: #E6B93F;
+
+  /* Typography */
+  --display-font: 'MARTIN Caps Custom', sans-serif;
+  --display-weight: 400;
+  --display-letter-spacing: -0.005em;
+  --display-size-900: 90px;
+  --display-size-800: 80px;
+  --display-size-700: 71px;
+  --display-size-600: 62px;
+  --display-size-500: 52px;
+  --display-size-400: 42px;
+  --display-size-300: 33px;
+  --display-size-200: 28px;
+  --display-size-100: 24px;
+
+  /* UI Values */
+  --button-border-radius: 8px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/summit.svg');
+}
+
+[data-theme="summit"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #F4F4F4;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #20604E;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #20604E;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #20604E;
+  --color-interactive: #20604E;
+  --color-inverted: #E6B93F;
+}
+
+[data-theme="summit"][data-mode="dark"] {
+  --org-base: #111111;
+  --org-surface: #1F1F1F;
+  --org-sheet: #292929;
+  --org-nav: rgba(17, 17, 17, 0.7);
+  --org-transactional-button: #E6B93F;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #E6B93F;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #C04D38;
+  --color-interactive: #E6B93F;
+  --color-inverted: #20604E;
+}
+
+/* ============================================
+   TEAM THEMES - MINNESOTA TIMBERWOLVES
+   ============================================ */
+[data-theme="wolves"] {
+  /* Brand Colors */
+  --brand-core: #266092;
+  --brand-light: #79BC43;
+  --brand-dark: #0C233F;
+  --brand-interactive: #266092;
+  --brand-inverted: #79BC43;
+
+  /* Typography */
+  --display-font: 'Futura Wolves Autocaps', sans-serif;
+  --display-weight: 800;
+  --display-letter-spacing: -0.005em;
+  --display-size-900: 82px;
+  --display-size-800: 73px;
+  --display-size-700: 65px;
+  --display-size-600: 56px;
+  --display-size-500: 47px;
+  --display-size-400: 39px;
+  --display-size-300: 30px;
+  --display-size-200: 26px;
+  --display-size-100: 22px;
+
+  /* UI Values */
+  --button-border-radius: 8px;
+  --background-blur: 50px;
+
+  /* Team Logo */
+  --team-logo-url: url('https://diet-air-ds.vercel.app/images/wolves.svg');
+}
+
+[data-theme="wolves"][data-mode="light"] {
+  --org-base: #FFFFFF;
+  --org-surface: #EEF2F6;
+  --org-sheet: #FFFFFF;
+  --org-nav: rgba(255, 255, 255, 0.75);
+  --org-transactional-button: #266092;
+  --org-transactional-button-text: #FFFFFF;
+  --org-primary-button: #266092;
+  --org-primary-button-text: #FFFFFF;
+  --org-secondary-button-text: #000000;
+  --org-tertiary-button-text: #000000;
+  --color-interactive: #266092;
+  --color-inverted: #79BC43;
+}
+
+[data-theme="wolves"][data-mode="dark"] {
+  --org-base: #081627;
+  --org-surface: #0C233F;
+  --org-sheet: #112B4A;
+  --org-nav: #0C233F;
+  --org-transactional-button: #79BC43;
+  --org-transactional-button-text: #000000;
+  --org-primary-button: #FFFFFF;
+  --org-primary-button-text: #000000;
+  --org-secondary-button-text: #FFFFFF;
+  --org-tertiary-button-text: #FFFFFF;
+  --color-interactive: #79BC43;
+  --color-inverted: #266092;
+}
+
+/* SYNC:END */
+
+/* ============================================
+   SEMANTIC COLOR TOKENS
+   ============================================ */
+:root {
+  /* Text */
+  --text-primary: var(--neutral-1000);
+  --text-secondary: var(--neutral-700);
+  --text-disabled: var(--neutral-300);
+  --text-placeholder: var(--neutral-500);
+  
+  /* Backgrounds */
+  --bg-base: var(--org-base);
+  --bg-surface: var(--org-surface);
+  --bg-sheet: var(--org-sheet);
+  --bg-nav: var(--org-nav);
+  
+  /* Borders */
+  --border-default: var(--neutral-200);
+  --border-hover: var(--neutral-500);
+  --border-active: var(--neutral-1000);
+  --border-disabled: var(--neutral-200);
+  
+  /* Interactive */
+  --interactive-primary: var(--org-primary-button);
+  --interactive-primary-text: var(--org-primary-button-text);
+  --interactive-secondary-text: var(--org-secondary-button-text);
+  --interactive-tertiary-text: var(--org-tertiary-button-text);
+  --interactive-transactional: var(--org-transactional-button);
+  --interactive-transactional-text: var(--org-transactional-button-text);
+  
+  /* Brand color tokens â€” mode-sympathetic
+     In light mode: color-interactive = brand-interactive (dark brand color on light bg)
+                    color-inverted    = brand-inverted    (accent color, lighter)
+     In dark mode:  color-interactive = brand-inverted    (accent color pops on dark bg)
+                    color-inverted    = brand-interactive (recedes, used for contrast)
+     Always use these instead of --brand-interactive or --brand-inverted directly. */
+  /* --color-interactive and --color-inverted are defined per theme per mode above */
+}

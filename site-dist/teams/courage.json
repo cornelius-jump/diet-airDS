@@ -1,0 +1,81 @@
+{
+  "teamId": "courage",
+  "name": "North Carolina Courage",
+  "shortName": "Courage",
+  "city": "Cary",
+  "sport": "NWSL",
+  "venue": null,
+  "logos": {
+    "primary": "https://cdn.sanity.io/images/tqbbtja5/production/b48bac044cb4bc839f7a12814cbfa545a6bfcc69-64x64.svg",
+    "logoIcon": ""
+  },
+  "brandColors": {
+    "core": "#AB0033",
+    "dark": "#001420",
+    "darkBase": "#111111",
+    "darkInteractivePrimary": "#B4A269",
+    "darkInteractivePrimaryText": "#000000",
+    "darkInteractiveSecondaryText": "#FFFFFF",
+    "darkInteractiveTertiaryText": "#B4A269",
+    "darkInteractiveTransactional": "#B4A269",
+    "darkInteractiveTransactionalText": "#000000",
+    "darkNav": "rgba(17, 17, 17, 0.7)",
+    "darkSheet": "#292929",
+    "darkSurface": "#1F1F1F",
+    "displayLetterSpacing": "-0.05em",
+    "displaySize100": "18px",
+    "displaySize200": "22px",
+    "displaySize300": "25px",
+    "displaySize400": "32px",
+    "displaySize500": "39px",
+    "displaySize600": "46px",
+    "displaySize700": "54px",
+    "displaySize800": "61px",
+    "displaySize900": "68px",
+    "displayWeight": "800",
+    "interactive": "#AB0033",
+    "inverted": "#B4A269",
+    "light": "#B4A269",
+    "lightBase": "#FFFFFF",
+    "lightInteractivePrimary": "#AB0033",
+    "lightInteractivePrimaryText": "#FFFFFF",
+    "lightInteractiveSecondaryText": "#000000",
+    "lightInteractiveTertiaryText": "#AB0033",
+    "lightInteractiveTransactional": "#AB0033",
+    "lightInteractiveTransactionalText": "#FFFFFF",
+    "lightNav": "rgba(255, 255, 255, 0.75)",
+    "lightSheet": "#FFFFFF",
+    "lightSurface": "#F4F4F4"
+  },
+  "buttonRadius": "100px",
+  "displayFont": "Public Caps Pro",
+  "vfsFar": {
+    "images": [
+      "https://cdn.sanity.io/images/tqbbtja5/production/c96f599aa0efc1d86fcaaf84e7a6346ee870ea5f-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/eeda2c8ea52cf6d437e1c08c1eb6fb9292425063-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/20bf41275eeeceb50f201ce4ee722fa834074181-1024x683.webp"
+    ],
+    "fallback": "",
+    "prices": [
+      "$26.81",
+      "$37.54",
+      "$26.81"
+    ],
+    "priceLabel": "Avg. Price"
+  },
+  "vfsClose": {
+    "images": [
+      "https://cdn.sanity.io/images/tqbbtja5/production/cd04e0649259c5f2c234cabea0dc321f0de4e5f0-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/9f2f579e6a577bcfd388d8c1a3eedd32b5a67e3d-1024x683.webp",
+      "https://cdn.sanity.io/images/tqbbtja5/production/89a814f2efd2ea7ff077ac1568049f4af72e18f9-1024x683.webp"
+    ],
+    "fallback": "",
+    "prices": [
+      "$155.51",
+      "$101.89",
+      "$80.44"
+    ],
+    "priceLabel": "Avg. Price"
+  },
+  "urls": {}
+}

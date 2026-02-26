@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="jump" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forms — Diet AirDS</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS — local on localhost/file://, CDN when deployed -->
+  <script src="ds-loader.js"></script>
+  <link rel="stylesheet" href="walkthrough.css">
+</head>
+<body>
+
+<!-- Universal Top Nav -->
+<header class="org-nav">
+  <a class="org-nav-logo" href="/index.html">
+    <span class="material-symbols-rounded icon-filled text-primary">water_full</span>
+    <span class="display200 text-primary">Diet AirDS</span>
+  </a>
+  <nav class="org-nav-links">
+    <a href="/index.html" class="chip surface-ghost scale-300">Getting Started</a>
+    <a href="/documentation.html" class="chip surface-borderNeutral scale-300 chip-team-color">Documentation</a>
+    <a href="/examples/index.html" class="chip surface-ghost scale-300">Examples</a>
+  </nav>
+  <div class="org-nav-controls">
+    <div class="input-field input-select" id="top-theme-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-theme-display">JUMP</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topThemeSelect" onchange="syncSelect('top-theme-select', 'top-theme-display', this); root.setAttribute('data-theme', this.value);" onfocus="openSelect('top-theme-select')" onblur="closeSelect('top-theme-select')">
+            <option value="wolves">Wolves</option>
+            <option value="lynx">Lynx</option>
+            <option value="courage">Courage</option>
+            <option value="summit">Summit</option>
+            <option value="bucknell">Bucknell</option>
+            <option value="sounders">Sounders</option>
+            <option value="reign">Reign</option>
+            <option value="ncfc">NCFC</option>
+            <option value="jump" selected>JUMP</option>
+            <option value="athletics">Athletics</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="input-field input-select" id="top-mode-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-mode-display">Light</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topModeSelect" onchange="syncSelect('top-mode-select', 'top-mode-display', this); root.setAttribute('data-mode', this.value);" onfocus="openSelect('top-mode-select')" onblur="closeSelect('top-mode-select')">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="doc-layout">
+<!-- SIDEBAR -->
+<aside class="doc-sidebar">
+  <nav>
+    <a href="documentation.html">Home</a>
+    <a href="documentation-how-it-works.html">How It Works</a>
+    <a href="documentation-foundations.html">Foundations</a>
+    <a href="documentation-typography.html">Typography &amp; Icons</a>
+    <a href="documentation-surfaces.html">Interactive Tokens</a>
+    <a href="documentation-buttons.html">Buttons</a>
+    <a href="documentation-listrows.html">List Rows &amp; Cards</a>
+    <a href="documentation-forms.html" class="active">Forms</a>
+    <a href="#inputs" class="sub">Inputs</a>
+    <a href="#tags-chips" class="sub">Tags &amp; Chips</a>
+    <a href="documentation-reference.html">Reference</a>
+  </nav>
+</aside>
+<!-- MAIN CONTENT -->
+<div class="doc-main">
+
+<!-- PAGE INTRO -->
+<div class="container-wide py-large">
+  <h1 class="display500 mb-200">Forms</h1>
+  <p class="bodyRegular30 text-primary doc-prose">Text inputs, select dropdowns, all interaction states, and tag &amp; chip components. The input system handles focus, error, disabled, and has-value states automatically via modifier classes.</p>
+</div>
+
+<div class="container-wide py-large border-top" id="inputs">
+  <h2 class="title80">Inputs</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Single-line text inputs and select dropdowns with full state, variant, and modifier support. All inputs share consistent structure, styling, and focus states.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Focus color:</strong> Input fields use <code>--org-primary-button</code> for focus border, label, and icon colors. Select placeholder text uses <code>--text-secondary</code>.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Input Field Structure</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Every input follows a consistent wrapper structure:</p>
+  <div class="doc-code-block">
+    <code>&lt;div class="input-field"&gt;
+  &lt;!-- Label row (optional) --&gt;
+  &lt;div class="input-label-row"&gt;
+    &lt;label class="input-label"&gt;Label&lt;/label&gt;
+    &lt;a class="input-link"&gt;Optional link&lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Input and message wrapper --&gt;
+  &lt;div class="input-and-message"&gt;
+    &lt;div class="input-control"&gt;
+      &lt;span class="input-icon material-symbols-rounded"&gt;icon&lt;/span&gt;
+      &lt;input type="text" placeholder="Placeholder"&gt;
+      &lt;button class="input-clear material-symbols-rounded"&gt;close&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p class="input-message"&gt;Helper or error message&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Input States</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td><code>.is-error</code></td><td>Red border, shake animation, error message color</td></tr>
+        <tr><td><code>.is-disabled</code></td><td>25% opacity, no pointer events</td></tr>
+        <tr><td><code>.has-value</code></td><td>Shows clear button (text inputs only)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">State classes go on the <code>.input-field</code> wrapper.</p>
+
+  <h3 class="title50 mt-400 mb-100">Text Input Variants</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Variant</th><th>Elements</th></tr></thead>
+      <tbody>
+        <tr><td>Basic</td><td><code>&lt;input&gt;</code> only</td></tr>
+        <tr><td>With label</td><td><code>.input-label-row</code> + <code>&lt;input&gt;</code></td></tr>
+        <tr><td>Leading icon</td><td><code>.input-icon</code> + <code>&lt;input&gt;</code></td></tr>
+        <tr><td>Trailing clear</td><td><code>&lt;input&gt;</code> + <code>.input-clear</code></td></tr>
+        <tr><td>Icon + clear</td><td><code>.input-icon</code> + <code>&lt;input&gt;</code> + <code>.input-clear</code></td></tr>
+        <tr><td>Label with link</td><td><code>.input-label</code> + <code>.input-link</code> (e.g. "Forgot password?")</td></tr>
+        <tr><td>Helper message</td><td><code>.input-message</code> after <code>.input-control</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Select Dropdowns</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Add <code>.input-select</code> modifier to <code>.input-field</code>. Uses native <code>&lt;select&gt;</code> as invisible overlay for accessibility.</p>
+  <div class="doc-code-block">
+    <code>&lt;div class="input-field input-select" id="select-1"&gt;
+  &lt;div class="input-and-message"&gt;
+    &lt;div class="input-control"&gt;
+      &lt;span class="input-select-display is-placeholder" id="sel-1-display"&gt;
+        Choose option
+      &lt;/span&gt;
+      &lt;span class="input-select-chevron material-symbols-rounded"&gt;
+        arrow_drop_down
+      &lt;/span&gt;
+      &lt;select id="sel-1"
+        onchange="syncSelect('select-1', 'sel-1-display', this)"
+        onfocus="openSelect('select-1')"
+        onblur="closeSelect('select-1')"&gt;
+        &lt;option value="" disabled selected&gt;Choose option&lt;/option&gt;
+        &lt;option value="1"&gt;Option 1&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Icon choice:</strong> Select dropdowns use <code>arrow_drop_down</code> icon (not <code>expand_more</code>). The chevron rotates 180° when the dropdown is open.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Required JavaScript Helpers</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Input fields with clear buttons or select dropdowns need these helpers:</p>
+  <div class="doc-code-block">
+    <code>// Text input with clear button
+function syncHasValue(fieldId, input) {
+  const field = document.getElementById(fieldId);
+  field.classList.toggle('has-value', input.value.trim());
+}
+
+function clearInput(fieldId, inputId) {
+  const field = document.getElementById(fieldId);
+  const input = document.getElementById(inputId);
+  input.value = '';
+  field.classList.remove('has-value', 'is-error');
+  input.focus();
+}
+
+// Select dropdown
+function syncSelect(fieldId, displayId, selectEl) {
+  const display = document.getElementById(displayId);
+  const chosen = selectEl.options[selectEl.selectedIndex];
+  if (chosen && chosen.value) {
+    display.textContent = chosen.text;
+    display.classList.remove('is-placeholder');
+  } else {
+    display.textContent = chosen.text;
+    display.classList.add('is-placeholder');
+  }
+}
+
+function openSelect(fieldId) {
+  document.getElementById(fieldId).classList.add('is-open');
+}
+
+function closeSelect(fieldId) {
+  document.getElementById(fieldId).classList.remove('is-open');
+}</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Design Specifications</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Property</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Height</td><td>56px</td></tr>
+        <tr><td>Padding</td><td>16px left, 8px right</td></tr>
+        <tr><td>Border radius</td><td>8px (<code>--border-radius-100</code>)</td></tr>
+        <tr><td>Default border</td><td>1px solid <code>--neutral-300</code></td></tr>
+        <tr><td>Focus border</td><td>2px solid <code>--org-primary-button</code></td></tr>
+        <tr><td>Error border</td><td><code>--status-error</code></td></tr>
+        <tr><td>Icon size</td><td>24px</td></tr>
+        <tr><td>Chevron size</td><td>24×24px container, rotates 180° when open</td></tr>
+        <tr><td>Clear button</td><td>40×40px hit target, 24px icon</td></tr>
+        <tr><td>Label to input gap</td><td>2px (<code>--spacing-25</code>)</td></tr>
+        <tr><td>Input to message gap</td><td>8px (<code>--spacing-100</code>)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>CSS load order:</strong> Include <code>input-components.css</code> after base system files and before <code>boilerplate.css</code>. See the file load order at the top of this page.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Text Input Variants — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — interact</span>
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-300); max-width: 400px;">
+
+      <!-- Basic with label -->
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-basic">Label</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <input type="text" id="demo-basic" placeholder="Placeholder text">
+          </div>
+        </div>
+      </div>
+
+      <!-- With leading icon -->
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-icon">Email address</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">mail</span>
+            <input type="email" id="demo-icon" placeholder="you@example.com">
+          </div>
+        </div>
+      </div>
+
+      <!-- With icon and clear button -->
+      <div class="input-field" id="demo-field-clear">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-clear">Search</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">search</span>
+            <input type="text" id="demo-clear" placeholder="Type to search..."
+              oninput="syncHasValue('demo-field-clear', this)">
+            <button class="input-clear material-symbols-rounded" type="button"
+              onclick="clearInput('demo-field-clear', 'demo-clear')">close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- With label link -->
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-link">Password</label>
+          <a class="input-link" href="#">Forgot password?</a>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">lock</span>
+            <input type="password" id="demo-link" placeholder="Enter password">
+          </div>
+        </div>
+      </div>
+
+      <!-- With helper message -->
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-helper">Username</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <input type="text" id="demo-helper" placeholder="@username">
+          </div>
+          <p class="input-message">Must be unique. Letters and numbers only.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Select Dropdowns — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — click to open</span>
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-300); max-width: 400px;">
+
+      <!-- Basic select -->
+      <div class="input-field input-select" id="demo-select-1">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-sel-1">Sport</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-select-display is-placeholder" id="demo-sel-1-display">Choose a sport</span>
+            <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+            <select id="demo-sel-1"
+              onchange="syncSelect('demo-select-1', 'demo-sel-1-display', this)"
+              onfocus="openSelect('demo-select-1')"
+              onblur="closeSelect('demo-select-1')">
+              <option value="" disabled selected>Choose a sport</option>
+              <option value="basketball">Basketball</option>
+              <option value="soccer">Soccer</option>
+              <option value="baseball">Baseball</option>
+              <option value="hockey">Hockey</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select with icon -->
+      <div class="input-field input-select" id="demo-select-2">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-sel-2">Position</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">sports_basketball</span>
+            <span class="input-select-display is-placeholder" id="demo-sel-2-display">Choose a position</span>
+            <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+            <select id="demo-sel-2"
+              onchange="syncSelect('demo-select-2', 'demo-sel-2-display', this)"
+              onfocus="openSelect('demo-select-2')"
+              onblur="closeSelect('demo-select-2')">
+              <option value="" disabled selected>Choose a position</option>
+              <option value="pg">Point Guard</option>
+              <option value="sg">Shooting Guard</option>
+              <option value="sf">Small Forward</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select with helper message -->
+      <div class="input-field input-select" id="demo-select-3">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-sel-3">Country</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-select-display is-placeholder" id="demo-sel-3-display">Select your country</span>
+            <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+            <select id="demo-sel-3"
+              onchange="syncSelect('demo-select-3', 'demo-sel-3-display', this)"
+              onfocus="openSelect('demo-select-3')"
+              onblur="closeSelect('demo-select-3')">
+              <option value="" disabled selected>Select your country</option>
+              <option value="us">United States</option>
+              <option value="ca">Canada</option>
+              <option value="mx">Mexico</option>
+              <option value="uk">United Kingdom</option>
+            </select>
+          </div>
+          <p class="input-message">Used for regional pricing and availability.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Input States — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — hover & focus</span>
+    <div style="display: flex; flex-direction: column; gap: var(--spacing-300); max-width: 400px;">
+
+      <!-- Default state -->
+      <div class="input-field">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-default">Default state</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <input type="text" id="demo-default" placeholder="Hover and focus me">
+          </div>
+        </div>
+      </div>
+
+      <!-- Error state -->
+      <div class="input-field is-error">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-error">Error state</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-icon material-symbols-rounded">mail</span>
+            <input type="email" id="demo-error" value="not-an-email">
+          </div>
+          <p class="input-message">Please enter a valid email address.</p>
+        </div>
+      </div>
+
+      <!-- Disabled state -->
+      <div class="input-field is-disabled">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-disabled">Disabled state</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <input type="text" id="demo-disabled" placeholder="Can't interact" disabled>
+          </div>
+        </div>
+      </div>
+
+      <!-- Select error state -->
+      <div class="input-field input-select is-error" id="demo-select-error">
+        <div class="input-label-row">
+          <label class="input-label" for="demo-sel-error">Select with error</label>
+        </div>
+        <div class="input-and-message">
+          <div class="input-control">
+            <span class="input-select-display is-placeholder" id="demo-sel-error-display">Choose an option</span>
+            <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+            <select id="demo-sel-error"
+              onchange="syncSelect('demo-select-error', 'demo-sel-error-display', this)"
+              onfocus="openSelect('demo-select-error')"
+              onblur="closeSelect('demo-select-error')">
+              <option value="" disabled selected>Choose an option</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+            </select>
+          </div>
+          <p class="input-message">Please select an option to continue.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Form Example — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — complete form</span>
+    <div style="max-width: 400px;">
+      <div style="display: flex; flex-direction: column; gap: var(--spacing-300);">
+
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="demo-form-name">Full name</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">person</span>
+              <input type="text" id="demo-form-name" placeholder="Jane Smith">
+            </div>
+          </div>
+        </div>
+
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="demo-form-email">Email</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">mail</span>
+              <input type="email" id="demo-form-email" placeholder="you@example.com">
+            </div>
+          </div>
+        </div>
+
+        <div class="input-field input-select" id="demo-form-select">
+          <div class="input-label-row">
+            <label class="input-label" for="demo-form-sport">Favorite sport</label>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-select-display is-placeholder" id="demo-form-sport-display">Choose a sport</span>
+              <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+              <select id="demo-form-sport"
+                onchange="syncSelect('demo-form-select', 'demo-form-sport-display', this)"
+                onfocus="openSelect('demo-form-select')"
+                onblur="closeSelect('demo-form-select')">
+                <option value="" disabled selected>Choose a sport</option>
+                <option value="basketball">Basketball</option>
+                <option value="soccer">Soccer</option>
+                <option value="baseball">Baseball</option>
+                <option value="hockey">Hockey</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-field">
+          <div class="input-label-row">
+            <label class="input-label" for="demo-form-pw">Password</label>
+            <a class="input-link" href="#">Forgot?</a>
+          </div>
+          <div class="input-and-message">
+            <div class="input-control">
+              <span class="input-icon material-symbols-rounded">lock</span>
+              <input type="password" id="demo-form-pw" placeholder="••••••••">
+            </div>
+            <p class="input-message">Minimum 8 characters.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--spacing-100);">
+          <button class="btn btn-primary btn-300 btn-fill">Create account</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     14. TAG & CHIP COMPONENTS
+     ========================================== -->
+
+
+<div class="container-wide py-large border-top" id="tags-chips">
+  <h2 class="title80">Tags &amp; Chips</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100"><strong>Tags</strong> are static label badges for metadata, categories, and status. <strong>Chips</strong> are interactive filter/toggle controls for filter bars and selection UIs. Both are 32px height with 4px border radius.</p>
+
+  <h3 class="title50 mt-400 mb-100">Tag Component</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Static, non-interactive label badge for displaying metadata, categories, or status information.</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Variant</th><th>Class</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Default</td><td><code>.tag</code></td><td>Neutral tinted background, primary text</td></tr>
+        <tr><td>Team Color</td><td><code>.tag .tag-team-color</code></td><td>Brand-tinted frosted background, brand interactive text</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>Icon Position</th><th>Class</th><th>Padding</th></tr></thead>
+      <tbody>
+        <tr><td>No icon</td><td>—</td><td>12px left and right</td></tr>
+        <tr><td>Leading</td><td><code>.tag-icon-leading</code></td><td>8px left, 12px right</td></tr>
+        <tr><td>Trailing</td><td><code>.tag-icon-trailing</code></td><td>12px left, 8px right</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Tags — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-100); align-items: center;">
+
+      <!-- Default tags -->
+      <div class="tag">
+        <span class="labelBold20">Default</span>
+      </div>
+
+      <div class="tag tag-icon-leading">
+        <span class="material-symbols-rounded">star</span>
+        <span class="labelBold20">Leading Icon</span>
+      </div>
+
+      <div class="tag tag-icon-trailing">
+        <span class="labelBold20">Trailing Icon</span>
+        <span class="material-symbols-rounded">arrow_forward</span>
+      </div>
+
+      <!-- Team color tags -->
+      <div class="tag tag-team-color">
+        <span class="labelBold20">Team Color</span>
+      </div>
+
+      <div class="tag tag-team-color tag-icon-leading">
+        <span class="material-symbols-rounded">flag</span>
+        <span class="labelBold20">Team + Icon</span>
+      </div>
+
+      <div class="tag tag-team-color tag-icon-trailing">
+        <span class="labelBold20">Team + Icon</span>
+        <span class="material-symbols-rounded">check</span>
+      </div>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Chip Component</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Interactive filter/toggle control. Chips must be composed with interactive surface and scale tokens from <code>interactive-tokens.css</code>.</p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Composition</th><th>Classes</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Bordered</td><td><code>.chip .surface-borderNeutral .scale-300</code></td><td>Neutral border, hover/active states</td></tr>
+        <tr><td>Ghost</td><td><code>.chip .surface-ghost .scale-300</code></td><td>Transparent, hover tint, active states</td></tr>
+        <tr><td>Team Color</td><td>Add <code>.chip-team-color</code></td><td>Overrides text to brand interactive color</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead><tr><th>State</th><th>Class</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr><td>Disabled</td><td><code>.is-disabled</code></td><td>25% opacity, no pointer events</td></tr>
+        <tr><td>Icon Leading</td><td><code>.chip-icon-leading</code></td><td>8px left, 12px right padding</td></tr>
+        <tr><td>Icon Trailing</td><td><code>.chip-icon-trailing</code></td><td>12px left, 8px right padding</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Chips — Live</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live — hover & click</span>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-100); align-items: center;">
+
+      <!-- Bordered chips -->
+      <button class="chip surface-borderNeutral scale-300">
+        <span class="labelBold20">Bordered</span>
+      </button>
+
+      <button class="chip surface-borderNeutral scale-300 chip-icon-leading">
+        <span class="material-symbols-rounded">filter_list</span>
+        <span class="labelBold20">With Icon</span>
+      </button>
+
+      <button class="chip surface-borderNeutral scale-300 chip-icon-trailing">
+        <span class="labelBold20">Trailing</span>
+        <span class="material-symbols-rounded">close</span>
+      </button>
+
+      <!-- Ghost chips -->
+      <button class="chip surface-ghost scale-300">
+        <span class="labelBold20">Ghost</span>
+      </button>
+
+      <button class="chip surface-ghost scale-300 chip-team-color">
+        <span class="labelBold20">Team Color</span>
+      </button>
+
+      <button class="chip surface-ghost scale-300 chip-team-color chip-icon-leading">
+        <span class="material-symbols-rounded">star</span>
+        <span class="labelBold20">Team + Icon</span>
+      </button>
+
+      <!-- Disabled -->
+      <button class="chip surface-borderNeutral scale-300 is-disabled">
+        <span class="labelBold20">Disabled</span>
+      </button>
+
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Code Examples</h3>
+  <div class="doc-code-block">
+    <code>&lt;!-- Tag: Static label --&gt;
+&lt;div class="tag"&gt;
+  &lt;span class="labelBold20"&gt;Label&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Tag: Team color with icon --&gt;
+&lt;div class="tag tag-team-color tag-icon-leading"&gt;
+  &lt;span class="material-symbols-rounded"&gt;star&lt;/span&gt;
+  &lt;span class="labelBold20"&gt;Featured&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Chip: Interactive bordered --&gt;
+&lt;button class="chip surface-borderNeutral scale-300"&gt;
+  &lt;span class="labelBold20"&gt;Filter&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;!-- Chip: Ghost with team color and icon --&gt;
+&lt;button class="chip surface-ghost scale-300 chip-team-color chip-icon-trailing"&gt;
+  &lt;span class="labelBold20"&gt;Active Filter&lt;/span&gt;
+  &lt;span class="material-symbols-rounded"&gt;close&lt;/span&gt;
+&lt;/button&gt;</code>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Design specs:</strong> Height: 32px · Border radius: 4px · Typography: labelBold20 (Inter Semi Bold 14px) · Icons: 16×16px Material Symbols · Gap: 4px between icon and label</p>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     15. LAYOUT
+     ========================================== -->
+
+
+<!-- PREV / NEXT -->
+<div class="doc-prevnext">
+  <a class="doc-prevnext-prev surface-ghost scale-700" href="documentation-listrows.html">
+    <span class="icon">arrow_back</span>
+    <div class="doc-prevnext-text">
+      <span class="doc-prevnext-label">Previous</span>
+      <span class="doc-prevnext-title">List Rows &amp; Cards</span>
+    </div>
+  </a>
+  <a class="doc-prevnext-next surface-ghost scale-700" href="documentation-reference.html">
+    <div class="doc-prevnext-text">
+      <span class="doc-prevnext-label">Next</span>
+      <span class="doc-prevnext-title">Reference</span>
+    </div>
+    <span class="icon">arrow_forward</span>
+  </a>
+</div>
+
+</div><!-- /doc-main -->
+</div><!-- /doc-layout -->
+
+<script src="walkthrough.js"></script>
+</body>
+</html>

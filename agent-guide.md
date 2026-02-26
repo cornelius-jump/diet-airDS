@@ -4,6 +4,26 @@
 
 ---
 
+## BUILD MODE — Choose before reading further
+
+| Mode | When to use | Output |
+|---|---|---|
+| **React** | Building pages or components inside the `src/` React app | TypeScript/JSX using typed component props |
+| **HTML prototype** | Standalone `.html` files for demos or external sharing | Complete HTML file with CSS `<link>` tags |
+
+**If building in React:**
+- The **REACT COMPONENTS** section and **REACT MASTER PROMPT TEMPLATE** are your primary references
+- Component sections below (BUTTONS, LIST ROWS, INPUTS, etc.) show the CSS internals — useful context, but **React typed props replace manual class composition**
+- Skip the CSS LOAD ORDER section — CSS is already imported in `src/main.tsx`
+- Use `useTheme()` from `ThemeContext` to read/set theme and mode — never touch `data-theme` manually
+- No `className` or `style` props on design system components — variants only
+
+**If building HTML prototypes:**
+- Follow every section in order
+- Use the MASTER PROMPT TEMPLATE at the bottom
+
+---
+
 ## AGENT RULES — NON-NEGOTIABLE
 
 **Core principle: Diet AirDS provides CSS for everything. Compose, don't create.**
@@ -39,7 +59,9 @@ Any tappable or clickable element that isn't a button, list row, or input needs 
 - **Add a border to a card.** Cards never have borders. `--bg-surface` against `--bg-base` is the boundary — never add `border: 1px solid` or any border to a card element.
 - **Use a bare `<select>`, `<input>`, or `<button>` without its design system wrapper** — not in demos, test pages, or utility controls. There are no exemptions. Demo pages are real pages. Utility controls are real controls.
 
-**Output format:** Always produce a complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
+**Output format — HTML prototype:** Complete standalone HTML file with all CSS links, correct `data-theme`/`data-mode` on `<html>`, and any required JS helpers inline.
+
+**Output format — React:** TypeScript/JSX file(s) with named imports from `diet-airds`. No `className` or `style` on design system components. Wrap the app root in `<ThemeProvider>`. See REACT MASTER PROMPT TEMPLATE.
 
 **Responsive layout rule — non-negotiable:** Every page must work at all three breakpoints before it is considered complete. Define layout behavior at mobile, tablet, and desktop from the start — not as an afterthought.
 
@@ -65,6 +87,8 @@ See **CMS DATA IN PROTOTYPES** for the complete patterns.
 ---
 
 ## CSS LOAD ORDER
+
+> **React mode:** CSS is imported in `src/main.tsx` in the correct order — no `<link>` tags needed. This section applies to **HTML prototypes only**.
 
 Load all files from `https://diet-air-ds.vercel.app/` in this exact order. Use absolute URLs. Never copy CSS into `<style>` tags. Never skip files.
 
@@ -158,6 +182,8 @@ Always add `.text-secondary` to sublabels.
 
 ## BUTTONS
 
+> **React:** `<Button variant="primary" size="small">Label</Button>` · `<Button variant="transactional" icon="confirmation_number" fill>Buy Tickets</Button>` · `<CircleButton variant="neutral" size="small" icon="close" aria-label="Close" />` — full API in **REACT COMPONENTS**.
+
 Compose as: `.btn` + type + size. Never hand-roll buttons.
 
 **Types:**
@@ -227,6 +253,8 @@ Ghost types: `-tertiary` suffix (e.g. `.btn-circle-neutral-tertiary`)
 ---
 
 ## LIST ROWS
+
+> **React:** `<ListRow leading={<Icon name="..." size={200} />} leadingGap="md" trailing={<Icon name="chevron_right" size={200} />} trailingGap="xs" onClick={fn}>` with `<TextPair label="..." sublabel="..." />` as children. Subcomponents: `TextPair`, `TrailingText`, `LeadingImage`, `LeadingLogo`, `CircleContainer` — full API in **REACT COMPONENTS**.
 
 Structure: `.list-row` > optional `.leading` + `.list-row-content` + optional `.trailing`
 
@@ -404,6 +432,8 @@ All three slots are optional. Never use `.card-text-pair` inside list rows — u
 
 ## INPUTS
 
+> **React:** `<Input label="Email" type="email" placeholder="..." clearable icon="mail" onChange={fn} />` · `<Select options={[{value, label}]} placeholder="Select..." onChange={fn} />` — state props (`error`, `disabled`) handled by the component. Full API in **REACT COMPONENTS**.
+
 Structure: `.input-field` > `.input-label-row` (optional) + `.input-and-message` > `.input-control`
 
 State classes go on `.input-field`: `.is-error` · `.is-disabled` · `.has-value`
@@ -566,6 +596,8 @@ function closeSelect(fieldId) { document.getElementById(fieldId).classList.remov
 
 ## INTERACTIVE SURFACES
 
+> **React:** `<Selector>`, `<Chip>`, `<Tile tappable>`, and `<CardSection interactive>` handle surface + scale internally. For any custom interactive container in React that has no component equivalent, compose `className="surface-washNeutral scale-700"` on the element.
+
 **When to use:** Any clickable or tappable element that is NOT a `.btn`, `.list-row`, or `.input-field` needs a surface + scale pair. Examples: selectable cards, clickable tiles, filter chips, menu items, any container that reacts to touch/hover. If you're about to write `:hover { background: ... }` or `:active { transform: ... }` on a non-button element — stop. That's what surface classes are for.
 
 Use `.surface-*` + `.scale-*` composed on the same element. Never write custom `:hover`/`:active` CSS.
@@ -599,6 +631,8 @@ Note: `.btn *` and `.tag.tag-team-color *` already include this — no fix neede
 ---
 
 ## TILE
+
+> **React:** `<Tile visual={<img />} info={<TextPair label="..." sublabel="..." />} tag={<Tag>Featured</Tag>} tappable onClick={fn} />` — full API in **REACT COMPONENTS**.
 
 The recommended pattern for any small card displayed alongside others. Use for event listings, product grids, schedules, content feeds. Use `card-closed` / `card-open` for full-width or single-column cards.
 
@@ -832,6 +866,8 @@ Set `data-theme` and `data-mode` on `<html>`. Always test both light and dark.
 ---
 
 ## CMS DATA IN PROTOTYPES
+
+> **React mode:** Use `useTheme()` to get the active `theme` (team ID). Load team data with `useEffect` + `fetch('/teams/${theme}.json')`. Opponent/event data from Sanity uses the same GROQ queries but inside a React hook or data-fetching layer — not inline script tags. The vanilla JS patterns below apply to **HTML prototypes only**.
 
 Two data sources are available for bringing real content into prototypes: the per-team JSON files served from the same CDN as the CSS, and the Sanity CMS for opponent and event data.
 
@@ -1716,7 +1752,28 @@ A complete entry includes: nodeId, variant prop → CSS class table, and a defau
 
 ---
 
-## PRE-OUTPUT SELF-AUDIT
+## PRE-OUTPUT SELF-AUDIT — REACT
+
+Before returning any React/TSX, scan the output for these failure modes. Fix any you find — do not ship them.
+
+| Scan for | What to check |
+|---|---|
+| Every interactive component | Using typed variant props only? No `className` or `style` props on `Button`, `ListRow`, `Input`, `Select`, `Card*`, `Tag`, `Chip`, `Selector`, `Tile`, `TopBar`, `Tabs`, `Steps`, `PageHeader`, `EventRow`? |
+| Every `<button>` in TSX | Is it a `<Button>` or `<CircleButton>` component? Bare `<button>` elements are never correct. |
+| Every `<input>` in TSX | Is it an `<Input>` component? Bare `<input>` elements are never correct. |
+| Every `<select>` in TSX | Is it a `<Select>` component? Bare `<select>` elements are never correct. |
+| Label + sublabel pairs | Using `<TextPair label="..." sublabel="..." />`? Not manual div assembly? |
+| Trailing text pairs | Using `<TrailingText label="..." sublabel="..." />`? |
+| Color values | Any `#`, `rgb()`, or hardcoded CSS custom properties in TSX style objects? Use component variants or token classes. |
+| Spacing values | Any hardcoded `px` in inline styles? Use token classes (`mb-200`, `py-large`, etc.) or `var(--spacing-*)` only where truly necessary. |
+| Theming | Using `useTheme()` to read/set theme and mode? Never `document.documentElement.setAttribute('data-theme', ...)`. |
+| Team data | Loading from `/teams/${theme}.json` via `useEffect`? Never hardcoded team names, logos, or colors. |
+
+**No component is exempt. Demo pages and test components follow the same rules.**
+
+---
+
+## PRE-OUTPUT SELF-AUDIT — HTML PROTOTYPE
 
 Before returning any HTML, scan the output for these failure modes. Fix any you find — do not ship them.
 
@@ -1787,6 +1844,341 @@ VALIDATION CHECKLIST:
 
 OUTPUT: Complete standalone HTML file.
 ```
+
+---
+
+## REACT MASTER PROMPT TEMPLATE
+
+```
+Build this using the Diet AirDS React component library.
+
+Reference: https://diet-air-ds.vercel.app/agent-guide.md (REACT COMPONENTS section)
+Components: import from 'diet-airds'
+Theming: useTheme() from src/context/ThemeContext
+
+WHAT TO BUILD:
+[Describe your component or page]
+
+RULES:
+1. Import all components from 'diet-airds' — never hand-roll buttons, inputs, list rows, cards, tabs, steps, or nav.
+2. No className or style props on design system components — typed variant props only.
+3. Typography: use text style classes (display500, labelBold30, bodyRegular20, etc.) as className on native elements only where no component wraps the text.
+4. Spacing: use token classes (mb-200, py-large, gap-200) or CSS custom properties — never hardcoded px values.
+5. Theming: read theme and mode from useTheme() — never set data-theme or data-mode attributes directly.
+6. Team data: load from /teams/${theme}.json in a useEffect — never hardcode team names, logo URLs, or brand colors.
+7. Opponent/event data: load from Sanity via GROQ inside a useEffect — never hardcode opponent names or logos.
+8. All sublabels: add text-secondary class (className="... text-secondary").
+9. Interactive containers with no React component: compose className="surface-washNeutral scale-700".
+10. CircleButton requires aria-label — never omit it.
+
+VALIDATION CHECKLIST:
+- [ ] All interactive components use variant props, not CSS class strings
+- [ ] No bare <button>, <input>, or <select> — use Button, Input, Select
+- [ ] No className or style on Button, ListRow, Input, Select, Card*, Tag, Chip, Selector, Tile, TopBar, Tabs, Steps, PageHeader, EventRow
+- [ ] TextPair used for every label+sublabel (not manual divs)
+- [ ] TrailingText used for right-aligned text pairs in list rows
+- [ ] useTheme() used for theme/mode — no manual DOM attribute writes
+- [ ] Team data loaded dynamically — no hardcoded names, logos, or colors
+- [ ] Works with wolves/light and athletics/dark as the two extreme test cases
+- [ ] CircleButton has aria-label
+- [ ] Selector uses surface="wash" inside cards, surface="card" on page background
+
+OUTPUT: TypeScript/JSX file(s). Include all imports.
+```
+
+---
+
+## REACT COMPONENTS
+
+The design system ships 13 typed React components from `diet-airds`. All components compose the same CSS tokens — no `className` or `style` props, variants only.
+
+### Setup
+
+```tsx
+import { Button, CircleButton, Tag, Chip, Icon, CardClosed, CardOpen, CardSection,
+  ListRow, TextPair, TrailingText, LeadingImage, LeadingLogo, CircleContainer,
+  Input, Select, Selector, Tile, TopBar, Tabs, Steps, PageHeader, EventRow
+} from 'diet-airds'
+```
+
+CSS must be loaded before any component renders (handled automatically in `src/main.tsx`):
+
+```tsx
+import '../design-tokens-master.css'
+import '../spacing-tokens.css'
+// ... (full load order in src/main.tsx)
+```
+
+Theming is managed by `ThemeContext` — it sets `data-theme` and `data-mode` on `<html>`. Wrap the app in `<ThemeProvider>` and use `useTheme()` to read/set theme and mode.
+
+---
+
+### Icon
+
+```tsx
+<Icon name="home" />
+<Icon name="star" size={400} outlined />
+```
+
+| Prop | Type | Default |
+|---|---|---|
+| `name` | `string` | required |
+| `size` | `100\|200\|300\|400\|500\|600` | `300` |
+| `outlined` | `boolean` | `false` |
+
+---
+
+### Button
+
+```tsx
+<Button variant="primary" size="small">Label</Button>
+<Button variant="transactional" icon="confirmation_number" fill>Buy Tickets</Button>
+<Button variant="secondary" icon="arrow_forward" iconPosition="trailing" size="small">Next</Button>
+<Button variant="primary" disabled>Sold Out</Button>
+```
+
+| Prop | Type | Default |
+|---|---|---|
+| `variant` | `'primary'\|'secondary'\|'tertiary'\|'transactional'\|'neutral'\|'destructive'\|'white'\|'white-tertiary'\|'black'` | required |
+| `size` | `'large'\|'small'\|'xsmall'` | `'large'` |
+| `icon` | `string` | — |
+| `iconPosition` | `'leading'\|'trailing'` | `'leading'` |
+| `fill` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `type` | `'button'\|'submit'\|'reset'` | `'button'` |
+
+### CircleButton
+
+```tsx
+<CircleButton variant="neutral" icon="close" size="small" aria-label="Close" />
+```
+
+| Prop | Type | Default |
+|---|---|---|
+| `variant` | same as Button | required |
+| `size` | `'large'\|'small'` | `'large'` |
+| `icon` | `string` | required |
+| `aria-label` | `string` | required |
+
+---
+
+### Tag / Chip
+
+```tsx
+<Tag>Default</Tag>
+<Tag teamColor icon="flag">Brand</Tag>
+<Tag icon="arrow_forward" iconPosition="trailing">Label</Tag>
+
+<Chip onClick={...}>Filter</Chip>
+<Chip surface="ghost" teamColor>Active</Chip>
+<Chip disabled>Off</Chip>
+```
+
+**Tag props:** `teamColor`, `icon`, `iconPosition` (`'leading'|'trailing'`)
+
+**Chip props:** `surface` (`'bordered'|'ghost'`), `teamColor`, `icon`, `iconPosition`, `disabled`, `onClick`
+
+---
+
+### CardClosed / CardOpen / CardSection
+
+```tsx
+<CardClosed
+  header={<TextPair label="Title" sublabel="Subtitle" />}
+  body={<p>Content</p>}
+  footer={<Button variant="primary">Action</Button>}
+/>
+
+<CardClosed interactive onClick={handleClick} body={...} />
+
+<CardOpen
+  header={<TextPair label="Section Group" />}
+  sections={[<div>Section 1</div>, <div>Section 2</div>]}
+/>
+
+<CardSection interactive onClick={handleClick}>
+  <ListRow .../>
+</CardSection>
+```
+
+---
+
+### ListRow + subcomponents
+
+```tsx
+<ListRow
+  leading={<Icon name="notifications" size={200} />}
+  leadingGap="md"
+  trailing={<Icon name="chevron_right" size={200} />}
+  trailingGap="xs"
+  onClick={handleClick}
+>
+  <TextPair label="Event Name" sublabel="Sat, Mar 15 · 7:00 PM" />
+</ListRow>
+```
+
+**leadingGap:** `'sm'` (logos) · `'md'` (icons, circles) · `'lg'` (square images) · `'xl'` (large images)
+
+**trailingGap:** `'xs'` (chevron) · `'sm'` (text pair) · `'md'` (text link) · `'lg'` (button)
+
+**Row states:** default (tappable) · `notTappable` · `disabled`
+
+**Subcomponents:**
+
+```tsx
+// Main content
+<TextPair label="Primary" sublabel="Supporting" />
+
+// Right-aligned trailing content
+<TrailingText label="$42.00" sublabel="Per ticket" />
+
+// Leading image
+<LeadingImage src="..." alt="..." size="square" />  // 'square'|'small'|'large'
+
+// Leading logo (renders active team logo via CSS)
+<LeadingLogo ariaLabel="Team logo" />
+
+// Circle container (for icons or letters)
+<CircleContainer><Icon name="star" /></CircleContainer>
+```
+
+---
+
+### Input / Select
+
+```tsx
+<Input
+  label="Email"
+  type="email"
+  placeholder="you@example.com"
+  clearable
+  icon="mail"
+  onChange={(val) => setValue(val)}
+/>
+
+<Input label="Amount" error message="Required field" />
+<Input label="Disabled" disabled />
+
+<Select
+  label="Team"
+  options={[{ value: 'wolves', label: 'Timberwolves' }]}
+  placeholder="Select team"
+  onChange={(val) => setTeam(val)}
+/>
+```
+
+**Input key props:** `type`, `value`, `defaultValue`, `placeholder`, `label`, `linkText`, `linkHref`, `icon`, `clearable`, `error`, `disabled`, `message`, `onChange`, `onClear`
+
+**Select key props:** `options` (`{value, label}[]`), `value`, `placeholder`, `label`, `icon`, `error`, `disabled`, `message`, `onChange`
+
+---
+
+### Selector
+
+Selectable list row. Use `surface="wash"` inside cards, `surface="card"` on page background.
+
+```tsx
+<Selector selected={isSelected} onClick={toggle}>
+  <ListRow .../>
+</Selector>
+```
+
+---
+
+### Tile
+
+```tsx
+<Tile
+  visual={<img src="..." alt="" />}
+  info={<TextPair label="Event" sublabel="Mar 15" />}
+  tag={<Tag>Featured</Tag>}
+  tappable
+  onClick={handleClick}
+/>
+```
+
+When `tappable`, the tile is the tap target. Do not put a `<Button>` inside a tappable tile.
+
+---
+
+### TopBar
+
+```tsx
+<TopBar
+  logoSrc="/images/wolves-logo.svg"
+  teamName="Minnesota Timberwolves"
+  shortName="Wolves"
+  fullName="Minnesota Timberwolves"
+  href="/"
+  actions={<CircleButton variant="neutral" icon="account_circle" aria-label="Account" />}
+/>
+```
+
+---
+
+### Tabs
+
+```tsx
+const [tab, setTab] = useState('upcoming')
+
+<Tabs
+  tabs={[{ label: 'Upcoming', value: 'upcoming' }, { label: 'Past', value: 'past' }]}
+  activeTab={tab}
+  onChange={setTab}
+/>
+<Tabs ... neutral />  {/* neutral-1000 indicator instead of brand */}
+```
+
+---
+
+### Steps
+
+```tsx
+<Steps
+  steps={[
+    { label: 'Select', state: 'completed' },
+    { label: 'Review', state: 'active' },
+    { label: 'Pay', state: 'pending' },
+  ]}
+/>
+<Steps steps={...} brand />  {/* brand color for completed steps */}
+```
+
+---
+
+### PageHeader
+
+```tsx
+<PageHeader
+  title="My Tickets"
+  subtitle="3 upcoming events"
+  tabs={<Tabs ... />}
+/>
+
+<PageHeader
+  title="Checkout"
+  steps={<Steps ... />}
+/>
+```
+
+---
+
+### EventRow
+
+```tsx
+<EventRow
+  opponentLogo="/images/opponent.svg"
+  opponentName="Golden State Warriors"
+  date="Tuesday, Oct 8 · 7 PM"
+  state="featured-and-others"
+  featuredPrice="$19+"
+  offerCount={12}
+  onTopClick={handleBuy}
+  onBottomClick={handleViewAll}
+/>
+```
+
+**States:** `'featured-only'` · `'featured-and-others'` · `'no-featured-offers'` · `'sold-out'` · `'coming-soon'`
 
 ---
 

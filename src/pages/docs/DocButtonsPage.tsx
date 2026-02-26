@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import DocShell from '../../layouts/DocShell'
+import { Button, CircleButton } from '../../components/Button'
 
 export default function DocButtonsPage() {
   return (
@@ -8,195 +9,238 @@ export default function DocButtonsPage() {
       <div className="container-wide py-large">
         <h1 className="display500 mb-200">Buttons</h1>
         <p className="bodyRegular30 text-primary doc-prose">
-          Eight button types, three sizes, icon placement, and circle icon buttons. The .btn
-          system handles all hover/press states, dark mode, and cross-team compatibility
-          automatically — never hand-roll button styles.
+          The <code>Button</code> and <code>CircleButton</code> components handle all variants,
+          sizes, states, icon placement, and dark mode automatically. Pass typed props — never
+          write button CSS classes by hand.
         </p>
       </div>
 
-      <div className="container-wide py-large border-top" id="buttons">
-        <h2 className="title80">Buttons</h2>
-        <p className="bodyRegular30 text-primary doc-prose mt-100">
-          8 types, 3 sizes, icon variants, width modes, and circle buttons. All use{' '}
-          <code>.btn</code> base class + type + size modifiers. Only one Transactional or
-          Primary button per view.
-        </p>
+      {/* IMPORT */}
+      <div className="container-wide py-large border-top" id="import">
+        <h2 className="title80">Import</h2>
+        <div className="doc-code-block mt-200">
+          <code>{`import { Button, CircleButton } from 'diet-airds'`}</code>
+        </div>
+      </div>
 
-        <h3 className="title50 mt-400 mb-100">Button Types</h3>
-        <div className="doc-table-wrap">
+      {/* BUTTON COMPONENT */}
+      <div className="container-wide py-large border-top" id="button">
+        <h2 className="title80">Button</h2>
+
+        <div className="doc-table-wrap mt-200">
           <table className="doc-table">
-            <thead><tr><th>#</th><th>Class</th><th>Surface</th><th>Use For</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>1</td><td><code>.btn-transactional</code></td><td>Transactional fill</td><td>Revenue actions — Buy, Purchase, Add to Cart</td></tr>
-              <tr><td>2</td><td><code>.btn-primary</code></td><td>Primary fill</td><td>Main page action — Submit, Save, Confirm</td></tr>
-              <tr><td>3</td><td><code>.btn-neutral</code></td><td>Neutral-1000 fill</td><td>High-contrast neutral CTA</td></tr>
-              <tr><td>4</td><td><code>.btn-secondary</code></td><td>Outlined (neutral-300 border)</td><td>Supporting actions — Cancel, Back</td></tr>
-              <tr><td>5</td><td><code>.btn-tertiary</code></td><td>Ghost (transparent)</td><td>Low-emphasis text actions</td></tr>
-              <tr><td>6</td><td><code>.btn-destructive</code></td><td>Status-error fill</td><td>Dangerous actions — Delete, Remove</td></tr>
-              <tr><td>7</td><td><code>.btn-white</code></td><td>White fill, black text</td><td>CTA on dark/brand surfaces</td></tr>
-              <tr><td>8</td><td><code>.btn-white-tertiary</code></td><td>Ghost, white text</td><td>Low-emphasis on dark surfaces</td></tr>
+              <tr><td><code>variant</code></td><td>ButtonVariant</td><td>—</td><td>Visual style (required)</td></tr>
+              <tr><td><code>size</code></td><td><code>'large' | 'small' | 'xsmall'</code></td><td><code>'large'</code></td><td>Button height</td></tr>
+              <tr><td><code>icon</code></td><td>string</td><td>—</td><td>Material Symbols icon name</td></tr>
+              <tr><td><code>iconPosition</code></td><td><code>'leading' | 'trailing'</code></td><td><code>'leading'</code></td><td>Icon position relative to label</td></tr>
+              <tr><td><code>fill</code></td><td>boolean</td><td><code>false</code></td><td>Expand to 100% parent width</td></tr>
+              <tr><td><code>disabled</code></td><td>boolean</td><td><code>false</code></td><td>Disabled state</td></tr>
+              <tr><td><code>onClick</code></td><td>function</td><td>—</td><td>Click handler</td></tr>
+              <tr><td><code>type</code></td><td><code>'button' | 'submit' | 'reset'</code></td><td><code>'button'</code></td><td>HTML button type</td></tr>
+              <tr><td><code>children</code></td><td>ReactNode</td><td>—</td><td>Button label</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Live Preview — All Types at btn-300</h3>
+        <h3 className="title50 mt-400 mb-100">Variants</h3>
+        <div className="doc-table-wrap">
+          <table className="doc-table">
+            <thead><tr><th>variant</th><th>Use For</th></tr></thead>
+            <tbody>
+              <tr><td><code>'transactional'</code></td><td>Revenue actions — Buy, Purchase, Add to Cart. Use only one per view.</td></tr>
+              <tr><td><code>'primary'</code></td><td>Main page action — Submit, Save, Confirm. Use only one per view.</td></tr>
+              <tr><td><code>'neutral'</code></td><td>High-contrast neutral CTA (always dark/black fill)</td></tr>
+              <tr><td><code>'secondary'</code></td><td>Supporting actions — Cancel, Back, alternatives to primary</td></tr>
+              <tr><td><code>'tertiary'</code></td><td>Low-emphasis ghost/text actions</td></tr>
+              <tr><td><code>'destructive'</code></td><td>Dangerous actions — Delete, Remove, Unsubscribe</td></tr>
+              <tr><td><code>'white'</code></td><td>CTA on dark or brand-colored surfaces</td></tr>
+              <tr><td><code>'white-tertiary'</code></td><td>Low-emphasis on dark surfaces</td></tr>
+              <tr><td><code>'black'</code></td><td>Always-black fill regardless of theme</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="title50 mt-400 mb-100">Live Preview — All Variants</h3>
         <div className="doc-preview">
           <span className="doc-preview-label">Live — hover me</span>
           <div className="demo-row">
-            <button className="btn btn-transactional btn-300">Transactional</button>
-            <button className="btn btn-primary btn-300">Primary</button>
-            <button className="btn btn-neutral btn-300">Neutral</button>
-            <button className="btn btn-secondary btn-300">Secondary</button>
-            <button className="btn btn-tertiary btn-300">Tertiary</button>
-            <button className="btn btn-destructive btn-300">Destructive</button>
+            <Button variant="transactional" size="small">Transactional</Button>
+            <Button variant="primary" size="small">Primary</Button>
+            <Button variant="neutral" size="small">Neutral</Button>
+            <Button variant="secondary" size="small">Secondary</Button>
+            <Button variant="tertiary" size="small">Tertiary</Button>
+            <Button variant="destructive" size="small">Destructive</Button>
           </div>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Button Sizes</h3>
+        <div className="doc-code-block mt-200">
+          <code>{`<Button variant="transactional" size="small">Buy Tickets</Button>
+<Button variant="primary" size="small">Confirm</Button>
+<Button variant="secondary" size="small">Cancel</Button>`}</code>
+        </div>
+
+        <h3 className="title50 mt-400 mb-100">Sizes</h3>
         <div className="doc-table-wrap">
           <table className="doc-table">
-            <thead><tr><th>Class</th><th>Height</th><th>Horizontal Padding</th><th>Font</th><th>Use For</th></tr></thead>
+            <thead><tr><th>size</th><th>Height</th><th>Padding</th><th>Use For</th></tr></thead>
             <tbody>
-              <tr><td><code>.btn-700</code></td><td>56px</td><td>32px</td><td>16px Semi-Bold</td><td>Hero CTAs, full-width mobile buttons</td></tr>
-              <tr><td><code>.btn-300</code></td><td>40px</td><td>24px</td><td>14px Semi-Bold</td><td>Standard buttons in forms and cards</td></tr>
-              <tr><td><code>.btn-100</code></td><td>32px</td><td>16px</td><td>14px Semi-Bold</td><td>Compact UI, table actions, dense layouts</td></tr>
+              <tr><td><code>'large'</code></td><td>56px</td><td>32px horizontal</td><td>Hero CTAs, full-width mobile buttons</td></tr>
+              <tr><td><code>'small'</code></td><td>40px</td><td>24px horizontal</td><td>Standard buttons in forms and cards</td></tr>
+              <tr><td><code>'xsmall'</code></td><td>32px</td><td>16px horizontal</td><td>Compact UI, table actions, dense layouts</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">White Buttons (for dark/brand surfaces)</h3>
-        <div className="doc-preview dark-surface">
-          <span className="doc-preview-label" style={{ color: 'var(--white-500)' }}>Live — dark surface</span>
-          <div className="demo-row">
-            <button className="btn btn-white btn-300">White</button>
-            <button className="btn btn-white-tertiary btn-300">White Tertiary</button>
-          </div>
-        </div>
-
-        <h3 className="title50 mt-400 mb-100">Button Sizes — Live</h3>
         <div className="doc-preview">
           <span className="doc-preview-label">Live</span>
           <div className="demo-row">
-            <button className="btn btn-primary btn-700">Large (700)</button>
-            <button className="btn btn-primary btn-300">Small (300)</button>
-            <button className="btn btn-primary btn-100">XSmall (100)</button>
+            <Button variant="primary" size="large">Large</Button>
+            <Button variant="primary" size="small">Small</Button>
+            <Button variant="primary" size="xsmall">XSmall</Button>
           </div>
           <p className="labelRegular10 text-secondary mt-100">56px → 40px → 32px height</p>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Icon Placement</h3>
+        <h3 className="title50 mt-400 mb-100">Icons</h3>
         <p className="bodyRegular30 text-primary doc-prose mb-100">
-          Add an icon placement class alongside base+type+size to adjust padding for optical
-          balance. Icons use the <code>.btn-icon</code> class for proper sizing.
+          Pass a Material Symbols icon name to <code>icon</code>. Use <code>iconPosition</code> to
+          place it before or after the label. Omit <code>children</code> for an icon-only button.
         </p>
-        <div className="doc-table-wrap">
+
+        <div className="doc-preview">
+          <span className="doc-preview-label">Live</span>
+          <div className="demo-row">
+            <Button variant="primary" size="small" icon="add" iconPosition="leading">Leading</Button>
+            <Button variant="primary" size="small" icon="arrow_forward" iconPosition="trailing">Trailing</Button>
+            <Button variant="secondary" size="small" icon="edit">Icon Only</Button>
+          </div>
+        </div>
+
+        <div className="doc-code-block mt-200">
+          <code>{`<Button variant="primary" size="small" icon="add">Add Item</Button>
+<Button variant="primary" size="small" icon="arrow_forward" iconPosition="trailing">
+  Continue
+</Button>
+{/* Icon only — omit children */}
+<Button variant="secondary" size="small" icon="edit" />`}</code>
+        </div>
+
+        <h3 className="title50 mt-400 mb-100">White Buttons (for dark / brand surfaces)</h3>
+        <div className="doc-preview dark-surface">
+          <span className="doc-preview-label" style={{ color: 'var(--white-500)' }}>Live — dark surface</span>
+          <div className="demo-row">
+            <Button variant="white" size="small">White</Button>
+            <Button variant="white-tertiary" size="small">White Tertiary</Button>
+          </div>
+        </div>
+
+        <h3 className="title50 mt-400 mb-100">Full Width</h3>
+        <div className="doc-preview" style={{ maxWidth: 320 }}>
+          <span className="doc-preview-label">Live</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-150)' }}>
+            <Button variant="transactional" size="large" fill>Buy Tickets</Button>
+            <Button variant="secondary" size="large" fill>View Details</Button>
+          </div>
+        </div>
+        <div className="doc-code-block mt-200">
+          <code>{`<Button variant="transactional" size="large" fill>Buy Tickets</Button>`}</code>
+        </div>
+
+        <h3 className="title50 mt-400 mb-100">States</h3>
+        <div className="doc-preview">
+          <span className="doc-preview-label">Live</span>
+          <div className="demo-row">
+            <Button variant="primary" size="small">Default</Button>
+            <Button variant="primary" size="small" disabled>Disabled</Button>
+            <Button variant="secondary" size="small">Default</Button>
+            <Button variant="secondary" size="small" disabled>Disabled</Button>
+            <Button variant="destructive" size="small">Default</Button>
+            <Button variant="destructive" size="small" disabled>Disabled</Button>
+          </div>
+        </div>
+      </div>
+
+      {/* CIRCLE BUTTON */}
+      <div className="container-wide py-large border-top" id="circle-button">
+        <h2 className="title80">CircleButton</h2>
+        <p className="bodyRegular30 text-primary doc-prose mt-100">
+          For icon-only actions. Requires both <code>icon</code> and an <code>aria-label</code>{' '}
+          (since there's no visible text).
+        </p>
+
+        <div className="doc-table-wrap mt-200">
           <table className="doc-table">
-            <thead><tr><th>Modifier</th><th>Behavior</th><th>Icon Size (700 / 300 / 100)</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Prop</th>
+                <th>Type</th>
+                <th>Default</th>
+                <th>Description</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td><code>.btn-icon-leading</code></td><td>Icon before label</td><td>24px / 20px / 16px</td></tr>
-              <tr><td><code>.btn-icon-trailing</code></td><td>Icon after label</td><td>24px / 20px / 16px</td></tr>
-              <tr><td><code>.btn-icon-only</code></td><td>Icon only (no label)</td><td>24px / 20px / 16px</td></tr>
-              <tr><td><code>.btn-fill</code></td><td>Full parent width (100%)</td><td>—</td></tr>
+              <tr><td><code>variant</code></td><td>ButtonVariant</td><td>—</td><td>Visual style (required)</td></tr>
+              <tr><td><code>size</code></td><td><code>'large' | 'small'</code></td><td><code>'large'</code></td><td>Button dimensions</td></tr>
+              <tr><td><code>icon</code></td><td>string</td><td>—</td><td>Material Symbols icon name (required)</td></tr>
+              <tr><td><code>aria-label</code></td><td>string</td><td>—</td><td>Accessible label (required)</td></tr>
+              <tr><td><code>disabled</code></td><td>boolean</td><td><code>false</code></td><td>Disabled state</td></tr>
+              <tr><td><code>onClick</code></td><td>function</td><td>—</td><td>Click handler</td></tr>
+              <tr><td><code>type</code></td><td><code>'button' | 'submit' | 'reset'</code></td><td><code>'button'</code></td><td>HTML button type</td></tr>
             </tbody>
           </table>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Icon Variants — Live</h3>
-        <div className="doc-preview">
-          <span className="doc-preview-label">Live</span>
-          <div className="demo-row">
-            <button className="btn btn-primary btn-300 btn-icon-leading">
-              <span className="icon icon-200 btn-icon">add</span>
-              <span>Leading</span>
-            </button>
-            <button className="btn btn-primary btn-300 btn-icon-trailing">
-              <span>Trailing</span>
-              <span className="icon icon-200 btn-icon">arrow_forward</span>
-            </button>
-            <button className="btn btn-secondary btn-300 btn-icon-leading btn-icon-trailing">
-              <span className="icon icon-200 btn-icon">edit</span>
-              <span>Both</span>
-              <span className="icon icon-200 btn-icon">check</span>
-            </button>
-          </div>
-        </div>
-
-        <h3 className="title50 mt-400 mb-100">Button States</h3>
-        <div className="doc-table-wrap">
+        <div className="doc-table-wrap mt-300">
           <table className="doc-table">
-            <thead><tr><th>State</th><th>Behavior</th></tr></thead>
+            <thead><tr><th>size</th><th>Dimensions</th><th>Icon Size</th></tr></thead>
             <tbody>
-              <tr><td>Default</td><td>Normal appearance</td></tr>
-              <tr><td>Hover</td><td>white-300 or neutral-100 overlay + scale(1.025)</td></tr>
-              <tr><td>Pressed</td><td>black-300 overlay + scale(0.975) + 60% child opacity</td></tr>
-              <tr><td>Disabled</td><td>40% opacity, cursor: not-allowed, no scale</td></tr>
+              <tr><td><code>'large'</code></td><td>56 × 56px</td><td>32px</td></tr>
+              <tr><td><code>'small'</code></td><td>40 × 40px</td><td>24px</td></tr>
             </tbody>
           </table>
         </div>
-        <div className="doc-preview">
-          <span className="doc-preview-label">Live</span>
-          <div className="demo-row">
-            <button className="btn btn-primary btn-300">Default</button>
-            <button className="btn btn-primary btn-300" disabled>Disabled</button>
-            <button className="btn btn-secondary btn-300">Default</button>
-            <button className="btn btn-secondary btn-300" disabled>Disabled</button>
-            <button className="btn btn-destructive btn-300">Default</button>
-            <button className="btn btn-destructive btn-300" disabled>Disabled</button>
-          </div>
-        </div>
 
-        <h3 className="title50 mt-400 mb-100">Circle Icon Buttons</h3>
-        <p className="bodyRegular30 text-primary doc-prose mb-100">
-          For icon-only actions. Compose as: <code>.btn-circle</code> + size + type. Use{' '}
-          <code>.scale-300</code> (built in).
-        </p>
-        <div className="doc-preview-grid">
-          <div>
-            <p className="labelBold20 mb-100">Sizes</p>
-            <div className="doc-table-wrap">
-              <table className="doc-table">
-                <thead><tr><th>Class</th><th>Dimensions</th><th>Icon Size</th></tr></thead>
-                <tbody>
-                  <tr><td><code>.btn-circle-700</code></td><td>56×56px</td><td>32px</td></tr>
-                  <tr><td><code>.btn-circle-300</code></td><td>40×40px</td><td>24px</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div>
-            <p className="labelBold20 mb-100">Fill Types</p>
-            <div className="doc-table-wrap">
-              <table className="doc-table">
-                <thead><tr><th>Class</th><th>Background</th></tr></thead>
-                <tbody>
-                  <tr><td><code>.btn-circle-team</code></td><td>--interactive-primary</td></tr>
-                  <tr><td><code>.btn-circle-neutral</code></td><td>--neutral-1000</td></tr>
-                  <tr><td><code>.btn-circle-inverted</code></td><td>--inverted-1000</td></tr>
-                  <tr><td><code>.btn-circle-black</code></td><td>--black-1000</td></tr>
-                  <tr><td><code>.btn-circle-white</code></td><td>--white-1000</td></tr>
-                  <tr><td><code>.btn-circle-destructive</code></td><td>--status-error</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <p className="labelRegular10 text-secondary mt-50">Secondary (outlined) variants: <code>.btn-circle-team-secondary</code> · <code>.btn-circle-neutral-secondary</code> · <code>.btn-circle-destructive-secondary</code></p>
-        <p className="labelRegular10 text-secondary mt-50">Tertiary (ghost) variants: <code>.btn-circle-team-tertiary</code> · <code>.btn-circle-neutral-tertiary</code> · <code>.btn-circle-destructive-tertiary</code></p>
-        <div className="doc-preview">
+        <div className="doc-preview mt-300">
           <span className="doc-preview-label">Live — hover me</span>
           <div className="demo-row">
-            <button className="btn-circle btn-circle-700 btn-circle-team"><span className="icon btn-icon">add</span></button>
-            <button className="btn-circle btn-circle-300 btn-circle-team"><span className="icon icon-200 btn-icon">add</span></button>
-            <button className="btn-circle btn-circle-300 btn-circle-neutral"><span className="icon icon-200 btn-icon">share</span></button>
-            <button className="btn-circle btn-circle-300 btn-circle-inverted"><span className="icon icon-200 btn-icon">close</span></button>
-            <button className="btn-circle btn-circle-300 btn-circle-destructive"><span className="icon icon-200 btn-icon">delete</span></button>
-            <button className="btn-circle btn-circle-300 btn-circle-team-secondary"><span className="icon icon-200 btn-icon">favorite</span></button>
-            <button className="btn-circle btn-circle-300 btn-circle-neutral-tertiary"><span className="icon icon-200 btn-icon">more_horiz</span></button>
+            <CircleButton variant="transactional" size="large" icon="add" aria-label="Add item" />
+            <CircleButton variant="primary" size="small" icon="add" aria-label="Add item" />
+            <CircleButton variant="neutral" size="small" icon="share" aria-label="Share" />
+            <CircleButton variant="secondary" size="small" icon="favorite" aria-label="Favorite" />
+            <CircleButton variant="tertiary" size="small" icon="more_horiz" aria-label="More options" />
+            <CircleButton variant="destructive" size="small" icon="delete" aria-label="Delete" />
+            <CircleButton variant="white" size="small" icon="close" aria-label="Close" />
           </div>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Button Group Utilities</h3>
-        <div className="doc-table-wrap">
+        <div className="doc-code-block mt-200">
+          <code>{`<CircleButton
+  variant="primary"
+  size="small"
+  icon="add"
+  aria-label="Add item"
+  onClick={handleAdd}
+/>`}</code>
+        </div>
+      </div>
+
+      {/* BUTTON GROUP UTILITIES */}
+      <div className="container-wide py-large border-top" id="groups">
+        <h2 className="title80">Button Group Utilities</h2>
+        <p className="bodyRegular30 text-primary doc-prose mt-100">
+          Wrap multiple buttons in a layout div using these utility classes.
+        </p>
+
+        <div className="doc-table-wrap mt-200">
           <table className="doc-table">
             <thead><tr><th>Class</th><th>Layout</th></tr></thead>
             <tbody>
@@ -205,21 +249,34 @@ export default function DocButtonsPage() {
             </tbody>
           </table>
         </div>
-        <div className="doc-preview-grid">
+
+        <div className="doc-preview-grid mt-300">
           <div className="doc-preview">
             <span className="doc-preview-label">.btn-group</span>
             <div className="btn-group">
-              <button className="btn btn-primary btn-300">Confirm</button>
-              <button className="btn btn-secondary btn-300">Cancel</button>
+              <Button variant="primary" size="small">Confirm</Button>
+              <Button variant="secondary" size="small">Cancel</Button>
             </div>
           </div>
           <div className="doc-preview">
             <span className="doc-preview-label">.btn-group-stack</span>
             <div className="btn-group-stack" style={{ maxWidth: 240 }}>
-              <button className="btn btn-transactional btn-700">Buy Tickets</button>
-              <button className="btn btn-secondary btn-700">View Details</button>
+              <Button variant="transactional" size="large" fill>Buy Tickets</Button>
+              <Button variant="secondary" size="large" fill>View Details</Button>
             </div>
           </div>
+        </div>
+
+        <div className="doc-code-block mt-200">
+          <code>{`<div className="btn-group">
+  <Button variant="primary" size="small">Confirm</Button>
+  <Button variant="secondary" size="small">Cancel</Button>
+</div>
+
+<div className="btn-group-stack">
+  <Button variant="transactional" size="large" fill>Buy Tickets</Button>
+  <Button variant="secondary" size="large" fill>View Details</Button>
+</div>`}</code>
         </div>
       </div>
 

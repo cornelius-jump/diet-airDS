@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import DocShell from '../../layouts/DocShell'
+import { Icon } from '../../components/Icon'
 
 export default function DocTypographyPage() {
   return (
@@ -221,21 +222,46 @@ export default function DocTypographyPage() {
       <div className="container-wide py-large border-top" id="icons">
         <h2 className="title80">Icons</h2>
         <p className="bodyRegular30 text-primary doc-prose mt-100">
-          Google Material Symbols Rounded via a variable font. Default is 24px outlined. Add{' '}
-          <code>.icon-filled</code> for solid, size classes for different sizes, and{' '}
-          <code>.text-*</code> for colors. Icons inherit color from their parent.
+          Google Material Symbols Rounded via a variable font. Use the <code>Icon</code> React
+          component for type-safe rendering, or use the CSS utility classes directly in markup.
         </p>
 
-        <h3 className="title50 mt-400 mb-100">Icon Size Tokens</h3>
+        <h3 className="title50 mt-400 mb-100">Icon Component</h3>
+        <p className="bodyRegular30 text-primary doc-prose mb-100">
+          The <code>Icon</code> component wraps a Material Symbols Rounded glyph with size and
+          outlined variant props. Import it from <code>'diet-airds'</code>.
+        </p>
+
+        <div className="doc-code-block">
+          <code>{`import { Icon } from 'diet-airds'
+
+<Icon name="home" />                   {/* 24px filled (default) */}
+<Icon name="star" size={400} />        {/* 32px filled */}
+<Icon name="favorite" outlined />      {/* 24px outlined */}
+<Icon name="check" size={200} outlined />`}</code>
+        </div>
+
+        <div className="doc-table-wrap mt-200">
+          <table className="doc-table">
+            <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td><code>name</code></td><td>string</td><td>—</td><td>Material Symbols icon name (required). E.g. <code>"home"</code>, <code>"star"</code>, <code>"sports_soccer"</code></td></tr>
+              <tr><td><code>size</code></td><td><code>100 | 200 | 300 | 400 | 500 | 600</code></td><td><code>300</code></td><td>Icon size — maps to 16px / 20px / 24px / 32px / 40px / 48px</td></tr>
+              <tr><td><code>outlined</code></td><td>boolean</td><td><code>false</code></td><td>Use outlined stroke style instead of filled</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 className="title50 mt-400 mb-100">Icon Sizes</h3>
         <div className="doc-preview">
           <span className="doc-preview-label">Live</span>
           <div className="demo-row" style={{ alignItems: 'flex-end' }}>
-            <div className="doc-demo-cell"><span className="icon icon-100">home</span><p className="labelRegular10 text-secondary mt-50">100 (16px)</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-200">home</span><p className="labelRegular10 text-secondary mt-50">200 (20px)</p></div>
-            <div className="doc-demo-cell"><span className="icon">home</span><p className="labelRegular10 text-secondary mt-50">300 (24px)</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-400">home</span><p className="labelRegular10 text-secondary mt-50">400 (32px)</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-500">home</span><p className="labelRegular10 text-secondary mt-50">500 (40px)</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-600">home</span><p className="labelRegular10 text-secondary mt-50">600 (48px)</p></div>
+            <div className="doc-demo-cell"><Icon name="home" size={100} /><p className="labelRegular10 text-secondary mt-50">100 (16px)</p></div>
+            <div className="doc-demo-cell"><Icon name="home" size={200} /><p className="labelRegular10 text-secondary mt-50">200 (20px)</p></div>
+            <div className="doc-demo-cell"><Icon name="home" size={300} /><p className="labelRegular10 text-secondary mt-50">300 (24px)</p></div>
+            <div className="doc-demo-cell"><Icon name="home" size={400} /><p className="labelRegular10 text-secondary mt-50">400 (32px)</p></div>
+            <div className="doc-demo-cell"><Icon name="home" size={500} /><p className="labelRegular10 text-secondary mt-50">500 (40px)</p></div>
+            <div className="doc-demo-cell"><Icon name="home" size={600} /><p className="labelRegular10 text-secondary mt-50">600 (48px)</p></div>
           </div>
         </div>
 
@@ -253,42 +279,52 @@ export default function DocTypographyPage() {
           </table>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Outlined vs Filled</h3>
+        <h3 className="title50 mt-400 mb-100">Filled vs Outlined</h3>
         <div className="doc-preview">
           <span className="doc-preview-label">Live</span>
           <div className="demo-row">
-            <div className="doc-demo-cell"><span className="icon icon-400">favorite</span><p className="labelRegular10 text-secondary mt-50">outlined</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-400 icon-filled">favorite</span><p className="labelRegular10 text-secondary mt-50">filled</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-400">star</span><p className="labelRegular10 text-secondary mt-50">outlined</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-400 icon-filled">star</span><p className="labelRegular10 text-secondary mt-50">filled</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-400">bookmark</span><p className="labelRegular10 text-secondary mt-50">outlined</p></div>
-            <div className="doc-demo-cell"><span className="icon icon-400 icon-filled">bookmark</span><p className="labelRegular10 text-secondary mt-50">filled</p></div>
+            <div className="doc-demo-cell"><Icon name="favorite" size={400} /><p className="labelRegular10 text-secondary mt-50">filled</p></div>
+            <div className="doc-demo-cell"><Icon name="favorite" size={400} outlined /><p className="labelRegular10 text-secondary mt-50">outlined</p></div>
+            <div className="doc-demo-cell"><Icon name="star" size={400} /><p className="labelRegular10 text-secondary mt-50">filled</p></div>
+            <div className="doc-demo-cell"><Icon name="star" size={400} outlined /><p className="labelRegular10 text-secondary mt-50">outlined</p></div>
+            <div className="doc-demo-cell"><Icon name="bookmark" size={400} /><p className="labelRegular10 text-secondary mt-50">filled</p></div>
+            <div className="doc-demo-cell"><Icon name="bookmark" size={400} outlined /><p className="labelRegular10 text-secondary mt-50">outlined</p></div>
           </div>
         </div>
 
         <h3 className="title50 mt-400 mb-100">Icon Colors</h3>
+        <p className="bodyRegular30 text-primary doc-prose mb-100">
+          Apply text color utility classes to the <code>Icon</code> component or its wrapper to
+          change color. Icons inherit their parent's color by default.
+        </p>
         <div className="doc-preview">
           <span className="doc-preview-label">Live</span>
           <div className="demo-row">
-            <span className="icon icon-400 text-primary">home</span>
-            <span className="icon icon-400 text-secondary">info</span>
-            <span className="icon icon-400 text-brand-core">sports_soccer</span>
-            <span className="icon icon-400 text-brand-interactive">arrow_forward</span>
-            <span className="icon icon-400 text-success">check_circle</span>
-            <span className="icon icon-400 text-error">error</span>
-            <span className="icon icon-400 text-warning">warning</span>
-            <span className="icon icon-400 text-info">info</span>
+            <span className="text-primary"><Icon name="home" size={400} /></span>
+            <span className="text-secondary"><Icon name="info" size={400} /></span>
+            <span className="text-brand-core"><Icon name="sports_soccer" size={400} /></span>
+            <span className="text-brand-interactive"><Icon name="arrow_forward" size={400} /></span>
+            <span className="text-success"><Icon name="check_circle" size={400} /></span>
+            <span className="text-error"><Icon name="error" size={400} /></span>
+            <span className="text-warning"><Icon name="warning" size={400} /></span>
+            <span className="text-info"><Icon name="info" size={400} /></span>
           </div>
+        </div>
+
+        <div className="doc-code-block mt-200">
+          <code>{`<span className="text-brand-interactive">
+  <Icon name="arrow_forward" size={400} />
+</span>`}</code>
         </div>
 
         <div className="doc-note mt-200">
           <p className="bodyRegular30"><strong>Size matching guide:</strong></p>
-          <p className="bodyRegular30 mt-50"><code>.icon-100</code> (16px) — Inline with <code>.labelBold20</code> / <code>.labelRegular20</code></p>
-          <p className="bodyRegular30 mt-50"><code>.icon-200</code> (20px) — Inline with <code>.bodyRegular30</code> / <code>.labelBold30</code></p>
-          <p className="bodyRegular30 mt-50"><code>.icon-300</code> (24px) — Default. Nav, buttons, cards</p>
-          <p className="bodyRegular30 mt-50"><code>.icon-400</code> (32px) — Section headers, emphasized</p>
-          <p className="bodyRegular30 mt-50"><code>.icon-500</code> (40px) — Large feature icons, empty states</p>
-          <p className="bodyRegular30 mt-50"><code>.icon-600</code> (48px) — Illustrative, hero sections</p>
+          <p className="bodyRegular30 mt-50"><code>size={100}</code> (16px) — Inline with small labels (12–14px text)</p>
+          <p className="bodyRegular30 mt-50"><code>size={200}</code> (20px) — Inline with body/label text (16px)</p>
+          <p className="bodyRegular30 mt-50"><code>size={300}</code> (24px) — Default. Nav, buttons, cards</p>
+          <p className="bodyRegular30 mt-50"><code>size={400}</code> (32px) — Section headers, emphasized</p>
+          <p className="bodyRegular30 mt-50"><code>size={500}</code> (40px) — Large feature icons, empty states</p>
+          <p className="bodyRegular30 mt-50"><code>size={600}</code> (48px) — Illustrative, hero sections</p>
         </div>
       </div>
 

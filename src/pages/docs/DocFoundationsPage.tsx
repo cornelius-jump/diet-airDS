@@ -8,8 +8,10 @@ export default function DocFoundationsPage() {
       <div className="container-wide py-large">
         <h1 className="display500 mb-200">Foundations</h1>
         <p className="bodyRegular30 text-primary doc-prose">
-          Covers the raw token layers: color scales, the 8px spacing grid, container widths,
-          and border/shadow tokens. Everything else in the system is built on these.
+          The raw token layers: color scales, the 8px spacing grid, container widths, and
+          border/shadow tokens. React components consume these tokens automatically — this page
+          is a reference for understanding the system and for writing custom styles that need to
+          reference token variables directly.
         </p>
       </div>
 

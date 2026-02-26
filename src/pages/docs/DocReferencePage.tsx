@@ -111,10 +111,35 @@ export default function DocReferencePage() {
           </table>
         </div>
 
-        <h3 className="title50 mt-400 mb-100">Testing Across Themes</h3>
+        <h3 className="title50 mt-400 mb-100">Switching Themes in React</h3>
+        <p className="bodyRegular30 text-primary doc-prose mb-100">
+          Use the <code>useTheme</code> hook to switch team and mode programmatically. The hook
+          is available anywhere inside <code>ThemeProvider</code>.
+        </p>
         <div className="doc-code-block">
-          <code>{'<!-- Light Mode - Wolves -->\n<html data-theme="wolves" data-mode="light">\n\n<!-- Dark Mode - Athletics -->\n<html data-theme="athletics" data-mode="dark">'}</code>
+          <code>{`import { useTheme } from 'diet-airds'
+
+function ThemeSwitcher() {
+  const { theme, mode, setTheme, setMode } = useTheme()
+  return (
+    <>
+      {/* Switch teams */}
+      <button onClick={() => setTheme('wolves')}>Wolves (light)</button>
+      <button onClick={() => setTheme('athletics')}>Athletics</button>
+
+      {/* Toggle dark mode */}
+      <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
+        Toggle Mode
+      </button>
+    </>
+  )
+}`}</code>
         </div>
+        <p className="bodyRegular30 text-primary doc-prose mt-100">
+          Under the hood, <code>setTheme</code> and <code>setMode</code> update{' '}
+          <code>data-theme</code> and <code>data-mode</code> on <code>document.documentElement</code>.
+          All CSS custom properties update immediately — no page reload needed.
+        </p>
 
         <h3 className="title50 mt-400 mb-100">Team Logo Assets</h3>
         <p className="bodyRegular30 text-primary doc-prose mb-100">
@@ -172,36 +197,36 @@ export default function DocReferencePage() {
               a: "Match content type to the table in Foundations. Articles get narrow, dashboards get extra-wide, most pages get .container or .container-wide.",
             },
             {
-              q: 'Fixed or responsive spacing?',
-              a: "If it's inside a component (padding, internal gaps), use fixed. If it's between components or sections, use responsive.",
+              q: 'Which button variant?',
+              a: "<Button variant=\"transactional\"> for revenue actions (1 per view). <Button variant=\"primary\"> for main page action (1 per view). <Button variant=\"secondary\"> for supporting actions. <Button variant=\"white\"> or white-tertiary on dark surfaces.",
+            },
+            {
+              q: 'Button size?',
+              a: "size=\"large\" (56px) for hero CTAs and full-width mobile buttons. size=\"small\" (40px) for standard forms and cards. size=\"xsmall\" (32px) for compact UI and table actions.",
+            },
+            {
+              q: 'Tag or Chip?',
+              a: "Tag is static — use it for labels, statuses, and metadata. Chip is interactive — use it for filter toggles and selectable options. Both have teamColor and icon props.",
             },
             {
               q: 'Display or title?',
-              a: "Display is for big branded headlines (team font). Title is for structural headings within content (Inter Bold, same everywhere).",
+              a: "Display is for big branded headlines (team font, varies per team). Title is for structural headings within content (Inter Bold, same everywhere).",
             },
             {
               q: 'Label or body?',
               a: "Labels are for short UI text (buttons, nav, metadata) with tight 1.2 line-height. Body is for paragraphs and longer content with comfortable 1.5 line-height.",
             },
             {
-              q: 'When do I use shadows?',
-              a: "Only on sheets and modals. Never on regular cards — use --bg-surface and borders instead.",
+              q: 'CardClosed or CardOpen?',
+              a: "CardClosed for a single continuous surface (one background). CardOpen for multiple sections with individual surface backgrounds — use it when the card contains multiple list rows or groupings.",
             },
             {
-              q: 'Which text pair?',
-              a: "Match scale to context: 9000/8000 for heroes, 7000/6000 for section headers, 5000/4000 for cards, 3000–1000 for compact UI. Always wrap in .card-text-pair.",
-            },
-            {
-              q: 'Which button type?',
-              a: "Transactional for revenue, Primary for main action (1 per view), Secondary for alternatives, Tertiary for low-emphasis. .btn-white / .btn-white-tertiary on dark surfaces.",
-            },
-            {
-              q: 'Surface token or button class?',
-              a: "Use .btn classes for actual buttons. Use .surface-* + .scale-* for custom interactive elements (cards, tabs, chips, etc.).",
+              q: 'Selector surface — wash or card?',
+              a: "surface=\"wash\" when the Selector sits inside a card or surface background. surface=\"card\" when it sits directly on the page background.",
             },
             {
               q: '--brand-interactive or --color-interactive?',
-              a: "Always use --brand-interactive and --brand-inverted. They flip automatically between light and dark mode. The --color-* equivalents are raw static theme values.",
+              a: "Always use --brand-interactive and --brand-inverted. They flip automatically between light and dark mode. The --color-* equivalents are raw static theme values that never change.",
             },
           ].map(({ q, a }) => (
             <div key={q} className="doc-decision-card">

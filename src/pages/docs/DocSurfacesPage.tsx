@@ -24,11 +24,21 @@ export default function DocSurfacesPage() {
 
         <div className="doc-note mt-200">
           <p className="bodyRegular30">
-            <strong>Important:</strong> Surface fill classes set their own <code>color</code>{' '}
+            <strong>React components apply these automatically.</strong> The <code>Button</code>,{' '}
+            <code>Selector</code>, <code>Chip</code>, and interactive <code>CardClosed</code>{' '}
+            components handle surface and scale classes internally based on their variant props.
+            Use these CSS classes directly only when building custom interactive elements that don't
+            have a corresponding React component.
+          </p>
+        </div>
+
+        <div className="doc-note mt-100">
+          <p className="bodyRegular30">
+            <strong>Contrast note:</strong> Surface fill classes set their own <code>color</code>{' '}
             for correct contrast. Text style classes (e.g. <code>.labelBold30</code>) will
             override this with <code>var(--text-primary)</code>, causing broken contrast.
             Always add <code>color: inherit</code> to children inside filled surfaces. The{' '}
-            <code>.btn</code> classes already handle this automatically.
+            <code>.btn</code> classes and React components already handle this automatically.
           </p>
         </div>
 

@@ -23,6 +23,7 @@
     "preview": "vite preview",
     "site": "vite --config vite.site.config.ts",
     "build:site": "node scripts/build-site.js",
+    "build:storybook-cdn": "node scripts/build-storybook-cdn.js",
     "teams": "node scripts/sync-teams.js",
     "import-teams": "node scripts/import-teams.js",
     "upload-logos": "node scripts/upload-logos.js",

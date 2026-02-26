@@ -1,0 +1,17 @@
+import{j as e}from"./jsx-runtime-Cf8x2fCZ.js";import{B as c,C as m}from"./Button-Beqz6_Me.js";import"./index-yBjzXJbu.js";function n({logoSrc:i,teamName:x,shortName:t,fullName:o,href:T="/",actions:l}){return e.jsx("header",{className:"top-bar",role:"banner",children:e.jsxs("div",{className:"top-bar-inner",children:[e.jsxs("a",{className:"top-bar-brand",href:T,children:[i&&e.jsx("img",{className:"top-bar-logo",src:i,alt:x??""}),(t||o)&&e.jsxs("span",{className:"top-bar-name display100",children:[t&&e.jsx("span",{className:"top-bar-name-short",children:t}),o&&e.jsx("span",{className:"top-bar-name-full",children:o})]})]}),l&&e.jsx("div",{className:"top-bar-actions",children:l})]})})}n.__docgenInfo={description:"",methods:[],displayName:"TopBar",props:{logoSrc:{required:!1,tsType:{name:"string"},description:"Team logo URL"},teamName:{required:!1,tsType:{name:"string"},description:"Team name (used for alt text)"},shortName:{required:!1,tsType:{name:"string"},description:"Short team name (shown on mobile)"},fullName:{required:!1,tsType:{name:"string"},description:"Full team name (shown on tablet+)"},href:{required:!1,tsType:{name:"string"},description:"Home link href",defaultValue:{value:"'/'",computed:!1}},actions:{required:!1,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:"Trailing actions slot (buttons, icon buttons, auth)"}}};const W={title:"Components/TopBar",component:n,parameters:{layout:"fullscreen"}},a={args:{shortName:"Wolves",fullName:"Minnesota Timberwolves",href:"/"}},s={render:()=>e.jsx(n,{shortName:"Wolves",fullName:"Minnesota Timberwolves",href:"/",actions:e.jsxs(e.Fragment,{children:[e.jsx(c,{variant:"secondary",size:"small",children:"Log in"}),e.jsx(c,{variant:"primary",size:"small",children:"Sign up"})]})})},r={render:()=>e.jsx(n,{shortName:"Wolves",fullName:"Minnesota Timberwolves",href:"/",actions:e.jsxs(e.Fragment,{children:[e.jsx(m,{variant:"neutral",size:"small",icon:"search","aria-label":"Search"}),e.jsx(m,{variant:"neutral",size:"small",icon:"account_circle","aria-label":"Account"})]})})};var p,u,d;a.parameters={...a.parameters,docs:{...(p=a.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    shortName: 'Wolves',
+    fullName: 'Minnesota Timberwolves',
+    href: '/'
+  }
+}`,...(d=(u=a.parameters)==null?void 0:u.docs)==null?void 0:d.source}}};var h,f,b;s.parameters={...s.parameters,docs:{...(h=s.parameters)==null?void 0:h.docs,source:{originalSource:`{
+  render: () => <TopBar shortName="Wolves" fullName="Minnesota Timberwolves" href="/" actions={<>
+          <Button variant="secondary" size="small">Log in</Button>
+          <Button variant="primary" size="small">Sign up</Button>
+        </>} />
+}`,...(b=(f=s.parameters)==null?void 0:f.docs)==null?void 0:b.source}}};var v,N,g;r.parameters={...r.parameters,docs:{...(v=r.parameters)==null?void 0:v.docs,source:{originalSource:`{
+  render: () => <TopBar shortName="Wolves" fullName="Minnesota Timberwolves" href="/" actions={<>
+          <CircleButton variant="neutral" size="small" icon="search" aria-label="Search" />
+          <CircleButton variant="neutral" size="small" icon="account_circle" aria-label="Account" />
+        </>} />
+}`,...(g=(N=r.parameters)==null?void 0:N.docs)==null?void 0:g.source}}};const w=["Default","WithActions","WithIconActions"];export{a as Default,s as WithActions,r as WithIconActions,w as __namedExportsOrder,W as default};

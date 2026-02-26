@@ -1,0 +1,10 @@
+import { Meta, StoryObj } from '@storybook/react';
+import { ListRow } from './ListRow';
+declare const meta: Meta<typeof ListRow>;
+export default meta;
+type Story = StoryObj<typeof ListRow>;
+export declare const Simple: Story;
+export declare const WithLeadingIcon: Story;
+export declare const WithTrailingText: Story;
+export declare const NotTappable: Story;
+export declare const Disabled: Story;

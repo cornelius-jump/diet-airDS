@@ -245,11 +245,11 @@ function ThemeSwitcher() {
 
       {/* PREV / NEXT */}
       <div className="doc-prevnext">
-        <Link className="doc-prevnext-prev surface-ghost scale-700" to="/documentation/forms">
+        <Link className="doc-prevnext-prev surface-ghost scale-700" to="/documentation/navigation">
           <span className="icon">arrow_back</span>
           <div className="doc-prevnext-text">
             <span className="doc-prevnext-label">Previous</span>
-            <span className="doc-prevnext-title">Forms</span>
+            <span className="doc-prevnext-title">Navigation</span>
           </div>
         </Link>
       </div>

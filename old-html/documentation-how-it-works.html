@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="jump" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works — Diet AirDS</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS — local on localhost/file://, CDN when deployed -->
+  <script src="../ds-loader.js"></script>
+  <link rel="stylesheet" href="walkthrough.css">
+</head>
+<body>
+
+<!-- Universal Top Nav -->
+<header class="org-nav">
+  <a class="org-nav-logo" href="/index.html">
+    <span class="material-symbols-rounded icon-filled text-primary">water_full</span>
+    <span class="display200 text-primary">Diet AirDS</span>
+  </a>
+  <nav class="org-nav-links">
+    <a href="/index.html" class="chip surface-ghost scale-300">Getting Started</a>
+    <a href="/old-html/documentation.html" class="chip surface-borderNeutral scale-300 chip-team-color">Documentation</a>
+    <a href="/examples/index.html" class="chip surface-ghost scale-300">Examples</a>
+  </nav>
+  <div class="org-nav-controls">
+    <div class="input-field input-select" id="top-theme-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-theme-display">JUMP</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topThemeSelect" onchange="syncSelect('top-theme-select', 'top-theme-display', this); root.setAttribute('data-theme', this.value);" onfocus="openSelect('top-theme-select')" onblur="closeSelect('top-theme-select')">
+            <option value="wolves">Wolves</option>
+            <option value="lynx">Lynx</option>
+            <option value="courage">Courage</option>
+            <option value="summit">Summit</option>
+            <option value="bucknell">Bucknell</option>
+            <option value="sounders">Sounders</option>
+            <option value="reign">Reign</option>
+            <option value="ncfc">NCFC</option>
+            <option value="jump" selected>JUMP</option>
+            <option value="athletics">Athletics</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="input-field input-select" id="top-mode-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-mode-display">Light</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topModeSelect" onchange="syncSelect('top-mode-select', 'top-mode-display', this); root.setAttribute('data-mode', this.value);" onfocus="openSelect('top-mode-select')" onblur="closeSelect('top-mode-select')">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="doc-layout">
+
+<!-- SIDEBAR -->
+<aside class="doc-sidebar">
+  <nav>
+    <a href="documentation.html">Home</a>
+    <a href="documentation-how-it-works.html" class="active">How It Works</a>
+    <a href="documentation-foundations.html">Foundations</a>
+    <a href="documentation-typography.html">Typography & Icons</a>
+    <a href="documentation-surfaces.html">Interactive Tokens</a>
+    <a href="documentation-buttons.html">Buttons</a>
+    <a href="documentation-listrows.html">List Rows & Cards</a>
+    <a href="documentation-forms.html">Forms</a>
+    <a href="documentation-reference.html">Reference</a>
+  </nav>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="doc-main">
+
+<!-- PAGE INTRO -->
+<div class="container-wide py-large">
+  <h1 class="display500 mb-200">How It Works</h1>
+  <p class="bodyRegular30 text-primary doc-prose">The design system is built on CSS custom properties and utility classes. Two HTML attributes on the root element control everything — theme and mode — and the entire UI responds automatically.</p>
+</div>
+
+
+<!-- ==========================================
+     0. OVERVIEW
+     ========================================== -->
+<div class="container-wide py-large border-top" id="overview">
+  <h2 class="title80">Theming</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Everything is controlled by two HTML attributes on the root element:</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong><code>data-theme</code></strong> — which team's brand to use (colors, display font, button shape)</p>
+    <p class="bodyRegular30 mt-50"><strong><code>data-mode</code></strong> — <code>light</code> or <code>dark</code></p>
+  </div>
+
+  <p class="bodyRegular30 text-primary doc-prose mt-100">When you change either attribute, the entire UI updates automatically. You never hardcode colors, fonts, or spacing — you reference tokens instead.</p>
+
+  <div class="doc-code-block mt-200">
+    <code>&lt;html data-theme="wolves" data-mode="dark"&gt;</code>
+  </div>
+</div>
+
+
+<!-- ==========================================
+     CSS FILE LOAD ORDER
+     ========================================== -->
+<div class="container-wide py-large border-top" id="load-order">
+  <h2 class="title80">CSS Files — Load Order Matters</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">These 14 files make up the full system. They must be loaded in this exact order because later files reference tokens defined in earlier ones.</p>
+
+  <div class="doc-table-wrap mt-200">
+    <table class="doc-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>File</th>
+          <th>What It Does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>design-tokens-master.css</code></td><td>Core color tokens, brand colors per team, neutral/inverted scales, semantic tokens</td></tr>
+        <tr><td>2</td><td><code>spacing-tokens.css</code></td><td>Fixed spacing scale (2px–80px) and responsive spacing tokens</td></tr>
+        <tr><td>3</td><td><code>container-tokens.css</code></td><td>Max-width container classes (640px–1600px) with responsive padding</td></tr>
+        <tr><td>4</td><td><code>border-effects-tokens.css</code></td><td>Border radius, border weight, drop shadow tokens and utility classes</td></tr>
+        <tr><td>5</td><td><code>fonts.css</code></td><td>@font-face declarations for all team display fonts</td></tr>
+        <tr><td>6</td><td><code>text-styles-system.css</code></td><td>Typography classes (display, title, label, body) and text utility classes</td></tr>
+        <tr><td>7</td><td><code>icons.css</code></td><td>Icon size tokens and utility classes for Material Symbols Rounded</td></tr>
+        <tr><td>8</td><td><code>card-components.css</code></td><td>Card layout patterns (closed, open, interactive) and card grid classes</td></tr>
+        <tr><td>9</td><td><code>interactive-tokens.css</code></td><td>Interactive surface styles (12 types) and scale transforms (3 levels)</td></tr>
+        <tr><td>10</td><td><code>button-components.css</code></td><td>Button system: 8 types, 3 sizes, icon variants, circle buttons, groups</td></tr>
+        <tr><td>11</td><td><code>list-row-components.css</code></td><td>List row system: 3-slot architecture, subcomponents (tags, switches, steppers)</td></tr>
+        <tr><td>12</td><td><code>input-components.css</code></td><td>Input field system: text inputs, select dropdowns, states (error, disabled, has-value)</td></tr>
+        <tr><td>13</td><td><code>tag-chip-components.css</code></td><td>Tag & chip system: static tags for labels, interactive chips for filters/toggles</td></tr>
+        <tr><td>14</td><td><code>boilerplate.css</code></td><td>CSS reset, layout helpers, all spacing utility classes, grid utilities, responsive show/hide</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- PREV / NEXT -->
+<div class="doc-prevnext">
+  <a class="doc-prevnext-prev surface-ghost scale-700" href="documentation.html">
+    <span class="icon">arrow_back</span>
+    <div class="doc-prevnext-text">
+      <span class="doc-prevnext-label">Previous</span>
+      <span class="doc-prevnext-title">Home</span>
+    </div>
+  </a>
+  <a class="doc-prevnext-next surface-ghost scale-700" href="documentation-foundations.html">
+    <div class="doc-prevnext-text">
+      <span class="doc-prevnext-label">Next</span>
+      <span class="doc-prevnext-title">Foundations</span>
+    </div>
+    <span class="icon">arrow_forward</span>
+  </a>
+</div>
+
+</div><!-- /doc-main -->
+</div><!-- /doc-layout -->
+
+<script src="walkthrough.js"></script>
+</body>
+</html>

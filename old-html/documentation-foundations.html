@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="jump" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations — Diet AirDS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  <script src="../ds-loader.js"></script>
+  <link rel="stylesheet" href="walkthrough.css">
+</head>
+<body>
+
+<header class="org-nav">
+  <a class="org-nav-logo" href="/index.html">
+    <span class="material-symbols-rounded icon-filled text-primary">water_full</span>
+    <span class="display200 text-primary">Diet AirDS</span>
+  </a>
+  <nav class="org-nav-links">
+    <a href="/index.html" class="chip surface-ghost scale-300">Getting Started</a>
+    <a href="/old-html/documentation.html" class="chip surface-borderNeutral scale-300 chip-team-color">Documentation</a>
+    <a href="/examples/index.html" class="chip surface-ghost scale-300">Examples</a>
+  </nav>
+  <div class="org-nav-controls">
+    <div class="input-field input-select" id="top-theme-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-theme-display">JUMP</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topThemeSelect" onchange="syncSelect('top-theme-select', 'top-theme-display', this); root.setAttribute('data-theme', this.value);" onfocus="openSelect('top-theme-select')" onblur="closeSelect('top-theme-select')">
+            <option value="wolves">Wolves</option>
+            <option value="lynx">Lynx</option>
+            <option value="courage">Courage</option>
+            <option value="summit">Summit</option>
+            <option value="bucknell">Bucknell</option>
+            <option value="sounders">Sounders</option>
+            <option value="reign">Reign</option>
+            <option value="ncfc">NCFC</option>
+            <option value="jump" selected>JUMP</option>
+            <option value="athletics">Athletics</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="input-field input-select" id="top-mode-select">
+      <div class="input-and-message">
+        <div class="input-control">
+          <span class="input-select-display" id="top-mode-display">Light</span>
+          <span class="input-select-chevron material-symbols-rounded">arrow_drop_down</span>
+          <select id="topModeSelect" onchange="syncSelect('top-mode-select', 'top-mode-display', this); root.setAttribute('data-mode', this.value);" onfocus="openSelect('top-mode-select')" onblur="closeSelect('top-mode-select')">
+            <option value="light" selected>Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="doc-layout">
+
+<aside class="doc-sidebar">
+  <nav>
+    <a href="documentation.html">Home</a>
+    <a href="documentation-foundations.html" class="active">Foundations</a>
+    <a href="#colors" class="sub">Colors</a>
+    <a href="#spacing" class="sub">Spacing</a>
+    <a href="#spacing-utils" class="sub">Spacing Utilities</a>
+    <a href="#containers" class="sub">Containers</a>
+    <a href="#borders" class="sub">Borders &amp; Drop Shadows</a>
+    <a href="documentation-typography.html">Typography &amp; Icons</a>
+    <a href="documentation-surfaces.html">Interactive Tokens</a>
+    <a href="documentation-buttons.html">Buttons</a>
+    <a href="documentation-listrows.html">List Rows &amp; Cards</a>
+    <a href="documentation-forms.html">Forms</a>
+    <a href="documentation-reference.html">Reference</a>
+  </nav>
+</aside>
+
+<div class="doc-main">
+
+<!-- PAGE INTRO -->
+<div class="container-wide py-large">
+  <h1 class="display500 mb-200">Foundations</h1>
+  <p class="bodyRegular30 text-primary doc-prose">Covers the raw token layers: color scales, the 8px spacing grid, container widths, and border/shadow tokens. Everything else in the system is built on these.</p>
+</div>
+
+
+<!-- 1. COLORS -->
+<div class="container-wide py-large border-top" id="colors">
+  <h2 class="title80">Colors</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Colors are organized in layers. Raw <strong>org-level</strong> values (per team + mode) feed into <strong>semantic tokens</strong> you actually use. Never reference <code>--org-*</code> directly.</p>
+
+  <div class="doc-code-block mt-200">
+    <code>Team + Mode defines &rarr; --org-base, --org-surface, etc.
+          &darr; Semantic tokens  &rarr; --bg-base, --bg-surface, etc.  &larr; USE THESE</code>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Background Tokens</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="grid gap-card grid-cols-4-desktop grid-cols-2-tablet grid-cols-1-mobile">
+      <div class="border rounded-200 p-250" style="background: var(--bg-base); text-align: center;">
+        <span class="labelBold20">--bg-base</span>
+        <p class="labelRegular10 text-secondary mt-50">Page background</p>
+      </div>
+      <div class="border rounded-200 p-250" style="background: var(--bg-surface); text-align: center;">
+        <span class="labelBold20">--bg-surface</span>
+        <p class="labelRegular10 text-secondary mt-50">Cards, tiles</p>
+      </div>
+      <div class="border rounded-200 p-250" style="background: var(--bg-sheet); text-align: center;">
+        <span class="labelBold20">--bg-sheet</span>
+        <p class="labelRegular10 text-secondary mt-50">Modals, sheets</p>
+      </div>
+      <div class="border rounded-200 p-250" style="background: var(--bg-nav); text-align: center; backdrop-filter: blur(var(--background-blur));">
+        <span class="labelBold20">--bg-nav</span>
+        <p class="labelRegular10 text-secondary mt-50">Nav bar + blur</p>
+      </div>
+      <div class="border rounded-200 p-250" style="background: var(--bg-input); text-align: center;">
+        <span class="labelBold20">--bg-input</span>
+        <p class="labelRegular10 text-secondary mt-50">Input fields</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th><th>Light Mode</th><th>Dark Mode</th></tr></thead>
+      <tbody>
+        <tr><td><code>--bg-base</code></td><td>Main page background</td><td>White (#FFFFFF)</td><td>Near-black (#081627 wolves, #111111 others)</td></tr>
+        <tr><td><code>--bg-surface</code></td><td>Cards, tiles, elevated areas</td><td>Light gray (#EEF2F6 wolves, #F4F4F4 others)</td><td>Dark surface (#0C233F wolves, #1F1F1F others)</td></tr>
+        <tr><td><code>--bg-sheet</code></td><td>Modals, sheets, highest layer</td><td>White (#FFFFFF)</td><td>Slightly lighter (#112B4A wolves, #292929 others)</td></tr>
+        <tr><td><code>--bg-nav</code></td><td>Navigation bar (use with blur)</td><td>Semi-transparent white</td><td>Dark surface or semi-transparent dark</td></tr>
+        <tr><td><code>--bg-input</code></td><td>Input field background</td><td>White (#FFFFFF) &mdash; stands out on gray surfaces</td><td>Transparent &mdash; inherits dark surface color</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Text Tokens</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="doc-demo-col">
+      <p class="labelBold30 text-primary">--text-primary &mdash; Headlines, body copy, high contrast</p>
+      <p class="labelBold30 text-secondary">--text-secondary &mdash; Subtitles, captions, metadata</p>
+      <p class="labelBold30 text-disabled">--text-disabled &mdash; Disabled states</p>
+      <p class="labelBold30 text-placeholder">--text-placeholder &mdash; Input placeholders</p>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th><th>When to Use</th></tr></thead>
+      <tbody>
+        <tr><td><code>--text-primary</code></td><td>Highest contrast text</td><td>Headlines, body copy, anything that needs to be clearly readable</td></tr>
+        <tr><td><code>--text-secondary</code></td><td>Medium contrast text</td><td>Subtitles, captions, metadata, supporting info</td></tr>
+        <tr><td><code>--text-disabled</code></td><td>Low contrast text</td><td>Disabled states, unavailable options</td></tr>
+        <tr><td><code>--text-placeholder</code></td><td>Input placeholder text</td><td>Empty form fields</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">These are built on the neutral scale &mdash; in light mode they&apos;re black-based, in dark mode they flip to white-based. Just use the semantic tokens.</p>
+
+  <h3 class="title50 mt-400 mb-100">Brand Tokens (Team-Specific)</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--brand-core);"></div>
+        <span class="labelRegular10 text-secondary">core</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--brand-light);"></div>
+        <span class="labelRegular10 text-secondary">light</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--brand-dark);"></div>
+        <span class="labelRegular10 text-secondary">dark</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--brand-interactive);"></div>
+        <span class="labelRegular10 text-secondary">brand-interactive</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: var(--brand-inverted);"></div>
+        <span class="labelRegular10 text-secondary">brand-inverted</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th><th>Light Mode (Wolves)</th><th>Dark Mode (Wolves)</th></tr></thead>
+      <tbody>
+        <tr><td><code>--brand-core</code></td><td>Primary brand color (static)</td><td colspan="2">#266092 (blue) &mdash; never changes</td></tr>
+        <tr><td><code>--brand-light</code></td><td>Secondary/accent (static)</td><td colspan="2">#79BC43 (green) &mdash; never changes</td></tr>
+        <tr><td><code>--brand-dark</code></td><td>Dark brand variant (static)</td><td colspan="2">#0C233F (navy) &mdash; never changes</td></tr>
+        <tr><td><code>--brand-interactive</code></td><td>Mode-aware interactive color &#10022;</td><td>#266092 (color-interactive)</td><td>#79BC43 (color-inverted)</td></tr>
+        <tr><td><code>--brand-inverted</code></td><td>Mode-aware inverted color &#10022;</td><td>#79BC43 (color-inverted)</td><td>#266092 (color-interactive)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>&#10022; Always use <code>--brand-interactive</code> and <code>--brand-inverted</code> instead of <code>--color-interactive</code> / <code>--color-inverted</code>.</strong></p>
+    <p class="bodyRegular30 mt-100">The <code>--color-*</code> tokens are static raw values &mdash; they never change between light and dark mode. The <code>--brand-*</code> tokens are mode-aware: in light mode, <code>--brand-interactive</code> is the primary brand color; in dark mode it flips to the accent. Switch the mode above to see the swatches change.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Interactive Tokens (Buttons)</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">These control button colors and flip between light and dark mode automatically. In light mode, primary buttons use the brand color with white text. In dark mode they invert to the accent color &mdash; this swap is powered by <code>--brand-interactive</code> and <code>--brand-inverted</code>.</p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>--interactive-primary</code></td><td>Primary button background</td></tr>
+        <tr><td><code>--interactive-primary-text</code></td><td>Text on primary buttons</td></tr>
+        <tr><td><code>--interactive-secondary-text</code></td><td>Text on secondary (outlined) buttons</td></tr>
+        <tr><td><code>--interactive-tertiary-text</code></td><td>Text on tertiary (ghost) buttons</td></tr>
+        <tr><td><code>--interactive-transactional</code></td><td>CTA / purchase button background</td></tr>
+        <tr><td><code>--interactive-transactional-text</code></td><td>Text on transactional buttons</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Border Tokens</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td><code>--border-default</code></td><td>Standard borders (subtle, uses neutral-300)</td></tr>
+        <tr><td><code>--border-hover</code></td><td>Hover state borders (medium contrast, neutral-500)</td></tr>
+        <tr><td><code>--border-active</code></td><td>Focus/active borders (high contrast, neutral-1000)</td></tr>
+        <tr><td><code>--border-disabled</code></td><td>Disabled element borders (neutral-200)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Neutral Scale</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Opacity-based scale that flips between light and dark mode automatically.</p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-50);"></div><span class="labelRegular10 text-secondary">50</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-100);"></div><span class="labelRegular10 text-secondary">100</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-200);"></div><span class="labelRegular10 text-secondary">200</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-300);"></div><span class="labelRegular10 text-secondary">300</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-500);"></div><span class="labelRegular10 text-secondary">500</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-700);"></div><span class="labelRegular10 text-secondary">700</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-900);"></div><span class="labelRegular10 text-secondary">900</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--neutral-1000);"></div><span class="labelRegular10 text-secondary">1000</span></div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Light Mode</th><th>Dark Mode</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--neutral-50</code></td><td>rgba(0,0,0,0.03)</td><td>rgba(255,255,255,0.05)</td><td>Barely visible tint</td></tr>
+        <tr><td><code>--neutral-100</code></td><td>rgba(0,0,0,0.04)</td><td>rgba(255,255,255,0.1)</td><td>Subtle backgrounds</td></tr>
+        <tr><td><code>--neutral-200</code></td><td>rgba(0,0,0,0.1)</td><td>rgba(255,255,255,0.15)</td><td>Light borders</td></tr>
+        <tr><td><code>--neutral-300</code></td><td>rgba(0,0,0,0.15)</td><td>rgba(255,255,255,0.25)</td><td>Default borders</td></tr>
+        <tr><td><code>--neutral-500</code></td><td>rgba(0,0,0,0.4)</td><td>rgba(255,255,255,0.55)</td><td>Placeholder text</td></tr>
+        <tr><td><code>--neutral-700</code></td><td>rgba(0,0,0,0.65)</td><td>rgba(255,255,255,0.75)</td><td>Secondary text</td></tr>
+        <tr><td><code>--neutral-900</code></td><td>rgba(0,0,0,0.85)</td><td>rgba(255,255,255,0.95)</td><td>Near-opaque</td></tr>
+        <tr><td><code>--neutral-1000</code></td><td>rgba(0,0,0,1)</td><td>rgba(255,255,255,1)</td><td>Full contrast</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">The <strong>inverted scale</strong> is the opposite of neutral (white-based in light, black-based in dark). Useful for overlays or reversed elements. <strong>White/Black scales</strong> are mode-agnostic &mdash; always the same regardless of light/dark.</p>
+
+  <h3 class="title50 mt-400 mb-100">Status Colors</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="swatch-row">
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-success);"></div><span class="labelRegular10 text-secondary">success</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-warning);"></div><span class="labelRegular10 text-secondary">warning</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-error);"></div><span class="labelRegular10 text-secondary">error</span></div>
+      <div class="swatch"><div class="swatch-color" style="background: var(--status-info);"></div><span class="labelRegular10 text-secondary">info</span></div>
+    </div>
+  </div>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Light Mode</th><th>Dark Mode</th></tr></thead>
+      <tbody>
+        <tr><td><code>--status-success</code></td><td>#007A47</td><td>#00A96E</td></tr>
+        <tr><td><code>--status-warning</code></td><td>#D2811E</td><td>#F6AF24</td></tr>
+        <tr><td><code>--status-error</code></td><td>#D42F21</td><td>#E43E2F</td></tr>
+        <tr><td><code>--status-info</code></td><td>#0671E5</td><td>#3892F3</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- 2. SPACING -->
+<div class="container-wide py-large border-top" id="spacing">
+  <h2 class="title80">Spacing</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">All spacing is based on multiples of 8px. This keeps everything aligned and consistent. Fixed tokens stay constant; responsive tokens scale across breakpoints.</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Fixed tokens</strong> (e.g. <code>--spacing-300</code>) &rarr; internal component padding, button padding, anything that should stay the same size at all breakpoints.</p>
+    <p class="bodyRegular30 mt-50"><strong>Responsive tokens</strong> (e.g. <code>--spacing-card</code>, <code>--margin-large</code>) &rarr; gaps between cards, section margins, page-level spacing that should feel proportional.</p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Fixed Spacing Scale (4px &ndash; 80px)</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="spacing-vis">
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 4px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">50<br>4px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 8px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">100<br>8px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 12px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">150<br>12px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 16px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">200<br>16px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 20px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">250<br>20px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 24px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">300<br>24px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 32px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">400<br>32px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 40px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">500<br>40px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 48px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">600<br>48px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 56px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">700<br>56px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 64px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">800<br>64px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 72px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">900<br>72px</p>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="spacing-bar" style="width: 20px; height: 80px;"></div>
+        <p class="labelRegular10 text-secondary mt-50">1000<br>80px</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Multiplier</th><th>Common Use</th></tr></thead>
+      <tbody>
+        <tr><td><code>--spacing-25</code></td><td>2px</td><td>0.25&times;</td><td>Sub-unit gaps, tight label/input stacking</td></tr>
+        <tr><td><code>--spacing-50</code></td><td>4px</td><td>0.5&times;</td><td>Minimal gaps, icon padding</td></tr>
+        <tr><td><code>--spacing-100</code></td><td>8px</td><td>1&times;</td><td>Tight spacing, compact layouts</td></tr>
+        <tr><td><code>--spacing-150</code></td><td>12px</td><td>1.5&times;</td><td>Small gaps between related items</td></tr>
+        <tr><td><code>--spacing-200</code></td><td>16px</td><td>2&times;</td><td>Standard spacing, input padding</td></tr>
+        <tr><td><code>--spacing-250</code></td><td>20px</td><td>2.5&times;</td><td>Card internal padding</td></tr>
+        <tr><td><code>--spacing-300</code></td><td>24px</td><td>3&times;</td><td>Comfortable spacing between sections</td></tr>
+        <tr><td><code>--spacing-400</code></td><td>32px</td><td>4&times;</td><td>Large gaps between components</td></tr>
+        <tr><td><code>--spacing-500</code></td><td>40px</td><td>5&times;</td><td>Extra large section spacing</td></tr>
+        <tr><td><code>--spacing-600</code></td><td>48px</td><td>6&times;</td><td>Major section breaks</td></tr>
+        <tr><td><code>--spacing-700</code></td><td>56px</td><td>7&times;</td><td>Large section breaks</td></tr>
+        <tr><td><code>--spacing-800</code></td><td>64px</td><td>8&times;</td><td>Hero-level spacing</td></tr>
+        <tr><td><code>--spacing-900</code></td><td>72px</td><td>9&times;</td><td>Maximum fixed spacing</td></tr>
+        <tr><td><code>--spacing-1000</code></td><td>80px</td><td>10&times;</td><td>Landing page spacing</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Responsive Spacing (resize browser to see change)</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="doc-demo-col">
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">row</span>
+        <div class="doc-spacing-token-bar" style="width: var(--spacing-row);"></div>
+        <span class="labelRegular10 text-secondary">8&rarr;12&rarr;16px</span>
+      </div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">card</span>
+        <div class="doc-spacing-token-bar" style="width: var(--spacing-card);"></div>
+        <span class="labelRegular10 text-secondary">16&rarr;20&rarr;24px</span>
+      </div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">content</span>
+        <div class="doc-spacing-token-bar" style="width: var(--spacing-content);"></div>
+        <span class="labelRegular10 text-secondary">32&rarr;40&rarr;48px</span>
+      </div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">margin-lg</span>
+        <div class="doc-spacing-token-bar" style="width: var(--margin-large);"></div>
+        <span class="labelRegular10 text-secondary">16&rarr;40&rarr;64px</span>
+      </div>
+      <div class="demo-row">
+        <span class="labelBold20" style="min-width: 80px;">landing</span>
+        <div class="doc-spacing-token-bar" style="width: var(--margin-landing);"></div>
+        <span class="labelRegular10 text-secondary">24&rarr;48&rarr;80px</span>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Mobile &lt;500px</th><th>Tablet 500&ndash;1099px</th><th>Desktop 1100px+</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--spacing-row</code></td><td>8px</td><td>12px</td><td>16px</td><td>Event rows, selectors, short wide objects</td></tr>
+        <tr><td><code>--spacing-card</code></td><td>16px</td><td>20px</td><td>24px</td><td>Space between cards in a grid</td></tr>
+        <tr><td><code>--spacing-content</code></td><td>32px</td><td>40px</td><td>48px</td><td>Between major content sections</td></tr>
+        <tr><td><code>--margin-small</code></td><td>16px</td><td>32px</td><td>48px</td><td>Detailed interfaces, compact page margins</td></tr>
+        <tr><td><code>--margin-large</code></td><td>16px</td><td>40px</td><td>64px</td><td>Standard page margins (most pages)</td></tr>
+        <tr><td><code>--margin-landing</code></td><td>24px</td><td>48px</td><td>80px</td><td>Landing pages, hero sections, open layouts</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- 3. SPACING UTILS -->
+<div class="container-wide py-large border-top" id="spacing-utils">
+  <h2 class="title80">Spacing Utilities</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">Every spacing token has matching utility classes in <code>boilerplate.css</code>. The naming pattern is consistent:</p>
+
+  <div class="doc-note mt-200">
+    <p class="bodyRegular30"><strong>Pattern:</strong> <code>{property}-{value}</code></p>
+    <p class="bodyRegular30 mt-100"><strong>Properties:</strong> <code>m</code> &middot; <code>mt</code> &middot; <code>mb</code> &middot; <code>ml</code> &middot; <code>mr</code> &middot; <code>mx</code> &middot; <code>my</code> &middot; <code>p</code> &middot; <code>pt</code> &middot; <code>pb</code> &middot; <code>pl</code> &middot; <code>pr</code> &middot; <code>px</code> &middot; <code>py</code> &middot; <code>gap</code> &middot; <code>gap-x</code> &middot; <code>gap-y</code></p>
+    <p class="bodyRegular30 mt-50"><strong>Values:</strong> <code>50</code> &middot; <code>100</code> &middot; <code>150</code> &middot; <code>200</code> &middot; <code>250</code> &middot; <code>300</code> &middot; <code>400</code> &middot; <code>500</code> &middot; <code>600</code> &middot; <code>700</code> &middot; <code>800</code> &middot; <code>900</code></p>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Fixed Spacing Examples</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Examples</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><code class="labelBold20">.p-300</code><span class="labelRegular20 text-secondary ml-auto">padding: 24px all sides</span></div>
+      <div class="demo-row"><code class="labelBold20">.mb-200</code><span class="labelRegular20 text-secondary ml-auto">margin-bottom: 16px</span></div>
+      <div class="demo-row"><code class="labelBold20">.px-400</code><span class="labelRegular20 text-secondary ml-auto">padding-left + right: 32px</span></div>
+      <div class="demo-row"><code class="labelBold20">.my-100</code><span class="labelRegular20 text-secondary ml-auto">margin-top + bottom: 8px</span></div>
+      <div class="demo-row"><code class="labelBold20">.gap-150</code><span class="labelRegular20 text-secondary ml-auto">flex/grid gap: 12px</span></div>
+      <div class="demo-row"><code class="labelBold20">.gap-x-200</code><span class="labelRegular20 text-secondary ml-auto">column-gap: 16px</span></div>
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Responsive Spacing Classes</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">Same pattern using responsive token names. Each responsive token supports all the same property prefixes: <code>gap-*</code>, <code>mb-*</code>, <code>mt-*</code>, <code>my-*</code>, <code>pb-*</code>, <code>pt-*</code>, <code>py-*</code>, <code>mx-*</code>, <code>px-*</code>, <code>ml-*</code>, <code>mr-*</code>, <code>pl-*</code>, <code>pr-*</code></p>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Examples</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><code class="labelBold20">.gap-row</code><span class="labelRegular20 text-secondary ml-auto">8px &rarr; 12px &rarr; 16px</span></div>
+      <div class="demo-row"><code class="labelBold20">.gap-card</code><span class="labelRegular20 text-secondary ml-auto">16px &rarr; 20px &rarr; 24px</span></div>
+      <div class="demo-row"><code class="labelBold20">.py-large</code><span class="labelRegular20 text-secondary ml-auto">16px &rarr; 40px &rarr; 64px</span></div>
+      <div class="demo-row"><code class="labelBold20">.my-landing</code><span class="labelRegular20 text-secondary ml-auto">24px &rarr; 48px &rarr; 80px</span></div>
+      <div class="demo-row"><code class="labelBold20">.mb-content</code><span class="labelRegular20 text-secondary ml-auto">32px &rarr; 40px &rarr; 48px</span></div>
+      <div class="demo-row"><code class="labelBold20">.py-small</code><span class="labelRegular20 text-secondary ml-auto">16px &rarr; 32px &rarr; 48px</span></div>
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Other Margin Utilities</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Examples</span>
+    <div class="doc-demo-col">
+      <div class="demo-row"><code class="labelBold20">.mx-auto</code><span class="labelRegular20 text-secondary ml-auto">center horizontally</span></div>
+      <div class="demo-row"><code class="labelBold20">.ml-auto</code><span class="labelRegular20 text-secondary ml-auto">push to right</span></div>
+      <div class="demo-row"><code class="labelBold20">.mr-auto</code><span class="labelRegular20 text-secondary ml-auto">push to left</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 4. CONTAINERS -->
+<div class="container-wide py-large border-top" id="containers">
+  <h2 class="title80">Containers</h2>
+  <p class="bodyRegular30 text-primary doc-prose mt-100">
+    Containers set a <code>max-width</code>, center content with <code>margin: auto</code>, and add responsive horizontal padding. Mix containers on the same page for different content zones.
+  </p>
+
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Max Width</th><th>Padding (Mobile &rarr; Tablet &rarr; Desktop)</th><th>Best For</th></tr></thead>
+      <tbody>
+        <tr><td><code>.container-maximum</code></td><td>1600px</td><td>16px &rarr; 24px &rarr; 48px</td><td>Landing page heroes, full-width dashboards</td></tr>
+        <tr><td><code>.container-extra-wide</code></td><td>1440px</td><td>16px &rarr; 24px &rarr; 48px</td><td>Complex dashboards, data-heavy pages</td></tr>
+        <tr><td><code>.container-wide</code></td><td>1280px</td><td>16px &rarr; 24px &rarr; 32px</td><td>Standard pages with sidebars, event listings</td></tr>
+        <tr><td><code>.container</code></td><td>1200px</td><td>16px &rarr; 24px &rarr; 32px</td><td>Default / general purpose</td></tr>
+        <tr><td><code>.container-medium</code></td><td>1024px</td><td>16px &rarr; 24px &rarr; 32px</td><td>Article pages, form pages</td></tr>
+        <tr><td><code>.container-narrow</code></td><td>768px</td><td>16px &rarr; 24px &rarr; 32px</td><td>Long-form reading, centered forms, legal pages</td></tr>
+        <tr><td><code>.container-compact</code></td><td>640px</td><td>16px &rarr; 24px &rarr; 32px</td><td>Single column content, confirmation pages</td></tr>
+        <tr><td><code>.container-fluid</code></td><td>none</td><td>16px &rarr; 24px &rarr; 32px</td><td>Full-width sections, maps, video players</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Mixing Containers on the Same Page</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">You can and should mix containers on the same page &mdash; use narrower containers for article-style content and wider ones for full-bleed sections.</p>
+  <div class="doc-code-block">
+    <code>&lt;nav&gt;
+  &lt;div class="container-wide"&gt;&lt;!-- Nav content --&gt;&lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;section class="py-landing"&gt;
+  &lt;div class="container-maximum"&gt;&lt;!-- Hero content --&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;article class="py-large"&gt;
+  &lt;div class="container-narrow"&gt;&lt;!-- Article body --&gt;&lt;/div&gt;
+&lt;/article&gt;</code>
+  </div>
+
+  <div class="doc-demo-col mt-300" style="display: grid; gap: var(--spacing-50);">
+    <div class="doc-preview-multi container-maximum">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container-maximum &mdash; 1600px</span>
+    </div>
+    <div class="doc-preview-multi container-extra-wide">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container-extra-wide &mdash; 1440px</span>
+    </div>
+    <div class="doc-preview-multi container-wide">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container-wide &mdash; 1280px</span>
+    </div>
+    <div class="doc-preview-multi container">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container &mdash; 1200px</span>
+    </div>
+    <div class="doc-preview-multi container-medium">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container-medium &mdash; 1024px</span>
+    </div>
+    <div class="doc-preview-multi container-narrow">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container-narrow &mdash; 768px</span>
+    </div>
+    <div class="doc-preview-multi container-compact">
+      <span class="doc-preview-label">Live</span>
+      <span class="labelBold30 text-primary">.container-compact &mdash; 640px</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- 8. BORDERS -->
+<div class="container-wide py-large border-top" id="borders">
+  <h2 class="title80">Borders &amp; Drop Shadows</h2>
+
+  <h3 class="title50 mt-400 mb-100">Border Radius</h3>
+  <p class="bodyRegular30 text-primary doc-prose mb-100">The <code>--button-border-radius</code> token is team-specific &mdash; it&apos;s automatically applied by the <code>.btn</code> and <code>.btn-circle</code> classes.</p>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--border-radius-50</code></td><td>4px</td><td>Small elements, badges, tags</td></tr>
+        <tr><td><code>--border-radius-100</code></td><td>8px</td><td>Cards, inputs, standard UI</td></tr>
+        <tr><td><code>--border-radius-200</code></td><td>16px</td><td>Large cards, hero sections</td></tr>
+        <tr><td><code>--button-border-radius</code></td><td>Team-specific</td><td>Buttons (8px wolves/summit, 12px lynx, 100px all others)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="doc-table-wrap mt-100">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>Scope</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><code>.rounded-50</code></td><td>All corners</td><td>4px</td></tr>
+        <tr><td><code>.rounded-100</code></td><td>All corners</td><td>8px</td></tr>
+        <tr><td><code>.rounded-200</code></td><td>All corners</td><td>16px</td></tr>
+        <tr><td><code>.rounded-button</code></td><td>All corners</td><td>Team-specific</td></tr>
+        <tr><td><code>.rounded-t-100</code></td><td>Top corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-b-100</code></td><td>Bottom corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-l-100</code></td><td>Left corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-r-100</code></td><td>Right corners only</td><td>8px</td></tr>
+        <tr><td><code>.rounded-tl-100</code></td><td>Top-left only</td><td>8px</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">All directional variants exist for <code>-50</code>, <code>-100</code>, and <code>-200</code>.</p>
+
+  <h3 class="title50 mt-400 mb-100">Live Preview</h3>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="demo-row">
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box" style="border-radius: var(--border-radius-50);"><span class="labelBold10">50</span></div>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box" style="border-radius: var(--border-radius-100);"><span class="labelBold10">100</span></div>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box" style="border-radius: var(--border-radius-200);"><span class="labelBold10">200</span></div>
+      </div>
+      <div class="doc-demo-cell">
+        <div class="doc-radius-box rounded-button" style="width: 120px; height: 48px; background: var(--interactive-transactional);">
+          <span class="labelBold10" style="color: var(--white-1000);">button</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="title50 mt-400 mb-100">Border Weight &amp; Utilities</h3>
+  <div class="doc-table-wrap">
+    <table class="doc-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Typical Border Color</th></tr></thead>
+      <tbody>
+        <tr><td><code>--border-weight-50</code></td><td>1px</td><td>--neutral-200 (subtle)</td></tr>
+        <tr><td><code>--border-weight-100</code></td><td>1px</td><td>--neutral-500 (standard)</td></tr>
+        <tr><td><code>--border-weight-200</code></td><td>2px</td><td>--neutral-1000 or --interactive-transactional (heavy/focus)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="doc-preview">
+    <span class="doc-preview-label">Live</span>
+    <div class="demo-row">
+      <div class="border rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border</span></div>
+      <div class="border-thin rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-thin</span></div>
+      <div class="border-heavy rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-heavy</span></div>
+      <div class="border-interactive rounded-100 p-200" style="min-width: 100px; text-align: center;"><span class="labelRegular20">.border-interactive</span></div>
+    </div>
+  </div>
+  <div class="doc-table-wrap mt-100">
+    <table class="doc-table">
+      <thead><tr><th>Class</th><th>What It Does</th></tr></thead>
+      <tbody>
+        <tr><td><code>.border</code></td><td>1px solid with --border-default color</td></tr>
+        <tr><td><code>.border-thin</code></td><td>1px solid with --neutral-200</td></tr>
+        <tr><td><code>.border-heavy</code></td><td>2px solid with --neutral-1000</td></tr>
+        <tr><td><code>.border-interactive</code></td><td>2px solid with --interactive-transactional</td></tr>
+        <tr><td><code>.border-top</code></td><td>1px solid border on top only</td></tr>
+        <tr><td><code>.border-bottom</code></td><td>1px solid border on bottom only</td></tr>
+        <tr><td><code>.border-left</code></td><td>1px solid border on left only</td></tr>
+        <tr><td><code>.border-right</code></td><td>1px solid border on right only</td></tr>
+        <tr><td><code>.border-none</code></td><td>Remove border</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="labelRegular10 text-secondary mt-50">Border color classes: <code>.border-default</code> &middot; <code>.border-hover</code> &middot; <code>.border-active</code> &middot; <code>.border-neutral-200</code> &middot; <code>.border-neutral-500</code> &middot; <code>.border-neutral-1000</code> &middot; <code>.border-brand-interactive</code></p>
+
+  <h3 class="title50 mt-400 mb-100">Drop Shadows</h3>
+  <div class="doc-note">
+    <p class="bodyRegular30"><strong>Shadows are reserved for elevated surfaces only</strong> &mdash; sheets and modals. Do not use them on regular cards. Use <code>--bg-surface</code> and borders instead.</p>
+  </div>
+  <div class="doc-table-wrap mt-100">
+    <table class="doc-table">
+      <thead><tr><th>Token / Class</th><th>Use For</th></tr></thead>
+      <tbody>
+        <tr><td><code>--shadow-sheet</code> / <code>.shadow-sheet</code></td><td>Mobile bottom sheets, elevated cards</td></tr>
+        <tr><td><code>--shadow-modal</code> / <code>.shadow-modal</code></td><td>Desktop modals, overlays (highest elevation)</td></tr>
+        <tr><td><code>.shadow-none</code></td><td>Remove shadow</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- PREV / NEXT -->
+<div class="doc-prevnext">
+  <a class="doc-prevnext-prev surface-ghost scale-700" href="documentation-how-it-works.html">
+    <span class="icon">arrow_back</span>
+    <div class="doc-prevnext-text">
+      <span class="doc-prevnext-label">Previous</span>
+      <span class="doc-prevnext-title">Overview</span>
+    </div>
+  </a>
+  <a class="doc-prevnext-next surface-ghost scale-700" href="documentation-typography.html">
+    <div class="doc-prevnext-text">
+      <span class="doc-prevnext-label">Next</span>
+      <span class="doc-prevnext-title">Typography &amp; Icons</span>
+    </div>
+    <span class="icon">arrow_forward</span>
+  </a>
+</div>
+
+</div><!-- /doc-main -->
+</div><!-- /doc-layout -->
+
+<script src="walkthrough.js"></script>
+</body>
+</html>

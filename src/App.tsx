@@ -14,6 +14,7 @@ import DocSurfacesPage from './pages/docs/DocSurfacesPage'
 import DocButtonsPage from './pages/docs/DocButtonsPage'
 import DocListRowsPage from './pages/docs/DocListRowsPage'
 import DocFormsPage from './pages/docs/DocFormsPage'
+import DocNavigationPage from './pages/docs/DocNavigationPage'
 import DocReferencePage from './pages/docs/DocReferencePage'
 
 export default function App() {
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/documentation/buttons" element={<DocButtonsPage />} />
           <Route path="/documentation/list-rows" element={<DocListRowsPage />} />
           <Route path="/documentation/forms" element={<DocFormsPage />} />
+          <Route path="/documentation/navigation" element={<DocNavigationPage />} />
           <Route path="/documentation/reference" element={<DocReferencePage />} />
         </Routes>
       </BrowserRouter>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="wolves" data-mode="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Block — Diet AirDS Demo</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Design System CSS — local on localhost/file://, CDN when deployed -->
+  <script src="../ds-loader.js"></script>
+
+  <style>
+    /* ============================================
+       DEMO CHROME — not part of the component
+       ============================================ */
+    body {
+      background: var(--bg-base);
+      padding: var(--spacing-400);
+      min-height: 100vh;
+    }
+
+    .demo-controls {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-200);
+      margin-bottom: var(--spacing-500);
+      flex-wrap: wrap;
+    }
+
+    .demo-controls select {
+      font-family: inherit;
+      font-size: 14px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .demo-section {
+      margin-bottom: var(--spacing-700);
+    }
+
+    .demo-section-label {
+      margin-bottom: var(--spacing-300);
+      padding-bottom: var(--spacing-150);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .demo-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-300);
+      flex-wrap: wrap;
+    }
+
+    .demo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-150);
+    }
+
+    /* All-teams grid — each team gets its own data-theme scope */
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-200);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =========================================
+       HEADER
+       ========================================= -->
+  <div class="demo-section">
+    <div class="card-text-pair demo-page-title mb-300">
+      <h1 class="title80">Logo Block</h1>
+      <p class="labelRegular30 text-secondary">Team-colored tile with a fixed-size centered logo. The container fills its parent — the logo size modifier (sm/md/lg) controls the logo image, not the container.</p>
+    </div>
+
+    <div class="demo-controls">
+      <label class="labelBold20">Theme:</label>
+      <select onchange="document.documentElement.setAttribute('data-theme', this.value)">
+        <option value="wolves">Timberwolves</option>
+        <option value="lynx">Lynx</option>
+        <option value="courage">NC Courage</option>
+        <option value="summit">Denver Summit FC</option>
+        <option value="bucknell">Bucknell</option>
+        <option value="sounders">Sounders</option>
+        <option value="reign">Reign FC</option>
+        <option value="ncfc">NC Football Club</option>
+        <option value="jump">Jump</option>
+        <option value="athletics">Athletics</option>
+      </select>
+      <label class="labelBold20">Mode:</label>
+      <select onchange="document.documentElement.setAttribute('data-mode', this.value)">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- =========================================
+       SECTION 1: LOGO SIZE VARIANTS
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">Logo size variants</h2>
+      <p class="labelRegular20 text-secondary mt-100">The <code>-sm/-md/-lg</code> modifier sets the logo image size only. The colored container fills whatever parent you place it in — all three examples below use the same 200×200 parent.</p>
+    </div>
+
+    <div class="demo-row">
+      <div class="demo-item">
+        <div style="width: 200px; height: 200px;">
+          <div class="logo-block logo-block-sm">
+            <img src="images/wolves.svg" alt="Timberwolves">
+          </div>
+        </div>
+        <span class="labelRegular10 text-secondary">Small — 64px logo</span>
+      </div>
+      <div class="demo-item">
+        <div style="width: 200px; height: 200px;">
+          <div class="logo-block logo-block-md">
+            <img src="images/wolves.svg" alt="Timberwolves">
+          </div>
+        </div>
+        <span class="labelRegular10 text-secondary">Medium — 80px logo</span>
+      </div>
+      <div class="demo-item">
+        <div style="width: 200px; height: 200px;">
+          <div class="logo-block logo-block-lg">
+            <img src="images/wolves.svg" alt="Timberwolves">
+          </div>
+        </div>
+        <span class="labelRegular10 text-secondary">Large — 104px logo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       SECTION 2: ALL 10 TEAMS AT MEDIUM
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">All teams — medium logo (120×120 parent)</h2>
+      <p class="labelRegular20 text-secondary mt-100">Each block scopes its own theme via <code>data-theme</code>. Background color comes from each team's <code>--brand-core</code> token.</p>
+    </div>
+
+    <div class="team-grid">
+      <div data-theme="wolves">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/wolves.svg" alt="Timberwolves">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Wolves</span>
+        </div>
+      </div>
+      <div data-theme="lynx">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/lynx.svg" alt="Lynx">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Lynx</span>
+        </div>
+      </div>
+      <div data-theme="courage">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/courage.svg" alt="NC Courage">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Courage</span>
+        </div>
+      </div>
+      <div data-theme="summit">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/summit.svg" alt="Denver Summit FC">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Summit</span>
+        </div>
+      </div>
+      <div data-theme="bucknell">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/bucknell.svg" alt="Bucknell">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Bucknell</span>
+        </div>
+      </div>
+      <div data-theme="sounders">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/sounders.svg" alt="Sounders">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Sounders</span>
+        </div>
+      </div>
+      <div data-theme="reign">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/reign.svg" alt="Reign FC">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Reign</span>
+        </div>
+      </div>
+      <div data-theme="ncfc">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/ncfc.svg" alt="NC Football Club">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">NCFC</span>
+        </div>
+      </div>
+      <div data-theme="jump">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/jump.svg" alt="Jump">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Jump</span>
+        </div>
+      </div>
+      <div data-theme="athletics">
+        <div class="demo-item">
+          <div style="width: 120px; height: 120px;">
+            <div class="logo-block logo-block-md">
+              <img src="images/athletics.svg" alt="Athletics">
+            </div>
+          </div>
+          <span class="labelRegular10 text-secondary">Athletics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       SECTION 3: MATCHUP
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">Matchup</h2>
+      <p class="labelRegular20 text-secondary mt-100">
+        Two panels side by side — away left, home right. Always uses the smallest (64px) logo.
+        Height comes from the parent — wrap the matchup in a div and set height there.
+      </p>
+    </div>
+
+    <div class="demo-row" style="align-items: flex-start;">
+
+      <div data-theme="wolves">
+        <div style="width: 320px; height: 200px; border-radius: var(--border-radius-100); overflow: hidden;">
+          <div class="matchup">
+            <div class="matchup-panel" style="--badge-bg: #a00d33;">
+              <img src="images/NBA/Bulls.svg" alt="Chicago Bulls">
+            </div>
+            <div class="matchup-panel">
+              <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================
+       SECTION 4: TILE
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">Tile</h2>
+      <p class="labelRegular20 text-secondary mt-100">
+        The recommended pattern for any small card displayed alongside others — event listings,
+        product grids, schedules, content feeds. Tiles work in grids, carousels (especially on mobile),
+        and inside <code>.card-open</code> as content sections. A fixed-height visual header
+        (matchup, image, logo-block) sits above <code>.tile-info</code>.
+        Interactivity rule: no button → add <code>surface-card scale-700</code>
+        to <code>.tile</code>; has button → button is the CTA, no surface/scale on the wrapper.
+      </p>
+    </div>
+
+    <div class="demo-row" style="align-items: flex-start; flex-wrap: wrap;">
+
+      <!-- Label + sublabel only — no button, tile is the tap target -->
+      <div data-theme="wolves">
+        <div class="tile surface-card scale-700" style="width: 240px;">
+          <div style="height: 120px;">
+            <div class="matchup">
+              <div class="matchup-panel" style="--badge-bg: #a00d33;">
+                <img src="images/NBA/Bulls.svg" alt="Bulls">
+              </div>
+              <div class="matchup-panel">
+                <img src="images/NBA/Timberwolves.svg" alt="Timberwolves">
+              </div>
+            </div>
+          </div>
+          <div class="tile-info">
+            <div class="card-text-pair">
+              <span class="labelBold30">vs. Chicago Bulls</span>
+              <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- With price — no button, tile is the tap target -->
+      <div data-theme="wolves">
+        <div class="tile surface-card scale-700" style="width: 240px;">
+          <div style="height: 120px;">
+            <div class="matchup">
+              <div class="matchup-panel" style="--badge-bg: #006BB6;">
+                <img src="images/NBA/Knicks.svg" alt="Knicks">
+              </div>
+              <div class="matchup-panel">
+                <img src="images/NBA/Timberwolves.svg" alt="Timberwolves">
+              </div>
+            </div>
+          </div>
+          <div class="tile-info">
+            <div class="card-text-pair">
+              <span class="labelBold30">vs. New York Knicks</span>
+              <span class="labelRegular10 text-secondary">Tue, Mar 18 · 7:30 PM</span>
+            </div>
+            <span class="labelBold20 text-success">From $45</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- With price + button -->
+      <div data-theme="wolves">
+        <div class="tile" style="width: 240px;">
+          <div style="height: 120px;">
+            <div class="matchup">
+              <div class="matchup-panel" style="--badge-bg: #552583;">
+                <img src="images/NBA/Lakers.svg" alt="Lakers">
+              </div>
+              <div class="matchup-panel">
+                <img src="images/NBA/Timberwolves.svg" alt="Timberwolves">
+              </div>
+            </div>
+          </div>
+          <div class="tile-info">
+            <div class="card-text-pair">
+              <span class="labelBold30">vs. L.A. Lakers</span>
+              <span class="labelRegular10 text-secondary">Fri, Mar 21 · 9:00 PM</span>
+            </div>
+            <span class="labelBold20 text-success">From $89</span>
+            <button class="btn btn-primary btn-100">Buy Tickets</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- With tile-tag overlay — no button, tile is the tap target -->
+      <div data-theme="courage">
+        <div class="tile surface-card scale-700" style="width: 240px;">
+          <div style="height: 120px;">
+            <div class="matchup">
+              <div class="matchup-panel" style="--badge-bg: #e17634;">
+                <img src="images/NWSL/Houson Dash.svg" alt="Houston Dash">
+              </div>
+              <div class="matchup-panel">
+                <img src="images/courage.svg" alt="NC Courage">
+              </div>
+            </div>
+          </div>
+          <div class="tile-tag">
+            <span class="labelBold20">Home</span>
+          </div>
+          <div class="tile-info">
+            <div class="card-text-pair">
+              <span class="labelBold30">vs. Houston Dash</span>
+              <span class="labelRegular10 text-secondary">Sun, Mar 23 · 3:00 PM</span>
+            </div>
+            <span class="labelBold20 text-success">From $22</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Grid example -->
+    <div class="mt-400">
+      <p class="labelBold20 text-secondary mb-200">In a grid</p>
+      <div data-theme="wolves">
+        <div class="card-grid" style="grid-template-columns: repeat(3, 240px);">
+
+          <!-- No button — tile is tap target -->
+          <div class="tile surface-card scale-700">
+            <div style="height: 120px;">
+              <div class="matchup">
+                <div class="matchup-panel" style="--badge-bg: #a00d33;">
+                  <img src="images/NBA/Bulls.svg" alt="Bulls">
+                </div>
+                <div class="matchup-panel">
+                  <img src="images/NBA/Timberwolves.svg" alt="Timberwolves">
+                </div>
+              </div>
+            </div>
+            <div class="tile-info">
+              <div class="card-text-pair">
+                <span class="labelBold30">vs. Chicago Bulls</span>
+                <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+              </div>
+              <span class="labelBold20 text-success">From $19</span>
+            </div>
+          </div>
+
+          <!-- No button — tile is tap target -->
+          <div class="tile surface-card scale-700">
+            <div style="height: 120px;">
+              <div class="matchup">
+                <div class="matchup-panel" style="--badge-bg: #006BB6;">
+                  <img src="images/NBA/Knicks.svg" alt="Knicks">
+                </div>
+                <div class="matchup-panel">
+                  <img src="images/NBA/Timberwolves.svg" alt="Timberwolves">
+                </div>
+              </div>
+            </div>
+            <div class="tile-info">
+              <div class="card-text-pair">
+                <span class="labelBold30">vs. New York Knicks</span>
+                <span class="labelRegular10 text-secondary">Tue, Mar 18 · 7:30 PM</span>
+              </div>
+              <span class="labelBold20 text-success">From $45</span>
+            </div>
+          </div>
+
+          <!-- No button — tile is tap target -->
+          <div class="tile surface-card scale-700">
+            <div style="height: 120px;">
+              <div class="matchup">
+                <div class="matchup-panel" style="--badge-bg: #552583;">
+                  <img src="images/NBA/Lakers.svg" alt="Lakers">
+                </div>
+                <div class="matchup-panel">
+                  <img src="images/NBA/Timberwolves.svg" alt="Timberwolves">
+                </div>
+              </div>
+            </div>
+            <div class="tile-info">
+              <div class="card-text-pair">
+                <span class="labelBold30">vs. L.A. Lakers</span>
+                <span class="labelRegular10 text-secondary">Fri, Mar 21 · 9:00 PM</span>
+              </div>
+              <span class="labelBold20 text-success">From $89</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- =========================================
+       SECTION 5: MATCHUP IN LIST ROW
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">Matchup in list row</h2>
+      <p class="labelRegular20 text-secondary mt-100">
+        A matchup can replace the leading image in a list row — <strong>desktop only</strong>. On mobile, collapse
+        to just the opposing team logo block (same as Section 6). This example uses the large image dimensions
+        (244×124, same as <code>.leading-image-large</code>) with <code>leading-gap-xl</code> — set
+        <code>border-radius</code> and <code>overflow: hidden</code> on the wrapper so panel corners clip correctly.
+      </p>
+    </div>
+
+    <div data-theme="wolves" style="max-width: 680px;">
+      <div style="background: var(--bg-surface); border-radius: var(--border-radius-100); overflow: hidden;">
+
+        <!-- Row 1: with price button -->
+        <div style="padding: var(--spacing-200) var(--spacing-300); border-bottom: var(--border-weight-100) solid var(--border-default);">
+          <div class="list-row">
+            <div class="leading leading-gap-xl">
+              <div style="width: 244px; height: 124px; border-radius: var(--border-radius-100); overflow: hidden; flex-shrink: 0;">
+                <div class="matchup">
+                  <div class="matchup-panel" style="--badge-bg: #a00d33;">
+                    <img src="images/NBA/Bulls.svg" alt="Chicago Bulls">
+                  </div>
+                  <div class="matchup-panel">
+                    <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">vs. Chicago Bulls</span>
+                <span class="labelRegular10 text-secondary">Sat, Mar 15 · 7:00 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-lg">
+              <button class="btn btn-primary btn-100">$19+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: sold out -->
+        <div style="padding: var(--spacing-200) var(--spacing-300); border-bottom: var(--border-weight-100) solid var(--border-default);">
+          <div class="list-row not-tappable">
+            <div class="leading leading-gap-xl">
+              <div style="width: 244px; height: 124px; border-radius: var(--border-radius-100); overflow: hidden; flex-shrink: 0;">
+                <div class="matchup">
+                  <div class="matchup-panel" style="--badge-bg: #006BB6;">
+                    <img src="images/NBA/Knicks.svg" alt="New York Knicks">
+                  </div>
+                  <div class="matchup-panel">
+                    <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">vs. New York Knicks</span>
+                <span class="labelRegular10 text-secondary">Tue, Mar 18 · 7:30 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-sm">
+              <span class="labelBold30 text-secondary">Sold Out</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: with price button -->
+        <div style="padding: var(--spacing-200) var(--spacing-300);">
+          <div class="list-row">
+            <div class="leading leading-gap-xl">
+              <div style="width: 244px; height: 124px; border-radius: var(--border-radius-100); overflow: hidden; flex-shrink: 0;">
+                <div class="matchup">
+                  <div class="matchup-panel" style="--badge-bg: #552583;">
+                    <img src="images/NBA/Lakers.svg" alt="Los Angeles Lakers">
+                  </div>
+                  <div class="matchup-panel">
+                    <img src="images/NBA/Timberwolves.svg" alt="Minnesota Timberwolves">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list-row-content">
+              <div class="list-row-text-pair">
+                <span class="labelBold30">vs. L.A. Lakers</span>
+                <span class="labelRegular10 text-secondary">Fri, Mar 21 · 9:00 PM</span>
+              </div>
+            </div>
+            <div class="trailing trailing-gap-lg">
+              <button class="btn btn-primary btn-100">$89+</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       SECTION 6: OPPOSING TEAMS (CMS)
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">Opposing teams — CMS color</h2>
+      <p class="labelRegular20 text-secondary mt-100">
+        Opposing teams from Sanity have a <code>primaryColor</code> hex (often null). Set <code>--badge-bg</code>
+        inline to override. When null, fall back to <code>var(--neutral-200)</code> — never leave it
+        unset or it will incorrectly inherit the home team's <code>--brand-core</code>.
+      </p>
+    </div>
+
+    <div class="demo-row mb-300">
+      <!-- Has primaryColor from Sanity -->
+      <div class="demo-item">
+        <div style="width: 120px; height: 120px;">
+          <div class="logo-block logo-block-md" style="--badge-bg: #552583;">
+            <img src="images/NBA/Lakers.svg" alt="Lakers">
+          </div>
+        </div>
+        <span class="labelRegular10 text-secondary">Color from Sanity</span>
+      </div>
+      <!-- Has primaryColor from Sanity -->
+      <div class="demo-item">
+        <div style="width: 120px; height: 120px;">
+          <div class="logo-block logo-block-md" style="--badge-bg: #006BB6;">
+            <img src="images/NBA/Knicks.svg" alt="Knicks">
+          </div>
+        </div>
+        <span class="labelRegular10 text-secondary">Color from Sanity</span>
+      </div>
+      <!-- primaryColor is null — use neutral fallback -->
+      <div class="demo-item">
+        <div style="width: 120px; height: 120px;">
+          <div class="logo-block logo-block-md" style="--badge-bg: var(--neutral-200);">
+            <img src="images/NBA/Spurs.svg" alt="Spurs">
+          </div>
+        </div>
+        <span class="labelRegular10 text-secondary">null → neutral fallback</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       SECTION 7: HTML PATTERN
+       ========================================= -->
+  <div class="demo-section">
+    <div class="demo-section-label">
+      <h2 class="title60">HTML pattern</h2>
+    </div>
+    <div class="card card-open">
+      <div class="card-open-section">
+        <pre class="labelRegular20" style="white-space: pre-wrap; color: var(--text-primary);">&lt;!-- LOGO BLOCK — parent sets container size, logo-block fills it --&gt;
+&lt;div style="width: 80px; height: 80px;"&gt;
+  &lt;div class="logo-block logo-block-sm"&gt;                &lt;!-- home team (uses --brand-core) --&gt;
+    &lt;img src="logo.svg" alt="Team Name"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="width: 80px; height: 80px;"&gt;
+  &lt;div class="logo-block logo-block-sm" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};"&gt;
+    &lt;img src="${away.logoUrl}" alt="${away.name}"&gt;      &lt;!-- away team --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- MATCHUP — parent sets height; always uses smallest (64px) logo --&gt;
+&lt;div style="height: 120px;"&gt;                           &lt;!-- parent sets height --&gt;
+  &lt;div class="matchup"&gt;
+    &lt;div class="matchup-panel" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};"&gt;
+      &lt;img src="${away.logoUrl}" alt="${away.name}"&gt;
+    &lt;/div&gt;
+    &lt;div class="matchup-panel"&gt;                        &lt;!-- home team, no --badge-bg needed --&gt;
+      &lt;img src="home-logo.svg" alt="Home Team"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- TILE — event card with matchup header --&gt;
+&lt;div class="tile"&gt;
+  &lt;div style="height: 120px;"&gt;                         &lt;!-- controls matchup height within tile --&gt;
+    &lt;div class="matchup"&gt;
+      &lt;div class="matchup-panel" style="--badge-bg: ${away.primaryColor ?? 'var(--neutral-200)'};"&gt;
+        &lt;img src="${away.logoUrl}" alt="${away.name}"&gt;
+      &lt;/div&gt;
+      &lt;div class="matchup-panel"&gt;
+        &lt;img src="home-logo.svg" alt="Home Team"&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="tile-tag"&gt;Home&lt;/div&gt;                    &lt;!-- optional --&gt;
+  &lt;div class="tile-info"&gt;
+    &lt;div class="card-text-pair"&gt;
+      &lt;span class="labelBold30"&gt;vs. Away Team&lt;/span&gt;
+      &lt;span class="labelRegular10 text-secondary"&gt;Sat, Mar 15 · 7:00 PM&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;span class="labelBold20 text-success"&gt;From $45&lt;/span&gt;    &lt;!-- optional --&gt;
+    &lt;button class="btn btn-primary btn-100"&gt;Buy Tickets&lt;/button&gt;  &lt;!-- optional --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

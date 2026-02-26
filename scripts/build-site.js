@@ -34,8 +34,8 @@ for (const file of cssFiles) {
   cpSync(join(ROOT, file), join(DIST, file))
 }
 
-// 3. Copy fonts/, images/, teams/ directories
-const DIRS = ['fonts', 'images', 'teams']
+// 3. Copy fonts/, images/, teams/, old-html/ directories
+const DIRS = ['fonts', 'images', 'teams', 'old-html']
 for (const dir of DIRS) {
   const src = join(ROOT, dir)
   const dest = join(DIST, dir)

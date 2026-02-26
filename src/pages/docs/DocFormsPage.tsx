@@ -326,10 +326,10 @@ const teamOptions = [
             <span className="doc-prevnext-title">List Rows &amp; Cards</span>
           </div>
         </Link>
-        <Link className="doc-prevnext-next surface-ghost scale-700" to="/documentation/reference">
+        <Link className="doc-prevnext-next surface-ghost scale-700" to="/documentation/navigation">
           <div className="doc-prevnext-text">
             <span className="doc-prevnext-label">Next</span>
-            <span className="doc-prevnext-title">Reference</span>
+            <span className="doc-prevnext-title">Navigation</span>
           </div>
           <span className="icon">arrow_forward</span>
         </Link>

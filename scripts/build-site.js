@@ -48,8 +48,9 @@ for (const dir of DIRS) {
 }
 
 // 4. Copy root-level *.html files (needed for HTML injection at runtime)
+// Exclude index.html (would overwrite the React app shell) and app.html (Vite entry template)
 console.log('Copying static HTML files...')
-const htmlFiles = readdirSync(ROOT).filter(f => f.endsWith('.html'))
+const htmlFiles = readdirSync(ROOT).filter(f => f.endsWith('.html') && f !== 'index.html' && f !== 'app.html')
 for (const file of htmlFiles) {
   cpSync(join(ROOT, file), join(DIST, file))
 }
